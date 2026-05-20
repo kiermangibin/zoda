@@ -1,0 +1,80 @@
+{% comment %}
+  ZODA dark header — Liquid port of src/components/zoda/SiteHeader.tsx
+{% endcomment %}
+
+<header class="zoda-site-header" data-open="false" data-zoda-site-header>
+  <a class="zoda-site-header__logo" href="{{ routes.root_url }}" aria-label="ZODA">
+    {%- if section.settings.logo -%}
+      <img src="{{ section.settings.logo | image_url: width: 352 }}" alt="{{ shop.name | escape }}" loading="eager" width="140" height="28">
+    {%- else -%}
+      <img src="https://zoda.sg/cdn/shop/files/ZODA_logo.svg?v=1741773590&width=352" alt="{{ shop.name | escape }}" loading="eager">
+    {%- endif -%}
+  </a>
+
+  <nav class="zoda-site-header__nav" aria-label="ZODA navigation">
+    {%- for link in linklists[section.settings.menu].links -%}
+      {%- if link.links.size > 0 -%}
+        <span class="zoda-site-header__nav-item">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          <span class="zoda-site-header__menu" role="menu">
+            {%- for child in link.links -%}
+              <a href="{{ child.url }}">{{ child.title }}</a>
+            {%- endfor -%}
+          </span>
+        </span>
+      {%- else -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endif -%}
+    {%- else -%}
+      <a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a>
+      <a href="{{ routes.collections_url }}/womens-collection">Women</a>
+      <a href="{{ routes.collections_url }}/mens-collection">Men</a>
+      <a href="{{ routes.collections_url }}/unisex">Unisex</a>
+      <a href="{{ routes.collections_url }}">Our Products</a>
+    {%- endfor -%}
+  </nav>
+
+  <div class="zoda-site-header__actions">
+    <span class="zoda-site-header__currency">{{ cart.currency.iso_code }} {{ cart.currency.symbol }}</span>
+    <a class="zoda-site-header__icon" href="{{ routes.search_url }}" aria-label="Search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+    </a>
+    <a class="zoda-site-header__icon" href="{{ routes.account_url }}" aria-label="Account">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+    </a>
+    <button type="button" class="zoda-site-header__icon" aria-label="Cart" data-zoda-cart-open>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 7h12l-1.5 11a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 7Z"/><path d="M9 7a3 3 0 1 1 6 0"/></svg>
+      {%- if cart.item_count > 0 -%}
+        <span class="zoda-site-header__badge" data-zoda-cart-count>{{ cart.item_count }}</span>
+      {%- else -%}
+        <span class="zoda-site-header__badge" data-zoda-cart-count style="display:none">0</span>
+      {%- endif -%}
+    </button>
+    <button type="button" class="zoda-site-header__burger" aria-label="Menu" onclick="this.closest('[data-zoda-site-header]').dataset.open=this.closest('[data-zoda-site-header]').dataset.open==='true'?'false':'true'">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="zoda-site-header__mobile-panel">
+    {%- for link in linklists[section.settings.menu].links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- else -%}
+      <a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a>
+      <a href="{{ routes.collections_url }}/womens-collection">Women</a>
+      <a href="{{ routes.collections_url }}/mens-collection">Men</a>
+      <a href="{{ routes.collections_url }}/unisex">Unisex</a>
+      <a href="{{ routes.collections_url }}">Our Products</a>
+    {%- endfor -%}
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "ZODA Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ],
+  "presets": [{ "name": "ZODA Header" }]
+}
+{% endschema %}

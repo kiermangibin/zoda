@@ -1,0 +1,40 @@
+{% comment %}
+  ZODA product card snippet — Liquid port of src/components/zoda/ProductCard.tsx
+  Usage: {% render 'zoda-product-card', product: product %}
+{% endcomment %}
+{%- assign p = product -%}
+{%- assign first_variant = p.selected_or_first_available_variant -%}
+
+<a class="zoda-product-card" href="{{ p.url }}" aria-label="{{ p.title | escape }}">
+  <div class="zoda-product-card__media">
+    {%- if p.featured_image -%}
+      <img src="{{ p.featured_image | image_url: width: 720 }}" alt="{{ p.featured_image.alt | default: p.title | escape }}" loading="lazy" width="720" height="900">
+    {%- endif -%}
+    <button
+      type="button"
+      class="zoda-product-card__quick-add"
+      data-zoda-quick-add
+      data-variant-id="{{ first_variant.id }}"
+      aria-label="Quick add {{ p.title | escape }} to cart"
+      {% unless first_variant.available %}disabled{% endunless %}
+    ></button>
+  </div>
+  <div class="zoda-product-card__body">
+    {%- assign color_option = null -%}
+    {%- for opt in p.options_with_values -%}
+      {%- assign opt_name_down = opt.name | downcase -%}
+      {%- if opt_name_down contains 'color' or opt_name_down contains 'colour' -%}
+        {%- assign color_option = opt -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if color_option and color_option.values.size > 1 -%}
+      <div class="zoda-product-card__swatches" aria-label="Available colors">
+        {%- for val in color_option.values limit: 5 -%}
+          <span class="zoda-product-card__swatch" title="{{ val | escape }}" aria-label="{{ val | escape }}" style="background: {{ val | downcase | replace: ' ', '' }};"></span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    <span class="zoda-product-card__title">{{ p.title }}</span>
+    <span class="zoda-product-card__price">{{ p.price | money }}</span>
+  </div>
+</a>

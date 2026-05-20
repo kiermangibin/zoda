@@ -1,0 +1,104 @@
+{
+  "sections": {
+    "main": {
+      "type": "zoda-fabrics",
+      "settings": {
+        "kicker": "Our Fabrics",
+        "title": "Explore the fabrics behind ZODA — engineered for performance, comfort and sustainability.",
+        "lede": "Every ZODA garment starts with a fabric story. From BCI cotton blends to recycled nylons, each material is selected for how it performs, how it feels, and how lightly it treads."
+      },
+      "blocks": {
+        "zencot": { "type": "fabric", "settings": {
+          "handle": "zencot", "name": "ZENCOT\u2122",
+          "tagline": "Luxurious BCI cotton and elastane blend for exceptional breathability and soft feel.",
+          "hero_title": "ZENCOT\u2122: Performance and Sustainability in Perfect Harmony",
+          "description": "ZENCOT\u2122 is a premium fabric blend of BCI-certified cotton and elastane, delivering all-day comfort, breathability and performance\u2014designed for athletes who value both function and environmental impact.",
+          "features": "FluidMotion\u2122 | https://zoda.sg/cdn/shop/files/1_12ff3052-9255-40c4-85a3-15a2e8672275.png?width=80\nZO-Fresh\u2122 | https://zoda.sg/cdn/shop/files/3_ed88a1f3-b5d7-48ef-a64d-21ce4008ca9c.png?width=80\nCarbon Capture | https://zoda.sg/cdn/shop/files/Untitled_design_5.png?width=80",
+          "performance": "FluidMotion\u2122 4-way stretch for full mobility\nZO-Fresh\u2122 anti-odour treatment to stay fresh throughout wear\nRetains shape and softness through repeated use",
+          "sustainability": "Treated with COzTERRA: absorbs CO\u2082 and converts it to harmless minerals during washing\nEach piece removes 16\u201341g of CO\u2082 over its lifetime\nContributes to a reduced carbon footprint without compromising performance",
+          "community": "Designed for athletes who expect more from their gear\u2014offering the perfect blend of sustainability, comfort and performance.",
+          "shop_url": "/collections/zencot"
+        }},
+        "zoenix": { "type": "fabric", "settings": {
+          "handle": "zoenix", "name": "ZOENIX\u2122",
+          "tagline": "Engineered from 100% Recycled Polyester (RPET), transforming post-consumer plastic bottles into premium athletic apparel.",
+          "hero_title": "ZOENIX\u2122: Performance and Sustainability Redefined",
+          "description": "Made from 100% recycled polyester (RPET), ZOENIX\u2122 turns post-consumer plastic bottles into high-performance fabric, designed to support both your training and your values.",
+          "features": "FluidMotion\u2122 | https://zoda.sg/cdn/shop/files/1_12ff3052-9255-40c4-85a3-15a2e8672275.png?width=80\nZO-Dry\u2122 | https://zoda.sg/cdn/shop/files/3_37b6f8b7-5425-47a6-a7bc-6f9ab472b6f8.png?width=80\nZO-Fresh\u2122 | https://zoda.sg/cdn/shop/files/3_ed88a1f3-b5d7-48ef-a64d-21ce4008ca9c.png?width=80",
+          "performance": "ZO-Dry\u2122 wicks moisture away to keep you dry\nZO-Fresh\u2122 keeps odour in check\nFluidMotion\u2122 4-way stretch for agility and fit",
+          "sustainability": "Reduces CO\u2082 emissions by 20.7% compared to virgin polyester\nBuilt from 100% recycled materials using RPET, in alignment with ZODA's commitment to a circular economy.",
+          "community": "Experience unparalleled comfort and performance. Made for high-intensity apparels that function well in highly humid conditions.",
+          "shop_url": "/collections/zoenix"
+        }},
+        "zoenix-lite": { "type": "fabric", "settings": {
+          "handle": "zoenix-lite", "name": "ZOENIXLITE\u2122",
+          "tagline": "86% Recycled Polyester and 12% Elastane \u2014 sustainable athletic excellence.",
+          "hero_title": "ZOENIXLITE\u2122: Lightweight. Breathable. Sustainable.",
+          "description": "ZOENIXLITE\u2122 blends recycled polyester, elastane, and a fine-tuned structure to deliver maximum breathability and flexibility where it matters most.",
+          "features": "FluidMotion\u2122 | https://zoda.sg/cdn/shop/files/1_12ff3052-9255-40c4-85a3-15a2e8672275.png?width=80\nZO-Vent\u2122 | https://zoda.sg/cdn/shop/files/4_bb2248f1-9ef7-4ba9-aca8-c7de92491aed.png?width=80\nZO-Dry\u2122 | https://zoda.sg/cdn/shop/files/3_37b6f8b7-5425-47a6-a7bc-6f9ab472b6f8.png?width=80",
+          "performance": "ZO-Dry\u2122 moisture control\nZO-Vent mesh design for overall ventilation\nZO-Fresh\u2122 for extended freshness\nFluidMotion\u2122 stretch for freedom in every movement",
+          "sustainability": "Made with recycled polyester, reducing CO\u2082 emissions and contributing to a circular economy",
+          "community": "Experience unparalleled comfort, performance and style while giving your best on your turf.",
+          "shop_url": "/collections/zoenixlite"
+        }},
+        "rpstrng": { "type": "fabric", "settings": {
+          "handle": "rpstrng", "name": "RPSTRNG\u2122",
+          "tagline": "Ultra-premium Recycled Nylon, Elastane and BCI Cotton blend.",
+          "hero_title": "RPSTRNG\u2122: Engineered for Durability and Performance",
+          "description": "Experience the perfect balance of protection and performance with ZODA's RPSTRNG\u2122 fabric \u2014 engineered to withstand the rigors of training while keeping you cool, dry and comfortable.",
+          "features": "FluidMotion\u2122 | https://zoda.sg/cdn/shop/files/1_12ff3052-9255-40c4-85a3-15a2e8672275.png?width=80\nZO-Vent\u2122 | https://zoda.sg/cdn/shop/files/4_bb2248f1-9ef7-4ba9-aca8-c7de92491aed.png?width=80\nZO-Dry\u2122 | https://zoda.sg/cdn/shop/files/3_37b6f8b7-5425-47a6-a7bc-6f9ab472b6f8.png?width=80\nZO-Fresh\u2122 | https://zoda.sg/cdn/shop/files/3_ed88a1f3-b5d7-48ef-a64d-21ce4008ca9c.png?width=80",
+          "performance": "Reinforced grid weave resists tearing\nZO-Dry\u2122 wicks sweat efficiently\nZO-Vent\u2122 and FluidMotion\u2122 ensure comfort and freedom\nZO-Fresh\u2122 keeps gear feeling clean",
+          "sustainability": "Built from regenerated nylon in alignment with ZODA's commitment to a circular economy.",
+          "community": "Two variants \u2014 Performance for hardcore training, Sprint for high-endurance running.",
+          "shop_url": "/collections/rpstrng"
+        }},
+        "auraform": { "type": "fabric", "settings": {
+          "handle": "auraform", "name": "AURAFORM\u2122",
+          "tagline": "80% Nylon and 20% Elastane \u2014 strength, stretch and recovery.",
+          "hero_title": "AURAFORM\u2122: Elite Comfort. Maximum Endurance.",
+          "description": "AuraForm\u2122 is performance-engineered using Zenith Tech\u2122, delivering strategic support and flexibility.",
+          "features": "FluidMotion\u2122 | https://zoda.sg/cdn/shop/files/1_12ff3052-9255-40c4-85a3-15a2e8672275.png?width=80\nZO-Vent\u2122 | https://zoda.sg/cdn/shop/files/4_bb2248f1-9ef7-4ba9-aca8-c7de92491aed.png?width=80\nZO-Dry\u2122 | https://zoda.sg/cdn/shop/files/3_37b6f8b7-5425-47a6-a7bc-6f9ab472b6f8.png?width=80\nZO-Fresh\u2122 | https://zoda.sg/cdn/shop/files/3_ed88a1f3-b5d7-48ef-a64d-21ce4008ca9c.png?width=80",
+          "performance": "FluidMotion\u2122 allows unrestricted movement and a sculpted fit\nZenith Tech\u2122 maintains fabric shape wear after wear\nZO-Dry\u2122 keeps you cool and dry\nZO-Fresh\u2122 neutralises odour",
+          "sustainability": "Built from regenerated nylon in alignment with ZODA's commitment to a circular economy.",
+          "community": "AuraForm\u2122 offers the perfect balance of compression and comfort.",
+          "shop_url": "/collections/auraform"
+        }},
+        "nycurv": { "type": "fabric", "settings": {
+          "handle": "nycurv", "name": "NYCURV\u2122",
+          "tagline": "High-denier Nylon and advanced Elastane fibers.",
+          "hero_title": "NYCURV\u2122: Engineered for Unwavering Support and Comfort",
+          "description": "NyCurv\u2122 is a premium high-denier Nylon and Elastane blend designed for ultimate fit, shape retention, and confidence.",
+          "features": "FluidMotion\u2122 | https://zoda.sg/cdn/shop/files/1_12ff3052-9255-40c4-85a3-15a2e8672275.png?width=80\nZO-Vent\u2122 | https://zoda.sg/cdn/shop/files/4_bb2248f1-9ef7-4ba9-aca8-c7de92491aed.png?width=80\nZO-Dry\u2122 | https://zoda.sg/cdn/shop/files/3_37b6f8b7-5425-47a6-a7bc-6f9ab472b6f8.png?width=80\nZO-Fresh\u2122 | https://zoda.sg/cdn/shop/files/3_ed88a1f3-b5d7-48ef-a64d-21ce4008ca9c.png?width=80",
+          "performance": "Zenith Tech\u2122 premium shape retention and compression\nFluidMotion\u2122 4-way stretch\nZO-Dry\u2122 moisture-wicking\nZO-Fresh\u2122 anti-odour technology",
+          "sustainability": "Built from regenerated nylon in alignment with ZODA's commitment to a circular economy.",
+          "community": "Made for athletes who demand more from their activewear.",
+          "shop_url": "/collections/nycurv"
+        }},
+        "nyx": { "type": "fabric", "settings": {
+          "handle": "nyx", "name": "NYX\u2122",
+          "tagline": "NyCurv\u2122 and Elastane blend \u2014 lightweight, technically advanced.",
+          "hero_title": "NYX\u2122: Engineered for High-Intensity Training",
+          "description": "NyX\u2122 delivers targeted support and shape retention during your most intense workouts.",
+          "features": "FluidMotion\u2122 | https://zoda.sg/cdn/shop/files/1_12ff3052-9255-40c4-85a3-15a2e8672275.png?width=80\nZO-Fresh\u2122 | https://zoda.sg/cdn/shop/files/3_ed88a1f3-b5d7-48ef-a64d-21ce4008ca9c.png?width=80\nZO-Dry\u2122 | https://zoda.sg/cdn/shop/files/3_37b6f8b7-5425-47a6-a7bc-6f9ab472b6f8.png?width=80",
+          "performance": "NyCurv\u2122 and elastane blend for firm yet flexible compression\nFluidMotion\u2122 allows full range of motion\nZO-Dry\u2122 and ZO-Fresh\u2122 ensure comfort and hygiene\nHolds shape, wash after wash",
+          "sustainability": "Built from regenerated nylon in alignment with ZODA's commitment to a circular economy.",
+          "community": "High-performance compression that works as hard as you do.",
+          "shop_url": "/collections/nyx"
+        }},
+        "nyxlite": { "type": "fabric", "settings": {
+          "handle": "nyxlite", "name": "NYXLITE\u2122",
+          "tagline": "Recycled polyester and elastane \u2014 breathability, stretch and recovery.",
+          "hero_title": "NYXLITE\u2122: Cooling. Compressive. Ready for the Outdoors.",
+          "description": "Crafted for heat and high effort, NyXlite\u2122 offers breathable support and structure in hot and humid training environments.",
+          "features": "FluidMotion\u2122 | https://zoda.sg/cdn/shop/files/1_12ff3052-9255-40c4-85a3-15a2e8672275.png?width=80\nZO-Fresh\u2122 | https://zoda.sg/cdn/shop/files/3_ed88a1f3-b5d7-48ef-a64d-21ce4008ca9c.png?width=80\nZO-Dry\u2122 | https://zoda.sg/cdn/shop/files/3_37b6f8b7-5425-47a6-a7bc-6f9ab472b6f8.png?width=80\nZenFlex\u2122 | https://zoda.sg/cdn/shop/files/fabric_icons.png?width=80",
+          "performance": "Lightweight blend of NyCurv\u2122 and elastane\nStrategic compression zones for muscle support\nZO-Dry\u2122 and ZO-Fresh\u2122 keep you dry and odour-free\nPerforated jacquard design enhances breathability",
+          "sustainability": "Built from regenerated nylon in alignment with ZODA's commitment to a circular economy.",
+          "community": "Designed for the outdoor athlete training in real conditions.",
+          "shop_url": "/collections/nyxlite"
+        }}
+      },
+      "block_order": ["zencot","zoenix","zoenix-lite","rpstrng","auraform","nycurv","nyx","nyxlite"]
+    }
+  },
+  "order": ["main"]
+}

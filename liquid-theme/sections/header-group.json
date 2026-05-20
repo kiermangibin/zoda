@@ -1,0 +1,6 @@
+{
+  "name": "Header",
+  "type": "header",
+  "sections": { "header": { "type": "zoda-header", "settings": { "menu": "main-menu" } } },
+  "order": ["header"]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Home",
+  "type": "home",
+  "sections": {
+    "circuit": { "type": "circuit-home", "settings": {} }
+  },
+  "order": ["circuit"]
+}

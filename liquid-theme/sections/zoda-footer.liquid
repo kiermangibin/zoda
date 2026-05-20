@@ -1,0 +1,92 @@
+{% comment %}
+  ZODA dark footer — Liquid port of src/components/zoda/Footer.tsx
+{% endcomment %}
+
+<footer class="zoda-footer" role="contentinfo">
+  <div class="zoda-footer__inner">
+    <div class="zoda-footer__brand">
+      {%- if section.settings.logo -%}
+        <img src="{{ section.settings.logo | image_url: width: 352 }}" alt="{{ shop.name | escape }}" loading="lazy">
+      {%- else -%}
+        <img src="https://zoda.sg/cdn/shop/files/ZODA_logo.svg?v=1741773590&width=352" alt="{{ shop.name | escape }}" loading="lazy">
+      {%- endif -%}
+      <p class="zoda-footer__tag">
+        {{ section.settings.tagline | default: "Performance activewear engineered for athletes moving with intent. Train harder. Recover sharper. Move with intent." }}
+      </p>
+    </div>
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'menu' -%}
+        <div class="zoda-footer__col" {{ block.shopify_attributes }}>
+          <h4>{{ block.settings.heading }}</h4>
+          <ul>
+            {%- for link in linklists[block.settings.menu].links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="zoda-footer__col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a></li>
+          <li><a href="{{ routes.collections_url }}/womens-collection">Women</a></li>
+          <li><a href="{{ routes.collections_url }}/mens-collection">Men</a></li>
+          <li><a href="{{ routes.collections_url }}">All Collections</a></li>
+        </ul>
+      </div>
+      <div class="zoda-footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="{{ routes.collections_url }}/core-performance">Core Performance</a></li>
+          <li><a href="{{ routes.collections_url }}/endurance">Endurance</a></li>
+          <li><a href="{{ routes.collections_url }}/24-7-wear">24/7 Wear</a></li>
+          <li><a href="mailto:hello@zoda.sg">Contact</a></li>
+        </ul>
+      </div>
+    {%- endfor -%}
+
+    <div class="zoda-footer__col">
+      <h4>Stay in the loop</h4>
+      <ul>
+        <li><a href="mailto:hello@zoda.sg?subject=Partnership%20Inquiry">Partner With Us</a></li>
+        <li><a href="https://www.instagram.com/zoda.sg" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+      {%- form 'customer', class: 'zoda-footer__newsletter' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" placeholder="Email address" required aria-label="Email address">
+        <button type="submit">Join</button>
+      {%- endform -%}
+    </div>
+  </div>
+
+  <div class="zoda-footer__bottom">
+    <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</span>
+    <div class="zoda-footer__social">
+      <a href="https://www.instagram.com/zoda.sg" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:hello@zoda.sg">Email</a>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "ZODA Footer",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "textarea", "id": "tagline", "label": "Tagline" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "ZODA Footer" }]
+}
+{% endschema %}
