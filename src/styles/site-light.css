@@ -4106,13 +4106,13 @@
   z-index: 2;
 }
 .zoda-ikigai-page .zoda-ikigai-community__image-column {
-  align-self: start;
+  align-self: stretch;
   display: grid;
   gap: clamp(14px, 1.6vw, 24px);
   grid-template-rows: minmax(0, 1.06fr) minmax(0, 0.94fr);
-  height: 86%;
+  height: 100%;
   min-height: 0;
-  transform: translateY(4%);
+  transform: none;
 }
 .zoda-ikigai-page .zoda-ikigai-community__images img {
   display: block;
