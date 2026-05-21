@@ -32,7 +32,7 @@ function FabricsPage() {
 
   useEffect(() => {
     if (!rootRef.current) return;
-    const cleanup = initSnapController(rootRef.current);
+    const cleanup = initSnapController(rootRef.current, { nextPath: "/" });
     return cleanup;
   }, []);
 
@@ -171,6 +171,7 @@ function FabricsPage() {
             id={`fabric-${f.handle}`}
             className="zoda-fabrics-snap__section zoda-fabrics-feature"
             data-orientation={idx % 2 === 0 ? "left" : "right"}
+            data-snap-accordion
             data-snap-panel
           >
             <div className="zoda-fabrics-feature__media">
@@ -189,6 +190,66 @@ function FabricsPage() {
                   </li>
                 ))}
               </ul>
+
+              <div
+                className="zoda-fabrics-feature__accordion"
+                aria-label={`${f.name} fabric details`}
+              >
+                {[
+                  {
+                    index: "01",
+                    title: "Engineered for performance",
+                    label: "Performance",
+                    content: f.performance,
+                  },
+                  {
+                    index: "02",
+                    title: "Sustainability at its core",
+                    label: "Impact",
+                    content: f.sustainability,
+                  },
+                  {
+                    index: "03",
+                    title: "Built for the community of athletes",
+                    label: "Community",
+                    content: [f.community],
+                  },
+                ].map((item) => (
+                  <details
+                    key={item.title}
+                    className="zoda-fabrics-feature__accordion-item"
+                    data-snap-accordion-item
+                  >
+                    <summary
+                      className="zoda-fabrics-feature__accordion-trigger"
+                      data-snap-accordion-trigger
+                    >
+                      <span className="zoda-fabrics-feature__accordion-index">
+                        {item.index}
+                      </span>
+                      <strong>{item.title}</strong>
+                      <span className="zoda-fabrics-feature__accordion-label">
+                        {item.label}
+                      </span>
+                      <i aria-hidden="true" />
+                    </summary>
+                    <div
+                      className="zoda-fabrics-feature__accordion-panel"
+                      data-snap-accordion-panel
+                    >
+                      {item.content.length > 1 ? (
+                        <ul className="zoda-fabrics-feature__accordion-list">
+                          {item.content.map((text) => (
+                            <li key={text}>{text}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        item.content.map((text) => <p key={text}>{text}</p>)
+                      )}
+                    </div>
+                  </details>
+                ))}
+              </div>
 
               <div className="zoda-fabrics-feature__actions">
                 <a className="zoda-fabrics-feature__shop" href={f.shopUrl}>

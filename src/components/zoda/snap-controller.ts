@@ -7,6 +7,7 @@ export type SnapControllerOptions = {
   panelSelector?: string;
   dotSelector?: string;
   lockMs?: number;
+  nextPath?: string;
 };
 
 export function initSnapController(
@@ -18,6 +19,7 @@ export function initSnapController(
     panelSelector = "[data-snap-panel]",
     dotSelector = "[data-snap-dot]",
     lockMs = 720,
+    nextPath,
   } = opts;
 
   const track = root.querySelector<HTMLElement>(trackSelector);
@@ -105,6 +107,11 @@ export function initSnapController(
       lockTimer = window.setTimeout(() => {
         locked = false;
       }, Math.min(lockMs, 420));
+      return;
+    }
+    if (direction > 0 && activeIndex >= panels.length - 1 && nextPath) {
+      locked = true;
+      window.location.assign(nextPath);
       return;
     }
     scrollToIndex(activeIndex + direction);

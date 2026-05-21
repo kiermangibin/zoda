@@ -16,7 +16,10 @@ export function ZodaCircuit() {
     if (!root || root.dataset.ready === "true") return;
     const s = document.createElement("script");
     s.id = "zoda-circuit-script";
-    s.textContent = ZODA_CIRCUIT_SCRIPT;
+    s.textContent = ZODA_CIRCUIT_SCRIPT.replace(
+      /const loopToStart = \(\) => \{[\s\S]*?\n    \};\n\n    const goTo =/,
+      "const loopToStart = () => {\n      window.location.assign('/ikigai');\n    };\n\n    const goTo =",
+    );
     document.body.appendChild(s);
     return () => {
       s.remove();
