@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MissionRouteImport } from './routes/mission'
 import { Route as IkigaiRouteImport } from './routes/ikigai'
 import { Route as FabricsRouteImport } from './routes/fabrics'
 import { Route as IndexRouteImport } from './routes/index'
@@ -16,6 +17,11 @@ import { Route as CollectionsIndexRouteImport } from './routes/collections.index
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as CollectionsHandleRouteImport } from './routes/collections.$handle'
 
+const MissionRoute = MissionRouteImport.update({
+  id: '/mission',
+  path: '/mission',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IkigaiRoute = IkigaiRouteImport.update({
   id: '/ikigai',
   path: '/ikigai',
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/fabrics': typeof FabricsRoute
   '/ikigai': typeof IkigaiRoute
+  '/mission': typeof MissionRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/collections/': typeof CollectionsIndexRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/fabrics': typeof FabricsRoute
   '/ikigai': typeof IkigaiRoute
+  '/mission': typeof MissionRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/collections': typeof CollectionsIndexRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/fabrics': typeof FabricsRoute
   '/ikigai': typeof IkigaiRoute
+  '/mission': typeof MissionRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/collections/': typeof CollectionsIndexRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/fabrics'
     | '/ikigai'
+    | '/mission'
     | '/collections/$handle'
     | '/product/$handle'
     | '/collections/'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/fabrics'
     | '/ikigai'
+    | '/mission'
     | '/collections/$handle'
     | '/product/$handle'
     | '/collections'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/fabrics'
     | '/ikigai'
+    | '/mission'
     | '/collections/$handle'
     | '/product/$handle'
     | '/collections/'
@@ -103,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FabricsRoute: typeof FabricsRoute
   IkigaiRoute: typeof IkigaiRoute
+  MissionRoute: typeof MissionRoute
   CollectionsHandleRoute: typeof CollectionsHandleRoute
   ProductHandleRoute: typeof ProductHandleRoute
   CollectionsIndexRoute: typeof CollectionsIndexRoute
@@ -110,6 +123,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/mission': {
+      id: '/mission'
+      path: '/mission'
+      fullPath: '/mission'
+      preLoaderRoute: typeof MissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ikigai': {
       id: '/ikigai'
       path: '/ikigai'
@@ -159,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FabricsRoute: FabricsRoute,
   IkigaiRoute: IkigaiRoute,
+  MissionRoute: MissionRoute,
   CollectionsHandleRoute: CollectionsHandleRoute,
   ProductHandleRoute: ProductHandleRoute,
   CollectionsIndexRoute: CollectionsIndexRoute,

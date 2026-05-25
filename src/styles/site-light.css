@@ -32,7 +32,9 @@
   text-decoration: none;
   padding: 8px 0;
 }
-.zoda-shell--light .zoda-shell__back:hover { color: var(--accent); }
+.zoda-shell--light .zoda-shell__back:hover {
+  color: var(--accent);
+}
 
 .zoda-shell--light .zoda-shell__heading {
   text-align: center;
@@ -67,7 +69,9 @@
   color: inherit;
   text-decoration: none;
 }
-.zoda-shell--light .zoda-shell__breadcrumbs a:hover { color: var(--accent); }
+.zoda-shell--light .zoda-shell__breadcrumbs a:hover {
+  color: var(--accent);
+}
 
 .zoda-shell--light .zoda-shell__loading,
 .zoda-shell--light .zoda-shell__empty {
@@ -107,7 +111,9 @@
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
 }
 @media (min-width: 960px) {
-  .zoda-site-header__nav { display: flex; }
+  .zoda-site-header__nav {
+    display: flex;
+  }
 }
 .zoda-site-header__nav a {
   color: #0a0a0a;
@@ -116,7 +122,9 @@
   border-bottom: 2px solid transparent;
   transition: border-color 0.15s;
 }
-.zoda-site-header__nav a:hover { border-color: var(--accent); }
+.zoda-site-header__nav a:hover {
+  border-color: var(--accent);
+}
 
 .zoda-site-header__nav-item {
   position: relative;
@@ -154,7 +162,10 @@
   text-decoration: none;
   border: none;
 }
-.zoda-site-header__menu a:hover { background: #f5f5f5; color: var(--accent); }
+.zoda-site-header__menu a:hover {
+  background: #f5f5f5;
+  color: var(--accent);
+}
 
 .zoda-site-header__actions {
   display: flex;
@@ -226,7 +237,9 @@
   background: rgba(85, 205, 161, 0.12);
 }
 @media (min-width: 720px) {
-  .zoda-header-currency { display: block; }
+  .zoda-header-currency {
+    display: block;
+  }
 }
 .zoda-site-header__currency {
   font-size: 13px;
@@ -237,7 +250,9 @@
   display: none;
 }
 @media (min-width: 720px) {
-  .zoda-site-header__currency { display: inline; }
+  .zoda-site-header__currency {
+    display: inline;
+  }
 }
 .zoda-site-header__icon {
   background: none;
@@ -250,7 +265,9 @@
   align-items: center;
   justify-content: center;
 }
-.zoda-site-header__icon:hover { color: var(--accent); }
+.zoda-site-header__icon:hover {
+  color: var(--accent);
+}
 .zoda-site-header__badge {
   position: absolute;
   top: -2px;
@@ -278,7 +295,9 @@
   cursor: pointer;
 }
 @media (min-width: 960px) {
-  .zoda-site-header__burger { display: none; }
+  .zoda-site-header__burger {
+    display: none;
+  }
 }
 .zoda-site-header__burger span {
   display: block;
@@ -412,8 +431,12 @@
   background: #fff !important;
   color: #0a0a0a !important;
 }
-.zoda-cart-drawer--light .zoda-cart-drawer__title { color: #0a0a0a; }
-.zoda-cart-drawer--light .zoda-cart-drawer__sub { color: var(--muted); }
+.zoda-cart-drawer--light .zoda-cart-drawer__title {
+  color: #0a0a0a;
+}
+.zoda-cart-drawer--light .zoda-cart-drawer__sub {
+  color: var(--muted);
+}
 .zoda-cart-drawer--light .zoda-cart-drawer__item {
   display: flex;
   gap: 12px;
@@ -428,7 +451,9 @@
   flex: none;
 }
 .zoda-cart-drawer--light .zoda-cart-drawer__item-thumb img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .zoda-cart-drawer--light .zoda-cart-drawer__item-title {
   font-size: 13px;
@@ -448,7 +473,8 @@
   color: #0a0a0a;
 }
 .zoda-cart-drawer--light .zoda-cart-drawer__qty-btn {
-  width: 28px; height: 28px;
+  width: 28px;
+  height: 28px;
   border: 1px solid var(--line-strong);
   background: #fff;
   display: inline-flex;
@@ -457,11 +483,19 @@
   cursor: pointer;
   color: #0a0a0a;
 }
-.zoda-cart-drawer--light .zoda-cart-drawer__qty-btn:hover { border-color: #0a0a0a; }
-.zoda-cart-drawer--light .zoda-cart-drawer__remove {
-  background: none; border: none; color: var(--muted); cursor: pointer; padding: 4px;
+.zoda-cart-drawer--light .zoda-cart-drawer__qty-btn:hover {
+  border-color: #0a0a0a;
 }
-.zoda-cart-drawer--light .zoda-cart-drawer__remove:hover { color: #0a0a0a; }
+.zoda-cart-drawer--light .zoda-cart-drawer__remove {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+}
+.zoda-cart-drawer--light .zoda-cart-drawer__remove:hover {
+  color: #0a0a0a;
+}
 .zoda-cart-drawer--light .zoda-cart-drawer__footer {
   border-top: 1px solid var(--line);
   padding-top: 16px;
@@ -490,8 +524,14 @@
   justify-content: center;
   gap: 8px;
 }
-.zoda-cart-drawer--light .zoda-cart-drawer__checkout:hover { background: var(--accent); color: #0a0a0a; }
-.zoda-cart-drawer--light .zoda-cart-drawer__checkout:disabled { opacity: 0.5; cursor: not-allowed; }
+.zoda-cart-drawer--light .zoda-cart-drawer__checkout:hover {
+  background: var(--accent);
+  color: #0a0a0a;
+}
+.zoda-cart-drawer--light .zoda-cart-drawer__checkout:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .zoda-cart-drawer--light .zoda-cart-drawer__empty {
   flex: 1;
   display: flex;
@@ -518,7 +558,9 @@
   text-decoration: none;
   padding: 8px 0;
 }
-.zoda-pdp__back:hover { color: var(--accent); }
+.zoda-pdp__back:hover {
+  color: var(--accent);
+}
 .zoda-pdp__grid {
   margin-top: 24px;
   display: grid;
@@ -526,7 +568,10 @@
   grid-template-columns: 1fr;
 }
 @media (min-width: 960px) {
-  .zoda-pdp__grid { grid-template-columns: 1.4fr 1fr; gap: 56px; }
+  .zoda-pdp__grid {
+    grid-template-columns: 1.4fr 1fr;
+    gap: 56px;
+  }
 }
 .zoda-pdp__gallery {
   display: grid;
@@ -544,10 +589,16 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
-.zoda-pdp__gallery-thumb { aspect-ratio: 1; cursor: pointer; }
+.zoda-pdp__gallery-thumb {
+  aspect-ratio: 1;
+  cursor: pointer;
+}
 .zoda-pdp__gallery-main img,
 .zoda-pdp__gallery-thumb img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .zoda-pdp__info {
@@ -555,9 +606,15 @@
   flex-direction: column;
   gap: 28px;
 }
-.zoda-pdp__info > * { margin: 0; }
+.zoda-pdp__info > * {
+  margin: 0;
+}
 @media (min-width: 960px) {
-  .zoda-pdp__info { position: sticky; top: 96px; align-self: start; }
+  .zoda-pdp__info {
+    position: sticky;
+    top: 96px;
+    align-self: start;
+  }
 }
 .zoda-pdp__title {
   font-size: clamp(24px, 3vw, 36px);
@@ -567,7 +624,8 @@
   margin: 0;
 }
 .zoda-pdp__price {
-  font-size: 18px; font-weight: 700;
+  font-size: 18px;
+  font-weight: 700;
   margin: 8px 0 0;
 }
 .zoda-pdp__option {
@@ -603,13 +661,18 @@
   align-items: center;
   justify-content: center;
 }
-.zoda-pdp__variant:hover { border-color: #0a0a0a; }
+.zoda-pdp__variant:hover {
+  border-color: #0a0a0a;
+}
 .zoda-pdp__variant--active {
   background: #0a0a0a;
   color: #fff;
   border-color: #0a0a0a;
 }
-.zoda-pdp__variant:disabled { opacity: 0.4; cursor: not-allowed; }
+.zoda-pdp__variant:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 .zoda-pdp__add {
   width: 100%;
   background: #0a0a0a;
@@ -628,8 +691,14 @@
   justify-content: center;
   gap: 8px;
 }
-.zoda-pdp__add:hover { background: var(--accent); color: #0a0a0a; }
-.zoda-pdp__add:disabled { opacity: 0.5; cursor: not-allowed; }
+.zoda-pdp__add:hover {
+  background: var(--accent);
+  color: #0a0a0a;
+}
+.zoda-pdp__add:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .zoda-pdp__description {
   font-size: 14px;
   line-height: 1.7;
@@ -666,9 +735,9 @@
 .zoda-shell--light {
   --bg: #050505;
   --fg: #ffffff;
-  --muted: rgba(255,255,255,0.62);
-  --line: rgba(255,255,255,0.10);
-  --line-strong: rgba(255,255,255,0.22);
+  --muted: rgba(255, 255, 255, 0.62);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.22);
   --accent: #55cda1;
   background: var(--bg);
   color: var(--fg);
@@ -679,28 +748,50 @@
   background: #050505;
   border-bottom: 1px solid var(--line);
 }
-.zoda-shell--light .zoda-site-header__logo img { filter: invert(1) brightness(2); }
+.zoda-shell--light .zoda-site-header__logo img {
+  filter: invert(1) brightness(2);
+}
 .zoda-shell--light .zoda-site-header__nav a,
 .zoda-shell--light .zoda-site-header__currency,
-.zoda-shell--light .zoda-site-header__icon { color: #fff; }
-.zoda-shell--light .zoda-site-header__burger span { background: #fff; }
+.zoda-shell--light .zoda-site-header__icon {
+  color: #fff;
+}
+.zoda-shell--light .zoda-site-header__burger span {
+  background: #fff;
+}
 .zoda-shell--light .zoda-site-header__menu {
   background: #0a0a0a;
   border-color: var(--line);
 }
-.zoda-shell--light .zoda-site-header__menu a { color: #fff; }
-.zoda-shell--light .zoda-site-header__menu a:hover { background: rgba(255,255,255,0.06); color: var(--accent); }
-.zoda-shell--light .zoda-site-header__mobile-panel { background: #050505; }
+.zoda-shell--light .zoda-site-header__menu a {
+  color: #fff;
+}
+.zoda-shell--light .zoda-site-header__menu a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--accent);
+}
+.zoda-shell--light .zoda-site-header__mobile-panel {
+  background: #050505;
+}
 .zoda-shell--light .zoda-site-header__mobile-panel a {
   color: #fff;
   border-bottom-color: var(--line);
 }
-.zoda-shell--light .zoda-site-header__badge { background: var(--accent); color: #000; }
-.zoda-shell--light .zoda-shell__back { color: #fff; }
-.zoda-shell--light .zoda-shell__heading h1 { color: #fff; }
+.zoda-shell--light .zoda-site-header__badge {
+  background: var(--accent);
+  color: #000;
+}
+.zoda-shell--light .zoda-shell__back {
+  color: #fff;
+}
+.zoda-shell--light .zoda-shell__heading h1 {
+  color: #fff;
+}
 
 /* Collections index list â€” dark */
-.zoda-shell--light .zoda-shell__main ul a { color: #fff !important; }
+.zoda-shell--light .zoda-shell__main ul a {
+  color: #fff !important;
+}
 
 /* Product grid â€” match home gallery card styling */
 .zoda-shell--light .zoda-collection-grid {
@@ -710,24 +801,30 @@
   padding: 8px 0;
 }
 @media (min-width: 720px) {
-  .zoda-shell--light .zoda-collection-grid { gap: 18px; }
+  .zoda-shell--light .zoda-collection-grid {
+    gap: 18px;
+  }
 }
 
 .zoda-shell--light .zoda-product-card {
-  background: rgba(7,9,8,0.58);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(7, 9, 8, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   color: #fff;
   padding: 0;
-  transition: border-color 220ms ease, transform 220ms ease;
+  transition:
+    border-color 220ms ease,
+    transform 220ms ease;
 }
 .zoda-shell--light .zoda-product-card:hover {
   border-color: var(--accent);
   transform: translateY(-3px);
 }
 .zoda-shell--light .zoda-product-card__media {
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
 }
-.zoda-shell--light .zoda-product-card:hover .zoda-product-card__media img { transform: none; }
+.zoda-shell--light .zoda-product-card:hover .zoda-product-card__media img {
+  transform: none;
+}
 
 /* Quick-add: centered round accent button revealed on hover */
 .zoda-shell--light .zoda-product-card__quick-add {
@@ -746,7 +843,9 @@
   cursor: pointer;
   font-size: 0;
   opacity: 0;
-  transition: opacity 220ms ease, background 180ms ease;
+  transition:
+    opacity 220ms ease,
+    background 180ms ease;
 }
 .zoda-shell--light .zoda-product-card__quick-add::before {
   content: "+";
@@ -754,18 +853,31 @@
   font-weight: 700;
   line-height: 1;
 }
-.zoda-shell--light .zoda-product-card__quick-add:hover { background: #fff; }
+.zoda-shell--light .zoda-product-card__quick-add:hover {
+  background: #fff;
+}
 @media (hover: hover) {
-  .zoda-shell--light .zoda-product-card:hover .zoda-product-card__quick-add { opacity: 1; }
+  .zoda-shell--light .zoda-product-card:hover .zoda-product-card__quick-add {
+    opacity: 1;
+  }
 }
 @media (hover: none) {
-  .zoda-shell--light .zoda-product-card__quick-add { opacity: 1; }
+  .zoda-shell--light .zoda-product-card__quick-add {
+    opacity: 1;
+  }
 }
-.zoda-shell--light .zoda-product-card__quick-add:disabled { opacity: 0.5; cursor: not-allowed; }
+.zoda-shell--light .zoda-product-card__quick-add:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 /* Card: no border, no horizontal padding on body */
-.zoda-shell--light .zoda-product-card { border: 0; }
-.zoda-shell--light .zoda-product-card:hover { border-color: transparent; }
+.zoda-shell--light .zoda-product-card {
+  border: 0;
+}
+.zoda-shell--light .zoda-product-card:hover {
+  border-color: transparent;
+}
 .zoda-shell--light .zoda-product-card__body {
   padding: 12px 0 16px;
   gap: 4px;
@@ -781,21 +893,31 @@
   letter-spacing: 0.05em;
 }
 .zoda-shell--light .zoda-product-card__swatch {
-  border-color: rgba(255,255,255,0.25);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 /* PDP â€” dark */
-.zoda-shell--light .zoda-pdp__back { color: #fff; }
+.zoda-shell--light .zoda-pdp__back {
+  color: #fff;
+}
 .zoda-shell--light .zoda-pdp__gallery-main,
-.zoda-shell--light .zoda-pdp__gallery-thumb { background: rgba(255,255,255,0.04); }
-.zoda-shell--light .zoda-pdp__title { color: #fff; }
-.zoda-shell--light .zoda-pdp__price { color: var(--accent); }
+.zoda-shell--light .zoda-pdp__gallery-thumb {
+  background: rgba(255, 255, 255, 0.04);
+}
+.zoda-shell--light .zoda-pdp__title {
+  color: #fff;
+}
+.zoda-shell--light .zoda-pdp__price {
+  color: var(--accent);
+}
 .zoda-shell--light .zoda-pdp__variant {
   background: transparent;
   color: #fff;
   border-color: var(--line-strong);
 }
-.zoda-shell--light .zoda-pdp__variant:hover { border-color: #fff; }
+.zoda-shell--light .zoda-pdp__variant:hover {
+  border-color: #fff;
+}
 .zoda-shell--light .zoda-pdp__variant--active {
   background: #fff;
   color: #000;
@@ -805,9 +927,12 @@
   background: var(--accent);
   color: #000;
 }
-.zoda-shell--light .zoda-pdp__add:hover { background: #fff; color: #000; }
+.zoda-shell--light .zoda-pdp__add:hover {
+  background: #fff;
+  color: #000;
+}
 .zoda-shell--light .zoda-pdp__description {
-  color: rgba(255,255,255,0.78);
+  color: rgba(255, 255, 255, 0.78);
   border-top-color: var(--line);
 }
 
@@ -818,18 +943,34 @@
 }
 .zoda-cart-drawer--light .zoda-cart-drawer__title,
 .zoda-cart-drawer--light .zoda-cart-drawer__item-title,
-.zoda-cart-drawer--light .zoda-cart-drawer__item-price { color: #fff; }
-.zoda-cart-drawer--light .zoda-cart-drawer__item { border-bottom-color: var(--line); }
-.zoda-cart-drawer--light .zoda-cart-drawer__item-thumb { background: rgba(255,255,255,0.06); }
+.zoda-cart-drawer--light .zoda-cart-drawer__item-price {
+  color: #fff;
+}
+.zoda-cart-drawer--light .zoda-cart-drawer__item {
+  border-bottom-color: var(--line);
+}
+.zoda-cart-drawer--light .zoda-cart-drawer__item-thumb {
+  background: rgba(255, 255, 255, 0.06);
+}
 .zoda-cart-drawer--light .zoda-cart-drawer__qty-btn {
-  background: transparent; color: #fff; border-color: var(--line-strong);
+  background: transparent;
+  color: #fff;
+  border-color: var(--line-strong);
 }
-.zoda-cart-drawer--light .zoda-cart-drawer__qty-btn:hover { border-color: #fff; }
-.zoda-cart-drawer--light .zoda-cart-drawer__footer { border-top-color: var(--line); }
+.zoda-cart-drawer--light .zoda-cart-drawer__qty-btn:hover {
+  border-color: #fff;
+}
+.zoda-cart-drawer--light .zoda-cart-drawer__footer {
+  border-top-color: var(--line);
+}
 .zoda-cart-drawer--light .zoda-cart-drawer__checkout {
-  background: var(--accent); color: #000;
+  background: var(--accent);
+  color: #000;
 }
-.zoda-cart-drawer--light .zoda-cart-drawer__checkout:hover { background: #fff; color: #000; }
+.zoda-cart-drawer--light .zoda-cart-drawer__checkout:hover {
+  background: #fff;
+  color: #000;
+}
 
 /* ============================================================
    Footer (shared across all pages, mirrors a Shopify footer.liquid)
@@ -837,7 +978,7 @@
 .zoda-footer {
   background: #050505;
   color: #fff;
-  border-top: 1px solid var(--line, rgba(255,255,255,0.10));
+  border-top: 1px solid var(--line, rgba(255, 255, 255, 0.1));
   font-family: var(--zoda-font-sans);
 }
 .zoda-footer__inner {
@@ -849,15 +990,22 @@
   grid-template-columns: 1fr;
 }
 @media (min-width: 720px) {
-  .zoda-footer__inner { grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 48px; }
+  .zoda-footer__inner {
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    gap: 48px;
+  }
 }
-.zoda-footer__brand img { height: 28px; width: auto; display: block; }
+.zoda-footer__brand img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
 .zoda-footer__tag {
   margin-top: 14px;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-size: 13px;
   line-height: 1.6;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
   max-width: 320px;
 }
 .zoda-footer__col h4 {
@@ -875,27 +1023,42 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
-.zoda-footer__col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.zoda-footer__col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
 .zoda-footer__col a {
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-size: 13px;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   letter-spacing: 0.02em;
 }
-.zoda-footer__col a:hover { color: var(--accent, #55cda1); }
-.zoda-footer__newsletter { display: flex; gap: 0; margin-top: 12px; max-width: 320px; }
+.zoda-footer__col a:hover {
+  color: var(--accent, #55cda1);
+}
+.zoda-footer__newsletter {
+  display: flex;
+  gap: 0;
+  margin-top: 12px;
+  max-width: 320px;
+}
 .zoda-footer__newsletter input {
   flex: 1;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-right: 0;
   padding: 10px 12px;
   font-size: 13px;
   color: #fff;
   outline: none;
 }
-.zoda-footer__newsletter input::placeholder { color: rgba(255,255,255,0.4); }
+.zoda-footer__newsletter input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
 .zoda-footer__newsletter button {
   background: var(--accent, #55cda1);
   color: #000;
@@ -907,23 +1070,36 @@
   letter-spacing: 0.08em;
   cursor: pointer;
 }
-.zoda-footer__newsletter button:hover { background: #fff; }
+.zoda-footer__newsletter button:hover {
+  background: #fff;
+}
 .zoda-footer__bottom {
   max-width: 1440px;
   margin: 0 auto;
   padding: 18px 24px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   justify-content: space-between;
   font-size: 12px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.04em;
 }
-.zoda-footer__social { display: flex; gap: 14px; }
-.zoda-footer__social a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
-.zoda-footer__social a:hover { color: var(--accent, #55cda1); }
+.zoda-footer__social {
+  display: flex;
+  gap: 14px;
+}
+.zoda-footer__social a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.zoda-footer__social a:hover {
+  color: var(--accent, #55cda1);
+}
 
 /* Reviews: badge inline beside reviewer name */
 .zoda-circuit .zoda-circuit__review-info {
@@ -953,8 +1129,13 @@
   margin: 0 0 12px;
   text-transform: uppercase;
 }
-.zoda-pdp__breadcrumbs a { color: inherit; text-decoration: none; }
-.zoda-pdp__breadcrumbs a:hover { color: var(--accent); }
+.zoda-pdp__breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+.zoda-pdp__breadcrumbs a:hover {
+  color: var(--accent);
+}
 .zoda-shell--light .zoda-pdp__title {
   font-family: var(--zoda-font-display, "Euphora", "Commuters Sans", Arial, sans-serif);
 }
@@ -969,7 +1150,9 @@
   text-transform: none;
   font-weight: 500;
 }
-.zoda-pdp__variants--colors { gap: 10px; }
+.zoda-pdp__variants--colors {
+  gap: 10px;
+}
 
 .zoda-pdp__swatch {
   width: 32px;
@@ -978,14 +1161,25 @@
   border: 1px solid var(--line-strong);
   cursor: pointer;
   padding: 0;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
 }
-.zoda-pdp__swatch:hover { transform: scale(1.08); }
+.zoda-pdp__swatch:hover {
+  transform: scale(1.08);
+}
 .zoda-pdp__swatch--active {
-  box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--accent);
+  box-shadow:
+    0 0 0 2px var(--bg),
+    0 0 0 3px var(--accent);
 }
-.zoda-pdp__swatch:disabled { opacity: 0.35; cursor: not-allowed; }
-.zoda-pdp__variant--size { min-width: 48px; }
+.zoda-pdp__swatch:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.zoda-pdp__variant--size {
+  min-width: 48px;
+}
 
 /* ============================================================
    FABRICS PAGE â€” snap-scroll, mirrors zoda.sg layout
@@ -1012,12 +1206,14 @@
 .zoda-fabrics-page .zoda-site-header,
 .zoda-fabrics-page .zoda-shell__site-header {
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
 }
 .zoda-fabrics-page .zoda-site-header,
 .zoda-fabrics-page .zoda-shell__site-header {
-  background: rgba(0,0,0,0.78);
+  background: rgba(0, 0, 0, 0.78);
   backdrop-filter: blur(10px);
 }
 .zoda-fabrics-snap {
@@ -1035,7 +1231,10 @@
   scroll-behavior: smooth;
   scrollbar-width: none;
 }
-.zoda-fabrics-snap::-webkit-scrollbar { width: 0; height: 0; }
+.zoda-fabrics-snap::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 .zoda-fabrics-snap__section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -1059,15 +1258,25 @@
 }
 
 /* Hero */
-.zoda-fabrics-hero { overflow: hidden; }
+.zoda-fabrics-hero {
+  overflow: hidden;
+}
 .zoda-fabrics-hero__media {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 .zoda-fabrics-hero__overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 60%, rgba(85,205,161,0.85) 100%);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.55) 60%,
+    rgba(85, 205, 161, 0.85) 100%
+  );
 }
 .zoda-fabrics-hero__content {
   position: relative;
@@ -1111,7 +1320,10 @@
   color: #fff;
   overflow: hidden;
 }
-.zoda-fabrics-directory__head { text-align: center; margin-bottom: clamp(14px, 2vh, 24px); }
+.zoda-fabrics-directory__head {
+  text-align: center;
+  margin-bottom: clamp(14px, 2vh, 24px);
+}
 .zoda-fabrics-directory__kicker {
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-size: 11px;
@@ -1144,8 +1356,15 @@
   overscroll-behavior: contain;
   scrollbar-width: none;
 }
-.zoda-fabrics-directory__grid::-webkit-scrollbar { width: 0; height: 0; }
-@media (min-width: 480px) { .zoda-fabrics-directory__grid { gap: 10px; } }
+.zoda-fabrics-directory__grid::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+@media (min-width: 480px) {
+  .zoda-fabrics-directory__grid {
+    gap: 10px;
+  }
+}
 @media (min-width: 720px) {
   .zoda-fabrics-directory {
     --zoda-directory-rows: 3;
@@ -1171,10 +1390,14 @@
   min-height: 0;
 }
 @media (min-width: 720px) {
-  .zoda-fabrics-directory__grid .zoda-fabrics-card { aspect-ratio: auto; }
+  .zoda-fabrics-directory__grid .zoda-fabrics-card {
+    aspect-ratio: auto;
+  }
 }
 @media (min-width: 1024px) {
-  .zoda-fabrics-directory__grid .zoda-fabrics-card { aspect-ratio: auto; }
+  .zoda-fabrics-directory__grid .zoda-fabrics-card {
+    aspect-ratio: auto;
+  }
 }
 
 .zoda-fabrics-card {
@@ -1186,19 +1409,26 @@
   display: block;
 }
 .zoda-fabrics-card__img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   transition: transform 600ms ease;
 }
-.zoda-fabrics-card:hover .zoda-fabrics-card__img { transform: scale(1.05); }
+.zoda-fabrics-card:hover .zoda-fabrics-card__img {
+  transform: scale(1.05);
+}
 .zoda-fabrics-card__overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.7) 100%);
 }
 .zoda-fabrics-card__body {
   position: absolute;
-  left: 0; right: 0; bottom: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   padding: 10px 12px;
   display: flex;
   justify-content: space-between;
@@ -1225,7 +1455,7 @@
 .zoda-fabrics-craft {
   align-items: center;
   background:
-    radial-gradient(circle at 18% 20%, rgba(85,205,161,0.14), transparent 28%),
+    radial-gradient(circle at 18% 20%, rgba(85, 205, 161, 0.14), transparent 28%),
     linear-gradient(135deg, #050606, #0a0a0a 58%, #050606);
   color: #fff;
   gap: clamp(28px, 6vw, 96px);
@@ -1245,7 +1475,7 @@
   text-transform: uppercase;
 }
 .zoda-fabrics-craft__copy {
-  color: rgba(255,255,255,0.72);
+  color: rgba(255, 255, 255, 0.72);
   font-size: clamp(14px, 1.2vw, 18px);
   line-height: 1.65;
   margin: 22px 0 0;
@@ -1258,10 +1488,10 @@
   width: 100%;
 }
 .zoda-fabrics-craft__item {
-  border-top: 1px solid rgba(255,255,255,0.14);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 .zoda-fabrics-craft__item:last-child {
-  border-bottom: 1px solid rgba(255,255,255,0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
 }
 .zoda-fabrics-craft__trigger {
   align-items: center;
@@ -1282,7 +1512,7 @@
 }
 .zoda-fabrics-craft__trigger::after {
   align-items: center;
-  border: 1px solid rgba(255,255,255,0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   color: var(--accent);
   content: "+";
   display: inline-flex;
@@ -1292,7 +1522,10 @@
   height: 34px;
   justify-content: center;
   line-height: 1;
-  transition: background 180ms ease, color 180ms ease, transform 220ms ease;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 220ms ease;
   width: 34px;
 }
 .zoda-fabrics-craft__item.is-open .zoda-fabrics-craft__trigger::after,
@@ -1329,7 +1562,7 @@
   display: block;
 }
 .zoda-fabrics-craft__panel p {
-  color: rgba(255,255,255,0.72);
+  color: rgba(255, 255, 255, 0.72);
   font-size: clamp(13px, 1.1vw, 16px);
   line-height: 1.6;
   margin: 0;
@@ -1379,11 +1612,18 @@
   grid-template-columns: 42px minmax(0, 1fr) 30px;
   padding: 6px 0;
 }
-.zoda-ikigai-page #ikigai-technology .zoda-ikigai-tech__accordion .zoda-fabrics-craft__trigger::after {
+.zoda-ikigai-page
+  #ikigai-technology
+  .zoda-ikigai-tech__accordion
+  .zoda-fabrics-craft__trigger::after {
   height: 30px;
   width: 30px;
 }
-.zoda-ikigai-page #ikigai-technology .zoda-ikigai-tech__accordion .zoda-fabrics-craft__trigger strong {
+.zoda-ikigai-page
+  #ikigai-technology
+  .zoda-ikigai-tech__accordion
+  .zoda-fabrics-craft__trigger
+  strong {
   font-size: clamp(15px, 1.25vw, 20px);
   line-height: 1.05;
 }
@@ -1402,8 +1642,12 @@
   min-height: 0;
 }
 @media (min-width: 960px) {
-  .zoda-fabrics-feature { flex-direction: row; }
-  .zoda-fabrics-feature[data-orientation="right"] { flex-direction: row-reverse; }
+  .zoda-fabrics-feature {
+    flex-direction: row;
+  }
+  .zoda-fabrics-feature[data-orientation="right"] {
+    flex-direction: row-reverse;
+  }
 }
 .zoda-fabrics-feature__media {
   position: relative;
@@ -1414,8 +1658,10 @@
 }
 .zoda-fabrics-feature__media img,
 .zoda-fabrics-feature__media video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
@@ -1429,6 +1675,17 @@
   min-height: 0;
   min-width: 0;
   overflow: visible;
+}
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__body {
+  gap: 20px;
+}
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__eyebrow,
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__title,
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__desc,
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__features,
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__accordion {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .zoda-fabrics-feature__eyebrow {
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
@@ -1450,7 +1707,7 @@
 .zoda-fabrics-feature__desc {
   font-size: clamp(14px, 1.08vw, 15px);
   line-height: 1.5;
-  color: rgba(255,255,255,0.78);
+  color: rgba(255, 255, 255, 0.78);
   margin: 0 0 18px;
   max-width: 58ch;
 }
@@ -1472,7 +1729,8 @@
   text-align: center;
 }
 .zoda-fabrics-feature__features img {
-  width: 32px; height: 32px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   opacity: 1;
 }
@@ -1481,13 +1739,17 @@
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   white-space: nowrap;
 }
 .zoda-fabrics-feature__accordion {
-  background: linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.024)), rgba(7,9,8,0.58);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 22px 70px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.08);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.024)),
+    rgba(7, 9, 8, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 22px 70px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   display: grid;
   margin: 0 0 18px;
   max-width: 640px;
@@ -1498,7 +1760,7 @@
   backdrop-filter: blur(18px) saturate(1.35);
 }
 .zoda-fabrics-feature__accordion-item {
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .zoda-fabrics-feature__accordion-item:first-child {
   border-top: 0;
@@ -1516,17 +1778,19 @@
   min-height: 50px;
   padding: 10px 14px;
   text-align: left;
-  transition: background 180ms ease, color 180ms ease;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
   width: 100%;
 }
 .zoda-fabrics-feature__accordion-trigger::-webkit-details-marker {
   display: none;
 }
 .zoda-fabrics-feature__accordion-trigger:hover {
-  background: rgba(255,255,255,0.055);
+  background: rgba(255, 255, 255, 0.055);
 }
 .zoda-fabrics-feature__accordion-trigger:focus-visible {
-  outline: 2px solid rgba(85,205,161,0.72);
+  outline: 2px solid rgba(85, 205, 161, 0.72);
   outline-offset: -2px;
 }
 .zoda-fabrics-feature__accordion-index,
@@ -1542,7 +1806,7 @@
   color: var(--accent);
 }
 .zoda-fabrics-feature__accordion-label {
-  color: rgba(255,255,255,0.54);
+  color: rgba(255, 255, 255, 0.54);
   justify-self: end;
 }
 .zoda-fabrics-feature__accordion-trigger strong {
@@ -1555,7 +1819,7 @@
   text-transform: uppercase;
 }
 .zoda-fabrics-feature__accordion-trigger i {
-  border: 1px solid rgba(255,255,255,0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   display: block;
   height: 22px;
   position: relative;
@@ -1569,7 +1833,9 @@
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  transition: background 180ms ease, transform 180ms ease;
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
 }
 .zoda-fabrics-feature__accordion-trigger i::before {
   height: 2px;
@@ -1580,7 +1846,7 @@
   width: 2px;
 }
 .zoda-fabrics-feature__accordion-item[open] .zoda-fabrics-feature__accordion-trigger {
-  background: rgba(0,0,0,0.42);
+  background: rgba(0, 0, 0, 0.42);
 }
 .zoda-fabrics-feature__accordion-item[open] .zoda-fabrics-feature__accordion-trigger i {
   background: var(--accent);
@@ -1595,9 +1861,8 @@
 }
 .zoda-fabrics-feature__accordion-panel {
   background:
-    linear-gradient(90deg, rgba(85,205,161,0.12), rgba(85,205,161,0)),
-    rgba(0,0,0,0.18);
-  border-top: 1px solid rgba(255,255,255,0.08);
+    linear-gradient(90deg, rgba(85, 205, 161, 0.12), rgba(85, 205, 161, 0)), rgba(0, 0, 0, 0.18);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding: 10px 14px 12px 44px;
 }
 .zoda-fabrics-feature__accordion-panel p,
@@ -1607,7 +1872,7 @@
   font-family: var(--zoda-font-sans, "Commuters Sans", Arial, sans-serif);
   font-size: clamp(12px, 1vw, 13px);
   line-height: 1.42;
-  color: rgba(255,255,255,0.76);
+  color: rgba(255, 255, 255, 0.76);
 }
 .zoda-fabrics-feature__accordion-list {
   list-style: none;
@@ -1647,19 +1912,60 @@
   text-decoration: none;
   transition: background 180ms ease;
 }
-.zoda-fabrics-feature__shop:hover { background: #fff; }
+.zoda-fabrics-feature__shop:hover {
+  background: #fff;
+}
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__shop,
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__back {
+  display: inline-flex;
+  height: 40px;
+  min-height: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 22px;
+  line-height: 1;
+}
 .zoda-fabrics-feature__back {
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
 }
-.zoda-fabrics-feature__back:hover { color: var(--accent); }
+.zoda-fabrics-feature__back:hover {
+  color: var(--accent);
+}
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__back {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 14px 34px rgba(0, 0, 0, 0.22);
+  color: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px) saturate(145%);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
+}
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__back:hover {
+  border-color: rgba(85, 205, 161, 0.62);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.24), rgba(85, 205, 161, 0.14));
+  color: #fff;
+  transform: translateY(-1px);
+}
+.zoda-fabrics-page:not(.zoda-ikigai-page) .zoda-fabrics-feature__back:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 
 @media (min-width: 761px) and (max-height: 860px) {
   .zoda-fabrics-feature__body {
+    gap: 20px;
     padding: 72px clamp(22px, 4vw, 54px) clamp(18px, 3vh, 30px);
   }
   .zoda-fabrics-feature__eyebrow {
@@ -1686,8 +1992,9 @@
     min-width: 62px;
   }
   .zoda-fabrics-feature__features img {
-    height: 26px;
-    width: 26px;
+    height: 40px;
+    width: 40px;
+    margin-bottom: 5px;
   }
   .zoda-fabrics-feature__features span {
     font-size: 9px;
@@ -1750,7 +2057,9 @@
   height: 36px;
 }
 .zoda-pdp__swatch--active {
-  box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--accent);
+  box-shadow:
+    0 0 0 2px var(--bg),
+    0 0 0 3px var(--accent);
   border-color: transparent;
 }
 
@@ -1764,7 +2073,9 @@
 }
 
 /* Description with clamp + fade + See more */
-.zoda-pdp__desc-wrap { position: relative; }
+.zoda-pdp__desc-wrap {
+  position: relative;
+}
 .zoda-pdp__desc {
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-size: 15px;
@@ -1784,7 +2095,7 @@
   inset: auto 0 0 0;
   height: 2.4em;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(255,255,255,0), var(--bg) 90%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--bg) 90%);
 }
 .zoda-pdp__desc-toggle {
   margin-top: 8px;
@@ -1802,7 +2113,9 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
-.zoda-pdp__desc-toggle:hover { color: #2f7d32; }
+.zoda-pdp__desc-toggle:hover {
+  color: #2f7d32;
+}
 
 /* Product details grid */
 .zoda-pi {
@@ -1819,14 +2132,22 @@
   padding: 0 24px;
 }
 @media (min-width: 900px) {
-  .zoda-pi__inner { grid-template-columns: 1.1fr 0.9fr; gap: 64px; }
+  .zoda-pi__inner {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 64px;
+  }
 }
-.zoda-pi__left, .zoda-pi__right {
+.zoda-pi__left,
+.zoda-pi__right {
   display: flex;
   flex-direction: column;
   gap: 36px;
 }
-.zoda-pi__block { display: flex; flex-direction: column; gap: 12px; }
+.zoda-pi__block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 .zoda-pi__eyebrow {
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-size: 11px;
@@ -1842,64 +2163,113 @@
   margin: 0;
   letter-spacing: 0.01em;
 }
-.zoda-pi__fabrics { display: flex; flex-wrap: wrap; gap: 14px; }
+.zoda-pi__fabrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
 .zoda-pi__fabric {
   position: relative;
-  width: 150px; height: 100px;
+  width: 150px;
+  height: 100px;
   border-radius: 12px;
   overflow: hidden;
   flex: 0 0 auto;
 }
-.zoda-pi__fabric img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.zoda-pi__fabric img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .zoda-pi__fabric span {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  text-align: center; padding: 10px;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: #fff;
-  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.45));
-  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.45));
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 .zoda-pi__meter-media img {
-  width: 100%; height: auto; display: block; border-radius: 10px;
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
 }
 
 /* Right-side accordions */
-.zoda-pi-acc { border-bottom: 1px solid var(--line); }
+.zoda-pi-acc {
+  border-bottom: 1px solid var(--line);
+}
 .zoda-pi-acc__summary {
   width: 100%;
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 16px 0;
   line-height: 1;
-  background: none; border: 0; cursor: pointer;
+  background: none;
+  border: 0;
+  cursor: pointer;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 13px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--fg);
   text-align: left;
 }
 .zoda-pi-acc__content {
   padding: 0 0 20px;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 15px; line-height: 1.7; color: var(--fg);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--fg);
 }
-.zoda-pi-rte p { margin: 0 0 10px; }
-.zoda-pi-rte ul { margin: 0 0 10px; padding-left: 18px; }
-.zoda-pi__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.zoda-pi-rte p {
+  margin: 0 0 10px;
+}
+.zoda-pi-rte ul {
+  margin: 0 0 10px;
+  padding-left: 18px;
+}
+.zoda-pi__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
 .zoda-pi__tags span {
-  background: #0a0a0a; color: #fff;
-  padding: 6px 10px; border-radius: 6px;
+  background: #0a0a0a;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* ============================================================
    PDP â€” 2XU-style layout: full-bleed image strip + 2-col below
    ============================================================ */
-.zoda-shell--light .zoda-pdp { padding: 0 0 80px; max-width: none; }
+.zoda-shell--light .zoda-pdp {
+  padding: 0 0 80px;
+  max-width: none;
+}
 
-.zoda-pdp__strip-wrap { position: relative; }
+.zoda-pdp__strip-wrap {
+  position: relative;
+}
 .zoda-pdp__strip {
   display: flex;
   gap: 2px;
@@ -1910,7 +2280,9 @@
   background: #efefef;
   scrollbar-width: none;
 }
-.zoda-pdp__strip::-webkit-scrollbar { display: none; }
+.zoda-pdp__strip::-webkit-scrollbar {
+  display: none;
+}
 .zoda-pdp__strip-item {
   flex: 0 0 88vw;
   aspect-ratio: 3/4;
@@ -1919,7 +2291,10 @@
   overflow: hidden;
 }
 .zoda-pdp__strip-item img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 @media (min-width: 900px) {
   .zoda-pdp__strip-item {
@@ -1927,17 +2302,37 @@
   }
 }
 .zoda-pdp__strip-nav {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  width: 44px; height: 44px; border-radius: 50%;
-  background: rgba(255,255,255,0.95); border: 1px solid var(--line, #e5e5e5);
-  display: inline-flex; align-items: center; justify-content: center;
-  color: #0a0a0a; cursor: pointer; z-index: 2;
-  transition: opacity 0.15s, background 0.15s;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--line, #e5e5e5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a0a0a;
+  cursor: pointer;
+  z-index: 2;
+  transition:
+    opacity 0.15s,
+    background 0.15s;
 }
-.zoda-pdp__strip-nav:hover { background: #fff; }
-.zoda-pdp__strip-nav:disabled { opacity: 0.35; cursor: not-allowed; }
-.zoda-pdp__strip-nav--prev { left: 16px; }
-.zoda-pdp__strip-nav--next { right: 16px; }
+.zoda-pdp__strip-nav:hover {
+  background: #fff;
+}
+.zoda-pdp__strip-nav:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.zoda-pdp__strip-nav--prev {
+  left: 16px;
+}
+.zoda-pdp__strip-nav--next {
+  right: 16px;
+}
 
 .zoda-pdp__below {
   display: grid;
@@ -1962,177 +2357,320 @@
 }
 
 .zoda-pdp__breadcrumbs {
-  display: flex; gap: 8px; align-items: center;
-  font-size: 12px; color: var(--muted, #666);
-  text-transform: uppercase; letter-spacing: 0.08em;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
-.zoda-pdp__breadcrumbs a { color: inherit; text-decoration: none; }
-.zoda-pdp__breadcrumbs a:hover { color: var(--accent); }
+.zoda-pdp__breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+.zoda-pdp__breadcrumbs a:hover {
+  color: var(--accent);
+}
 
 .zoda-pdp__reviews-stub {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13px; color: #2a2a2a;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #2a2a2a;
 }
-.zoda-pdp__stars { display: inline-flex; gap: 2px; color: var(--accent, #c9a84c); }
-.zoda-pdp__stars svg { fill: currentColor; }
+.zoda-pdp__stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--accent, #c9a84c);
+}
+.zoda-pdp__stars svg {
+  fill: currentColor;
+}
 
 .zoda-pdp__price-row {
-  display: flex; align-items: baseline; gap: 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
 }
-.zoda-pdp__price--sale { color: #c0392b; font-weight: 700; }
+.zoda-pdp__price--sale {
+  color: #c0392b;
+  font-weight: 700;
+}
 .zoda-pdp__price--strike {
-  text-decoration: line-through; color: var(--muted, #888); font-size: 16px;
+  text-decoration: line-through;
+  color: var(--muted, #888);
+  font-size: 16px;
 }
 .zoda-pdp__installments {
-  font-size: 13px; color: var(--muted, #666); margin: -8px 0 0;
+  font-size: 13px;
+  color: var(--muted, #666);
+  margin: -8px 0 0;
 }
 
 .zoda-pdp__blurb {
-  font-size: 14px; line-height: 1.7; color: #2a2a2a;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #2a2a2a;
 }
-.zoda-pdp__blurb p { margin: 0 0 8px; }
+.zoda-pdp__blurb p {
+  margin: 0 0 8px;
+}
 
 .zoda-pdp__bullets {
-  list-style: disc; padding-left: 20px; margin: 0;
-  display: flex; flex-direction: column; gap: 6px;
-  font-size: 14px; line-height: 1.5; color: #2a2a2a;
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #2a2a2a;
 }
 
 .zoda-pdp__sku {
-  font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--muted, #666); margin: 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted, #666);
+  margin: 0;
 }
-.zoda-pdp__sku span { color: #0a0a0a; }
+.zoda-pdp__sku span {
+  color: #0a0a0a;
+}
 
-.zoda-pdp__variants--sizes { gap: 6px; }
+.zoda-pdp__variants--sizes {
+  gap: 6px;
+}
 .zoda-pdp__variants--sizes .zoda-pdp__variant {
-  min-width: 56px; padding: 14px 16px; font-size: 13px;
+  min-width: 56px;
+  padding: 14px 16px;
+  font-size: 13px;
 }
 
 .zoda-pdp__swatch {
-  width: 32px; height: 32px; border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
   border: 1px solid var(--line-strong, #ccc);
-  cursor: pointer; padding: 0;
-  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 .zoda-pdp__swatch--active {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #0a0a0a;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 3px #0a0a0a;
 }
-.zoda-pdp__swatch:disabled { opacity: 0.4; cursor: not-allowed; }
-.zoda-pdp__variants--colors { gap: 10px; }
+.zoda-pdp__swatch:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.zoda-pdp__variants--colors {
+  gap: 10px;
+}
 
 .zoda-pdp__model-info {
-  font-size: 13px; line-height: 1.6; color: #2a2a2a;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #2a2a2a;
   border-top: 1px solid var(--line, #e5e5e5);
   border-bottom: 1px solid var(--line, #e5e5e5);
   padding: 16px 0;
 }
-.zoda-pdp__model-info p { margin: 0; }
+.zoda-pdp__model-info p {
+  margin: 0;
+}
 .zoda-pdp__size-guide-link {
-  display: inline-block; margin-top: 8px;
-  font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
-  color: #0a0a0a; text-decoration: underline; text-underline-offset: 4px;
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0a0a0a;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .zoda-pdp__add {
-  height: 56px; padding: 0 24px;
+  height: 56px;
+  padding: 0 24px;
   font-size: 14px;
 }
 .zoda-pdp__cta-row {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
 }
-.zoda-pdp__cta-row .zoda-pdp__add { width: 100%; margin: 0; }
+.zoda-pdp__cta-row .zoda-pdp__add {
+  width: 100%;
+  margin: 0;
+}
 .zoda-pdp__find {
-  height: 56px; padding: 0 24px;
-  display: inline-flex; align-items: center; justify-content: center;
+  height: 56px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase;
-  background: transparent; color: #fff;
-  border: 1px solid rgba(255,255,255,0.4);
-  cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
 }
-.zoda-pdp__find:hover { background: #fff; color: #0a0a0a; border-color: #fff; }
+.zoda-pdp__find:hover {
+  background: #fff;
+  color: #0a0a0a;
+  border-color: #fff;
+}
 
 .zoda-pdp__shipping-note {
-  text-align: center; font-size: 12px; color: var(--muted, #666);
-  text-transform: uppercase; letter-spacing: 0.08em; margin: 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
 }
 
 .zoda-pdp__icon-tiles {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
   margin-top: 16px;
 }
 .zoda-pdp__icon-tile {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 8px; padding: 16px 12px;
-  border: 1px solid var(--line, #e5e5e5); background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 12px;
+  border: 1px solid var(--line, #e5e5e5);
+  background: #fafafa;
   text-align: center;
 }
-.zoda-pdp__icon-tile svg { display: block; }
+.zoda-pdp__icon-tile svg {
+  display: block;
+}
 .zoda-pdp__icon-tile-label {
-  font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
-  color: var(--muted, #666); margin: 0; line-height: 1;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted, #666);
+  margin: 0;
+  line-height: 1;
 }
 .zoda-pdp__icon-tile-value {
-  font-size: 12px; font-weight: 600; color: #0a0a0a; margin: 0; line-height: 1;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin: 0;
+  line-height: 1;
 }
 .zoda-pdp__desc-label {
   font-family: var(--zoda-font-display);
-  font-size: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-  color: #fff; margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 12px;
 }
 
 /* PDP spec blocks (Fabric, Bra Support, etc.) */
 .zoda-pdp__specs {
-  display: flex; flex-direction: column; gap: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
   margin-top: 24px;
 }
-.zoda-pdp__spec { display: flex; flex-direction: column; gap: 10px; }
+.zoda-pdp__spec {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .zoda-pdp__spec-eyebrow {
   margin: 0;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
 }
 .zoda-pdp__spec-value {
   margin: 0;
   font-family: var(--zoda-font-display);
-  font-size: 28px; font-weight: 700; line-height: 1.1;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
   color: #fff;
 }
 .zoda-pdp__spec-desc {
   margin: 4px 0 0;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 14px; line-height: 1.55;
-  color: rgba(255,255,255,0.78);
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
   max-width: 52ch;
 }
-.zoda-pdp__meter { margin-top: 14px; }
+.zoda-pdp__meter {
+  margin-top: 14px;
+}
 .zoda-pdp__meter-track {
-  position: relative; height: 6px;
-  background: rgba(255,255,255,0.18);
+  position: relative;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.18);
   border-radius: 999px;
 }
 .zoda-pdp__meter-fill {
-  position: absolute; left: 0; top: 0; bottom: 0;
-  background: #fff; border-radius: 999px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: #fff;
+  border-radius: 999px;
 }
 .zoda-pdp__meter-tick {
-  position: absolute; top: -4px; width: 1px; height: 14px;
-  background: rgba(255,255,255,0.45);
+  position: absolute;
+  top: -4px;
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.45);
   transform: translateX(-0.5px);
 }
 .zoda-pdp__meter-labels {
   margin-top: 10px;
   display: grid;
-  grid-auto-flow: column; grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
 }
-.zoda-pdp__meter-labels span { text-align: center; }
-.zoda-pdp__meter-labels span:first-child { text-align: left; }
-.zoda-pdp__meter-labels span:last-child { text-align: right; }
+.zoda-pdp__meter-labels span {
+  text-align: center;
+}
+.zoda-pdp__meter-labels span:first-child {
+  text-align: left;
+}
+.zoda-pdp__meter-labels span:last-child {
+  text-align: right;
+}
 
 /* ============================================================
    PDP â€” dark canvas overrides + typography lock + right toggles
@@ -2171,18 +2709,31 @@
 
 /* Tight title â†’ price cluster + even column spacing */
 .zoda-pdp__title-block {
-  display: flex; flex-direction: column; gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-.zoda-pdp__title-block .zoda-pdp__title { margin: 0; line-height: 1.05; }
+.zoda-pdp__title-block .zoda-pdp__title {
+  margin: 0;
+  line-height: 1.05;
+}
 .zoda-pdp__price-row {
-  display: flex; align-items: baseline; flex-wrap: wrap;
-  column-gap: 12px; row-gap: 4px; margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: 12px;
+  row-gap: 4px;
+  margin: 0;
 }
 .zoda-pdp__installments {
-  font-size: 12px; letter-spacing: 0.04em; margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin: 0;
 }
 .zoda-pdp__col-left,
-.zoda-pdp__col-right { gap: 20px; }
+.zoda-pdp__col-right {
+  gap: 20px;
+}
 
 /* Dark canvas readability â€” every text element gets a visible color */
 .zoda-shell--light .zoda-pdp__breadcrumbs,
@@ -2191,7 +2742,7 @@
 .zoda-shell--light .zoda-pdp__installments,
 .zoda-shell--light .zoda-pdp__shipping-note,
 .zoda-shell--light .zoda-pdp__sku {
-  color: rgba(255,255,255,0.72);
+  color: rgba(255, 255, 255, 0.72);
 }
 .zoda-shell--light .zoda-pdp__sku span,
 .zoda-shell--light .zoda-pdp__option-selected,
@@ -2206,65 +2757,90 @@
   color: #fff;
 }
 .zoda-shell--light .zoda-pdp__icon-tile-label {
-  color: rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.65);
 }
 .zoda-shell--light .zoda-pdp__price--strike {
-  color: rgba(255,255,255,0.45);
+  color: rgba(255, 255, 255, 0.45);
 }
 .zoda-shell--light .zoda-pdp__size-guide-link {
   color: #fff;
 }
 .zoda-shell--light .zoda-pdp__model-info {
-  border-top-color: rgba(255,255,255,0.16);
-  border-bottom-color: rgba(255,255,255,0.16);
+  border-top-color: rgba(255, 255, 255, 0.16);
+  border-bottom-color: rgba(255, 255, 255, 0.16);
 }
 .zoda-shell--light .zoda-pdp__icon-tile {
-  background: rgba(255,255,255,0.04);
-  border-color: rgba(255,255,255,0.16);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 .zoda-shell--light .zoda-pdp__swatch {
-  border-color: rgba(255,255,255,0.5);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 .zoda-shell--light .zoda-pdp__swatch--active {
-  box-shadow: 0 0 0 2px #000, 0 0 0 3px #fff;
+  box-shadow:
+    0 0 0 2px #000,
+    0 0 0 3px #fff;
 }
 .zoda-shell--light .zoda-pdp__desc-toggle {
   color: #fff;
-  background: none; border: 0; padding: 0;
-  text-decoration: underline; text-underline-offset: 4px;
-  font-size: 13px; cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: 13px;
+  cursor: pointer;
 }
-.zoda-shell--light .zoda-pdp__desc-toggle:hover { color: var(--accent); }
+.zoda-shell--light .zoda-pdp__desc-toggle:hover {
+  color: var(--accent);
+}
 
 /* Right-column accordions */
 .zoda-pdp__accordions {
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
   margin-top: 8px;
 }
 .zoda-pdp-acc {
-  border-bottom: 1px solid rgba(255,255,255,0.16);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
 }
-.zoda-pdp-acc:first-child { border-top: 1px solid rgba(255,255,255,0.16); }
+.zoda-pdp-acc:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
 .zoda-pdp-acc__summary {
   width: 100%;
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 18px 0;
-  background: none; border: 0; cursor: pointer;
+  background: none;
+  border: 0;
+  cursor: pointer;
   color: #fff;
-  font-size: 14px; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   text-align: left;
 }
 .zoda-pdp-acc__content {
   padding: 0 0 20px;
-  font-size: 14px; line-height: 1.7;
-  color: rgba(255,255,255,0.82);
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
 }
-.zoda-pdp-acc__content p { margin: 0 0 10px; }
-.zoda-pdp-acc__content ul { margin: 0 0 10px; padding-left: 18px; }
+.zoda-pdp-acc__content p {
+  margin: 0 0 10px;
+}
+.zoda-pdp-acc__content ul {
+  margin: 0 0 10px;
+  padding-left: 18px;
+}
 
 /* Description clamp (right column) */
-.zoda-pdp__desc { position: relative; }
+.zoda-pdp__desc {
+  position: relative;
+}
 .zoda-pdp__desc.is-clamped {
   display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -2274,24 +2850,35 @@
 
 /* Key Features tech badges with dot separators */
 .zoda-pdp__tech-tags {
-  display: flex; flex-wrap: wrap; align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   margin-top: 14px;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: #fff;
 }
-.zoda-pdp__tech-tags span { display: inline-flex; align-items: center; }
+.zoda-pdp__tech-tags span {
+  display: inline-flex;
+  align-items: center;
+}
 .zoda-pdp__tech-tags span + span::before {
-  content: "â€¢"; color: rgba(255,255,255,0.45);
+  content: "â€¢";
+  color: rgba(255, 255, 255, 0.45);
   margin: 0 12px;
 }
 
 /* Add-to-bag subtext (free shipping note sits flush under the button) */
 .zoda-pdp__add-subnote {
-  margin: 8px 0 0; text-align: center;
+  margin: 8px 0 0;
+  text-align: center;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
 }
 
 /* Snap dots on Fabrics page â€” reuse homepage .zoda-circuit__dot styling
@@ -2321,8 +2908,8 @@
   position: absolute;
   inset: 0;
   padding: 14px 16px;
-  background: rgba(0,0,0,0.72);
-  color: rgba(255,255,255,0.95);
+  background: rgba(0, 0, 0, 0.72);
+  color: rgba(255, 255, 255, 0.95);
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-size: 11px;
   line-height: 1.4;
@@ -2353,12 +2940,22 @@
    ============================================================ */
 @media (max-width: 760px) {
   /* Hide vertical dots on mobile to free up width (homepage does too) */
-  .zoda-fabrics-dots-host .zoda-circuit__dots { display: none; }
+  .zoda-fabrics-dots-host .zoda-circuit__dots {
+    display: none;
+  }
 
   /* Hero tightening */
-  .zoda-fabrics-hero__content { padding: 88px 20px 40px; }
-  .zoda-fabrics-hero__title { font-size: clamp(28px, 8vw, 44px); margin-bottom: 16px; }
-  .zoda-fabrics-hero__lede { font-size: 14px; line-height: 1.55; }
+  .zoda-fabrics-hero__content {
+    padding: 88px 20px 40px;
+  }
+  .zoda-fabrics-hero__title {
+    font-size: clamp(28px, 8vw, 44px);
+    margin-bottom: 16px;
+  }
+  .zoda-fabrics-hero__lede {
+    font-size: 14px;
+    line-height: 1.55;
+  }
 
   /* Directory: keep the full set visible within one snap panel */
   .zoda-fabrics-directory {
@@ -2368,9 +2965,17 @@
     max-width: 100vw;
     padding: 82px 0 18px;
   }
-  .zoda-fabrics-directory__head { margin-bottom: 10px; padding: 0 16px; }
-  .zoda-fabrics-directory__title { font-size: clamp(18px, 5.5vw, 24px); }
-  .zoda-fabrics-directory__kicker { font-size: 10px; margin-bottom: 6px; }
+  .zoda-fabrics-directory__head {
+    margin-bottom: 10px;
+    padding: 0 16px;
+  }
+  .zoda-fabrics-directory__title {
+    font-size: clamp(18px, 5.5vw, 24px);
+  }
+  .zoda-fabrics-directory__kicker {
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
   .zoda-fabrics-directory__grid {
     gap: 6px;
     padding: 0 8px;
@@ -2382,18 +2987,37 @@
     aspect-ratio: auto;
     height: 100%;
   }
-  .zoda-fabrics-card__body { padding: 8px 10px; }
-  .zoda-fabrics-card__name { font-size: clamp(13px, 4vw, 16px); overflow-wrap: anywhere; }
-  .zoda-fabrics-card__cta { font-size: 9px; }
-  .zoda-fabrics-card__face--back { padding: 10px; gap: 6px; }
-  .zoda-fabrics-card__back-eyebrow { font-size: 13px; overflow-wrap: anywhere; }
+  .zoda-fabrics-card__body {
+    padding: 8px 10px;
+  }
+  .zoda-fabrics-card__name {
+    font-size: clamp(13px, 4vw, 16px);
+    overflow-wrap: anywhere;
+  }
+  .zoda-fabrics-card__cta {
+    font-size: 9px;
+  }
+  .zoda-fabrics-card__face--back {
+    padding: 10px;
+    gap: 6px;
+  }
+  .zoda-fabrics-card__back-eyebrow {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
   .zoda-fabrics-card__back-text {
     font-size: 10px;
     line-height: 1.35;
     -webkit-line-clamp: 4;
   }
-  .zoda-fabrics-card__back-cta { font-size: 9px; }
-  .zoda-fabrics-card__hover { padding: 10px 12px; font-size: 11px; line-height: 1.35; }
+  .zoda-fabrics-card__back-cta {
+    font-size: 9px;
+  }
+  .zoda-fabrics-card__hover {
+    padding: 10px 12px;
+    font-size: 11px;
+    line-height: 1.35;
+  }
 
   .zoda-fabrics-craft {
     align-items: stretch;
@@ -2438,7 +3062,10 @@
   }
 
   /* Feature panels: stack with cap on media so body content fits inside 100svh */
-  .zoda-fabrics-feature { flex-direction: column; padding-top: 72px; }
+  .zoda-fabrics-feature {
+    flex-direction: column;
+    padding-top: 72px;
+  }
   .zoda-fabrics-feature__media {
     width: 100vw;
     max-width: 100vw;
@@ -2456,7 +3083,10 @@
     min-height: 0;
     justify-content: flex-start;
   }
-  .zoda-fabrics-feature__eyebrow { font-size: 11px; margin-bottom: 8px; }
+  .zoda-fabrics-feature__eyebrow {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
   .zoda-fabrics-feature__title {
     font-size: clamp(19px, 5vw, 25px);
     margin-bottom: 8px;
@@ -2476,8 +3106,15 @@
     margin-bottom: 10px;
     max-width: min(100%, 330px);
   }
-  .zoda-fabrics-feature__features li { width: auto; min-width: 0; gap: 4px; }
-  .zoda-fabrics-feature__features img { width: 26px; height: 26px; }
+  .zoda-fabrics-feature__features li {
+    width: auto;
+    min-width: 0;
+    gap: 4px;
+  }
+  .zoda-fabrics-feature__features img {
+    width: 35px;
+    height: 35px;
+  }
   .zoda-fabrics-feature__features span {
     font-size: 9px;
     letter-spacing: 0.04em;
@@ -2517,12 +3154,22 @@
   .zoda-fabrics-feature__accordion-list li + li {
     margin-top: 5px;
   }
-  .zoda-fabrics-feature__actions { gap: 10px; flex-wrap: wrap; }
-  .zoda-fabrics-feature__shop { padding: 10px 16px; font-size: 11px; }
-  .zoda-fabrics-feature__back { font-size: 11px; }
+  .zoda-fabrics-feature__actions {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .zoda-fabrics-feature__shop {
+    padding: 10px 16px;
+    font-size: 11px;
+  }
+  .zoda-fabrics-feature__back {
+    font-size: 11px;
+  }
 
   /* Hero needs to clear the absolutely-positioned header */
-  .zoda-fabrics-hero__content { padding-top: 96px; }
+  .zoda-fabrics-hero__content {
+    padding-top: 96px;
+  }
 }
 
 @media (max-width: 760px) and (orientation: landscape), (max-width: 760px) and (max-height: 540px) {
@@ -2622,7 +3269,6 @@
     min-width: 0;
   }
 }
-
 
 /* =========================================================
    Ikigai page â€” section styles built on the fabrics snap shell
@@ -2744,9 +3390,14 @@
   overscroll-behavior: contain;
   scrollbar-width: none;
 }
-.zoda-ikigai-duo__grid::-webkit-scrollbar { width: 0; height: 0; }
+.zoda-ikigai-duo__grid::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 @media (min-width: 720px) {
-  .zoda-ikigai-duo__grid { grid-template-columns: 1fr 1fr; }
+  .zoda-ikigai-duo__grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 .zoda-ikigai-duo__card {
   position: relative;
@@ -2757,7 +3408,9 @@
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-top: 2px solid var(--accent);
-  transition: background 200ms ease, border-color 200ms ease;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease;
 }
 .zoda-ikigai-duo__card:hover {
   background: rgba(255, 255, 255, 0.05);
@@ -2787,9 +3440,6 @@
   margin: 0;
 }
 
-
-
-
 /* Pillars of Excellence */
 .zoda-ikigai-pillars {
   flex-direction: column;
@@ -2818,9 +3468,14 @@
   overscroll-behavior: contain;
   scrollbar-width: none;
 }
-.zoda-ikigai-pillars__grid::-webkit-scrollbar { width: 0; height: 0; }
+.zoda-ikigai-pillars__grid::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 @media (min-width: 720px) {
-  .zoda-ikigai-pillars__grid { grid-template-columns: repeat(3, 1fr); }
+  .zoda-ikigai-pillars__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 .zoda-ikigai-pillars__card {
   display: flex;
@@ -2866,7 +3521,9 @@
   padding: 8px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
-.zoda-ikigai-tech__list li:first-child { border-top: none; }
+.zoda-ikigai-tech__list li:first-child {
+  border-top: none;
+}
 .zoda-ikigai-tech__title {
   font-size: clamp(12px, 1.1vw, 14px);
   font-weight: 600;
@@ -2899,7 +3556,7 @@
 .zoda-ikigai-community__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75));
   z-index: 1;
 }
 .zoda-ikigai-community__content {
@@ -2921,7 +3578,10 @@
   overscroll-behavior: contain;
   scrollbar-width: none;
 }
-.zoda-ikigai-community__content::-webkit-scrollbar { width: 0; height: 0; }
+.zoda-ikigai-community__content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 .zoda-ikigai-community__lede {
   max-width: 680px;
   font-size: clamp(14px, 1.3vw, 16px);
@@ -2961,8 +3621,13 @@
 
 /* Mobile tweaks */
 @media (max-width: 720px) {
-  .zoda-ikigai-pillars__media { aspect-ratio: 16 / 10; }
-  .zoda-ikigai-tech__list { gap: 6px; margin-bottom: 12px; }
+  .zoda-ikigai-pillars__media {
+    aspect-ratio: 16 / 10;
+  }
+  .zoda-ikigai-tech__list {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
 }
 
 /* Ikigai snap panels: responsive containment */
@@ -3254,8 +3919,8 @@
 /* Ikigai design refresh: align with the homepage circuit language */
 .zoda-ikigai-page .zoda-fabrics-hero__overlay {
   background:
-    linear-gradient(90deg, rgba(0,0,0,0.82), rgba(0,0,0,0.32) 52%, rgba(0,0,0,0.74)),
-    linear-gradient(180deg, rgba(0,0,0,0.14), rgba(0,0,0,0.72));
+    linear-gradient(90deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.32) 52%, rgba(0, 0, 0, 0.74)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.72));
 }
 .zoda-ikigai-page .zoda-fabrics-hero__content {
   margin: auto auto clamp(42px, 8vh, 86px) clamp(24px, 7vw, 92px);
@@ -3275,7 +3940,7 @@
 }
 .zoda-ikigai-purpose {
   background:
-    linear-gradient(135deg, rgba(85,205,161,0.13), transparent 36%),
+    linear-gradient(135deg, rgba(85, 205, 161, 0.13), transparent 36%),
     linear-gradient(180deg, #000, #070908 56%, #000);
   gap: clamp(20px, 3.5vw, 44px);
   grid-template-columns: minmax(320px, 0.86fr) minmax(0, 1fr);
@@ -3285,8 +3950,8 @@
 .zoda-ikigai-purpose::before,
 .zoda-ikigai-pillars::before {
   background-image:
-    linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
   background-size: 86px 86px;
   content: "";
   inset: 72px 0 0;
@@ -3304,8 +3969,8 @@
 }
 .zoda-ikigai-purpose > .zoda-fabrics-feature__media::after {
   background:
-    linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.48)),
-    linear-gradient(135deg, rgba(85,205,161,0.22), transparent 44%);
+    linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.48)),
+    linear-gradient(135deg, rgba(85, 205, 161, 0.22), transparent 44%);
   content: "";
   inset: 0;
   position: absolute;
@@ -3335,10 +4000,14 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .zoda-ikigai-purpose__card {
-  background: linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.024)), rgba(7,9,8,0.58);
-  border: 1px solid rgba(255,255,255,0.1);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.024)),
+    rgba(7, 9, 8, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-left: 2px solid var(--accent);
-  box-shadow: 0 22px 70px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.08);
+  box-shadow:
+    0 22px 70px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   gap: 10px;
   min-height: 184px;
   padding: clamp(16px, 2vw, 24px);
@@ -3355,7 +4024,7 @@
 }
 .zoda-ikigai-pillars {
   background:
-    linear-gradient(135deg, rgba(85,205,161,0.12), transparent 38%),
+    linear-gradient(135deg, rgba(85, 205, 161, 0.12), transparent 38%),
     linear-gradient(180deg, #000, #070908 58%, #000);
   color: #fff;
   padding: clamp(74px, 8vh, 96px) clamp(22px, 5vw, 78px) clamp(20px, 4vh, 42px);
@@ -3373,7 +4042,7 @@
   line-height: 0.95;
 }
 .zoda-ikigai-pillars__lede {
-  color: rgba(255,255,255,0.78);
+  color: rgba(255, 255, 255, 0.78);
   font-size: clamp(13px, 1vw, 16px);
   line-height: 1.45;
   max-width: 52ch;
@@ -3383,9 +4052,13 @@
   max-width: 1240px;
 }
 .zoda-ikigai-pillars__card {
-  background: linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.024)), rgba(7,9,8,0.58);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 22px 70px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.08);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.024)),
+    rgba(7, 9, 8, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 22px 70px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   color: #fff;
   display: grid;
   gap: 0;
@@ -3393,10 +4066,12 @@
   min-height: min(50vh, 390px);
   overflow: hidden;
   position: relative;
-  transition: border-color 220ms ease, transform 220ms ease;
+  transition:
+    border-color 220ms ease,
+    transform 220ms ease;
 }
 .zoda-ikigai-pillars__card:hover {
-  border-color: rgba(85,205,161,0.58);
+  border-color: rgba(85, 205, 161, 0.58);
   transform: translateY(-4px);
 }
 .zoda-ikigai-pillars__media {
@@ -3416,7 +4091,7 @@
   width: 100%;
 }
 .zoda-ikigai-pillars__media::after {
-  background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.86));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.86));
   content: "";
   inset: 0;
   position: absolute;
@@ -3438,14 +4113,14 @@
 }
 .zoda-ikigai-pillars__desc {
   align-self: start;
-  color: rgba(255,255,255,0.78);
+  color: rgba(255, 255, 255, 0.78);
   font-size: clamp(12px, 0.95vw, 14px);
   line-height: 1.38;
   padding: 4px clamp(16px, 1.7vw, 22px) clamp(14px, 1.5vw, 18px);
 }
 .zoda-ikigai-page .zoda-fabrics-feature {
   background:
-    linear-gradient(135deg, rgba(85,205,161,0.11), transparent 34%),
+    linear-gradient(135deg, rgba(85, 205, 161, 0.11), transparent 34%),
     linear-gradient(180deg, #000, #080a09 58%, #000);
 }
 .zoda-ikigai-page .zoda-fabrics-feature__media {
@@ -3459,8 +4134,8 @@
 }
 .zoda-ikigai-page .zoda-fabrics-feature__media::after {
   background:
-    linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.46)),
-    linear-gradient(135deg, rgba(85,205,161,0.18), transparent 42%);
+    linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.46)),
+    linear-gradient(135deg, rgba(85, 205, 161, 0.18), transparent 42%);
   content: "";
   inset: 0;
   position: absolute;
@@ -3482,8 +4157,8 @@
 }
 .zoda-ikigai-community__overlay {
   background:
-    linear-gradient(90deg, rgba(0,0,0,0.84), rgba(0,0,0,0.38) 52%, rgba(0,0,0,0.82)),
-    linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.72));
+    linear-gradient(90deg, rgba(0, 0, 0, 0.84), rgba(0, 0, 0, 0.38) 52%, rgba(0, 0, 0, 0.82)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.72));
 }
 .zoda-ikigai-community__content {
   align-items: flex-start;
@@ -3507,10 +4182,10 @@
   max-width: 760px;
 }
 .zoda-ikigai-community__values li {
-  background: rgba(7,9,8,0.5);
-  border-color: rgba(255,255,255,0.16);
+  background: rgba(7, 9, 8, 0.5);
+  border-color: rgba(255, 255, 255, 0.16);
   border-radius: 0;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 @media (min-width: 761px) and (max-height: 860px) {
@@ -3750,7 +4425,8 @@
 }
 
 /* Ikigai alignment pass: center panels and keep Technology usable. */
-.zoda-ikigai-page .zoda-fabrics-snap__section:not(.zoda-fabrics-hero):not(.zoda-fabrics-snap__footer) {
+.zoda-ikigai-page
+  .zoda-fabrics-snap__section:not(.zoda-fabrics-hero):not(.zoda-fabrics-snap__footer) {
   align-items: center;
   justify-content: center;
 }
@@ -3818,7 +4494,8 @@
 }
 .zoda-ikigai-page #ikigai-technology .zoda-fabrics-feature__media {
   flex-basis: 48%;
-  margin: clamp(84px, 9vh, 104px) clamp(22px, 4vw, 64px) clamp(28px, 5vh, 52px) clamp(18px, 3vw, 42px);
+  margin: clamp(84px, 9vh, 104px) clamp(22px, 4vw, 64px) clamp(28px, 5vh, 52px)
+    clamp(18px, 3vw, 42px);
   min-height: 0;
 }
 .zoda-ikigai-page #ikigai-technology .zoda-ikigai-technology-media-grid {
@@ -3880,10 +4557,18 @@
   min-height: 44px;
   padding: 8px 0;
 }
-.zoda-ikigai-page #ikigai-technology .zoda-ikigai-tech__accordion .zoda-fabrics-craft__trigger span {
+.zoda-ikigai-page
+  #ikigai-technology
+  .zoda-ikigai-tech__accordion
+  .zoda-fabrics-craft__trigger
+  span {
   font-size: 10px;
 }
-.zoda-ikigai-page #ikigai-technology .zoda-ikigai-tech__accordion .zoda-fabrics-craft__trigger strong {
+.zoda-ikigai-page
+  #ikigai-technology
+  .zoda-ikigai-tech__accordion
+  .zoda-fabrics-craft__trigger
+  strong {
   font-size: clamp(16px, 1.35vw, 21px);
   line-height: 1.08;
 }
@@ -3918,7 +4603,11 @@
     min-height: 38px;
     padding: 5px 0;
   }
-  .zoda-ikigai-page #ikigai-technology .zoda-ikigai-tech__accordion .zoda-fabrics-craft__trigger strong {
+  .zoda-ikigai-page
+    #ikigai-technology
+    .zoda-ikigai-tech__accordion
+    .zoda-fabrics-craft__trigger
+    strong {
     font-size: clamp(15px, 1.2vw, 18px);
   }
   .zoda-ikigai-page #ikigai-technology .zoda-ikigai-tech__accordion .zoda-fabrics-craft__panel p {
@@ -4035,7 +4724,11 @@
     min-height: 34px;
     padding: 4px 0;
   }
-  .zoda-ikigai-page #ikigai-technology .zoda-ikigai-tech__accordion .zoda-fabrics-craft__trigger strong {
+  .zoda-ikigai-page
+    #ikigai-technology
+    .zoda-ikigai-tech__accordion
+    .zoda-fabrics-craft__trigger
+    strong {
     font-size: clamp(14px, 1.05vw, 17px);
   }
   .zoda-ikigai-page #ikigai-technology .zoda-ikigai-tech__accordion .zoda-fabrics-craft__panel p {
@@ -4166,16 +4859,21 @@ button.zoda-product-card__swatch {
   width: 18px;
   height: 18px;
   border-radius: 999px;
-  border: 1px solid rgba(0,0,0,0.18);
+  border: 1px solid rgba(0, 0, 0, 0.18);
   outline-offset: 2px;
-  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
 }
 button.zoda-product-card__swatch:hover {
   transform: scale(1.08);
 }
 button.zoda-product-card__swatch.is-active {
   border-color: #0a0a0a;
-  box-shadow: 0 0 0 2px #fff inset, 0 0 0 3px #0a0a0a;
+  box-shadow:
+    0 0 0 2px #fff inset,
+    0 0 0 3px #0a0a0a;
   transform: scale(1.06);
 }
 .zoda-product-card__swatch-check {
@@ -4186,11 +4884,14 @@ button.zoda-product-card__swatch.is-active {
   height: 10px;
   color: #fff;
   mix-blend-mode: difference;
-  filter: drop-shadow(0 0 1px rgba(0,0,0,0.55));
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.55));
 }
 
 /* Sizes overlay revealed on image hover */
-.zoda-product-card__media { position: relative; overflow: hidden; }
+.zoda-product-card__media {
+  position: relative;
+  overflow: hidden;
+}
 .zoda-product-card__sizes {
   position: absolute;
   left: 10px;
@@ -4205,7 +4906,9 @@ button.zoda-product-card__swatch.is-active {
   border-radius: 4px;
   opacity: 0;
   transform: translateY(6px);
-  transition: opacity 220ms ease, transform 220ms ease;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
   pointer-events: none;
   z-index: 3;
   box-shadow: none;
@@ -4228,14 +4931,17 @@ button.zoda-product-card__swatch.is-active {
   padding: 0 6px;
   background: #fff;
   color: #0a0a0a;
-  border: 1px solid rgba(0,0,0,0.16);
+  border: 1px solid rgba(0, 0, 0, 0.16);
   border-radius: 2px;
-  font-family: 'Commuters Sans', Arial, sans-serif;
+  font-family: "Commuters Sans", Arial, sans-serif;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
   cursor: pointer;
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
 }
 .zoda-product-card__size:hover {
   background: #0a0a0a;
@@ -4243,15 +4949,15 @@ button.zoda-product-card__swatch.is-active {
   border-color: #0a0a0a;
 }
 .zoda-product-card__size.is-unavailable {
-  color: rgba(0,0,0,0.34);
+  color: rgba(0, 0, 0, 0.34);
   text-decoration: line-through;
   cursor: not-allowed;
-  background: rgba(0,0,0,0.02);
+  background: rgba(0, 0, 0, 0.02);
 }
 .zoda-product-card__size.is-unavailable:hover {
-  background: rgba(0,0,0,0.02);
-  color: rgba(0,0,0,0.34);
-  border-color: rgba(0,0,0,0.12);
+  background: rgba(0, 0, 0, 0.02);
+  color: rgba(0, 0, 0, 0.34);
+  border-color: rgba(0, 0, 0, 0.12);
 }
 @media (hover: hover) {
   .zoda-product-card:hover .zoda-product-card__sizes,
@@ -4261,10 +4967,16 @@ button.zoda-product-card__swatch.is-active {
     pointer-events: auto;
   }
   /* Hide the legacy "+" quick-add when sizes are present */
-  .zoda-product-card__media:has(.zoda-product-card__sizes) .zoda-product-card__quick-add { display: none; }
+  .zoda-product-card__media:has(.zoda-product-card__sizes) .zoda-product-card__quick-add {
+    display: none;
+  }
 }
 @media (hover: none) {
-  .zoda-product-card__sizes { opacity: 1; transform: none; pointer-events: auto; }
+  .zoda-product-card__sizes {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
 }
 
 /* Dark shell tuning */
@@ -4275,7 +4987,7 @@ button.zoda-product-card__swatch.is-active {
 .zoda-shell--light .zoda-product-card__size {
   background: transparent;
   color: #fff;
-  border-color: rgba(255,255,255,0.32);
+  border-color: rgba(255, 255, 255, 0.32);
 }
 .zoda-shell--light .zoda-product-card__size:hover {
   background: var(--accent);
@@ -4284,7 +4996,9 @@ button.zoda-product-card__swatch.is-active {
 }
 .zoda-shell--light button.zoda-product-card__swatch.is-active {
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px #0a0a0a inset, 0 0 0 3px var(--accent);
+  box-shadow:
+    0 0 0 2px #0a0a0a inset,
+    0 0 0 3px var(--accent);
 }
 
 /* ============ Cart drawer â€” elevated lndr-inspired design ============ */
@@ -4293,11 +5007,11 @@ button.zoda-product-card__swatch.is-active {
 }
 .zoda-cart-drawer__head {
   padding: 28px 28px 18px !important;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   gap: 18px;
 }
 .zoda-cart-drawer__title {
-  font-family: 'Euphora', 'Commuters Sans', Arial, sans-serif !important;
+  font-family: "Euphora", "Commuters Sans", Arial, sans-serif !important;
   font-size: 22px !important;
   font-weight: 700 !important;
   letter-spacing: 0.02em !important;
@@ -4308,19 +5022,19 @@ button.zoda-product-card__swatch.is-active {
   gap: 10px;
 }
 .zoda-cart-drawer__count {
-  font-family: 'Commuters Sans', Arial, sans-serif;
+  font-family: "Commuters Sans", Arial, sans-serif;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.12em;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
   padding: 3px 8px;
-  border: 1px solid rgba(0,0,0,0.18);
+  border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: 999px;
 }
 .zoda-cart-drawer__close {
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   background: transparent;
   border-radius: 999px;
   display: inline-flex;
@@ -4328,7 +5042,9 @@ button.zoda-product-card__swatch.is-active {
   justify-content: center;
   cursor: pointer;
   color: #0a0a0a;
-  transition: background 160ms ease, border-color 160ms ease;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease;
 }
 .zoda-cart-drawer__close:hover {
   background: #0a0a0a;
@@ -4338,13 +5054,16 @@ button.zoda-product-card__swatch.is-active {
 .zoda-cart-drawer__ship-text {
   font-size: 12px;
   letter-spacing: 0.02em;
-  color: rgba(0,0,0,0.7);
+  color: rgba(0, 0, 0, 0.7);
   margin: 0 0 8px;
 }
-.zoda-cart-drawer__ship-text strong { color: #0a0a0a; font-weight: 700; }
+.zoda-cart-drawer__ship-text strong {
+  color: #0a0a0a;
+  font-weight: 700;
+}
 .zoda-cart-drawer__ship-bar {
   height: 3px;
-  background: rgba(0,0,0,0.08);
+  background: rgba(0, 0, 0, 0.08);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -4352,7 +5071,7 @@ button.zoda-product-card__swatch.is-active {
   display: block;
   height: 100%;
   background: var(--accent, #55cda1);
-  transition: width 420ms cubic-bezier(0.16,1,0.3,1);
+  transition: width 420ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .zoda-cart-drawer__list {
@@ -4364,7 +5083,7 @@ button.zoda-product-card__swatch.is-active {
   display: flex;
   gap: 16px;
   padding: 20px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 .zoda-cart-drawer__item-thumb {
   width: 92px;
@@ -4375,7 +5094,9 @@ button.zoda-product-card__swatch.is-active {
   border-radius: 2px;
 }
 .zoda-cart-drawer__item-thumb img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .zoda-cart-drawer__item-body {
   display: flex;
@@ -4401,7 +5122,7 @@ button.zoda-product-card__swatch.is-active {
 }
 .zoda-cart-drawer__item-variant {
   font-size: 11px;
-  color: rgba(0,0,0,0.55);
+  color: rgba(0, 0, 0, 0.55);
   letter-spacing: 0.04em;
   margin: 4px 0 0;
   text-transform: uppercase;
@@ -4422,7 +5143,7 @@ button.zoda-product-card__swatch.is-active {
 .zoda-cart-drawer__qty {
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(0,0,0,0.16);
+  border: 1px solid rgba(0, 0, 0, 0.16);
   border-radius: 999px;
 }
 .zoda-cart-drawer__qty-btn {
@@ -4437,7 +5158,9 @@ button.zoda-product-card__swatch.is-active {
   color: #0a0a0a;
   border-radius: 999px;
 }
-.zoda-cart-drawer__qty-btn:hover { background: rgba(0,0,0,0.06); }
+.zoda-cart-drawer__qty-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
 .zoda-cart-drawer__qty-val {
   min-width: 24px;
   text-align: center;
@@ -4452,23 +5175,25 @@ button.zoda-product-card__swatch.is-active {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(0,0,0,0.55);
+  color: rgba(0, 0, 0, 0.55);
   padding: 0;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.zoda-cart-drawer__remove:hover { color: #0a0a0a; }
+.zoda-cart-drawer__remove:hover {
+  color: #0a0a0a;
+}
 
 .zoda-cart-drawer__footer {
   padding: 20px 28px 28px;
-  border-top: 1px solid rgba(0,0,0,0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   background: #fafaf7;
 }
 .zoda-cart-drawer__totals-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  font-family: 'Commuters Sans', Arial, sans-serif;
+  font-family: "Commuters Sans", Arial, sans-serif;
   font-size: 14px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -4477,7 +5202,7 @@ button.zoda-product-card__swatch.is-active {
 }
 .zoda-cart-drawer__totals-note {
   font-size: 11px;
-  color: rgba(0,0,0,0.55);
+  color: rgba(0, 0, 0, 0.55);
   margin: 6px 0 14px;
   letter-spacing: 0.02em;
 }
@@ -4491,21 +5216,27 @@ button.zoda-product-card__swatch.is-active {
   color: #fff;
   border: 0;
   padding: 18px 20px;
-  font-family: 'Commuters Sans', Arial, sans-serif;
+  font-family: "Commuters Sans", Arial, sans-serif;
   font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   cursor: pointer;
   border-radius: 2px;
-  transition: background 180ms ease, transform 180ms ease;
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
 }
 .zoda-cart-drawer__checkout:hover {
   background: var(--accent, #55cda1);
   color: #0a0a0a;
   transform: translateY(-1px);
 }
-.zoda-cart-drawer__checkout:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.zoda-cart-drawer__checkout:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
 
 .zoda-cart-drawer__empty {
   flex: 1;
@@ -4516,10 +5247,10 @@ button.zoda-product-card__swatch.is-active {
   text-align: center;
   gap: 8px;
   padding: 40px 28px;
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 .zoda-cart-drawer__empty-title {
-  font-family: 'Euphora', 'Commuters Sans', Arial, sans-serif;
+  font-family: "Euphora", "Commuters Sans", Arial, sans-serif;
   font-size: 22px;
   font-weight: 700;
   text-transform: uppercase;
@@ -4544,19 +5275,24 @@ button.zoda-product-card__swatch.is-active {
   cursor: pointer;
   border-radius: 2px;
 }
-.zoda-cart-drawer__empty-cta:hover { background: var(--accent, #55cda1); color: #0a0a0a; }
+.zoda-cart-drawer__empty-cta:hover {
+  background: var(--accent, #55cda1);
+  color: #0a0a0a;
+}
 
 /* ============ Fabrics directory â€” flip cards ============ */
 .zoda-fabrics-card--flip {
   perspective: 1200px;
   background: transparent;
 }
-.zoda-fabrics-card--flip .zoda-fabrics-card__hover { display: none; }
+.zoda-fabrics-card--flip .zoda-fabrics-card__hover {
+  display: none;
+}
 .zoda-fabrics-card__flip-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 620ms cubic-bezier(0.16,1,0.3,1);
+  transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
 }
 .zoda-fabrics-card__face {
@@ -4578,11 +5314,11 @@ button.zoda-product-card__swatch.is-active {
   align-items: flex-start;
   padding: clamp(14px, 2.2vw, 28px);
   gap: clamp(8px, 1vw, 14px);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
 }
 .zoda-fabrics-card__back-eyebrow {
-  font-family: 'Euphora', 'Commuters Sans', Arial, sans-serif;
+  font-family: "Euphora", "Commuters Sans", Arial, sans-serif;
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -4593,7 +5329,7 @@ button.zoda-product-card__swatch.is-active {
 .zoda-fabrics-card__back-text {
   font-size: clamp(12px, 0.9vw, 14px);
   line-height: 1.5;
-  color: rgba(255,255,255,0.82);
+  color: rgba(255, 255, 255, 0.82);
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 6;
@@ -4602,7 +5338,7 @@ button.zoda-product-card__swatch.is-active {
 }
 .zoda-fabrics-card__back-cta {
   margin-top: auto;
-  font-family: 'Commuters Sans', Arial, sans-serif;
+  font-family: "Commuters Sans", Arial, sans-serif;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -4621,3 +5357,1235 @@ button.zoda-product-card__swatch.is-active {
   transform: rotateY(180deg);
 }
 
+/* ============================================================
+   The Mission - mobile-first digital playbook
+   ============================================================ */
+.zoda-mission-page {
+  --mission-bg: #060705;
+  --mission-fg: #f7f4ea;
+  --mission-muted: rgba(247, 244, 234, 0.68);
+  --mission-line: rgba(247, 244, 234, 0.16);
+  --mission-paper: #d8c3a5;
+  --mission-orange: #ff4b16;
+  background: var(--mission-bg);
+  color: var(--mission-fg);
+}
+
+.zoda-mission-page .zoda-site-header {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.zoda-mission-snap .zoda-fabrics-snap__section {
+  height: auto;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: visible;
+}
+
+.zoda-mission-section,
+.zoda-mission-hero {
+  align-items: center;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(85, 205, 161, 0.08), transparent 42%),
+    radial-gradient(circle at 85% 10%, rgba(255, 75, 22, 0.12), transparent 26%), var(--mission-bg);
+  background-size:
+    18px 18px,
+    18px 18px,
+    auto,
+    auto,
+    auto;
+  color: var(--mission-fg);
+  display: grid;
+  gap: 18px;
+  padding: 88px 14px 22px;
+}
+
+.zoda-mission-hero {
+  align-content: end;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.zoda-mission-hero__video,
+.zoda-mission-hero__wash {
+  inset: 0;
+  position: absolute;
+}
+
+.zoda-mission-hero__video {
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.38;
+  width: 100%;
+}
+
+.zoda-mission-hero__wash {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.86)),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.25));
+  z-index: 1;
+}
+
+.zoda-mission-hero__content,
+.zoda-mission-hero__card,
+.zoda-mission-section > * {
+  position: relative;
+  z-index: 2;
+}
+
+.zoda-mission-kicker {
+  align-items: center;
+  color: var(--accent);
+  display: inline-flex;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  font-weight: 800;
+  gap: 8px;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.zoda-mission-hero h1 {
+  font-family: var(--zoda-font-display, "Euphora", "Commuters Sans", Arial, sans-serif);
+  font-size: clamp(30px, 8.8vw, 58px);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.96;
+  margin: 12px 0 0;
+  max-width: 13ch;
+  text-transform: uppercase;
+}
+
+.zoda-mission-copy h2 {
+  font-family: var(--zoda-font-display, "Euphora", "Commuters Sans", Arial, sans-serif);
+  font-size: clamp(24px, 5.4vw, 38px);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.98;
+  margin: 9px 0 0;
+  max-width: 14ch;
+  text-transform: uppercase;
+}
+
+.zoda-mission-hero p,
+.zoda-mission-copy p {
+  color: var(--mission-muted);
+  font-size: clamp(13px, 3.5vw, 16px);
+  line-height: 1.48;
+  margin: 10px 0 0;
+  max-width: 58ch;
+}
+
+.zoda-mission-hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.zoda-mission-hero__stats span,
+.zoda-mission-week__head span {
+  border: 1px solid var(--mission-line);
+  color: var(--mission-fg);
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  padding: 10px 12px;
+  text-transform: uppercase;
+}
+
+.zoda-mission-hero__card,
+.zoda-mission-blueprint-list {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.5)),
+    var(--mission-paper);
+  border: 2px solid #111;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  min-height: 220px;
+  padding: 18px;
+  position: relative;
+}
+
+.zoda-mission-hero__card::before {
+  background: var(--mission-orange);
+  color: #fff;
+  content: "PLAY & WIN";
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 12px;
+  font-weight: 900;
+  left: 18px;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 10px 14px;
+  position: absolute;
+  text-transform: uppercase;
+  top: -18px;
+}
+
+.zoda-mission-hero__card span,
+.zoda-mission-hero__card strong {
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.zoda-mission-hero__card span {
+  color: var(--mission-orange);
+  font-size: 11px;
+  margin-top: 14px;
+}
+
+.zoda-mission-hero__card strong {
+  color: #111;
+  font-size: clamp(24px, 8vw, 48px);
+}
+
+.zoda-mission-hero__card p {
+  border-top: 2px solid #111;
+  color: #111;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin: 10px 0 0;
+  padding-top: 12px;
+  text-transform: uppercase;
+}
+
+.zoda-mission-copy {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 560px;
+}
+
+.zoda-mission-game {
+  align-content: center;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  overflow: hidden;
+}
+
+.zoda-mission-game__intro {
+  align-self: end;
+  gap: 12px;
+  max-width: 760px;
+  text-align: center;
+}
+
+.zoda-mission-game__intro h2 {
+  font-size: clamp(22px, 5.6vw, 36px);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 20ch;
+}
+
+.zoda-mission-game__intro p {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 56ch;
+}
+
+.zoda-mission-checklist,
+.zoda-mission-inclusions__grid ul,
+.zoda-mission-week ul {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+}
+
+.zoda-mission-checklist {
+  display: grid;
+  gap: 10px;
+}
+
+.zoda-mission-checklist li,
+.zoda-mission-inclusions__grid li {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+}
+
+.zoda-mission-checklist svg,
+.zoda-mission-inclusions__grid svg,
+.zoda-mission-materials__cards svg {
+  color: var(--accent);
+  flex: 0 0 auto;
+}
+
+.zoda-mission-game__stage {
+  align-self: center;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0, 0, 0, 0.045), transparent 4%),
+    radial-gradient(circle at 82% 76%, rgba(0, 0, 0, 0.05), transparent 5%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04)),
+    var(--mission-paper);
+  border: 1px solid rgba(17, 17, 17, 0.3);
+  box-sizing: border-box;
+  box-shadow: 0 22px 58px rgba(0, 0, 0, 0.36);
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  overflow: hidden;
+  padding: 14px;
+  width: min(100%, 1080px);
+}
+
+.zoda-mission-path {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.zoda-mission-path__header {
+  align-items: center;
+  color: #111;
+  display: flex;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 10px;
+  font-weight: 900;
+  justify-content: space-between;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  padding: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.zoda-mission-path__header strong {
+  color: var(--mission-orange);
+}
+
+.zoda-mission-path__track {
+  display: grid;
+  gap: 9px;
+  grid-auto-flow: column;
+  grid-auto-columns: 90px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 10px 2px 4px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+
+.zoda-mission-path__space {
+  align-content: space-between;
+  aspect-ratio: 1;
+  background: #f8f5ea;
+  border: 1.5px solid #111;
+  border-radius: 999px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+  color: #111;
+  cursor: pointer;
+  display: grid;
+  gap: 3px;
+  min-height: 0;
+  padding: 10px 7px;
+  place-items: center;
+  position: relative;
+  scroll-snap-align: start;
+  text-align: center;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.zoda-mission-path__icon {
+  height: 46px;
+  object-fit: contain;
+  pointer-events: none;
+  width: 52px;
+}
+
+.zoda-mission-path__space span,
+.zoda-mission-path__space em,
+.zoda-mission-game__detail span,
+.zoda-mission-game__rules span,
+.zoda-mission-game__rules li span,
+.zoda-mission-game__detail dt,
+.zoda-mission-game__detail dd {
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.zoda-mission-path__space span {
+  color: inherit;
+  font-size: 8px;
+}
+
+.zoda-mission-path__space strong {
+  display: block;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 8.8px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.zoda-mission-path__space em {
+  color: inherit;
+  font-size: 8px;
+  font-style: normal;
+}
+
+.zoda-mission-path__space:hover,
+.zoda-mission-path__space:focus-visible,
+.zoda-mission-path__space[aria-pressed="true"] {
+  border-color: #111;
+  outline: 0;
+  transform: translateY(-3px);
+}
+
+.zoda-mission-path__space[aria-pressed="true"] {
+  box-shadow:
+    0 0 0 3px rgba(17, 17, 17, 0.12),
+    0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.zoda-mission-path__space[data-tone="orange"] {
+  background: var(--mission-orange);
+  color: #fff;
+}
+
+.zoda-mission-path__space[data-tone="green"],
+.zoda-mission-path__space[data-tone="mint"] {
+  background: var(--accent);
+  color: #fff;
+}
+
+.zoda-mission-path__space[data-tone="gold"] em,
+.zoda-mission-path__space[data-tone="gold"] span {
+  color: #d99b00;
+}
+
+.zoda-mission-path__space[data-tone="coral"] em,
+.zoda-mission-path__space[data-tone="coral"] span {
+  color: #e85a45;
+}
+
+.zoda-mission-path__space[data-type="start"] {
+  background: #050505;
+  color: #fff;
+}
+
+.zoda-mission-path__space[data-type="final"] {
+  aspect-ratio: auto;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: #111;
+  min-height: 72px;
+  padding: 4px;
+  width: min(100%, 78px);
+}
+
+.zoda-mission-path__space[data-type="final"] strong {
+  font-size: 8px;
+  max-width: 8ch;
+}
+
+.zoda-mission-path__space[data-type="final"]:hover,
+.zoda-mission-path__space[data-type="final"]:focus-visible,
+.zoda-mission-path__space[data-type="final"][aria-pressed="true"] {
+  background: transparent;
+  box-shadow: none;
+}
+
+.zoda-mission-game__detail,
+.zoda-mission-game__rules {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.64)), #f8f5ea;
+  border: 1.5px solid #111;
+  box-sizing: border-box;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.16);
+  color: #111;
+  display: grid;
+  position: relative;
+}
+
+.zoda-mission-game__detail {
+  gap: 12px;
+  max-width: 100%;
+  min-height: 240px;
+  min-width: 0;
+  overflow: hidden;
+  padding: 18px;
+}
+
+.zoda-mission-game__detail-icon {
+  height: clamp(58px, 9vw, 92px);
+  justify-self: end;
+  object-fit: contain;
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  width: clamp(58px, 9vw, 92px);
+}
+
+.zoda-mission-game__detail[data-tone="black"] .zoda-mission-game__detail-icon {
+  opacity: 0.82;
+}
+
+.zoda-mission-game__detail > span,
+.zoda-mission-game__rules > span {
+  background: var(--mission-orange);
+  color: #fff;
+  display: inline-flex;
+  font-size: 11px;
+  justify-self: start;
+  line-height: 1;
+  padding: 8px 10px;
+}
+
+.zoda-mission-game__detail[data-tone="orange"] > span {
+  background: var(--mission-orange);
+}
+
+.zoda-mission-game__detail[data-tone="gold"] > span {
+  background: #e5a600;
+}
+
+.zoda-mission-game__detail[data-tone="coral"] > span {
+  background: #e85a45;
+}
+
+.zoda-mission-game__detail h3 {
+  font-family: var(--zoda-font-display, "Euphora", "Commuters Sans", Arial, sans-serif);
+  font-size: clamp(28px, 7vw, 52px);
+  letter-spacing: 0;
+  line-height: 0.92;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.zoda-mission-game__detail p {
+  color: rgba(17, 17, 17, 0.72);
+  font-size: 14px;
+  line-height: 1.42;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.zoda-mission-game__detail dl {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.zoda-mission-game__detail dl div {
+  border: 1.5px solid #111;
+  min-width: 0;
+  padding: 10px;
+}
+
+.zoda-mission-game__detail dt {
+  color: rgba(17, 17, 17, 0.58);
+  font-size: 9px;
+}
+
+.zoda-mission-game__detail dd {
+  color: #111;
+  font-size: 12px;
+  margin: 5px 0 0;
+}
+
+.zoda-mission-game__meter {
+  align-self: end;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(22, minmax(0, 1fr));
+}
+
+.zoda-mission-game__meter span {
+  background: rgba(17, 17, 17, 0.18);
+  display: block;
+  height: 4px;
+}
+
+.zoda-mission-game__meter .is-active {
+  background: var(--accent);
+}
+
+.zoda-mission-game__rules {
+  box-sizing: border-box;
+  gap: 8px;
+  padding: 18px 12px 12px;
+}
+
+.zoda-mission-game__rules > span {
+  left: 50%;
+  position: absolute;
+  top: -13px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.zoda-mission-game__rules h3 {
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.zoda-mission-game__rules ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.zoda-mission-game__rules li {
+  align-items: center;
+  border-top: 1.5px solid #111;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 13px minmax(0, 1fr);
+  padding: 6px 0;
+}
+
+.zoda-mission-game__rules li:first-child {
+  border-top: 0;
+}
+
+.zoda-mission-game__rules i {
+  border: 1.5px solid #111;
+  display: block;
+  height: 12px;
+  width: 12px;
+}
+
+.zoda-mission-game__rules li span {
+  color: #111;
+  font-size: 8.5px;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+}
+
+.zoda-mission-finishers {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.zoda-mission-finisher {
+  align-items: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.68)), #f8f5ea;
+  border: 1.5px solid #111;
+  box-sizing: border-box;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.16);
+  color: #111;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) 58px;
+  min-height: 68px;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.zoda-mission-finisher span,
+.zoda-mission-finisher strong {
+  display: block;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.zoda-mission-finisher span {
+  color: #111;
+  font-size: 10px;
+}
+
+.zoda-mission-finisher strong {
+  color: var(--accent);
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.zoda-mission-finisher[data-tone="gold"] strong {
+  color: #e5a600;
+}
+
+.zoda-mission-finisher[data-tone="coral"] strong {
+  color: #e85a45;
+}
+
+.zoda-mission-finisher img {
+  height: 58px;
+  justify-self: end;
+  object-fit: contain;
+  width: 58px;
+}
+
+.zoda-mission-mechanics__grid,
+.zoda-mission-materials__cards {
+  display: grid;
+  gap: 10px;
+}
+
+.zoda-mission-mechanics__grid article,
+.zoda-mission-materials__cards article,
+.zoda-mission-week {
+  background: #f8f5ea;
+  border: 1.5px solid #111;
+  color: #111;
+  padding: 14px;
+}
+
+.zoda-mission-mechanics__grid span,
+.zoda-mission-materials__cards span {
+  color: var(--mission-orange);
+  display: block;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.zoda-mission-mechanics__grid h3,
+.zoda-mission-week h3 {
+  font-family: var(--zoda-font-display, "Euphora", "Commuters Sans", Arial, sans-serif);
+  font-size: clamp(22px, 5vw, 30px);
+  line-height: 1;
+  margin: 8px 0 0;
+  text-transform: uppercase;
+}
+
+.zoda-mission-mechanics__grid p,
+.zoda-mission-materials__cards p {
+  color: rgba(17, 17, 17, 0.68);
+  font-size: 14px;
+  line-height: 1.48;
+  margin: 10px 0 0;
+}
+
+.zoda-mission-playbook__cards,
+.zoda-mission-inclusions__grid,
+.zoda-mission-materials__layout {
+  display: grid;
+  gap: 12px;
+}
+
+.zoda-mission-week__head {
+  align-items: start;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.zoda-mission-week__head span {
+  background: var(--mission-orange);
+  color: #fff;
+  flex: 0 0 auto;
+}
+
+.zoda-mission-week__body {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.zoda-mission-week li {
+  border-top: 1.5px solid #111;
+  display: grid;
+  gap: 7px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  padding: 8px 0;
+}
+
+.zoda-mission-week li:first-child {
+  border-top: 0;
+}
+
+.zoda-mission-week li strong {
+  color: var(--mission-orange);
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 12px;
+}
+
+.zoda-mission-week li span {
+  color: rgba(17, 17, 17, 0.68);
+  font-size: 12px;
+  line-height: 1.34;
+}
+
+.zoda-mission-week li b {
+  color: #111;
+  display: block;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+
+.zoda-mission-inclusions__grid ul {
+  background: #f8f5ea;
+  border: 1.5px solid #111;
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 14px;
+  position: relative;
+}
+
+.zoda-mission-inclusions__grid ul::before {
+  border-bottom: 1.5px solid #111;
+  color: #111;
+  content: "SERVING SIZE 1 MISSION BAG";
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  padding-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.zoda-mission-inclusions__grid li {
+  background: transparent;
+  border: 0;
+  border-bottom: 1.5px solid #111;
+  color: #111;
+  padding: 8px 0;
+}
+
+.zoda-mission-inclusions__grid li:last-child {
+  border-bottom: 0;
+}
+
+.zoda-mission-materials__cards article {
+  display: grid;
+  gap: 8px;
+}
+
+.zoda-mission-blueprint-list {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: 1fr;
+  padding: 18px;
+}
+
+.zoda-mission-blueprint-list span {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.22);
+  color: #111;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  padding-bottom: 7px;
+}
+
+@media (min-width: 760px) {
+  .zoda-mission-section,
+  .zoda-mission-hero {
+    gap: clamp(18px, 2.6vw, 34px);
+    grid-template-columns: minmax(230px, 0.72fr) minmax(0, 1.28fr);
+    min-height: 100svh;
+    padding: 78px clamp(22px, 4vw, 58px) 24px;
+  }
+
+  .zoda-mission-hero {
+    align-items: center;
+  }
+
+  .zoda-mission-copy {
+    max-width: 440px;
+  }
+
+  .zoda-mission-copy h2 {
+    font-size: clamp(28px, 3.35vw, 40px);
+    max-width: 13ch;
+  }
+
+  .zoda-mission-copy p {
+    font-size: clamp(13px, 1.2vw, 15px);
+    line-height: 1.42;
+  }
+
+  .zoda-mission-game {
+    align-content: center;
+    gap: 18px;
+    grid-template-columns: minmax(240px, 0.27fr) minmax(0, 0.73fr);
+    padding-bottom: 18px;
+    padding-top: 78px;
+  }
+
+  .zoda-mission-game__intro {
+    align-self: center;
+    max-width: 360px;
+    text-align: left;
+  }
+
+  .zoda-mission-game__intro h2 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .zoda-mission-game__stage {
+    align-items: center;
+    align-self: center;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.32fr);
+  }
+
+  .zoda-mission-path__track {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    gap: 10px;
+    grid-template-columns: repeat(5, minmax(76px, 1fr));
+    justify-items: center;
+    max-height: none;
+    overflow-y: auto;
+    padding-right: 4px;
+    scroll-snap-type: y proximity;
+  }
+
+  .zoda-mission-path__space {
+    width: min(100%, 82px);
+  }
+
+  .zoda-mission-path__space strong {
+    max-width: 8.2ch;
+  }
+
+  .zoda-mission-game__detail {
+    align-self: stretch;
+    grid-column: 2;
+    min-height: 100%;
+  }
+
+  .zoda-mission-game__rules {
+    align-self: start;
+    grid-column: 1;
+    max-width: 360px;
+    width: min(100%, 360px);
+  }
+
+  .zoda-mission-hero__card {
+    align-self: center;
+  }
+
+  .zoda-mission-mechanics__grid,
+  .zoda-mission-materials__cards {
+    align-self: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .zoda-mission-mechanics__grid {
+    width: min(100%, 720px);
+  }
+
+  .zoda-mission-mechanics__grid article {
+    min-height: 0;
+  }
+
+  .zoda-mission-mechanics__grid h3 {
+    font-size: clamp(24px, 2.5vw, 30px);
+  }
+
+  .zoda-mission-playbook {
+    grid-template-columns: minmax(220px, 0.28fr) minmax(0, 1fr);
+  }
+
+  .zoda-mission-playbook__cards {
+    align-self: center;
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .zoda-mission-week {
+    padding: 12px;
+  }
+
+  .zoda-mission-week__head {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .zoda-mission-week__head span {
+    align-self: start;
+    padding: 8px 10px;
+  }
+
+  .zoda-mission-week h3 {
+    font-size: clamp(22px, 2.1vw, 28px);
+  }
+
+  .zoda-mission-week__body {
+    grid-template-columns: 1fr;
+  }
+
+  .zoda-mission-inclusions {
+    grid-template-columns: minmax(240px, 0.42fr) minmax(0, 0.58fr);
+    justify-content: center;
+  }
+
+  .zoda-mission-inclusions__grid {
+    align-self: center;
+    width: min(100%, 620px);
+  }
+
+  .zoda-mission-materials__layout {
+    align-self: center;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+
+  .zoda-mission-materials__layout {
+    width: min(100%, 860px);
+  }
+
+  .zoda-mission-materials__cards {
+    grid-template-columns: 1fr;
+  }
+
+  .zoda-mission-materials__cards article {
+    padding: 12px;
+  }
+
+  .zoda-mission-blueprint-list {
+    min-height: 0;
+    padding: 14px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .zoda-mission-game {
+    grid-template-columns: minmax(250px, 0.25fr) minmax(0, 0.75fr);
+  }
+
+  .zoda-mission-game__stage {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.31fr);
+  }
+
+  .zoda-mission-path__track {
+    grid-template-columns: repeat(6, minmax(78px, 1fr));
+  }
+
+  .zoda-mission-section,
+  .zoda-mission-hero {
+    padding-inline: clamp(42px, 6vw, 96px);
+  }
+
+  .zoda-mission-blueprint-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 760px) and (max-height: 820px) {
+  .zoda-mission-section,
+  .zoda-mission-hero {
+    gap: 18px;
+    padding-bottom: 16px;
+    padding-top: 66px;
+  }
+
+  .zoda-mission-copy h2 {
+    font-size: clamp(24px, 2.8vw, 34px);
+  }
+
+  .zoda-mission-copy p {
+    font-size: 13px;
+    line-height: 1.34;
+    margin-top: 7px;
+  }
+
+  .zoda-mission-game {
+    gap: 14px;
+    padding-bottom: 14px;
+    padding-top: 76px;
+  }
+
+  .zoda-mission-path,
+  .zoda-mission-game__detail {
+    padding: 10px;
+  }
+
+  .zoda-mission-path__track {
+    gap: 7px;
+  }
+
+  .zoda-mission-path__space {
+    width: min(100%, 74px);
+  }
+
+  .zoda-mission-path__icon {
+    height: 44px;
+    width: 50px;
+  }
+
+  .zoda-mission-finisher {
+    grid-template-columns: minmax(0, 1fr) 48px;
+    min-height: 58px;
+    padding: 8px 10px;
+  }
+
+  .zoda-mission-finisher span {
+    font-size: 8.5px;
+  }
+
+  .zoda-mission-finisher strong {
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  .zoda-mission-finisher img {
+    height: 48px;
+    width: 48px;
+  }
+
+  .zoda-mission-game__detail {
+    gap: 10px;
+  }
+
+  .zoda-mission-game__detail h3 {
+    font-size: clamp(28px, 3.4vw, 42px);
+  }
+
+  .zoda-mission-game__detail p {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .zoda-mission-mechanics__grid h3,
+  .zoda-mission-week h3 {
+    font-size: 22px;
+  }
+
+  .zoda-mission-mechanics__grid article,
+  .zoda-mission-materials__cards article,
+  .zoda-mission-week {
+    padding: 10px;
+  }
+
+  .zoda-mission-week li {
+    grid-template-columns: 36px minmax(0, 1fr);
+    padding: 6px 0;
+  }
+
+  .zoda-mission-week li span {
+    font-size: 11px;
+    line-height: 1.25;
+  }
+
+  .zoda-mission-inclusions__grid li {
+    padding: 7px 0;
+  }
+}
+
+@media (max-width: 759px) {
+  .zoda-mission-snap {
+    scroll-snap-type: y proximity;
+  }
+
+  .zoda-mission-section,
+  .zoda-mission-hero {
+    align-content: start;
+  }
+
+  .zoda-mission-hero__card {
+    align-self: end;
+  }
+
+  .zoda-mission-game {
+    gap: 14px;
+  }
+
+  .zoda-mission-game__intro {
+    max-width: calc(100vw - 64px);
+    width: calc(100vw - 64px);
+  }
+
+  .zoda-mission-game__intro h2 {
+    font-size: clamp(22px, 6vw, 28px);
+    max-width: 16ch;
+  }
+
+  .zoda-mission-game__stage {
+    margin-inline: auto;
+    max-width: calc(100vw - 40px);
+    padding: 12px;
+    width: calc(100vw - 40px);
+  }
+
+  .zoda-mission-path,
+  .zoda-mission-game__detail,
+  .zoda-mission-game__rules {
+    width: 100%;
+  }
+
+  .zoda-mission-path__header strong {
+    display: none;
+  }
+
+  .zoda-mission-path__track {
+    grid-auto-columns: 92px;
+    margin-inline: -12px;
+    padding-inline: 12px;
+  }
+
+  .zoda-mission-game__detail {
+    min-height: 0;
+    order: 2;
+    padding-right: 86px;
+  }
+
+  .zoda-mission-game__rules {
+    margin-top: 0;
+    max-width: 326px;
+    order: 0;
+    width: 100%;
+  }
+
+  .zoda-mission-game__detail-icon {
+    height: 52px;
+    max-width: 62px;
+    right: 12px;
+    top: 12px;
+    width: 62px;
+  }
+
+  .zoda-mission-finishers {
+    margin-inline: auto;
+    max-width: 326px;
+    order: 1;
+    width: 100%;
+  }
+
+  .zoda-mission-finisher {
+    grid-template-columns: minmax(0, 1fr) 52px;
+    padding: 10px 8px 10px 12px;
+  }
+
+  .zoda-mission-finisher img {
+    height: 52px;
+    transform: translateX(-10px);
+    width: 52px;
+  }
+}

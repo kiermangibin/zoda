@@ -3,7 +3,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { CartDrawer } from "@/components/zoda/CartDrawer";
 import { SiteHeader } from "@/components/zoda/SiteHeader";
-import { Footer } from "@/components/zoda/Footer";
 import { initSnapController } from "@/components/zoda/snap-controller";
 import sustainabilityVideo from "@/assets/sustainability-video.mp4";
 import technologyButtons from "@/assets/technology-buttons.avif";
@@ -102,7 +101,6 @@ const PANELS: Panel[] = [
   { id: "ikigai-auraform", label: "AuraForm" },
   { id: "ikigai-sustainability", label: "Sustainability" },
   { id: "ikigai-community", label: "Community" },
-  { id: "ikigai-footer", label: "Footer" },
 ];
 
 function IkigaiPage() {
@@ -462,14 +460,6 @@ function IkigaiPage() {
               loading="lazy"
             />
           </div>
-        </section>
-
-        <section
-          id="ikigai-footer"
-          className="zoda-fabrics-snap__section zoda-fabrics-snap__footer"
-          data-snap-panel
-        >
-          <Footer />
         </section>
       </main>
 

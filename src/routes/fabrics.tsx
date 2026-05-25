@@ -3,7 +3,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { CartDrawer } from "@/components/zoda/CartDrawer";
 import { SiteHeader } from "@/components/zoda/SiteHeader";
-import { Footer } from "@/components/zoda/Footer";
 import { FABRICS } from "@/lib/fabrics";
 import { initSnapController } from "@/components/zoda/snap-controller";
 
@@ -36,15 +35,10 @@ function FabricsPage() {
     return cleanup;
   }, []);
 
-  const handleDirectoryClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    handle: string,
-  ) => {
+  const handleDirectoryClick = (event: React.MouseEvent<HTMLAnchorElement>, handle: string) => {
     event.preventDefault();
     const target = event.currentTarget;
-    const coarse =
-      typeof window !== "undefined" &&
-      window.matchMedia("(hover: none)").matches;
+    const coarse = typeof window !== "undefined" && window.matchMedia("(hover: none)").matches;
     if (coarse && !target.classList.contains("is-revealed")) {
       rootRef.current
         ?.querySelectorAll(".zoda-fabrics-card.is-revealed")
@@ -52,19 +46,12 @@ function FabricsPage() {
       target.classList.add("is-revealed");
       return;
     }
-    const root = rootRef.current as
-      | (HTMLDivElement & { __snapGoTo?: (id: string) => void })
-      | null;
+    const root = rootRef.current as (HTMLDivElement & { __snapGoTo?: (id: string) => void }) | null;
     root?.__snapGoTo?.(`fabric-${handle}`);
   };
 
-
   return (
-    <div
-      ref={rootRef}
-      className="zoda-shell zoda-shell--light zoda-fabrics-page"
-      data-snap-root
-    >
+    <div ref={rootRef} className="zoda-shell zoda-shell--light zoda-fabrics-page" data-snap-root>
       <SiteHeader menuId="fabrics-mobile-menu" />
 
       <div className="zoda-circuit zoda-fabrics-dots-host" aria-hidden={false}>
@@ -90,21 +77,12 @@ function FabricsPage() {
               aria-label={f.name}
             />
           ))}
-          <button
-            type="button"
-            className="zoda-circuit__dot"
-            data-snap-dot
-            aria-label="Footer"
-          />
         </nav>
       </div>
 
       <main className="zoda-fabrics-snap" aria-label="Our Fabrics" data-snap-track>
         {/* Hero */}
-        <section
-          className="zoda-fabrics-snap__section zoda-fabrics-hero"
-          data-snap-panel
-        >
+        <section className="zoda-fabrics-snap__section zoda-fabrics-hero" data-snap-panel>
           <img
             className="zoda-fabrics-hero__media"
             src="https://zoda.sg/cdn/shop/files/Home_988c6beb-3796-412b-91e8-2187792c9fb3.png?v=1751556158&width=2000"
@@ -113,9 +91,7 @@ function FabricsPage() {
           <div className="zoda-fabrics-hero__overlay" />
           <div className="zoda-fabrics-hero__content">
             <p className="zoda-fabrics-hero__kicker">Our Fabrics</p>
-            <h1 className="zoda-fabrics-hero__title">
-              Explore the Fabrics Behind ZODA
-            </h1>
+            <h1 className="zoda-fabrics-hero__title">Explore the Fabrics Behind ZODA</h1>
             <p className="zoda-fabrics-hero__lede">
               Engineered for Performance, Comfort and Sustainability.
             </p>
@@ -123,10 +99,7 @@ function FabricsPage() {
         </section>
 
         {/* Tile grid */}
-        <section
-          className="zoda-fabrics-snap__section zoda-fabrics-directory"
-          data-snap-panel
-        >
+        <section className="zoda-fabrics-snap__section zoda-fabrics-directory" data-snap-panel>
           <header className="zoda-fabrics-directory__head">
             <p className="zoda-fabrics-directory__kicker">Directory</p>
             <h2 className="zoda-fabrics-directory__title">Meet every fabric</h2>
@@ -224,13 +197,9 @@ function FabricsPage() {
                       className="zoda-fabrics-feature__accordion-trigger"
                       data-snap-accordion-trigger
                     >
-                      <span className="zoda-fabrics-feature__accordion-index">
-                        {item.index}
-                      </span>
+                      <span className="zoda-fabrics-feature__accordion-index">{item.index}</span>
                       <strong>{item.title}</strong>
-                      <span className="zoda-fabrics-feature__accordion-label">
-                        {item.label}
-                      </span>
+                      <span className="zoda-fabrics-feature__accordion-label">{item.label}</span>
                       <i aria-hidden="true" />
                     </summary>
                     <div
@@ -262,14 +231,6 @@ function FabricsPage() {
             </div>
           </section>
         ))}
-
-        <section
-          id="fabrics-footer"
-          className="zoda-fabrics-snap__section zoda-fabrics-snap__footer"
-          data-snap-panel
-        >
-          <Footer />
-        </section>
       </main>
 
       <CartDrawer />

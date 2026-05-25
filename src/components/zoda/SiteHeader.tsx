@@ -100,6 +100,7 @@ function LightHeader({ menuId }: { menuId: string }) {
           <span className="zoda-site-header__menu" role="menu">
             <Link to="/fabrics">Our Fabrics</Link>
             <Link to="/ikigai">Our Ikigai</Link>
+            <Link to="/mission">The Mission</Link>
           </span>
         </span>
       </nav>
@@ -135,13 +136,19 @@ function LightHeader({ menuId }: { menuId: string }) {
           aria-controls={menuId}
           onClick={() => setMobileOpen((v) => !v)}
         >
-          <span /><span /><span />
+          <span />
+          <span />
+          <span />
         </button>
       </div>
 
-      <div className="zoda-site-header__mobile-panel" id={menuId} onClick={(e) => {
-        if ((e.target as HTMLElement).tagName === "A") setMobileOpen(false);
-      }}>
+      <div
+        className="zoda-site-header__mobile-panel"
+        id={menuId}
+        onClick={(e) => {
+          if ((e.target as HTMLElement).tagName === "A") setMobileOpen(false);
+        }}
+      >
         <a href="/collections/new-arrivals">New Arrivals</a>
         <a href="/collections/womens-collection">Women</a>
         <a href="/collections/mens-collection">Men</a>
@@ -154,6 +161,7 @@ function LightHeader({ menuId }: { menuId: string }) {
         <strong>Who We Are</strong>
         <Link to="/fabrics">Our Fabrics</Link>
         <Link to="/ikigai">Our Ikigai</Link>
+        <Link to="/mission">The Mission</Link>
       </div>
     </header>
   );
@@ -207,7 +215,6 @@ export function SiteHeader({
   }
 
   const headerMarkup = (
-
     <header className="zoda-circuit__chrome zoda-circuit__chrome--global">
       <a className="zoda-circuit__logo" href="/" aria-label="ZODA">
         <img
@@ -224,12 +231,22 @@ export function SiteHeader({
         <a href="/collections/mens-collection">Men</a>
         <a href="/collections/unisex">Unisex</a>
         <span className="zoda-circuit__nav-item">
-          <a className="zoda-circuit__nav-trigger text-lg" href="/collections">Our Products</a>
+          <a className="zoda-circuit__nav-trigger text-lg" href="/collections">
+            Our Products
+          </a>
           <span className="zoda-circuit__nav-menu" role="menu">
-            <a href="/collections/core-performance" role="menuitem">Core Performance</a>
-            <a href="/collections/endurance" role="menuitem">Endurance</a>
-            <a href="/collections/24-7-wear" role="menuitem">24/7 Wear</a>
-            <a href="/collections/accessories" role="menuitem">Accessories</a>
+            <a href="/collections/core-performance" role="menuitem">
+              Core Performance
+            </a>
+            <a href="/collections/endurance" role="menuitem">
+              Endurance
+            </a>
+            <a href="/collections/24-7-wear" role="menuitem">
+              24/7 Wear
+            </a>
+            <a href="/collections/accessories" role="menuitem">
+              Accessories
+            </a>
           </span>
         </span>
         <span className="zoda-circuit__nav-item">
@@ -277,7 +294,9 @@ export function SiteHeader({
             <a href="/collections/mens-collection">Men</a>
             <a href="/collections/unisex">Unisex</a>
             <div className="zoda-circuit__mobile-menu-group">
-              <a href="/collections"><strong>Our Products</strong></a>
+              <a href="/collections">
+                <strong>Our Products</strong>
+              </a>
               <a href="/collections/core-performance">Core Performance</a>
               <a href="/collections/endurance">Endurance</a>
               <a href="/collections/24-7-wear">24/7 Wear</a>
@@ -285,12 +304,8 @@ export function SiteHeader({
             </div>
             <div className="zoda-circuit__mobile-menu-group">
               <strong>Who We Are</strong>
-              <Link to="/fabrics">
-                Our Fabrics
-              </Link>
-              <Link to="/ikigai">
-                Our Ikigai
-              </Link>
+              <Link to="/fabrics">Our Fabrics</Link>
+              <Link to="/ikigai">Our Ikigai</Link>
             </div>
           </div>
         </div>
