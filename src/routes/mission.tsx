@@ -378,6 +378,24 @@ function MissionPage() {
     () => MISSION_DETAILS.find((space) => space.id === selectedSpaceId) ?? MISSION_SPACES[0],
     [selectedSpaceId],
   );
+  const selectedMissionDay = useMemo(() => {
+    if (selectedSpace.day) return selectedSpace;
+    if (selectedSpace.type === "start") return DAILY_MISSION_CHALLENGES[0];
+    if (selectedSpace.id === "badge-initiator") return DAILY_MISSION_CHALLENGES[WEEK_ONE.length - 1];
+    if (selectedSpace.id === "badge-ascender") {
+      return DAILY_MISSION_CHALLENGES[WEEK_ONE.length + WEEK_TWO.length - 1];
+    }
+    if (selectedSpace.type === "final") {
+      return DAILY_MISSION_CHALLENGES[DAILY_MISSION_CHALLENGES.length - 1];
+    }
+
+    return DAILY_MISSION_CHALLENGES.find(
+      (space) =>
+        space.label === selectedSpace.label &&
+        (space.week.split(" / ")[0] === selectedSpace.week.split(" / ")[0] ||
+          selectedSpace.week.includes(space.week.split(" / ")[0])),
+    );
+  }, [selectedSpace]);
   const selectedPlaybookCard = PLAYBOOK_CARDS[selectedPlaybookIndex];
 
   useEffect(() => {
@@ -397,14 +415,7 @@ function MissionPage() {
     setSelectedSpaceId(activeMissionDay.challenge.id);
   }, [activeMissionDay?.challenge.id]);
 
-  const handleStartMission = () => {
-    const startDate = todayKey || getLocalDateKey();
-    window.localStorage.setItem(MISSION_START_STORAGE_KEY, startDate);
-    setTodayKey(startDate);
-    setMissionStartDate(startDate);
-  };
-
-  const handlePickMissionDay = (dayNumber: number) => {
+  const handleStartMission = (dayNumber = 1) => {
     const challenge = DAILY_MISSION_CHALLENGES[dayNumber - 1];
     if (!challenge) return;
     const today = new Date();
@@ -574,34 +585,17 @@ function MissionPage() {
                 </div>
               </dl>
               <div className="zoda-mission-game__actions">
+                <button type="button" onClick={() => handleStartMission(selectedMissionDay?.day)}>
+                  {activeMissionDay ? "Start Here" : "Start Mission"}
+                </button>
                 {activeMissionDay ? (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedSpaceId(activeMissionDay.challenge.id)}
-                    >
-                      Today's Challenge
-                    </button>
-                  </>
-                ) : (
-                  <button type="button" onClick={handleStartMission}>
-                    Start Mission
-                  </button>
-                )}
-              </div>
-              <div className="zoda-mission-game__meter" aria-label="Choose mission day">
-                {DAILY_MISSION_CHALLENGES.map((space) => (
                   <button
-                    key={`meter-${space.id}`}
                     type="button"
-                    className={selectedSpace.id === space.id ? "is-active" : ""}
-                    aria-label={`Start mission on day ${space.day}: ${space.label}`}
-                    aria-pressed={selectedSpace.id === space.id}
-                    onClick={() => handlePickMissionDay(space.day ?? 1)}
+                    onClick={() => setSelectedSpaceId(activeMissionDay.challenge.id)}
                   >
-                    {space.day}
+                    Today's Challenge
                   </button>
-                ))}
+                ) : null}
               </div>
             </aside>
           </div>
