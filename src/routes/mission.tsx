@@ -143,9 +143,89 @@ type MissionSpace = {
   week: string;
   points: string;
   detail: string;
+  day?: number;
   tone?: "green" | "orange" | "gold" | "coral" | "mint" | "black";
   icon?: string;
 };
+
+const MISSION_START_STORAGE_KEY = "zoda-mission-start-date";
+
+function toSlug(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+function getLocalDateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function parseLocalDateKey(value: string) {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+function getMissionDayIndex(startDateKey: string, todayKey: string) {
+  const start = parseLocalDateKey(startDateKey);
+  const today = parseLocalDateKey(todayKey);
+  const diff = Math.floor((today.getTime() - start.getTime()) / 86_400_000);
+  return Math.min(Math.max(diff, 0), DAILY_MISSION_CHALLENGES.length - 1);
+}
+
+function createDailyMissionSpace(
+  item: { name: string; points: string; detail: string },
+  day: number,
+  week: string,
+): MissionSpace {
+  return {
+    id: `day-${String(day).padStart(2, "0")}-${toSlug(item.name)}`,
+    label: item.name,
+    type:
+      item.name === "Beast Mode"
+        ? "beast"
+        : item.name === "Repeat Any"
+          ? "repeat"
+          : item.name === "Bonus"
+            ? "bonus"
+            : "challenge",
+    week,
+    points: item.points,
+    detail: item.detail,
+    day,
+    tone:
+      item.name === "Beast Mode"
+        ? "orange"
+        : item.name === "Repeat Any" || item.name === "Bonus"
+          ? "mint"
+          : "green",
+  };
+}
+
+const DAILY_MISSION_CHALLENGES: MissionSpace[] = [
+  ...WEEK_ONE.map((item, index) => createDailyMissionSpace(item, index + 1, "Week 1 / Foundation")),
+  ...WEEK_TWO.map((item, index) =>
+    createDailyMissionSpace(item, WEEK_ONE.length + index + 1, "Week 2 / Ascend"),
+  ),
+  ...WEEK_THREE.map((item, index) =>
+    createDailyMissionSpace(
+      item,
+      WEEK_ONE.length + WEEK_TWO.length + index + 1,
+      "Week 3 / Dominance",
+    ),
+  ),
+  {
+    id: "day-21-final-mission",
+    label: "Final Mission",
+    type: "final",
+    week: "Day 21 / Arena Proof",
+    points: "Win",
+    detail: "100 burpees, hydrate, wear the bag, post and tag @ZODA_FIT to complete the mission.",
+    day: 21,
+    tone: "orange",
+    icon: finalMissionIcon,
+  },
+];
 
 const MISSION_SPACES: MissionSpace[] = [
   {
@@ -237,6 +317,8 @@ const MISSION_SPACES: MissionSpace[] = [
   },
 ];
 
+const MISSION_DETAILS = [...MISSION_SPACES, ...DAILY_MISSION_CHALLENGES];
+
 const INCLUSIONS = [
   "VentVault shoe garage",
   "ShadeVault hardshell",
@@ -276,8 +358,18 @@ function MissionPage() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [selectedSpaceId, setSelectedSpaceId] = useState("start");
   const [selectedPlaybookIndex, setSelectedPlaybookIndex] = useState(0);
+  const [missionStartDate, setMissionStartDate] = useState<string | null>(null);
+  const [todayKey, setTodayKey] = useState("");
+  const activeMissionDay = useMemo(() => {
+    if (!missionStartDate || !todayKey) return null;
+    const dayIndex = getMissionDayIndex(missionStartDate, todayKey);
+    return {
+      challenge: DAILY_MISSION_CHALLENGES[dayIndex],
+      dayNumber: dayIndex + 1,
+    };
+  }, [missionStartDate, todayKey]);
   const selectedSpace = useMemo(
-    () => MISSION_SPACES.find((space) => space.id === selectedSpaceId) ?? MISSION_SPACES[0],
+    () => MISSION_DETAILS.find((space) => space.id === selectedSpaceId) ?? MISSION_SPACES[0],
     [selectedSpaceId],
   );
   const selectedPlaybookCard = PLAYBOOK_CARDS[selectedPlaybookIndex];
@@ -287,6 +379,31 @@ function MissionPage() {
     const cleanup = initSnapController(rootRef.current, { nextPath: "/" });
     return cleanup;
   }, []);
+
+  useEffect(() => {
+    const today = getLocalDateKey();
+    setTodayKey(today);
+    setMissionStartDate(window.localStorage.getItem(MISSION_START_STORAGE_KEY));
+  }, []);
+
+  useEffect(() => {
+    if (!activeMissionDay) return;
+    setSelectedSpaceId(activeMissionDay.challenge.id);
+  }, [activeMissionDay?.challenge.id]);
+
+  const handleStartMission = () => {
+    const startDate = todayKey || getLocalDateKey();
+    window.localStorage.setItem(MISSION_START_STORAGE_KEY, startDate);
+    setTodayKey(startDate);
+    setMissionStartDate(startDate);
+  };
+
+  const handleRestartMission = () => {
+    const startDate = getLocalDateKey();
+    window.localStorage.setItem(MISSION_START_STORAGE_KEY, startDate);
+    setTodayKey(startDate);
+    setMissionStartDate(startDate);
+  };
 
   return (
     <div
@@ -426,6 +543,15 @@ function MissionPage() {
               <span>{selectedSpace.week}</span>
               <h3>{selectedSpace.label}</h3>
               <p>{selectedSpace.detail}</p>
+              {activeMissionDay ? (
+                <div className="zoda-mission-game__daily">
+                  <span>Mission Active</span>
+                  <strong>
+                    Day {activeMissionDay.dayNumber} / {DAILY_MISSION_CHALLENGES.length}
+                  </strong>
+                  <small>Started {missionStartDate}</small>
+                </div>
+              ) : null}
               <dl>
                 <div>
                   <dt>Points</dt>
@@ -436,8 +562,27 @@ function MissionPage() {
                   <dd>{selectedSpace.type}</dd>
                 </div>
               </dl>
+              <div className="zoda-mission-game__actions">
+                {activeMissionDay ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedSpaceId(activeMissionDay.challenge.id)}
+                    >
+                      Today's Challenge
+                    </button>
+                    <button type="button" onClick={handleRestartMission}>
+                      Restart
+                    </button>
+                  </>
+                ) : (
+                  <button type="button" onClick={handleStartMission}>
+                    Start Mission
+                  </button>
+                )}
+              </div>
               <div className="zoda-mission-game__meter" aria-hidden="true">
-                {MISSION_SPACES.map((space) => (
+                {(activeMissionDay ? DAILY_MISSION_CHALLENGES : MISSION_SPACES).map((space) => (
                   <span
                     key={`meter-${space.id}`}
                     className={selectedSpace.id === space.id ? "is-active" : ""}

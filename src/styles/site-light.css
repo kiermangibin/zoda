@@ -5899,6 +5899,67 @@ button.zoda-product-card__swatch.is-active {
   margin: 0;
 }
 
+.zoda-mission-game__daily {
+  background: rgba(85, 205, 161, 0.14);
+  border: 1.5px solid #111;
+  color: #111;
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+}
+
+.zoda-mission-game__daily span,
+.zoda-mission-game__daily strong,
+.zoda-mission-game__daily small,
+.zoda-mission-game__actions button {
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.zoda-mission-game__daily span {
+  color: var(--mission-orange);
+  font-size: 9px;
+}
+
+.zoda-mission-game__daily strong {
+  font-size: 13px;
+}
+
+.zoda-mission-game__daily small {
+  color: rgba(17, 17, 17, 0.58);
+  font-size: 9px;
+}
+
+.zoda-mission-game__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.zoda-mission-game__actions button {
+  background: #111;
+  border: 1.5px solid #111;
+  color: #fff;
+  cursor: pointer;
+  font-size: 10px;
+  padding: 10px 12px;
+}
+
+.zoda-mission-game__actions button + button {
+  background: transparent;
+  color: #111;
+}
+
+.zoda-mission-game__actions button:hover,
+.zoda-mission-game__actions button:focus-visible {
+  background: var(--accent);
+  color: #111;
+  outline: 0;
+}
+
 .zoda-mission-game__detail dl div {
   border: 1.5px solid #111;
   min-width: 0;
