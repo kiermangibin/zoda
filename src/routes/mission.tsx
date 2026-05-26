@@ -149,6 +149,7 @@ type MissionSpace = {
 };
 
 const MISSION_START_STORAGE_KEY = "zoda-mission-start-date";
+const MISSION_PLAYBOOK_STORAGE_KEY = "zoda-mission-playbook-checks";
 
 function toSlug(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -365,6 +366,7 @@ function MissionPage() {
   const [selectedSpaceId, setSelectedSpaceId] = useState("start");
   const [selectedPlaybookIndex, setSelectedPlaybookIndex] = useState(0);
   const [missionStartDate, setMissionStartDate] = useState<string | null>(null);
+  const [checkedPlaybookItems, setCheckedPlaybookItems] = useState<string[]>([]);
   const [todayKey, setTodayKey] = useState("");
   const activeMissionDay = useMemo(() => {
     if (!missionStartDate || !todayKey) return null;
@@ -408,6 +410,13 @@ function MissionPage() {
     const today = getLocalDateKey();
     setTodayKey(today);
     setMissionStartDate(window.localStorage.getItem(MISSION_START_STORAGE_KEY));
+
+    try {
+      const savedChecks = window.localStorage.getItem(MISSION_PLAYBOOK_STORAGE_KEY);
+      setCheckedPlaybookItems(savedChecks ? JSON.parse(savedChecks) : []);
+    } catch {
+      setCheckedPlaybookItems([]);
+    }
   }, []);
 
   useEffect(() => {
@@ -425,6 +434,16 @@ function MissionPage() {
     setTodayKey(currentTodayKey);
     setMissionStartDate(startDate);
     setSelectedSpaceId(challenge.id);
+  };
+
+  const togglePlaybookItem = (itemId: string) => {
+    setCheckedPlaybookItems((currentItems) => {
+      const nextItems = currentItems.includes(itemId)
+        ? currentItems.filter((currentItem) => currentItem !== itemId)
+        : [...currentItems, itemId];
+      window.localStorage.setItem(MISSION_PLAYBOOK_STORAGE_KEY, JSON.stringify(nextItems));
+      return nextItems;
+    });
   };
 
   return (
@@ -638,6 +657,8 @@ function MissionPage() {
                   title={selectedPlaybookCard.title}
                   badge={selectedPlaybookCard.badge}
                   items={selectedPlaybookCard.items}
+                  checkedItems={checkedPlaybookItems}
+                  onToggleItem={togglePlaybookItem}
                 />
               ) : (
                 <MissionPlaybookCard
@@ -645,6 +666,8 @@ function MissionPage() {
                   title={selectedPlaybookCard.title}
                   badge={selectedPlaybookCard.badge}
                   items={selectedPlaybookCard.items}
+                  checkedItems={checkedPlaybookItems}
+                  onToggleItem={togglePlaybookItem}
                 />
               )}
             </div>
@@ -766,10 +789,14 @@ function MissionWeek({
   title,
   badge,
   items,
+  checkedItems,
+  onToggleItem,
 }: {
   title: string;
   badge: string;
   items: Array<{ name: string; points: string; detail: string }>;
+  checkedItems: string[];
+  onToggleItem: (itemId: string) => void;
 }) {
   return (
     <article className="zoda-mission-week">
@@ -779,14 +806,26 @@ function MissionWeek({
       </div>
       <div className="zoda-mission-week__body">
         <ul>
-          {items.map((item) => (
-            <li key={`${title}-${item.name}`}>
-              <i aria-hidden="true" />
-              <b>{item.name}</b>
-              <span>{item.detail}</span>
-              <strong>{item.points}</strong>
-            </li>
-          ))}
+          {items.map((item) => {
+            const itemId = `${badge}-${item.name}`;
+            const isChecked = checkedItems.includes(itemId);
+
+            return (
+              <li key={itemId} className={isChecked ? "is-checked" : undefined}>
+                <button
+                  type="button"
+                  className="zoda-mission-week__check"
+                  aria-pressed={isChecked}
+                  onClick={() => onToggleItem(itemId)}
+                >
+                  <i aria-hidden="true" />
+                  <b>{item.name}</b>
+                  <span>{item.detail}</span>
+                  <strong>{item.points}</strong>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </article>
@@ -797,10 +836,14 @@ function MissionPlaybookCard({
   title,
   badge,
   items,
+  checkedItems,
+  onToggleItem,
 }: {
   title: string;
   badge: string;
   items: string[];
+  checkedItems: string[];
+  onToggleItem: (itemId: string) => void;
 }) {
   if (title === "Final Mission") {
     return (
@@ -810,13 +853,26 @@ function MissionPlaybookCard({
           <img src={zodaZLogo} alt="" aria-hidden="true" />
           <h3>{title}</h3>
         </div>
-        <p>
-          100 burpees. Hydrate.
-          <br />
-          Wear ZODA Mission Bag. Post & tag
-          <br />
-          @ZODA_FIT + #ZODAMISSION.
-        </p>
+        <ul className="zoda-mission-week__final-list">
+          {items.map((item) => {
+            const itemId = `${badge}-${item}`;
+            const isChecked = checkedItems.includes(itemId);
+
+            return (
+              <li key={itemId} className={isChecked ? "is-checked" : undefined}>
+                <button
+                  type="button"
+                  className="zoda-mission-week__check"
+                  aria-pressed={isChecked}
+                  onClick={() => onToggleItem(itemId)}
+                >
+                  <i aria-hidden="true" />
+                  <span>{item}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       </article>
     );
   }
@@ -829,12 +885,25 @@ function MissionPlaybookCard({
       </div>
       <div className="zoda-mission-week__body">
         <ul>
-          {items.map((item, index) => (
-            <li key={`${title}-${item}`}>
-              <strong>{String(index + 1).padStart(2, "0")}</strong>
-              <span>{item}</span>
-            </li>
-          ))}
+          {items.map((item, index) => {
+            const itemId = `${badge}-${item}`;
+            const isChecked = checkedItems.includes(itemId);
+
+            return (
+              <li key={itemId} className={isChecked ? "is-checked" : undefined}>
+                <button
+                  type="button"
+                  className="zoda-mission-week__check"
+                  aria-pressed={isChecked}
+                  onClick={() => onToggleItem(itemId)}
+                >
+                  <i aria-hidden="true" />
+                  <strong>{String(index + 1).padStart(2, "0")}</strong>
+                  <span>{item}</span>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </article>
