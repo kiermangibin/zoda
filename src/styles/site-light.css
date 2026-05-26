@@ -5912,7 +5912,6 @@ button.zoda-product-card__swatch.is-active {
 .zoda-mission-game__daily strong,
 .zoda-mission-game__daily small,
 .zoda-mission-game__actions button,
-.zoda-mission-game__actions-note,
 .zoda-mission-game__meter button {
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-weight: 900;
@@ -5953,13 +5952,6 @@ button.zoda-product-card__swatch.is-active {
 .zoda-mission-game__actions button + button {
   background: transparent;
   color: #111;
-}
-
-.zoda-mission-game__actions-note {
-  align-items: center;
-  color: rgba(17, 17, 17, 0.62);
-  display: inline-flex;
-  font-size: 9px;
 }
 
 .zoda-mission-game__actions button:hover,

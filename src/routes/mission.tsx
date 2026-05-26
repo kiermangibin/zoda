@@ -582,7 +582,6 @@ function MissionPage() {
                     >
                       Today's Challenge
                     </button>
-                    <span className="zoda-mission-game__actions-note">Pick a day below</span>
                   </>
                 ) : (
                   <button type="button" onClick={handleStartMission}>
