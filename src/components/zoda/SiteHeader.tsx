@@ -265,6 +265,9 @@ export function SiteHeader({
             <Link to="/ikigai" role="menuitem">
               Our Ikigai
             </Link>
+            <Link to="/mission" role="menuitem">
+              The Mission
+            </Link>
           </span>
         </span>
       </nav>
@@ -306,6 +309,7 @@ export function SiteHeader({
               <strong>Who We Are</strong>
               <Link to="/fabrics">Our Fabrics</Link>
               <Link to="/ikigai">Our Ikigai</Link>
+              <Link to="/mission">The Mission</Link>
             </div>
           </div>
         </div>

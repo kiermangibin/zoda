@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Box, Layers3, Medal, PackageCheck, Play, ShieldCheck } from "lucide-react";
+import { Box, ChevronLeft, ChevronRight, Layers3, Medal, PackageCheck, Play } from "lucide-react";
 
 import { CartDrawer } from "@/components/zoda/CartDrawer";
 import { SiteHeader } from "@/components/zoda/SiteHeader";
@@ -10,6 +10,7 @@ import finalMissionIcon from "@/assets/Final Mission.png";
 import beastTrophy from "@/assets/finisher-trophy.png";
 import initiatorTrophy from "@/assets/Initiator-trophy.png";
 import sustainabilityVideo from "@/assets/sustainability-video.mp4";
+import zodaZLogo from "@/assets/zoda-Z.png";
 
 export const Route = createFileRoute("/mission")({
   head: () => ({
@@ -74,47 +75,65 @@ const FINISHER_TIERS = [
 ];
 
 const WEEK_ONE = [
-  { name: "Clean Fuel", points: "+30", detail: "No sugar and no processed food for 48h." },
-  { name: "Move Daily", points: "+20", detail: "45-minute walk, no phone except music." },
-  { name: "Focus Discipline", points: "+20", detail: "Four-hour screen-free block." },
-  { name: "Protein Standard", points: "+20", detail: "1.5x bodyweight protein minimum." },
-  { name: "Sleep Lock", points: "+20", detail: "Seven hours strict." },
+  { name: "Clean Fuel", points: "+30", detail: "No sugar + no processed food (48h)." },
+  { name: "Move Daily", points: "+20", detail: "45-minute walk (no phone except music)." },
+  { name: "Focus Discipline", points: "+20", detail: "4 hours screen-free block." },
+  { name: "Protein Standard", points: "+20", detail: "1.5x B.W. protein minimum." },
+  { name: "Sleep Lock", points: "+20", detail: "7 hours strict." },
   {
     name: "Beast Mode",
     points: "+60",
-    detail: "Hit all four: no sugar, 3L water, 45-minute movement and protein target.",
+    detail:
+      "Hit all 4: no sugar, +3L water, 45-min movement, 1.5x B.W. protein hit. Miss one -> fail.",
   },
 ];
 
 const WEEK_TWO = [
-  { name: "Base Pace", points: "+30", detail: "5km under 6:00 pace." },
+  { name: "Repeat Any", points: "+20", detail: "Repeat any challenge." },
+  { name: "Base Pace", points: "+30", detail: "5km under 6:00." },
   { name: "Push Session", points: "+25", detail: "30 burpees under control." },
-  { name: "Clean Fuel 2.0", points: "+25", detail: "No sugar and 1.75x bodyweight protein." },
+  { name: "Clean Fuel 2.0", points: "+25", detail: "No sugar + 1.75x B.W. protein." },
   { name: "Focus Lock", points: "+20", detail: "Six hours with no social media." },
-  { name: "Repeat Any", points: "+20", detail: "Player chooses any challenge." },
+  { name: "Bonus", points: "+20", detail: "Player chooses any challenge." },
   { name: "Iron Distance", points: "+25", detail: "Farmers carry 24kg x2 for 100m." },
   {
     name: "Beast Mode",
     points: "+75",
-    detail: "50 burpees, 2x bodyweight protein, 3L water and six-hour screen control.",
+    detail: "50 burpees, 2x B.W. protein hit, 3L water, 6h screen control. Miss one -> fail.",
   },
 ];
 
 const WEEK_THREE = [
   { name: "Pressure Stack", points: "+25", detail: "25 diamond and 25 standard pushups." },
-  { name: "Burpee War", points: "+30", detail: "75 burpees under 15 minutes." },
-  { name: "Cold Control", points: "+20", detail: "Ice bath for four to five minutes." },
+  { name: "Burpee War", points: "+30", detail: "75 burpees. Hit: under 15 min." },
+  { name: "Cold Control", points: "+20", detail: "Ice bath (4-5 min)." },
   { name: "Pull Dominance", points: "+30", detail: "30 pullups or 10 muscle ups." },
   {
     name: "Recovery Stack",
     points: "+20",
-    detail: "Ice bath for five minutes and seven hours sleep.",
+    detail: "Ice bath (5 min) + 7h sleep.",
   },
   {
     name: "Overdrive",
     points: "+25",
-    detail: "Burn 750 calories and hit 2.0x bodyweight protein.",
+    detail: "Burn 750 cals + 2.0x B.W. protein.",
   },
+];
+
+const RULEBOOK = [
+  "Every hit adds +1 to your streak.",
+  "One fail resets it.",
+  "3 / 5 / 7 hits = +10 / +20 / +30 points.",
+  "12 hits = +50 bonus + 1 Beast Save.",
+  "Hit = full points. Fail = half points.",
+  "No points if you didn't attempt.",
+];
+
+const FINAL_MISSION_STEPS = [
+  "100 burpees.",
+  "Hydrate.",
+  "Wear ZODA Mission Bag.",
+  "Post & tag @ZODA_FIT + #ZODAMISSION.",
 ];
 
 type MissionSpace = {
@@ -170,11 +189,22 @@ const MISSION_SPACES: MissionSpace[] = [
     id: `week-2-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
     label: item.name,
     type:
-      item.name === "Beast Mode" ? "beast" : item.name === "Repeat Any" ? "repeat" : "challenge",
+      item.name === "Beast Mode"
+        ? "beast"
+        : item.name === "Repeat Any"
+          ? "repeat"
+          : item.name === "Bonus"
+            ? "bonus"
+            : "challenge",
     week: "Week 2 / Ascender",
     points: item.points,
     detail: item.detail,
-    tone: item.name === "Beast Mode" ? "orange" : item.name === "Repeat Any" ? "mint" : "green",
+    tone:
+      item.name === "Beast Mode"
+        ? "orange"
+        : item.name === "Repeat Any" || item.name === "Bonus"
+          ? "mint"
+          : "green",
   })),
   {
     id: "badge-ascender",
@@ -208,53 +238,49 @@ const MISSION_SPACES: MissionSpace[] = [
 ];
 
 const INCLUSIONS = [
-  "Official 21-day mission board",
-  "Mission Playbook challenge cards",
-  "Badge tier path: Initiator, Ascender, Beast",
-  "Mission Bag blueprint",
-  "Care and mission-ready tag system",
-  "ZODA arena prompts for post-and-tag completion",
-];
-
-const BLUEPRINT = [
   "VentVault shoe garage",
   "ShadeVault hardshell",
   "LaptopVault compartment",
-  "ShieldPocket passport pocket",
+  "ShieldPocket passport",
   "QuickDraw phone pocket",
   "HeatLock meal sleeve",
-  "Side pockets for bottle and umbrella",
+  "Side pockets for bottle & umbrella",
   "AirRidge cool-back panel",
   "StackBack luggage pass through",
   "TriFit shoulder adjustment system",
 ];
 
-const MATERIALS = [
+const MATERIAL_FACTS = [
+  { label: "Load stability rating", value: "11 / 10" },
+  { label: "Impact tolerance", value: "High" },
+  { label: "Ventilation isolation", value: "Active" },
+  { label: "Thermal control", value: "100%" },
+  { label: "Access speed", value: '0.8"' },
+  { label: "Style compromise", value: "Not found" },
+];
+
+const PLAYBOOK_CARDS = [
+  { type: "week" as const, title: "Foundation", badge: "Week 1", items: WEEK_ONE },
+  { type: "week" as const, title: "Ascend", badge: "Week 2", items: WEEK_TWO },
+  { type: "week" as const, title: "Dominance", badge: "Week 3", items: WEEK_THREE },
   {
-    label: "Main fabric",
-    value: "Ultra premium military grade DWR Cordura",
+    type: "note" as const,
+    title: "Final Mission",
+    badge: "Arena Proof",
+    items: FINAL_MISSION_STEPS,
   },
-  {
-    label: "Lining / sealed system",
-    value: "LIBO sealed system for protected internal organization",
-  },
-  {
-    label: "Structure",
-    value: "Hardshell shade vault, thermal meal sleeve and load-tested pocket system",
-  },
-  {
-    label: "Validation",
-    value: "17 rounds of load testing, 4 revision cycles and 96 prototype adjustments",
-  },
+  { type: "note" as const, title: "Streak Hit Rulebook", badge: "Rulebook", items: RULEBOOK },
 ];
 
 function MissionPage() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [selectedSpaceId, setSelectedSpaceId] = useState("start");
+  const [selectedPlaybookIndex, setSelectedPlaybookIndex] = useState(0);
   const selectedSpace = useMemo(
     () => MISSION_SPACES.find((space) => space.id === selectedSpaceId) ?? MISSION_SPACES[0],
     [selectedSpaceId],
   );
+  const selectedPlaybookCard = PLAYBOOK_CARDS[selectedPlaybookIndex];
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -432,15 +458,71 @@ function MissionPage() {
               <Medal size={15} aria-hidden="true" /> Official Mission Playbook
             </p>
             <h2>Three weeks. Three tiers.</h2>
-            <p>
-              Foundation builds control, Ascend raises the load, Dominance finishes with pressure,
-              cold control, pull work and the final public proof.
-            </p>
           </div>
-          <div className="zoda-mission-playbook__cards" data-snap-accordion>
-            <MissionWeek title="Week 1 Foundation" badge="Initiator" items={WEEK_ONE} />
-            <MissionWeek title="Week 2 Ascend" badge="Ascender" items={WEEK_TWO} />
-            <MissionWeek title="Week 3 Dominance" badge="Beast" items={WEEK_THREE} />
+          <div className="zoda-mission-playbook__cards" aria-label="Official mission playbook">
+            <button
+              type="button"
+              className="zoda-mission-playbook__nav"
+              aria-label="Previous playbook card"
+              onClick={() =>
+                setSelectedPlaybookIndex((index) =>
+                  index === 0 ? PLAYBOOK_CARDS.length - 1 : index - 1,
+                )
+              }
+            >
+              <ChevronLeft size={22} aria-hidden="true" />
+            </button>
+            <div className="zoda-mission-playbook__sheet">
+              {selectedPlaybookCard.type === "week" ? (
+                <MissionWeek
+                  key={selectedPlaybookCard.badge}
+                  title={selectedPlaybookCard.title}
+                  badge={selectedPlaybookCard.badge}
+                  items={selectedPlaybookCard.items}
+                />
+              ) : (
+                <MissionPlaybookCard
+                  key={selectedPlaybookCard.badge}
+                  title={selectedPlaybookCard.title}
+                  badge={selectedPlaybookCard.badge}
+                  items={selectedPlaybookCard.items}
+                />
+              )}
+            </div>
+            <button
+              type="button"
+              className="zoda-mission-playbook__nav"
+              aria-label="Next playbook card"
+              onClick={() =>
+                setSelectedPlaybookIndex((index) =>
+                  index === PLAYBOOK_CARDS.length - 1 ? 0 : index + 1,
+                )
+              }
+            >
+              <ChevronRight size={22} aria-hidden="true" />
+            </button>
+            <div className="zoda-mission-playbook__count" aria-live="polite">
+              {String(selectedPlaybookIndex + 1).padStart(2, "0")} /{" "}
+              {String(PLAYBOOK_CARDS.length).padStart(2, "0")}
+            </div>
+            <div className="zoda-mission-playbook__dots" aria-label="Playbook pages">
+              {PLAYBOOK_CARDS.map((card, index) => (
+                <button
+                  key={card.badge}
+                  type="button"
+                  className={
+                    index === selectedPlaybookIndex
+                      ? "zoda-mission-playbook__dot is-active"
+                      : "zoda-mission-playbook__dot"
+                  }
+                  aria-label={`Show ${card.badge}: ${card.title}`}
+                  aria-pressed={index === selectedPlaybookIndex}
+                  onClick={() => setSelectedPlaybookIndex(index)}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -454,17 +536,15 @@ function MissionPage() {
               <PackageCheck size={15} aria-hidden="true" /> Mission Bag Inclusions
             </p>
             <h2>Everything loaded for the arena.</h2>
-            <p>
-              The bag is the physical anchor for the mission: organized, protected, ready and built
-              to carry the standard outside the board.
-            </p>
           </div>
           <div className="zoda-mission-inclusions__grid">
             <ul>
-              {INCLUSIONS.map((item) => (
+              {INCLUSIONS.map((item, index) => (
                 <li key={item}>
                   <Box size={16} aria-hidden="true" />
-                  <span>{item}</span>
+                  <span>
+                    {String(index + 1).padStart(2, "0")} {item}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -476,35 +556,43 @@ function MissionPage() {
           className="zoda-fabrics-snap__section zoda-mission-section zoda-mission-materials"
           data-snap-panel
         >
-          <div className="zoda-mission-copy">
+          <div className="zoda-mission-materials__statement">
             <p className="zoda-mission-kicker">
               <Layers3 size={15} aria-hidden="true" /> Bag Materials
             </p>
-            <h2>The Mission blueprint.</h2>
-            <p>
-              Material notes and compartment language are adapted from the supplied hangtag,
-              packaging and blueprint reference.
-            </p>
+            <h2>Leave the mess. Carry your mission.</h2>
+            <p>This bag is built for athletes who move with intent and live with a purpose.</p>
+            <p>Organized. Protected. Ready. Because your standards don't switch off.</p>
+            <strong>Warrior's Base</strong>
           </div>
-          <div className="zoda-mission-materials__layout">
-            <div className="zoda-mission-materials__cards">
-              {MATERIALS.map((material) => (
-                <article key={material.label}>
-                  <ShieldCheck size={18} aria-hidden="true" />
-                  <span>{material.label}</span>
-                  <p>{material.value}</p>
-                </article>
-              ))}
+          <div className="zoda-mission-materials__facts" aria-label="Mission bag material facts">
+            <div className="zoda-mission-materials__facts-head">
+              <span>Serving size</span>
+              <strong>1 Mission Bag</strong>
             </div>
-            <div
-              className="zoda-mission-blueprint-list"
-              aria-label="Mission Bag blueprint compartments"
-            >
-              {BLUEPRINT.map((item, index) => (
-                <span key={item}>
-                  {String(index + 1).padStart(2, "0")} {item}
-                </span>
+            <i aria-hidden="true" />
+            <small>% Daily Value*</small>
+            <dl>
+              {MATERIAL_FACTS.map((fact) => (
+                <div key={fact.label}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
               ))}
+            </dl>
+            <i aria-hidden="true" />
+            <p>
+              *Calculated from champion energy. Built to perform even better with a complete ZODA
+              set.
+            </p>
+            <div className="zoda-mission-materials__ingredients">
+              <span>Ingredients:</span>
+              <p>
+                Ultra premium military grade DWR Cordura, LIBO sealed system, seventeen (17) rounds
+                of load testing, four (4) revision cycles, ninety six (96) prototype adjustments,
+                one (1) relentless standard.
+              </p>
+              <strong>Sleep: optional</strong>
             </div>
           </div>
         </section>
@@ -534,11 +622,58 @@ function MissionWeek({
         <ul>
           {items.map((item) => (
             <li key={`${title}-${item.name}`}>
+              <i aria-hidden="true" />
+              <b>{item.name}</b>
+              <span>{item.detail}</span>
               <strong>{item.points}</strong>
-              <span>
-                <b>{item.name}</b>
-                {item.detail}
-              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  );
+}
+
+function MissionPlaybookCard({
+  title,
+  badge,
+  items,
+}: {
+  title: string;
+  badge: string;
+  items: string[];
+}) {
+  if (title === "Final Mission") {
+    return (
+      <article className="zoda-mission-week zoda-mission-week--note zoda-mission-week--final">
+        <img src={finalMissionIcon} alt="" aria-hidden="true" />
+        <div className="zoda-mission-week__final-title">
+          <img src={zodaZLogo} alt="" aria-hidden="true" />
+          <h3>{title}</h3>
+        </div>
+        <p>
+          100 burpees. Hydrate.
+          <br />
+          Wear ZODA Mission Bag. Post & tag
+          <br />
+          @ZODA_FIT + #ZODAMISSION.
+        </p>
+      </article>
+    );
+  }
+
+  return (
+    <article className="zoda-mission-week zoda-mission-week--note">
+      <div className="zoda-mission-week__head">
+        <span>{badge}</span>
+        <h3>{title}</h3>
+      </div>
+      <div className="zoda-mission-week__body">
+        <ul>
+          {items.map((item, index) => (
+            <li key={`${title}-${item}`}>
+              <strong>{String(index + 1).padStart(2, "0")}</strong>
+              <span>{item}</span>
             </li>
           ))}
         </ul>

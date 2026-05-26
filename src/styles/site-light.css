@@ -5402,6 +5402,11 @@ button.zoda-product-card__swatch.is-active {
   padding: 88px 14px 22px;
 }
 
+.zoda-mission-section:not(.zoda-mission-hero) {
+  align-content: center;
+  justify-content: center;
+}
+
 .zoda-mission-hero {
   align-content: end;
   min-height: 100vh;
@@ -5979,9 +5984,10 @@ button.zoda-product-card__swatch.is-active {
 
 .zoda-mission-game__rules li span {
   color: #111;
-  font-size: 8.5px;
+  font-size: 10px;
   line-height: 1.18;
   overflow-wrap: anywhere;
+  text-align: left;
 }
 
 .zoda-mission-finishers {
@@ -6051,9 +6057,13 @@ button.zoda-product-card__swatch.is-active {
 .zoda-mission-mechanics__grid article,
 .zoda-mission-materials__cards article,
 .zoda-mission-week {
-  background: #f8f5ea;
-  border: 1.5px solid #111;
+  background: #f3f3f1;
+  border: 0;
   color: #111;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100%;
+  min-height: 0;
   padding: 14px;
 }
 
@@ -6092,30 +6102,132 @@ button.zoda-product-card__swatch.is-active {
   gap: 12px;
 }
 
+.zoda-mission-playbook__cards {
+  align-items: center;
+  grid-template-columns: 42px minmax(0, 1fr) 42px;
+  grid-template-rows: minmax(0, auto) auto auto;
+}
+
+.zoda-mission-playbook__sheet {
+  display: grid;
+  height: clamp(300px, 38vh, 450px);
+  min-width: 0;
+}
+
+.zoda-mission-playbook__nav {
+  align-items: center;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  padding: 0;
+  transition:
+    border-color 180ms ease,
+    background 160ms ease,
+    color 160ms ease;
+  width: 44px;
+}
+
+.zoda-mission-playbook__nav:hover,
+.zoda-mission-playbook__nav:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.zoda-mission-playbook__nav:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.zoda-mission-playbook__count {
+  color: rgba(255, 255, 255, 0.62);
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  font-weight: 900;
+  grid-column: 2;
+  justify-self: center;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+
+.zoda-mission-playbook__dots {
+  display: none;
+}
+
+.zoda-mission-playbook__dot {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.68);
+  cursor: pointer;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 10px;
+  font-weight: 900;
+  height: 30px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0;
+  text-align: center;
+  width: 38px;
+}
+
+.zoda-mission-playbook__dot.is-active,
+.zoda-mission-playbook__dot:hover,
+.zoda-mission-playbook__dot:focus-visible {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #050505;
+}
+
+.zoda-mission-playbook__dot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .zoda-mission-week__head {
-  align-items: start;
+  align-items: baseline;
   display: flex;
-  gap: 12px;
-  justify-content: space-between;
+  gap: 10px;
+  justify-content: flex-start;
 }
 
 .zoda-mission-week__head span {
-  background: var(--mission-orange);
-  color: #fff;
+  background: transparent;
+  color: var(--mission-orange);
   flex: 0 0 auto;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .zoda-mission-week__body {
   display: grid;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 00px;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.zoda-mission-week__body::-webkit-scrollbar {
+  height: 0;
+  width: 0;
 }
 
 .zoda-mission-week li {
-  border-top: 1.5px solid #111;
-  display: grid;
-  gap: 7px;
-  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  border-bottom: 1.5px solid #111;
+  border-top: 0;
+  display: flex;
+  gap: 8px;
   padding: 8px 0;
 }
 
@@ -6123,25 +6235,102 @@ button.zoda-product-card__swatch.is-active {
   border-top: 0;
 }
 
+.zoda-mission-week li i {
+  border: 2px solid #111;
+  display: block;
+  flex: 0 0 auto;
+  height: 12px;
+  width: 12px;
+}
+
 .zoda-mission-week li strong {
-  color: var(--mission-orange);
+  color: var(--accent);
+  flex: 0 0 auto;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-size: 12px;
+  justify-self: end;
+  margin-left: auto;
 }
 
 .zoda-mission-week li span {
-  color: rgba(17, 17, 17, 0.68);
+  color: #111;
+  flex: 1 1 auto;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-size: 12px;
+  font-weight: 900;
   line-height: 1.34;
+  min-width: 0;
+  text-transform: uppercase;
 }
 
 .zoda-mission-week li b {
-  color: #111;
+  color: var(--mission-orange);
   display: block;
+  flex: 0 0 auto;
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  margin-bottom: 3px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.zoda-mission-week--note li {
+  display: flex;
+}
+
+.zoda-mission-week--note li strong {
+  color: var(--mission-orange);
+  justify-self: start;
+  margin-left: 0;
+}
+
+.zoda-mission-week--note li span {
+  color: rgba(17, 17, 17, 0.7);
+  font-weight: 800;
+  text-transform: none;
+}
+
+.zoda-mission-week--final {
+  align-content: center;
+  grid-template-rows: auto auto auto;
+  justify-items: center;
+  padding: clamp(28px, 4vw, 48px);
+  text-align: center;
+}
+
+.zoda-mission-week--final img {
+  height: clamp(62px, 8vw, 88px);
+  object-fit: contain;
+  width: clamp(72px, 9vw, 102px);
+}
+
+.zoda-mission-week__final-title {
+  align-items: center;
+  display: inline-flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.zoda-mission-week__final-title img {
+  height: clamp(20px, 2.3vw, 30px);
+  object-fit: contain;
+  width: clamp(28px, 3vw, 40px);
+}
+
+.zoda-mission-week--final h3 {
+  font-size: clamp(18px, 2vw, 24px);
+  margin: 0;
+}
+
+.zoda-mission-week--final p {
+  color: #111;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: clamp(13px, 1.35vw, 17px);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 18px 0 0;
   text-transform: uppercase;
 }
 
@@ -6158,7 +6347,7 @@ button.zoda-product-card__swatch.is-active {
 .zoda-mission-inclusions__grid ul::before {
   border-bottom: 1.5px solid #111;
   color: #111;
-  content: "SERVING SIZE 1 MISSION BAG";
+  content: "THE MISSION BLUEPRINT";
   font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
   font-size: 12px;
   font-weight: 900;
@@ -6182,6 +6371,140 @@ button.zoda-product-card__swatch.is-active {
 .zoda-mission-materials__cards article {
   display: grid;
   gap: 8px;
+}
+
+.zoda-mission-materials__statement,
+.zoda-mission-materials__facts {
+  color: #111;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  position: relative;
+  z-index: 2;
+}
+
+.zoda-mission-materials__statement {
+  align-self: center;
+  color: #fff;
+  display: grid;
+  gap: clamp(16px, 2.5vh, 28px);
+  max-width: 520px;
+}
+
+.zoda-mission-materials__statement .zoda-mission-kicker {
+  color: var(--accent);
+}
+
+.zoda-mission-materials__statement h2 {
+  color: #fff;
+  font-family: var(--zoda-font-display, "Euphora", "Commuters Sans", Arial, sans-serif);
+  font-size: clamp(24px, 5.4vw, 38px);
+  font-weight: 800;
+  line-height: 0.98;
+  margin: 0;
+  max-width: 13ch;
+  text-transform: uppercase;
+}
+
+.zoda-mission-materials__statement p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(14px, 1.25vw, 18px);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1.38;
+  margin: 0;
+  max-width: 31ch;
+  text-transform: uppercase;
+}
+
+.zoda-mission-materials__statement > strong {
+  align-items: center;
+  background: #000;
+  color: #fff;
+  display: flex;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  min-height: 76px;
+  padding: 18px 26px;
+  text-transform: uppercase;
+  width: min(100%, 440px);
+}
+
+.zoda-mission-materials__facts {
+  align-self: center;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(0, 0, 0, 0.045), transparent 4%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.02)),
+    var(--mission-paper);
+  border: 2px solid #111;
+  box-shadow: 0 22px 58px rgba(0, 0, 0, 0.36);
+  display: grid;
+  gap: 10px;
+  max-width: 520px;
+  padding: clamp(20px, 3vw, 34px);
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.zoda-mission-materials__facts-head,
+.zoda-mission-materials__facts dl div {
+  align-items: baseline;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.zoda-mission-materials__facts-head span,
+.zoda-mission-materials__facts-head strong,
+.zoda-mission-materials__facts dt,
+.zoda-mission-materials__facts dd,
+.zoda-mission-materials__ingredients span,
+.zoda-mission-materials__ingredients strong {
+  font-size: clamp(11px, 1vw, 14px);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.zoda-mission-materials__facts i {
+  background: #000;
+  display: block;
+  height: 18px;
+}
+
+.zoda-mission-materials__facts small {
+  font-size: 10px;
+  font-weight: 900;
+  justify-self: end;
+}
+
+.zoda-mission-materials__facts dl {
+  display: grid;
+  margin: 0;
+}
+
+.zoda-mission-materials__facts dl div {
+  border-top: 1.5px solid #111;
+  padding: 8px 0;
+}
+
+.zoda-mission-materials__facts dd {
+  margin: 0;
+  text-align: right;
+}
+
+.zoda-mission-materials__facts > p,
+.zoda-mission-materials__ingredients p {
+  color: #111;
+  font-size: clamp(10px, 0.9vw, 12px);
+  font-weight: 900;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.zoda-mission-materials__ingredients {
+  border-top: 0;
+  display: grid;
+  gap: 10px;
+  padding-top: 8px;
 }
 
 .zoda-mission-blueprint-list {
@@ -6208,7 +6531,11 @@ button.zoda-product-card__swatch.is-active {
     gap: clamp(18px, 2.6vw, 34px);
     grid-template-columns: minmax(230px, 0.72fr) minmax(0, 1.28fr);
     min-height: 100svh;
-    padding: 78px clamp(22px, 4vw, 58px) 24px;
+    padding: clamp(78px, 10vh, 104px) clamp(22px, 4vw, 58px) clamp(24px, 5vh, 48px);
+  }
+
+  .zoda-mission-section:not(.zoda-mission-hero) {
+    align-items: center;
   }
 
   .zoda-mission-hero {
@@ -6233,12 +6560,11 @@ button.zoda-product-card__swatch.is-active {
     align-content: center;
     gap: 18px;
     grid-template-columns: minmax(240px, 0.27fr) minmax(0, 0.73fr);
-    padding-bottom: 18px;
-    padding-top: 78px;
   }
 
   .zoda-mission-game__intro {
-    align-self: center;
+    align-self: stretch;
+    justify-content: stretch;
     max-width: 360px;
     text-align: left;
   }
@@ -6250,7 +6576,7 @@ button.zoda-product-card__swatch.is-active {
 
   .zoda-mission-game__stage {
     align-items: center;
-    align-self: center;
+    align-self: stretch;
     grid-template-columns: minmax(0, 1fr) minmax(240px, 0.32fr);
   }
 
@@ -6287,6 +6613,15 @@ button.zoda-product-card__swatch.is-active {
     width: min(100%, 360px);
   }
 
+  .zoda-mission-finishers {
+    flex: 1;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+
+  .zoda-mission-finisher {
+    min-height: 0;
+  }
+
   .zoda-mission-hero__card {
     align-self: center;
   }
@@ -6310,36 +6645,81 @@ button.zoda-product-card__swatch.is-active {
   }
 
   .zoda-mission-playbook {
-    grid-template-columns: minmax(220px, 0.28fr) minmax(0, 1fr);
+    grid-template-columns: minmax(220px, 0.24fr) minmax(0, 1fr);
   }
 
   .zoda-mission-playbook__cards {
     align-self: center;
-    gap: 10px;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 14px;
+    grid-template-columns: 44px minmax(560px, 760px) 44px;
+    justify-content: center;
+    max-height: min(560px, calc(100svh - 132px));
+    max-width: 940px;
+    width: 100%;
+  }
+
+  .zoda-mission-playbook__sheet {
+    height: min(310px, calc(100svh - 248px));
+  }
+
+  .zoda-mission-playbook__dots {
+    display: none;
   }
 
   .zoda-mission-week {
-    padding: 12px;
+    overflow: hidden;
+    padding: clamp(18px, 2vw, 28px);
+  }
+
+  .zoda-mission-week:not(.zoda-mission-week--note) {
+    grid-row: auto;
+  }
+
+  .zoda-mission-week--note {
+    align-content: start;
+  }
+
+  .zoda-mission-week--final {
+    align-content: center;
   }
 
   .zoda-mission-week__head {
-    align-items: stretch;
-    flex-direction: column;
-    gap: 8px;
+    align-items: baseline;
+    flex-direction: row;
+    gap: 10px;
   }
 
   .zoda-mission-week__head span {
     align-self: start;
-    padding: 8px 10px;
+    padding: 0;
   }
 
   .zoda-mission-week h3 {
-    font-size: clamp(22px, 2.1vw, 28px);
+    font-size: clamp(20px, 1.9vw, 26px);
+  }
+
+  .zoda-mission-week--note h3 {
+    font-size: clamp(18px, 1.45vw, 22px);
   }
 
   .zoda-mission-week__body {
     grid-template-columns: 1fr;
+  }
+
+  .zoda-mission-week li {
+    padding: 9px 0;
+  }
+
+  .zoda-mission-week--note li {
+    padding: 6px 0;
+  }
+
+  .zoda-mission-week li span {
+    line-height: 1.25;
+  }
+
+  .zoda-mission-week--note li span {
+    font-size: 11px;
   }
 
   .zoda-mission-inclusions {
@@ -6357,6 +6737,10 @@ button.zoda-product-card__swatch.is-active {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
 
+  .zoda-mission-materials {
+    grid-template-columns: minmax(320px, 0.9fr) minmax(360px, 1fr);
+  }
+
   .zoda-mission-materials__layout {
     width: min(100%, 860px);
   }
@@ -6372,6 +6756,10 @@ button.zoda-product-card__swatch.is-active {
   .zoda-mission-blueprint-list {
     min-height: 0;
     padding: 14px;
+  }
+
+  .zoda-mission-materials__facts {
+    max-width: 520px;
   }
 }
 
@@ -6402,8 +6790,8 @@ button.zoda-product-card__swatch.is-active {
   .zoda-mission-section,
   .zoda-mission-hero {
     gap: 18px;
-    padding-bottom: 16px;
-    padding-top: 66px;
+    padding-bottom: 18px;
+    padding-top: 72px;
   }
 
   .zoda-mission-copy h2 {
@@ -6418,8 +6806,6 @@ button.zoda-product-card__swatch.is-active {
 
   .zoda-mission-game {
     gap: 14px;
-    padding-bottom: 14px;
-    padding-top: 76px;
   }
 
   .zoda-mission-path,
@@ -6500,13 +6886,212 @@ button.zoda-product-card__swatch.is-active {
 }
 
 @media (max-width: 759px) {
+  .zoda-mission-page {
+    --mission-mobile-pad-x: 16px;
+    --mission-mobile-pad-top: 84px;
+    --mission-mobile-pad-bottom: 24px;
+    --mission-mobile-content: calc(100vw - (var(--mission-mobile-pad-x) * 2));
+  }
+
   .zoda-mission-snap {
     scroll-snap-type: y proximity;
   }
 
   .zoda-mission-section,
   .zoda-mission-hero {
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow-x: hidden;
+    padding: var(--mission-mobile-pad-top) var(--mission-mobile-pad-x)
+      var(--mission-mobile-pad-bottom);
+    width: 100%;
+  }
+
+  .zoda-mission-section {
+    align-content: center;
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: stretch;
+    justify-items: start;
+  }
+
+  .zoda-mission-hero {
     align-content: start;
+  }
+
+  .zoda-mission-hero__content,
+  .zoda-mission-hero__card {
+    box-sizing: border-box;
+    max-width: none;
+    width: var(--mission-mobile-content);
+  }
+
+  .zoda-mission-game,
+  .zoda-mission-playbook,
+  .zoda-mission-inclusions,
+  .zoda-mission-materials {
+    row-gap: 16px;
+  }
+
+  .zoda-mission-copy {
+    box-sizing: border-box;
+    max-width: none;
+    min-width: 0;
+    overflow: hidden;
+    width: var(--mission-mobile-content);
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .zoda-mission-kicker {
+    flex-wrap: wrap;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    line-height: 1.25;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .zoda-mission-playbook__cards {
+    box-sizing: border-box;
+    grid-template-columns: minmax(0, 1fr);
+    margin-inline: 0;
+    max-width: none;
+    row-gap: 10px;
+    width: var(--mission-mobile-content);
+  }
+
+  .zoda-mission-playbook__nav {
+    display: none;
+  }
+
+  .zoda-mission-playbook__sheet,
+  .zoda-mission-playbook__count,
+  .zoda-mission-playbook__dots {
+    grid-column: 1;
+  }
+
+  .zoda-mission-playbook__sheet {
+    height: auto;
+    max-width: 100%;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .zoda-mission-playbook__dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .zoda-mission-week {
+    box-sizing: border-box;
+    height: auto;
+    max-width: 100%;
+    min-height: 0;
+    min-width: 0;
+    overflow: visible;
+    padding: 14px;
+    width: 100%;
+  }
+
+  .zoda-mission-week__body {
+    overflow: visible;
+  }
+
+  .zoda-mission-week li {
+    align-items: start;
+    display: grid;
+    gap: 5px 8px;
+    grid-template-columns: 12px minmax(0, 1fr) max-content;
+    grid-template-areas:
+      "box name points"
+      ". detail points";
+    min-width: 0;
+  }
+
+  .zoda-mission-week li i {
+    grid-area: box;
+    margin-top: 2px;
+  }
+
+  .zoda-mission-week li b {
+    grid-area: name;
+    white-space: normal;
+  }
+
+  .zoda-mission-week li span {
+    grid-area: detail;
+    font-size: 11px;
+    line-height: 1.22;
+  }
+
+  .zoda-mission-week li strong {
+    align-self: center;
+    grid-area: points;
+    margin-left: 0;
+  }
+
+  .zoda-mission-week--note li {
+    grid-template-areas: "points detail detail";
+    grid-template-columns: 24px minmax(0, 1fr) 0;
+  }
+
+  .zoda-mission-week--final {
+    padding: 28px 18px;
+  }
+
+  .zoda-mission-week--final img {
+    height: 66px;
+    width: 76px;
+  }
+
+  .zoda-mission-week--final p {
+    font-size: 13px;
+    line-height: 1.28;
+  }
+
+  .zoda-mission-inclusions__grid,
+  .zoda-mission-materials__layout,
+  .zoda-mission-materials__statement,
+  .zoda-mission-materials__facts {
+    box-sizing: border-box;
+    max-width: none;
+    width: var(--mission-mobile-content);
+  }
+
+  .zoda-mission-materials__statement {
+    gap: 14px;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .zoda-mission-materials__statement h2 {
+    font-size: clamp(24px, 5.4vw, 38px);
+    max-width: 100%;
+  }
+
+  .zoda-mission-materials__statement p {
+    font-size: 13px;
+    max-width: 34ch;
+  }
+
+  .zoda-mission-materials__statement > strong {
+    min-height: 58px;
+    padding: 14px 18px;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .zoda-mission-materials__facts {
+    padding: 16px;
+  }
+
+  .zoda-mission-materials__facts dl div {
+    gap: 12px;
   }
 
   .zoda-mission-hero__card {
@@ -6514,12 +7099,23 @@ button.zoda-product-card__swatch.is-active {
   }
 
   .zoda-mission-game {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
     gap: 14px;
+    max-width: 100%;
+    overflow: hidden;
+    width: 100%;
   }
 
   .zoda-mission-game__intro {
-    max-width: calc(100vw - 64px);
-    width: calc(100vw - 64px);
+    align-self: flex-start;
+    box-sizing: border-box;
+    margin: 0;
+    max-width: none;
+    min-width: 0;
+    overflow: visible;
+    width: var(--mission-mobile-content);
   }
 
   .zoda-mission-game__intro h2 {
@@ -6528,15 +7124,23 @@ button.zoda-product-card__swatch.is-active {
   }
 
   .zoda-mission-game__stage {
-    margin-inline: auto;
-    max-width: calc(100vw - 40px);
+    box-sizing: border-box;
+    margin: 0;
+    max-width: none;
+    overflow: hidden;
     padding: 12px;
-    width: calc(100vw - 40px);
+    width: var(--mission-mobile-content);
+  }
+
+  .zoda-mission-game__stage > * {
+    min-width: 0;
   }
 
   .zoda-mission-path,
   .zoda-mission-game__detail,
   .zoda-mission-game__rules {
+    box-sizing: border-box;
+    max-width: 100%;
     width: 100%;
   }
 
@@ -6545,47 +7149,70 @@ button.zoda-product-card__swatch.is-active {
   }
 
   .zoda-mission-path__track {
-    grid-auto-columns: 92px;
+    gap: 8px;
+    grid-auto-columns: 82px;
     margin-inline: -12px;
-    padding-inline: 12px;
+    overflow-x: auto;
+    padding-inline: 18px 12px;
+    scroll-padding-left: 18px;
+  }
+
+  .zoda-mission-path__space {
+    justify-self: center;
+    padding: 9px 6px;
+    width: 82px;
+  }
+
+  .zoda-mission-path__space strong {
+    font-size: 8.2px;
+    max-width: 8ch;
+  }
+
+  .zoda-mission-path__space span,
+  .zoda-mission-path__space em {
+    font-size: 7.5px;
+  }
+
+  .zoda-mission-path__space[data-type="final"] {
+    min-height: 82px;
+    width: 86px;
   }
 
   .zoda-mission-game__detail {
     min-height: 0;
     order: 2;
-    padding-right: 86px;
+    padding: 16px;
   }
 
   .zoda-mission-game__rules {
     margin-top: 0;
-    max-width: 326px;
+    max-width: none;
     order: 0;
-    width: 100%;
+    width: var(--mission-mobile-content);
   }
 
   .zoda-mission-game__detail-icon {
-    height: 52px;
-    max-width: 62px;
-    right: 12px;
-    top: 12px;
-    width: 62px;
+    display: none;
+  }
+
+  .zoda-mission-game__detail h3 {
+    font-size: clamp(28px, 11vw, 28px);
+  }
+
+  .zoda-mission-game__detail p {
+    font-size: 13px;
+    line-height: 1.38;
+  }
+
+  .zoda-mission-game__detail dl {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .zoda-mission-game__meter {
+    grid-template-columns: repeat(11, minmax(0, 1fr));
   }
 
   .zoda-mission-finishers {
-    margin-inline: auto;
-    max-width: 326px;
-    order: 1;
-    width: 100%;
-  }
-
-  .zoda-mission-finisher {
-    grid-template-columns: minmax(0, 1fr) 52px;
-    padding: 10px 8px 10px 12px;
-  }
-
-  .zoda-mission-finisher img {
-    height: 52px;
-    transform: translateX(-10px);
-    width: 52px;
+    display: none;
   }
 }
