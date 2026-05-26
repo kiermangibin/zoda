@@ -173,6 +173,12 @@ function getMissionDayIndex(startDateKey: string, todayKey: string) {
   return Math.min(Math.max(diff, 0), DAILY_MISSION_CHALLENGES.length - 1);
 }
 
+function getMissionStartDateForDay(dayNumber: number, today = new Date()) {
+  const startDate = new Date(today);
+  startDate.setDate(startDate.getDate() - (dayNumber - 1));
+  return getLocalDateKey(startDate);
+}
+
 function createDailyMissionSpace(
   item: { name: string; points: string; detail: string },
   day: number,
@@ -398,10 +404,29 @@ function MissionPage() {
     setMissionStartDate(startDate);
   };
 
-  const handleRestartMission = () => {
-    const startDate = getLocalDateKey();
+  const handlePickMissionDay = () => {
+    const answer = window.prompt(
+      `Which mission day should today be? Enter 1-${DAILY_MISSION_CHALLENGES.length}.`,
+      String(activeMissionDay?.dayNumber ?? 1),
+    );
+
+    if (answer === null) return;
+
+    const dayNumber = Number.parseInt(answer, 10);
+    if (
+      Number.isNaN(dayNumber) ||
+      dayNumber < 1 ||
+      dayNumber > DAILY_MISSION_CHALLENGES.length
+    ) {
+      window.alert(`Please enter a day from 1 to ${DAILY_MISSION_CHALLENGES.length}.`);
+      return;
+    }
+
+    const today = new Date();
+    const startDate = getMissionStartDateForDay(dayNumber, today);
+    const currentTodayKey = getLocalDateKey(today);
     window.localStorage.setItem(MISSION_START_STORAGE_KEY, startDate);
-    setTodayKey(startDate);
+    setTodayKey(currentTodayKey);
     setMissionStartDate(startDate);
   };
 
@@ -571,8 +596,8 @@ function MissionPage() {
                     >
                       Today's Challenge
                     </button>
-                    <button type="button" onClick={handleRestartMission}>
-                      Restart
+                    <button type="button" onClick={handlePickMissionDay}>
+                      Pick Day
                     </button>
                   </>
                 ) : (
