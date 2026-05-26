@@ -594,6 +594,14 @@ function MissionPage() {
                 <button type="button" onClick={() => handleStartMission(selectedMissionDay?.day)}>
                   {activeMissionDay ? "Start Here" : "Start Mission"}
                 </button>
+                {activeMissionDay ? (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedSpaceId(activeMissionDay.challenge.id)}
+                  >
+                    Today's Challenge
+                  </button>
+                ) : null}
               </div>
             </aside>
           </div>
