@@ -5720,6 +5720,14 @@ button.zoda-product-card__swatch.is-active {
   width: 52px;
 }
 
+.zoda-mission-path__start-logo {
+  filter: invert(1) brightness(2);
+  height: 16px;
+  object-fit: contain;
+  pointer-events: none;
+  width: 28px;
+}
+
 .zoda-mission-path__space span,
 .zoda-mission-path__space em,
 .zoda-mission-game__detail span,

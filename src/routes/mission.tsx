@@ -539,6 +539,7 @@ function MissionPage() {
                   >
                     {space.type === "start" ? (
                       <>
+                        <img className="zoda-mission-path__start-logo" src={zodaZLogo} alt="" />
                         <strong>{space.label}</strong>
                         <em>{space.points}</em>
                       </>
