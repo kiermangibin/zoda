@@ -539,7 +539,6 @@ function MissionPage() {
                   >
                     {space.type === "start" ? (
                       <>
-                        <span>Start</span>
                         <strong>{space.label}</strong>
                         <em>{space.points}</em>
                       </>
