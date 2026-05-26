@@ -404,30 +404,16 @@ function MissionPage() {
     setMissionStartDate(startDate);
   };
 
-  const handlePickMissionDay = () => {
-    const answer = window.prompt(
-      `Which mission day should today be? Enter 1-${DAILY_MISSION_CHALLENGES.length}.`,
-      String(activeMissionDay?.dayNumber ?? 1),
-    );
-
-    if (answer === null) return;
-
-    const dayNumber = Number.parseInt(answer, 10);
-    if (
-      Number.isNaN(dayNumber) ||
-      dayNumber < 1 ||
-      dayNumber > DAILY_MISSION_CHALLENGES.length
-    ) {
-      window.alert(`Please enter a day from 1 to ${DAILY_MISSION_CHALLENGES.length}.`);
-      return;
-    }
-
+  const handlePickMissionDay = (dayNumber: number) => {
+    const challenge = DAILY_MISSION_CHALLENGES[dayNumber - 1];
+    if (!challenge) return;
     const today = new Date();
     const startDate = getMissionStartDateForDay(dayNumber, today);
     const currentTodayKey = getLocalDateKey(today);
     window.localStorage.setItem(MISSION_START_STORAGE_KEY, startDate);
     setTodayKey(currentTodayKey);
     setMissionStartDate(startDate);
+    setSelectedSpaceId(challenge.id);
   };
 
   return (
@@ -596,9 +582,7 @@ function MissionPage() {
                     >
                       Today's Challenge
                     </button>
-                    <button type="button" onClick={handlePickMissionDay}>
-                      Pick Day
-                    </button>
+                    <span className="zoda-mission-game__actions-note">Pick a day below</span>
                   </>
                 ) : (
                   <button type="button" onClick={handleStartMission}>
@@ -606,12 +590,18 @@ function MissionPage() {
                   </button>
                 )}
               </div>
-              <div className="zoda-mission-game__meter" aria-hidden="true">
-                {(activeMissionDay ? DAILY_MISSION_CHALLENGES : MISSION_SPACES).map((space) => (
-                  <span
+              <div className="zoda-mission-game__meter" aria-label="Choose mission day">
+                {DAILY_MISSION_CHALLENGES.map((space) => (
+                  <button
                     key={`meter-${space.id}`}
+                    type="button"
                     className={selectedSpace.id === space.id ? "is-active" : ""}
-                  />
+                    aria-label={`Start mission on day ${space.day}: ${space.label}`}
+                    aria-pressed={selectedSpace.id === space.id}
+                    onClick={() => handlePickMissionDay(space.day ?? 1)}
+                  >
+                    {space.day}
+                  </button>
                 ))}
               </div>
             </aside>
