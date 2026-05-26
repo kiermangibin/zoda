@@ -524,7 +524,7 @@ function MissionPage() {
             <div className="zoda-mission-path" aria-label="Interactive mission game path">
               <div className="zoda-mission-path__header">
                 <span>21-day path</span>
-                <strong>{MISSION_SPACES.length} spaces</strong>
+                <strong>{DAILY_MISSION_CHALLENGES.length} days</strong>
               </div>
               <div className="zoda-mission-path__track">
                 {MISSION_SPACES.map((space, index) => (
@@ -537,14 +537,20 @@ function MissionPage() {
                     aria-pressed={selectedSpace.id === space.id}
                     onClick={() => setSelectedSpaceId(space.id)}
                   >
-                    {space.type === "final" && space.icon ? (
+                    {space.type === "start" ? (
+                      <>
+                        <span>Start</span>
+                        <strong>{space.label}</strong>
+                        <em>{space.points}</em>
+                      </>
+                    ) : space.type === "final" && space.icon ? (
                       <>
                         <img className="zoda-mission-path__icon" src={space.icon} alt="" />
                         <strong>{space.label}</strong>
                       </>
                     ) : (
                       <>
-                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        <span>{String(Math.max(index, 1)).padStart(2, "0")}</span>
                         <strong>{space.label}</strong>
                         <em>{space.points}</em>
                       </>
@@ -588,14 +594,6 @@ function MissionPage() {
                 <button type="button" onClick={() => handleStartMission(selectedMissionDay?.day)}>
                   {activeMissionDay ? "Start Here" : "Start Mission"}
                 </button>
-                {activeMissionDay ? (
-                  <button
-                    type="button"
-                    onClick={() => setSelectedSpaceId(activeMissionDay.challenge.id)}
-                  >
-                    Today's Challenge
-                  </button>
-                ) : null}
               </div>
             </aside>
           </div>
