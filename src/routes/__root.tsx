@@ -8,11 +8,17 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
-import appCss from "../styles.css?url";
-import "@/styles/zoda-snap-fonts.css";
-import "@/styles/zoda-tokens.css";
-import "@/styles/zoda-circuit.css";
+import appCss from "@/styles/globals.css?url";
+import "@/styles/fonts.css";
+import "@/styles/tokens.css";
+import "@/styles/home-circuit.css";
 import "@/styles/site-light.css";
+import "@/styles/product-card.css";
+import "@/styles/cart-drawer.css";
+import "@/styles/pdp-page.css";
+import "@/styles/fabrics-page.css";
+import "@/styles/ikigai-page.css";
+import "@/styles/mission-page.css";
 import { useCartSync } from "@/hooks/useCartSync";
 
 function NotFoundComponent() {

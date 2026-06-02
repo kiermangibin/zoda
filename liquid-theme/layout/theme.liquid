@@ -25,10 +25,16 @@
     {% comment %} Assets {% endcomment %}
     {% render 'theme__styles' %}
     {% render 'assets' with 'styles.css', preload_stylesheet: true %}
-    {{ 'zoda-snap-fonts.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-fonts.css' | asset_url | stylesheet_tag }}
     {{ 'zoda-tokens.css' | asset_url | stylesheet_tag }}
-    {{ 'zoda-circuit.css' | asset_url | stylesheet_tag }}
-    {{ 'site-light.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-home-circuit.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-site-light.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-product-card.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-cart-drawer.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-pdp-page.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-fabrics-page.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-ikigai-page.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-mission-page.css' | asset_url | stylesheet_tag }}
     {{ content_for_header }}
 
     {% comment %} Structured data {% endcomment %}

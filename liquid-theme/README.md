@@ -3,7 +3,7 @@
 Canonical source of the Shopify Liquid theme for **zoda-sg-space**.
 Originally exported from Shopify on 15 May 2026 06:25am as
 `theme_export_zoda-sg-space_15MAY2026-0625am.zip`, then layered with the
-Circuit (dark) design ported from the React app under `src/`.
+Circuit dark design ported from the React app under `src/`.
 
 ## Workflow
 
@@ -16,18 +16,20 @@ Circuit (dark) design ported from the React app under `src/`.
    zip -rq /mnt/documents/zoda-liquid-theme.zip . -x "*.DS_Store" "__MACOSX/*"
    ```
 
-3. Upload `zoda-liquid-theme.zip` in Shopify Admin → Online Store →
-   Themes → Add theme → Upload zip. Preview before publishing.
+3. Upload `zoda-liquid-theme.zip` in Shopify Admin > Online Store >
+   Themes > Add theme > Upload zip. Preview before publishing.
 
-## Shared design system
+## Shared Design System
 
-`assets/zoda-tokens.css`, `assets/zoda-circuit.css`, and
-`assets/zoda-snap-fonts.css` are **byte-identical** to the files in
-`src/styles/` of the React app. When you change the design system, edit
-both sides — or better, copy from `src/styles/` to `assets/` so React and
-Liquid stay in sync.
+The React app CSS now lives in focused files under `src/styles/`; see
+`src/styles/README.md` for the current ownership map and the suggested
+Shopify asset names.
 
-## What the Circuit port covers
+This Liquid theme still uses the older asset names in `layout/theme.liquid`
+until the Shopify conversion pass creates matching assets. Do not change
+those Liquid asset tags until the files exist in `liquid-theme/assets/`.
+
+## What The Circuit Port Covers
 
 Ported 1:1 from the React app:
 
@@ -41,6 +43,6 @@ Ported 1:1 from the React app:
   `assets/zoda-cart.js`)
 
 Auxiliary pages (article, blog, gift card, contact, customer accounts,
-password, search, 404) keep the original exported sections — they pick
-up the new dark palette and fonts via `zoda-tokens.css` but are not
+password, search, 404) keep the original exported sections. They pick up
+the dark palette and fonts through the current Liquid assets, but are not
 redesigned panel-by-panel.

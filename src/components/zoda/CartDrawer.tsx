@@ -45,7 +45,7 @@ export function CartDrawer() {
               <X className="h-4 w-4" />
             </button>
           </div>
-          <SheetDescription className="sr-only">
+          <SheetDescription className="zoda-cart-drawer__description">
             {totalItems === 0 ? "Your cart is empty" : `${totalItems} item${totalItems !== 1 ? "s" : ""} in cart`}
           </SheetDescription>
 
@@ -67,7 +67,7 @@ export function CartDrawer() {
           ) : null}
         </SheetHeader>
 
-        <div className="flex min-h-0 flex-1 flex-col">
+        <div className="zoda-cart-drawer__body">
           {items.length === 0 ? (
             <div className="zoda-cart-drawer__empty">
               <ShoppingBag className="h-10 w-10" />

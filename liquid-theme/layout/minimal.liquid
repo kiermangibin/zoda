@@ -25,7 +25,9 @@
     {% comment %} Assets {% endcomment %}
     {% render 'theme__styles' %}
     {% render 'assets' with 'styles.css', preload_stylesheet: true %}
-    {{ 'site-light.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-fonts.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-tokens.css' | asset_url | stylesheet_tag }}
+    {{ 'zoda-site-light.css' | asset_url | stylesheet_tag }}
     {{ content_for_header }}
 
     {% comment %} Structured data {% endcomment %}

@@ -152,7 +152,10 @@ const MISSION_START_STORAGE_KEY = "zoda-mission-start-date";
 const MISSION_PLAYBOOK_STORAGE_KEY = "zoda-mission-playbook-checks";
 
 function toSlug(value: string) {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 
 function getLocalDateKey(date = new Date()) {
@@ -244,15 +247,17 @@ const MISSION_SPACES: MissionSpace[] = [
     detail: "Begin the 21-day mission. Complete spaces, protect the streak and build toward Beast.",
     tone: "black",
   },
-  ...WEEK_ONE.slice(0, 4).map((item) => ({
-    id: `week-1-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
-    label: item.name,
-    type: item.name === "Beast Mode" ? "beast" : "challenge",
-    week: "Week 1 / Initiator",
-    points: item.points,
-    detail: item.detail,
-    tone: item.name === "Beast Mode" ? "orange" : "green",
-  })),
+  ...WEEK_ONE.slice(0, 4).map(
+    (item): MissionSpace => ({
+      id: `week-1-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+      label: item.name,
+      type: item.name === "Beast Mode" ? "beast" : "challenge",
+      week: "Week 1 / Initiator",
+      points: item.points,
+      detail: item.detail,
+      tone: item.name === "Beast Mode" ? "orange" : "green",
+    }),
+  ),
   {
     id: "week-1-bonus",
     label: "Bonus",
@@ -272,27 +277,29 @@ const MISSION_SPACES: MissionSpace[] = [
     tone: "gold",
     icon: initiatorTrophy,
   },
-  ...WEEK_TWO.map((item) => ({
-    id: `week-2-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
-    label: item.name,
-    type:
-      item.name === "Beast Mode"
-        ? "beast"
-        : item.name === "Repeat Any"
-          ? "repeat"
-          : item.name === "Bonus"
-            ? "bonus"
-            : "challenge",
-    week: "Week 2 / Ascender",
-    points: item.points,
-    detail: item.detail,
-    tone:
-      item.name === "Beast Mode"
-        ? "orange"
-        : item.name === "Repeat Any" || item.name === "Bonus"
-          ? "mint"
-          : "green",
-  })),
+  ...WEEK_TWO.map(
+    (item): MissionSpace => ({
+      id: `week-2-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+      label: item.name,
+      type:
+        item.name === "Beast Mode"
+          ? "beast"
+          : item.name === "Repeat Any"
+            ? "repeat"
+            : item.name === "Bonus"
+              ? "bonus"
+              : "challenge",
+      week: "Week 2 / Ascender",
+      points: item.points,
+      detail: item.detail,
+      tone:
+        item.name === "Beast Mode"
+          ? "orange"
+          : item.name === "Repeat Any" || item.name === "Bonus"
+            ? "mint"
+            : "green",
+    }),
+  ),
   {
     id: "badge-ascender",
     label: "Ascender",
@@ -303,15 +310,17 @@ const MISSION_SPACES: MissionSpace[] = [
     tone: "coral",
     icon: ascenderTrophy,
   },
-  ...WEEK_THREE.map((item) => ({
-    id: `week-3-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
-    label: item.name,
-    type: "challenge",
-    week: "Week 3 / Beast",
-    points: item.points,
-    detail: item.detail,
-    tone: "green",
-  })),
+  ...WEEK_THREE.map(
+    (item): MissionSpace => ({
+      id: `week-3-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+      label: item.name,
+      type: "challenge",
+      week: "Week 3 / Beast",
+      points: item.points,
+      detail: item.detail,
+      tone: "green",
+    }),
+  ),
   {
     id: "final-mission",
     label: "Final Mission",
@@ -383,7 +392,8 @@ function MissionPage() {
   const selectedMissionDay = useMemo(() => {
     if (selectedSpace.day) return selectedSpace;
     if (selectedSpace.type === "start") return DAILY_MISSION_CHALLENGES[0];
-    if (selectedSpace.id === "badge-initiator") return DAILY_MISSION_CHALLENGES[WEEK_ONE.length - 1];
+    if (selectedSpace.id === "badge-initiator")
+      return DAILY_MISSION_CHALLENGES[WEEK_ONE.length - 1];
     if (selectedSpace.id === "badge-ascender") {
       return DAILY_MISSION_CHALLENGES[WEEK_ONE.length + WEEK_TWO.length - 1];
     }
@@ -402,7 +412,7 @@ function MissionPage() {
 
   useEffect(() => {
     if (!rootRef.current) return;
-    const cleanup = initSnapController(rootRef.current, { nextPath: "/" });
+    const cleanup = initSnapController(rootRef.current, { loopToStart: true });
     return cleanup;
   }, []);
 
@@ -422,7 +432,7 @@ function MissionPage() {
   useEffect(() => {
     if (!activeMissionDay) return;
     setSelectedSpaceId(activeMissionDay.challenge.id);
-  }, [activeMissionDay?.challenge.id]);
+  }, [activeMissionDay]);
 
   const handleStartMission = (dayNumber = 1) => {
     const challenge = DAILY_MISSION_CHALLENGES[dayNumber - 1];

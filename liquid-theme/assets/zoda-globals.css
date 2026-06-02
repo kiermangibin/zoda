@@ -144,7 +144,11 @@
     border: 1px solid var(--zoda-accent);
     background: var(--zoda-accent);
     color: #000;
-    transition: background 200ms ease, color 200ms ease, transform 200ms ease, border-color 200ms ease;
+    transition:
+      background 200ms ease,
+      color 200ms ease,
+      transform 200ms ease,
+      border-color 200ms ease;
   }
 
   .zoda-btn:hover {
@@ -168,7 +172,10 @@
     border: 1px solid currentColor;
     background: transparent;
     color: #fff;
-    transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+    transition:
+      background 200ms ease,
+      color 200ms ease,
+      transform 200ms ease;
   }
 
   .zoda-btn-secondary:hover {
@@ -192,6 +199,10 @@
 
 /* infinite marquee for product gallery */
 @keyframes zoda-roll {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
 }

@@ -108,7 +108,10 @@ function IkigaiPage() {
 
   useEffect(() => {
     if (!rootRef.current) return;
-    const cleanup = initSnapController(rootRef.current, { nextPath: "/fabrics" });
+    const cleanup = initSnapController(rootRef.current, {
+      nextPath: "/fabrics",
+      disableMobileTouchSnap: true,
+    });
     return cleanup;
   }, []);
 

@@ -8,6 +8,9 @@ export type SnapControllerOptions = {
   dotSelector?: string;
   lockMs?: number;
   nextPath?: string;
+  loopToStart?: boolean;
+  onAccordionChange?: (panel: HTMLElement, index: number) => void;
+  disableMobileTouchSnap?: boolean;
 };
 
 export function initSnapController(
@@ -20,6 +23,9 @@ export function initSnapController(
     dotSelector = "[data-snap-dot]",
     lockMs = 720,
     nextPath,
+    loopToStart = false,
+    onAccordionChange,
+    disableMobileTouchSnap = false,
   } = opts;
 
   const track = root.querySelector<HTMLElement>(trackSelector);
@@ -29,6 +35,7 @@ export function initSnapController(
   const dots = Array.from(root.querySelectorAll<HTMLElement>(dotSelector));
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isMobile = () => window.matchMedia("(max-width: 760px)").matches;
 
   let activeIndex = 0;
   let locked = false;
@@ -43,12 +50,32 @@ export function initSnapController(
   const setAccordionIndex = (panel: HTMLElement, index: number) => {
     const items = getAccordionItems(panel);
     if (!items.length) return;
-    const active = Math.max(0, Math.min(index, items.length - 1));
+    const active = index < 0 ? -1 : Math.max(0, Math.min(index, items.length - 1));
     accordionState.set(panel, active);
     items.forEach((item, itemIndex) => {
       const isOpen = itemIndex === active;
       item.classList.toggle("is-open", isOpen);
       if (item instanceof HTMLDetailsElement) item.open = isOpen;
+      item
+        .querySelector<HTMLElement>("[data-snap-accordion-trigger]")
+        ?.setAttribute("aria-expanded", String(isOpen));
+    });
+    onAccordionChange?.(panel, active);
+  };
+
+  const syncAccordionFromDom = (panel: HTMLElement, preferredIndex: number) => {
+    const items = getAccordionItems(panel);
+    if (!items.length) return;
+    const preferredItem = items[preferredIndex];
+    const active =
+      preferredItem instanceof HTMLDetailsElement && preferredItem.open
+        ? preferredIndex
+        : items.findIndex((item) => item instanceof HTMLDetailsElement && item.open);
+    accordionState.set(panel, active);
+    items.forEach((item, itemIndex) => {
+      const isOpen = itemIndex === active;
+      item.classList.toggle("is-open", isOpen);
+      if (item instanceof HTMLDetailsElement && item.open !== isOpen) item.open = isOpen;
       item
         .querySelector<HTMLElement>("[data-snap-accordion-trigger]")
         ?.setAttribute("aria-expanded", String(isOpen));
@@ -61,6 +88,10 @@ export function initSnapController(
     const items = getAccordionItems(panel);
     if (!items.length) return false;
     const current = accordionState.get(panel) ?? 0;
+    if (current < 0) {
+      setAccordionIndex(panel, direction > 0 ? 0 : items.length - 1);
+      return true;
+    }
     if (direction > 0 && current < items.length - 1) {
       setAccordionIndex(panel, current + 1);
       return true;
@@ -104,14 +135,23 @@ export function initSnapController(
     if (stepAccordion(direction)) {
       locked = true;
       if (lockTimer) window.clearTimeout(lockTimer);
-      lockTimer = window.setTimeout(() => {
-        locked = false;
-      }, Math.min(lockMs, 420));
+      lockTimer = window.setTimeout(
+        () => {
+          locked = false;
+        },
+        Math.min(lockMs, 420),
+      );
       return;
     }
-    if (direction > 0 && activeIndex >= panels.length - 1 && nextPath) {
-      locked = true;
-      window.location.assign(nextPath);
+    if (direction > 0 && activeIndex >= panels.length - 1) {
+      if (loopToStart) {
+        scrollToIndex(0);
+        return;
+      }
+      if (nextPath) {
+        locked = true;
+        window.location.assign(nextPath);
+      }
       return;
     }
     scrollToIndex(activeIndex + direction);
@@ -126,7 +166,10 @@ export function initSnapController(
       if (el === panel) return false;
       const style = window.getComputedStyle(el as HTMLElement);
       const oy = style.overflowY;
-      if ((oy === "auto" || oy === "scroll") && (el as HTMLElement).scrollHeight > (el as HTMLElement).clientHeight) {
+      if (
+        (oy === "auto" || oy === "scroll") &&
+        (el as HTMLElement).scrollHeight > (el as HTMLElement).clientHeight
+      ) {
         const node = el as HTMLElement;
         const atTop = node.scrollTop <= 0;
         const atBottom = node.scrollTop + node.clientHeight >= node.scrollHeight - 1;
@@ -148,7 +191,11 @@ export function initSnapController(
 
   const onKeydown = (event: KeyboardEvent) => {
     const target = event.target as HTMLElement | null;
-    if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) return;
+    if (
+      target &&
+      (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)
+    )
+      return;
     switch (event.key) {
       case "ArrowDown":
       case "PageDown":
@@ -179,6 +226,7 @@ export function initSnapController(
   };
 
   const onTouchMove = (event: TouchEvent) => {
+    if (disableMobileTouchSnap && isMobile()) return;
     if (locked) {
       event.preventDefault();
       return;
@@ -219,21 +267,20 @@ export function initSnapController(
     dot.addEventListener("click", h);
   });
 
-  const accordionHandlers: Array<{ trigger: HTMLElement; handler: (e: Event) => void }> = [];
+  const accordionToggleHandlers: Array<{ item: HTMLElement; handler: (e: Event) => void }> = [];
   panels.forEach((panel) => {
     if (!panel.hasAttribute("data-snap-accordion")) return;
     const items = getAccordionItems(panel);
     if (!items.length) return;
     setAccordionIndex(panel, 0);
     items.forEach((item, index) => {
-      const trigger = item.querySelector<HTMLElement>("[data-snap-accordion-trigger]");
-      if (!trigger) return;
-      const handler = (event: Event) => {
-        event.preventDefault();
-        setAccordionIndex(panel, index);
-      };
-      accordionHandlers.push({ trigger, handler });
-      trigger.addEventListener("click", handler);
+      if (item instanceof HTMLDetailsElement) {
+        const toggleHandler = () => {
+          window.setTimeout(() => syncAccordionFromDom(panel, index), 0);
+        };
+        accordionToggleHandlers.push({ item, handler: toggleHandler });
+        item.addEventListener("toggle", toggleHandler);
+      }
     });
   });
 
@@ -262,8 +309,8 @@ export function initSnapController(
     }
     track.removeEventListener("scroll", onScroll);
     dots.forEach((d, i) => d.removeEventListener("click", dotHandlers[i]));
-    accordionHandlers.forEach(({ trigger, handler }) =>
-      trigger.removeEventListener("click", handler),
+    accordionToggleHandlers.forEach(({ item, handler }) =>
+      item.removeEventListener("toggle", handler),
     );
     if (lockTimer) window.clearTimeout(lockTimer);
     delete (root as HTMLElement & { __snapGoTo?: (id: string) => void }).__snapGoTo;

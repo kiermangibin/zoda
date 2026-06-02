@@ -1,5 +1,5 @@
 // All 12 ZODA Snap homepage sections, ported from the Liquid theme to React.
-// Uses utility classes defined in src/styles.css (zoda-section, zoda-kicker, zoda-heading, zoda-copy, zoda-btn, zoda-btn-secondary).
+// Uses utility classes defined in src/styles/globals.css (zoda-section, zoda-kicker, zoda-heading, zoda-copy, zoda-btn, zoda-btn-secondary).
 
 import { useState } from "react";
 import { ChevronRight, Phone, Mail, Instagram, Linkedin, Facebook } from "lucide-react";

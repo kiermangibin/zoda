@@ -3264,7 +3264,7 @@
 
   .zoda-circuit .zoda-circuit__reviews-grid {
     align-self: stretch !important;
-    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border: 0px solid rgba(255, 255, 255, 0.14) !important;
     margin-top: 14px !important;
     min-height: 0 !important;
   }
@@ -3548,7 +3548,7 @@
     background: linear-gradient(
       180deg,
       rgba(11, 18, 16, 0.94),
-      rgba(11, 18, 16, 0.78) 82%,
+      rgba(11, 18, 16, 0.78) 100%,
       rgba(11, 18, 16, 0)
     );
     border: 1px solid rgba(255, 255, 255, 0.16);
@@ -3918,40 +3918,50 @@
   transform: rotate(180deg);
 }
 .zoda-circuit .zoda-header-currency__menu {
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.14);
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.28);
-  color: #0a0a0a;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 18, 16, 0.88),
+    rgba(11, 18, 16, 0.58) 78%,
+    rgba(11, 18, 16, 0)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
+  color: #fff;
   display: grid;
-  min-width: 280px;
-  padding: 12px 0;
+  gap: 2px;
+  min-width: 228px;
+  padding: 10px;
   position: absolute;
   right: 0;
-  top: calc(100% + 14px);
+  top: calc(100% - 8px);
   z-index: 90;
+  -webkit-backdrop-filter: blur(20px) saturate(1.35);
+  backdrop-filter: blur(20px) saturate(1.35);
 }
 .zoda-circuit .zoda-header-currency__option {
   align-items: center;
   background: transparent;
   border: 0;
-  color: #0a0a0a;
+  color: inherit;
   cursor: pointer;
   display: grid;
   font-family: inherit;
-  font-size: 15px;
-  font-weight: 500;
-  gap: 16px;
+  font-size: 12px;
+  font-weight: 800;
+  gap: 12px;
   grid-template-columns: minmax(0, 1fr) auto;
   justify-items: start;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
-  padding: 14px 26px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  padding: 12px 14px;
   text-align: left;
   text-transform: uppercase;
   width: 100%;
 }
-.zoda-circuit .zoda-header-currency__option:hover {
-  background: rgba(85, 205, 161, 0.12);
+.zoda-circuit .zoda-header-currency__option:hover,
+.zoda-circuit .zoda-header-currency__option:focus-visible {
+  background: rgba(85, 205, 161, 0.16);
+  color: var(--zoda-accent);
 }
 .zoda-circuit .zoda-circuit__chrome-icon {
   position: relative;
@@ -4275,6 +4285,66 @@
     position: relative;
     grid-column: auto !important;
     justify-self: auto !important;
+    z-index: 25;
+  }
+
+  .zoda-circuit .zoda-circuit__mobile-menu-button {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    height: 44px;
+    list-style: none;
+    padding: 0;
+    position: relative;
+    touch-action: manipulation;
+    width: 44px;
+    z-index: 2;
+  }
+
+  .zoda-circuit .zoda-circuit__mobile-menu-button span {
+    background: currentColor;
+    display: block;
+    height: 2px;
+    left: 10px;
+    pointer-events: none;
+    position: absolute;
+    top: 21px;
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+    width: 24px;
+  }
+
+  .zoda-circuit .zoda-circuit__mobile-menu-button span:nth-child(1) {
+    transform: translateY(-7px);
+  }
+
+  .zoda-circuit .zoda-circuit__mobile-menu-button span:nth-child(3) {
+    transform: translateY(7px);
+  }
+
+  .zoda-circuit
+    .zoda-circuit__mobile-menu.is-open
+    .zoda-circuit__mobile-menu-button
+    span:nth-child(1) {
+    transform: rotate(45deg);
+  }
+
+  .zoda-circuit
+    .zoda-circuit__mobile-menu.is-open
+    .zoda-circuit__mobile-menu-button
+    span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .zoda-circuit
+    .zoda-circuit__mobile-menu.is-open
+    .zoda-circuit__mobile-menu-button
+    span:nth-child(3) {
+    transform: rotate(-45deg);
   }
 }
 
@@ -5603,7 +5673,7 @@
     font-size: clamp(28px, 8.8vw, 39px) !important;
     line-height: 0.96 !important;
     max-width: 100% !important;
-    text-align: left !important;
+    text-align: center !important;
     white-space: normal !important;
   }
 
@@ -5698,4 +5768,626 @@
 
 .zoda-circuit .zoda-circuit__reviews-track::-webkit-scrollbar {
   display: none !important;
+}
+
+/* Homepage mobile viewport polish: keep the chrome and hero inside the screen. */
+@media (max-width: 760px) {
+  #zoda-circuit-home .zoda-circuit__chrome {
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr) auto auto !important;
+    background: rgba(8, 10, 9, 0.92) !important;
+    height: 72px !important;
+    max-width: 100vw !important;
+    overflow: visible !important;
+    padding: 0 16px !important;
+    position: absolute !important;
+    width: 100vw !important;
+    z-index: 200 !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__logo {
+    min-width: 0;
+  }
+
+  #zoda-circuit-home .zoda-circuit__logo-image {
+    display: block !important;
+    height: auto !important;
+    max-width: none !important;
+    width: clamp(88px, 26vw, 116px) !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__chrome-right {
+    align-items: center;
+    display: inline-flex !important;
+    gap: 4px !important;
+    justify-self: end;
+    max-width: none;
+    min-width: 0;
+    position: relative !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    z-index: 210;
+  }
+
+  #zoda-circuit-home .zoda-circuit__chrome-actions {
+    display: inline-flex !important;
+    flex: 0 0 auto;
+    gap: 10px !important;
+    min-width: 0;
+  }
+
+  #zoda-circuit-home .zoda-header-currency {
+    display: none !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__chrome-icon,
+  #zoda-circuit-home .zoda-circuit__mobile-menu-button {
+    align-items: center !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    color: #fff !important;
+    display: inline-flex !important;
+    flex: 0 0 40px !important;
+    height: 40px !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    width: 40px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__chrome-actions > a.zoda-circuit__chrome-icon {
+    display: inline-flex !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__chrome-actions > button.zoda-circuit__chrome-icon {
+    display: inline-flex !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__mobile-menu {
+    display: inline-flex !important;
+    flex: 0 0 auto;
+    position: relative;
+    z-index: 31;
+  }
+
+  #zoda-circuit-home .zoda-circuit__mobile-menu-button span {
+    left: 10px !important;
+    margin-left: 0 !important;
+    top: 21px !important;
+    width: 24px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__mobile-menu-panel {
+    max-width: calc(100vw - 28px);
+    right: 0;
+    z-index: 32;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--video {
+    align-items: center !important;
+    justify-content: end !important;
+    padding: 72px 16px 24px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__video-media {
+    z-index: 0 !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__video {
+    display: none !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__video-media::after {
+    background:
+      linear-gradient(180deg, rgba(7, 9, 8, 0.16), rgba(7, 9, 8, 0.64) 44%, rgba(7, 9, 8, 0.92)),
+      linear-gradient(90deg, rgba(7, 9, 8, 0.72), rgba(7, 9, 8, 0.24) 52%, rgba(7, 9, 8, 0.72)) !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__video-content {
+    display: grid !important;
+    justify-items: center !important;
+    max-width: 100% !important;
+    padding-bottom: clamp(8px, 2svh, 18px) !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__video-content .zoda-circuit__heading {
+    font-size: clamp(30px, 9.2vw, 40px) !important;
+    line-height: 0.98 !important;
+    max-width: min(100%, 10.8ch) !important;
+    overflow-wrap: normal !important;
+    text-align: center !important;
+    white-space: normal !important;
+    word-break: normal !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__video-content .zoda-circuit__actions {
+    display: grid !important;
+    gap: 10px !important;
+    grid-template-columns: 1fr !important;
+    justify-items: stretch !important;
+    margin-top: 18px !important;
+    width: 100% !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__video-content .zoda-circuit__button,
+  #zoda-circuit-home .zoda-circuit__video-content .zoda-circuit__button-secondary {
+    width: 100% !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-strip {
+    display: grid !important;
+    gap: 6px !important;
+    grid-template-columns: 1fr !important;
+    justify-content: center !important;
+    justify-items: center !important;
+    max-width: min(100%, 260px) !important;
+    width: min(100%, 260px) !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-label {
+    grid-column: 1 / -1 !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-logo {
+    min-width: 0 !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-logo--straits {
+    justify-self: center !important;
+    width: min(58vw, 210px) !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-logo--money {
+    justify-self: center !important;
+    padding-left: 0 !important;
+    width: 96px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-logo--money::before {
+    display: none !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-logo img {
+    height: auto !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 390px) {
+  #zoda-circuit-home .zoda-circuit__chrome {
+    padding-inline: 16px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__logo-image {
+    width: clamp(88px, 26vw, 116px) !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__chrome-icon {
+    flex-basis: 40px !important;
+    height: 40px !important;
+    width: 40px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__mobile-menu-button {
+    flex-basis: 44px !important;
+    height: 44px !important;
+    width: 44px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__chrome-right {
+    right: auto !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__mobile-menu-button span {
+    margin-left: 0 !important;
+    width: 24px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__video-content .zoda-circuit__heading {
+    font-size: clamp(28px, 8.5vw, 34px) !important;
+    max-width: min(100%, 10.6ch) !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-logo--straits {
+    width: min(50vw, 170px) !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-logo--money {
+    width: min(22vw, 82px) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  #zoda-circuit-home .zoda-circuit__press-strip {
+    grid-template-columns: 1fr !important;
+    row-gap: 6px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-logo--straits,
+  #zoda-circuit-home .zoda-circuit__press-logo--money {
+    justify-self: center !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-logo--money {
+    padding-left: 0 !important;
+    width: 96px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__press-logo--money::before {
+    display: none !important;
+  }
+}
+
+/* Homepage mobile centering and section 07 accordion recovery. */
+@media (max-width: 760px) {
+  #zoda-circuit-home .zoda-circuit__panel {
+    align-content: center !important;
+    justify-content: center !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--signal,
+  #zoda-circuit-home .zoda-circuit__panel--reviews,
+  #zoda-circuit-home .zoda-circuit__panel--product {
+    align-content: center !important;
+    display: grid !important;
+    grid-template-rows: auto !important;
+    justify-content: center !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__content,
+  #zoda-circuit-home .zoda-circuit__signal-grid,
+  #zoda-circuit-home .zoda-circuit__fabric-shell,
+  #zoda-circuit-home .zoda-circuit__intro-row {
+    align-self: center !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__video-content {
+    align-self: center !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__cards,
+  #zoda-circuit-home .zoda-circuit__proof-grid,
+  #zoda-circuit-home .zoda-circuit__reviews-grid,
+  #zoda-circuit-home .zoda-circuit__fabric-viewport {
+    flex: 0 1 auto !important;
+  }
+
+  #zoda-circuit-home-6 {
+    align-content: center !important;
+    display: grid !important;
+    grid-template-rows: auto !important;
+    justify-content: center !important;
+    padding-bottom: 28px !important;
+    padding-top: 72px !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-shell {
+    align-self: center !important;
+    display: grid !important;
+    gap: 12px !important;
+    grid-template-rows: auto auto auto !important;
+    justify-self: center !important;
+    max-height: calc(100svh - 110px) !important;
+    max-width: min(100%, 358px) !important;
+    overflow: visible !important;
+    width: min(100%, 358px) !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-head {
+    align-items: center !important;
+    gap: 8px !important;
+    justify-items: center !important;
+    margin-bottom: 0 !important;
+    text-align: center !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-head .zoda-circuit__heading {
+    font-size: clamp(30px, 8.8vw, 36px) !important;
+    line-height: 0.98 !important;
+    margin-inline: auto !important;
+    max-width: 11ch !important;
+    text-align: center !important;
+    white-space: normal !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-head .zoda-circuit__copy {
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    display: -webkit-box !important;
+    margin-inline: auto !important;
+    max-width: 34ch !important;
+    overflow: hidden !important;
+    text-align: center !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-viewport {
+    flex: none !important;
+    max-height: min(43svh, 320px) !important;
+    min-height: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding-bottom: 6px !important;
+    width: 100% !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-track {
+    height: auto !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-card {
+    flex-basis: min(78vw, 286px) !important;
+    height: auto !important;
+    min-height: min(38svh, 280px) !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-ui {
+    margin-top: 0 !important;
+    width: 100% !important;
+  }
+
+  #zoda-circuit-home-5 {
+    align-content: center !important;
+    display: grid !important;
+    grid-template-rows: auto !important;
+    justify-content: center !important;
+  }
+
+  #zoda-circuit-home-5 .zoda-circuit__intro-row {
+    justify-self: center !important;
+    margin-bottom: 10px !important;
+    max-width: min(100%, 358px) !important;
+    text-align: center !important;
+    width: min(100%, 358px) !important;
+  }
+
+  #zoda-circuit-home-5 .zoda-circuit__collection-accordion {
+    flex: 0 1 auto !important;
+    grid-template-rows: repeat(4, var(--zoda-collection-tab-size)) auto !important;
+    height: auto !important;
+    justify-self: center !important;
+    max-height: calc(100svh - 150px) !important;
+    max-width: min(100%, 358px) !important;
+    width: min(100%, 358px) !important;
+  }
+
+  #zoda-circuit-home-5 .zoda-circuit__collection-panel-content {
+    align-content: start !important;
+    gap: 8px !important;
+    grid-template-rows: auto auto auto auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 12px !important;
+  }
+
+  #zoda-circuit-home-5 .zoda-circuit__collection-panel-title {
+    font-size: clamp(28px, 8vw, 34px) !important;
+    line-height: 0.98 !important;
+  }
+
+  #zoda-circuit-home-5 .zoda-circuit__collection-panel-copy {
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    display: -webkit-box !important;
+    overflow: hidden !important;
+  }
+
+  #zoda-circuit-home-5 .zoda-circuit__kit-stack {
+    gap: 0 !important;
+    margin-top: 2px !important;
+  }
+
+  #zoda-circuit-home-5 .zoda-circuit__kit-stack span {
+    min-height: 22px !important;
+    padding-block: 3px !important;
+  }
+
+  #zoda-circuit-home-5 .zoda-circuit__collection-arrow {
+    align-self: start !important;
+    margin-top: 4px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product {
+    gap: 12px !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product > .zoda-circuit__content {
+    display: block !important;
+    justify-self: center !important;
+    max-height: none !important;
+    max-width: min(100%, 358px) !important;
+    overflow: visible !important;
+    text-align: center !important;
+    width: min(100%, 358px) !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__heading {
+    font-size: clamp(30px, 8.8vw, 36px) !important;
+    line-height: 0.98 !important;
+    margin-inline: auto !important;
+    max-width: 11ch !important;
+    overflow-wrap: normal !important;
+    text-align: center !important;
+    white-space: normal !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__copy {
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    display: -webkit-box !important;
+    overflow: hidden !important;
+    text-align: center !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__feature-summary {
+    display: none !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__callouts {
+    display: grid !important;
+    flex: 0 1 auto !important;
+    gap: 6px !important;
+    max-height: min(46svh, 360px) !important;
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    padding-right: 2px !important;
+    justify-self: center !important;
+    max-width: min(100%, 358px) !important;
+    width: 100% !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__callouts::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__callout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, auto) auto !important;
+    min-height: 44px !important;
+    padding: 8px 10px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__callout-title {
+    grid-column: 1 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-align: left !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  #zoda-circuit-home
+    .zoda-circuit__panel--product
+    .zoda-circuit__callout
+    > span:not(.zoda-circuit__callout-title) {
+    grid-column: 2 !important;
+    margin-left: 0 !important;
+    max-width: 118px !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-align: right !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__toggle-switch {
+    grid-column: 3 !important;
+    margin-left: 4px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__feature-panel {
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 10px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__feature-panel span {
+    margin-bottom: 8px !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel--product .zoda-circuit__feature-panel ul {
+    font-size: 11.5px !important;
+    gap: 6px !important;
+    line-height: 1.34 !important;
+    margin-top: 8px !important;
+  }
+
+  #zoda-circuit-home-8 .zoda-circuit__intro-row,
+  #zoda-circuit-home-11 .zoda-circuit__intro-row,
+  #zoda-circuit-home-12 .zoda-circuit__intro-row {
+    justify-self: center !important;
+    max-width: min(100%, 358px) !important;
+    text-align: center !important;
+    width: min(100%, 358px) !important;
+  }
+
+  #zoda-circuit-home-8 .zoda-circuit__intro-row .zoda-circuit__heading,
+  #zoda-circuit-home-11 .zoda-circuit__intro-row .zoda-circuit__heading,
+  #zoda-circuit-home-12 .zoda-circuit__intro-row .zoda-circuit__heading {
+    margin-inline: auto !important;
+    max-width: 11.5ch !important;
+    text-align: center !important;
+  }
+
+  #zoda-circuit-home-8 .zoda-circuit__intro-row .zoda-circuit__copy,
+  #zoda-circuit-home-11 .zoda-circuit__intro-row .zoda-circuit__copy,
+  #zoda-circuit-home-12 .zoda-circuit__intro-row .zoda-circuit__copy {
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    display: -webkit-box !important;
+    margin-inline: auto !important;
+    overflow: hidden !important;
+    text-align: center !important;
+  }
+
+  #zoda-circuit-home-8 .zoda-circuit__proof-grid,
+  #zoda-circuit-home-11 .zoda-circuit__proof-grid,
+  #zoda-circuit-home-12 .zoda-circuit__proof-grid {
+    display: grid !important;
+    flex: 0 1 auto !important;
+    gap: 8px !important;
+    grid-template-columns: 1fr !important;
+    justify-self: center !important;
+    margin-right: 0 !important;
+    max-height: min(50svh, 390px) !important;
+    max-width: min(100%, 358px) !important;
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    padding: 0 2px 2px !important;
+    scroll-snap-type: none !important;
+    width: min(100%, 358px) !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  #zoda-circuit-home-8 .zoda-circuit__proof-grid::-webkit-scrollbar,
+  #zoda-circuit-home-11 .zoda-circuit__proof-grid::-webkit-scrollbar,
+  #zoda-circuit-home-12 .zoda-circuit__proof-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #zoda-circuit-home-8 .zoda-circuit__proof-item,
+  #zoda-circuit-home-11 .zoda-circuit__proof-item,
+  #zoda-circuit-home-12 .zoda-circuit__proof-item {
+    flex: none !important;
+    max-height: none !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    min-width: 0 !important;
+    padding: 14px !important;
+    scroll-snap-align: none !important;
+    width: 100% !important;
+  }
+
+  #zoda-circuit-home-8 .zoda-circuit__proof-item span,
+  #zoda-circuit-home-11 .zoda-circuit__proof-item span,
+  #zoda-circuit-home-12 .zoda-circuit__proof-item span {
+    margin-bottom: 8px !important;
+  }
+
+  #zoda-circuit-home-8 .zoda-circuit__proof-item strong,
+  #zoda-circuit-home-11 .zoda-circuit__proof-item strong,
+  #zoda-circuit-home-12 .zoda-circuit__proof-item strong {
+    font-size: clamp(18px, 5.4vw, 24px) !important;
+  }
+
+  #zoda-circuit-home-8 .zoda-circuit__proof-item p,
+  #zoda-circuit-home-11 .zoda-circuit__proof-item p,
+  #zoda-circuit-home-12 .zoda-circuit__proof-item p {
+    font-size: 12px !important;
+    line-height: 1.34 !important;
+    margin-top: 6px !important;
+  }
 }

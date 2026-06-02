@@ -1,0 +1,208 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-zoda-ink: var(--zoda-ink);
+  --color-zoda-paper: var(--zoda-paper);
+  --color-zoda-accent: var(--zoda-accent);
+  --color-zoda-fog: var(--zoda-fog);
+  --font-display: "Euphora", "Commuters Sans", Arial, sans-serif;
+  --font-sans: "Commuters Sans", Arial, sans-serif;
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* ZODA brand palette */
+  --zoda-ink: #000000;
+  --zoda-paper: #ffffff;
+  --zoda-accent: #55cda1;
+  --zoda-fog: #dfe3dd;
+  --zoda-line: rgba(255, 255, 255, 0.14);
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.13 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.13 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.13 0 0);
+  --primary: oklch(0.78 0.14 162);
+  --primary-foreground: oklch(0.13 0 0);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.13 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.45 0 0);
+  --accent: oklch(0.78 0.14 162);
+  --accent-foreground: oklch(0.13 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0 0);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.78 0.14 162);
+}
+
+.dark {
+  --background: oklch(0.13 0 0);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.18 0 0);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.18 0 0);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.78 0.14 162);
+  --primary-foreground: oklch(0.13 0 0);
+  --secondary: oklch(0.22 0 0);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.22 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: oklch(0.78 0.14 162);
+  --accent-foreground: oklch(0.13 0 0);
+  --destructive: oklch(0.7 0.19 22);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.78 0.14 162);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--zoda-ink);
+    color: var(--zoda-paper);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* ZODA section utility classes used across the homepage */
+@layer components {
+  .zoda-kicker {
+    color: var(--zoda-accent);
+    font-family: var(--font-display);
+    font-size: clamp(13px, 1vw, 17px);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .zoda-heading {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5vw, 88px);
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  .zoda-copy {
+    font-family: var(--font-sans);
+    font-size: clamp(15px, 1.1vw, 19px);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 620px;
+  }
+
+  .zoda-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--zoda-accent);
+    background: var(--zoda-accent);
+    color: #000;
+    transition:
+      background 200ms ease,
+      color 200ms ease,
+      transform 200ms ease,
+      border-color 200ms ease;
+  }
+
+  .zoda-btn:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #000;
+    transform: translateY(-2px);
+  }
+
+  .zoda-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid currentColor;
+    background: transparent;
+    color: #fff;
+    transition:
+      background 200ms ease,
+      color 200ms ease,
+      transform 200ms ease;
+  }
+
+  .zoda-btn-secondary:hover {
+    background: #fff;
+    color: #000;
+    transform: translateY(-2px);
+  }
+
+  .zoda-section {
+    position: relative;
+    padding: clamp(72px, 9vw, 140px) clamp(20px, 5vw, 78px);
+    background: var(--zoda-ink);
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .zoda-divider {
+    border-top: 1px solid var(--zoda-line);
+  }
+}
+
+/* infinite marquee for product gallery */
+@keyframes zoda-roll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}

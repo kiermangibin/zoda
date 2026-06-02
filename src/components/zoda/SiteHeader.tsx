@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Check, ChevronDown, ShoppingBag, User, Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import { SHOPIFY_STORE_PERMANENT_DOMAIN } from "@/lib/shopify";
 
@@ -182,33 +182,7 @@ export function SiteHeader({
   /** True when rendered inside an existing .zoda-circuit ancestor (home page). */
   embedded?: boolean;
 }) {
-  useEffect(() => {
-    if (variant !== "dark") return;
-    if (embedded && document.getElementById("zoda-circuit-home")) return;
-    const btn = document.querySelector<HTMLButtonElement>(
-      `[data-zoda-mobile-menu-button][aria-controls="${menuId}"]`,
-    );
-    const panel = document.getElementById(menuId);
-    if (!btn || !panel) return;
-    const wrap = btn.closest("[data-zoda-mobile-menu]") as HTMLElement | null;
-    const onClick = () => {
-      const isOpen = wrap?.getAttribute("data-open") === "true";
-      wrap?.setAttribute("data-open", String(!isOpen));
-      btn.setAttribute("aria-expanded", String(!isOpen));
-    };
-    btn.addEventListener("click", onClick);
-    const onLink = (e: Event) => {
-      if ((e.target as HTMLElement)?.tagName === "A") {
-        wrap?.setAttribute("data-open", "false");
-        btn.setAttribute("aria-expanded", "false");
-      }
-    };
-    panel.addEventListener("click", onLink);
-    return () => {
-      btn.removeEventListener("click", onClick);
-      panel.removeEventListener("click", onLink);
-    };
-  }, [menuId, variant, embedded]);
+  const [darkMobileOpen, setDarkMobileOpen] = useState(false);
 
   if (variant === "light") {
     return <LightHeader menuId={menuId} />;
@@ -274,13 +248,18 @@ export function SiteHeader({
 
       <div className="zoda-circuit__chrome-right">
         <DarkHeaderActions />
-        <div className="zoda-circuit__mobile-menu" data-zoda-mobile-menu="">
+        <div
+          className={`zoda-circuit__mobile-menu${darkMobileOpen ? " is-open" : ""}`}
+          data-open={darkMobileOpen}
+          data-zoda-mobile-menu=""
+        >
           <button
             className="zoda-circuit__mobile-menu-button"
             type="button"
-            aria-label="Open ZODA navigation"
-            aria-expanded="false"
+            aria-label={darkMobileOpen ? "Close ZODA navigation" : "Open ZODA navigation"}
+            aria-expanded={darkMobileOpen}
             aria-controls={menuId}
+            onClick={() => setDarkMobileOpen((open) => !open)}
             data-zoda-mobile-menu-button=""
           >
             <span></span>
@@ -290,6 +269,9 @@ export function SiteHeader({
           <div
             className="zoda-circuit__mobile-menu-panel"
             id={menuId}
+            onClick={(e) => {
+              if ((e.target as HTMLElement).tagName === "A") setDarkMobileOpen(false);
+            }}
             data-zoda-mobile-menu-panel=""
           >
             <a href="/collections/new-arrivals">New Arrivals</a>

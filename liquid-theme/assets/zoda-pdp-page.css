@@ -1,0 +1,1041 @@
+/* PDP page styles extracted from site-light.css. */
+
+.zoda-pdp {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 24px 80px;
+}
+.zoda-pdp__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #0a0a0a;
+  text-decoration: none;
+  padding: 8px 0;
+}
+.zoda-pdp__back:hover {
+  color: var(--accent);
+}
+.zoda-pdp__grid {
+  margin-top: 24px;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 960px) {
+  .zoda-pdp__grid {
+    grid-template-columns: 1.4fr 1fr;
+    gap: 56px;
+  }
+}
+.zoda-pdp__gallery {
+  display: grid;
+  gap: 8px;
+}
+.zoda-pdp__gallery-main,
+.zoda-pdp__gallery-thumb {
+  width: 100%;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+.zoda-pdp__gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.zoda-pdp__gallery-thumb {
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+.zoda-pdp__gallery-main img,
+.zoda-pdp__gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.zoda-pdp__info {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.zoda-pdp__info > * {
+  margin: 0;
+}
+@media (min-width: 960px) {
+  .zoda-pdp__info {
+    position: sticky;
+    top: 96px;
+    align-self: start;
+  }
+}
+.zoda-pdp__title {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+.zoda-pdp__price {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 8px 0 0;
+}
+.zoda-pdp__option {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.zoda-pdp__option-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 0;
+}
+.zoda-pdp__variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.zoda-pdp__variant {
+  border: 1px solid var(--line-strong);
+  background: #fff;
+  color: #0a0a0a;
+  padding: 12px 16px;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.zoda-pdp__variant:hover {
+  border-color: #0a0a0a;
+}
+.zoda-pdp__variant--active {
+  background: #0a0a0a;
+  color: #fff;
+  border-color: #0a0a0a;
+}
+.zoda-pdp__variant:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.zoda-pdp__add {
+  width: 100%;
+  background: #0a0a0a;
+  color: #fff;
+  border: none;
+  padding: 18px;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.zoda-pdp__add:hover {
+  background: var(--accent);
+  color: #0a0a0a;
+}
+.zoda-pdp__add:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.zoda-pdp__description {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #2a2a2a;
+  white-space: pre-line;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+.zoda-shell--light .zoda-pdp__back {
+  color: #fff;
+}
+.zoda-shell--light .zoda-pdp__gallery-main,
+.zoda-shell--light .zoda-pdp__gallery-thumb {
+  background: rgba(255, 255, 255, 0.04);
+}
+.zoda-shell--light .zoda-pdp__title {
+  color: #fff;
+}
+.zoda-shell--light .zoda-pdp__price {
+  color: var(--accent);
+}
+.zoda-shell--light .zoda-pdp__variant {
+  background: transparent;
+  color: #fff;
+  border-color: var(--line-strong);
+}
+.zoda-shell--light .zoda-pdp__variant:hover {
+  border-color: #fff;
+}
+.zoda-shell--light .zoda-pdp__variant--active {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+.zoda-shell--light .zoda-pdp__add {
+  background: var(--accent);
+  color: #000;
+}
+.zoda-shell--light .zoda-pdp__add:hover {
+  background: #fff;
+  color: #000;
+}
+.zoda-shell--light .zoda-pdp__description {
+  color: rgba(255, 255, 255, 0.78);
+  border-top-color: var(--line);
+}
+.zoda-pdp__breadcrumbs {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  gap: 8px;
+  letter-spacing: 0.12em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+.zoda-pdp__breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+.zoda-pdp__breadcrumbs a:hover {
+  color: var(--accent);
+}
+.zoda-shell--light .zoda-pdp__title {
+  font-family: var(--zoda-font-display, "Euphora", "Commuters Sans", Arial, sans-serif);
+}
+.zoda-shell--light .zoda-pdp__price,
+.zoda-shell--light .zoda-pdp__option-label,
+.zoda-shell--light .zoda-pdp__variant {
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+}
+.zoda-pdp__option-selected {
+  color: var(--fg);
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-weight: 500;
+}
+.zoda-pdp__variants--colors {
+  gap: 10px;
+}
+.zoda-pdp__swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+.zoda-pdp__swatch:hover {
+  transform: scale(1.08);
+}
+.zoda-pdp__swatch--active {
+  box-shadow:
+    0 0 0 2px var(--bg),
+    0 0 0 3px var(--accent);
+}
+.zoda-pdp__swatch:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.zoda-pdp__variant--size {
+  min-width: 48px;
+}
+.zoda-pdp__swatch {
+  background-clip: padding-box !important;
+  background-size: cover !important;
+  background-position: center !important;
+  width: 36px;
+  height: 36px;
+}
+.zoda-pdp__swatch--active {
+  box-shadow:
+    0 0 0 2px var(--bg),
+    0 0 0 3px var(--accent);
+  border-color: transparent;
+}
+.zoda-pdp__desc-wrap {
+  position: relative;
+}
+.zoda-pdp__desc {
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--fg);
+}
+.zoda-pdp__desc.is-clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  position: relative;
+}
+.zoda-pdp__desc.is-clamped::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2.4em;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--bg) 90%);
+}
+.zoda-pdp__desc-toggle {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--accent);
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.zoda-pdp__desc-toggle:hover {
+  color: #2f7d32;
+}
+.zoda-shell--light .zoda-pdp {
+  padding: 0 0 80px;
+  max-width: none;
+}
+.zoda-pdp__strip-wrap {
+  position: relative;
+}
+.zoda-pdp__strip {
+  display: flex;
+  gap: 2px;
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  background: #efefef;
+  scrollbar-width: none;
+}
+.zoda-pdp__strip::-webkit-scrollbar {
+  display: none;
+}
+.zoda-pdp__strip-item {
+  flex: 0 0 88vw;
+  aspect-ratio: 3/4;
+  background: #f5f5f5;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+.zoda-pdp__strip-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (min-width: 900px) {
+  .zoda-pdp__strip-item {
+    flex: 0 0 calc((100% - (var(--per-view, 4) - 1) * 2px) / var(--per-view, 4));
+  }
+}
+.zoda-pdp__strip-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--line, #e5e5e5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a0a0a;
+  cursor: pointer;
+  z-index: 2;
+  transition:
+    opacity 0.15s,
+    background 0.15s;
+}
+.zoda-pdp__strip-nav:hover {
+  background: #fff;
+}
+.zoda-pdp__strip-nav:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.zoda-pdp__strip-nav--prev {
+  left: 16px;
+}
+.zoda-pdp__strip-nav--next {
+  right: 16px;
+}
+.zoda-pdp__below {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  padding: 48px 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+@media (min-width: 900px) {
+  .zoda-pdp__below {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    padding: 64px 48px;
+  }
+}
+.zoda-pdp__col-left,
+.zoda-pdp__col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.zoda-pdp__breadcrumbs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.zoda-pdp__breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+.zoda-pdp__breadcrumbs a:hover {
+  color: var(--accent);
+}
+.zoda-pdp__reviews-stub {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #2a2a2a;
+}
+.zoda-pdp__stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--accent, #c9a84c);
+}
+.zoda-pdp__stars svg {
+  fill: currentColor;
+}
+.zoda-pdp__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.zoda-pdp__price--sale {
+  color: #c0392b;
+  font-weight: 700;
+}
+.zoda-pdp__price--strike {
+  text-decoration: line-through;
+  color: var(--muted, #888);
+  font-size: 16px;
+}
+.zoda-pdp__installments {
+  font-size: 13px;
+  color: var(--muted, #666);
+  margin: -8px 0 0;
+}
+.zoda-pdp__blurb {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #2a2a2a;
+}
+.zoda-pdp__blurb p {
+  margin: 0 0 8px;
+}
+.zoda-pdp__bullets {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #2a2a2a;
+}
+.zoda-pdp__sku {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted, #666);
+  margin: 0;
+}
+.zoda-pdp__sku span {
+  color: #0a0a0a;
+}
+.zoda-pdp__variants--sizes {
+  gap: 6px;
+}
+.zoda-pdp__variants--sizes .zoda-pdp__variant {
+  min-width: 56px;
+  padding: 14px 16px;
+  font-size: 13px;
+}
+.zoda-pdp__swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong, #ccc);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+.zoda-pdp__swatch--active {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 3px #0a0a0a;
+}
+.zoda-pdp__swatch:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.zoda-pdp__variants--colors {
+  gap: 10px;
+}
+.zoda-pdp__model-info {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #2a2a2a;
+  border-top: 1px solid var(--line, #e5e5e5);
+  border-bottom: 1px solid var(--line, #e5e5e5);
+  padding: 16px 0;
+}
+.zoda-pdp__model-info p {
+  margin: 0;
+}
+.zoda-pdp__size-guide-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0a0a0a;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.zoda-pdp__add {
+  height: 56px;
+  padding: 0 24px;
+  font-size: 14px;
+}
+.zoda-pdp__cta-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
+}
+.zoda-pdp__cta-row .zoda-pdp__add {
+  width: 100%;
+  margin: 0;
+}
+.zoda-pdp__find {
+  height: 56px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+.zoda-pdp__find:hover {
+  background: #fff;
+  color: #0a0a0a;
+  border-color: #fff;
+}
+.zoda-pdp__shipping-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+.zoda-pdp__icon-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 16px;
+}
+.zoda-pdp__icon-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 12px;
+  border: 1px solid var(--line, #e5e5e5);
+  background: #fafafa;
+  text-align: center;
+}
+.zoda-pdp__icon-tile svg {
+  display: block;
+}
+.zoda-pdp__icon-tile-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted, #666);
+  margin: 0;
+  line-height: 1;
+}
+.zoda-pdp__icon-tile-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin: 0;
+  line-height: 1;
+}
+.zoda-pdp__desc-label {
+  font-family: var(--zoda-font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 12px;
+}
+.zoda-pdp__specs {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 24px;
+}
+.zoda-pdp__spec {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.zoda-pdp__spec-eyebrow {
+  margin: 0;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+.zoda-pdp__spec-value {
+  margin: 0;
+  font-family: var(--zoda-font-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
+}
+.zoda-pdp__spec-desc {
+  margin: 4px 0 0;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 52ch;
+}
+.zoda-pdp__meter {
+  margin-top: 14px;
+}
+.zoda-pdp__meter-track {
+  position: relative;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+.zoda-pdp__meter-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: #fff;
+  border-radius: 999px;
+}
+.zoda-pdp__meter-tick {
+  position: absolute;
+  top: -4px;
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.45);
+  transform: translateX(-0.5px);
+}
+.zoda-pdp__meter-labels {
+  margin-top: 10px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+.zoda-pdp__meter-labels span {
+  text-align: center;
+}
+.zoda-pdp__meter-labels span:first-child {
+  text-align: left;
+}
+.zoda-pdp__meter-labels span:last-child {
+  text-align: right;
+}
+.zoda-pdp,
+.zoda-pdp__blurb,
+.zoda-pdp__bullets,
+.zoda-pdp__model-info,
+.zoda-pdp-acc__content {
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+}
+.zoda-pdp__breadcrumbs,
+.zoda-pdp__reviews-stub,
+.zoda-pdp__price-row,
+.zoda-pdp__price,
+.zoda-pdp__installments,
+.zoda-pdp__option-label,
+.zoda-pdp__option-selected,
+.zoda-pdp__variant,
+.zoda-pdp__add,
+.zoda-pdp__shipping-note,
+.zoda-pdp__sku,
+.zoda-pdp__size-guide-link,
+.zoda-pdp__icon-tile-label,
+.zoda-pdp__icon-tile-value,
+.zoda-pdp__desc-toggle {
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+}
+.zoda-pdp__title,
+.zoda-pdp-acc__summary {
+  font-family: var(--zoda-font-display);
+}
+.zoda-pdp__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.zoda-pdp__title-block .zoda-pdp__title {
+  margin: 0;
+  line-height: 1.05;
+}
+.zoda-pdp__price-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: 12px;
+  row-gap: 4px;
+  margin: 0;
+}
+.zoda-pdp__installments {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+.zoda-pdp__col-left,
+.zoda-pdp__col-right {
+  gap: 20px;
+}
+.zoda-shell--light .zoda-pdp__breadcrumbs,
+.zoda-shell--light .zoda-pdp__breadcrumbs a,
+.zoda-shell--light .zoda-pdp__reviews-stub,
+.zoda-shell--light .zoda-pdp__installments,
+.zoda-shell--light .zoda-pdp__shipping-note,
+.zoda-shell--light .zoda-pdp__sku {
+  color: rgba(255, 255, 255, 0.72);
+}
+.zoda-shell--light .zoda-pdp__sku span,
+.zoda-shell--light .zoda-pdp__option-selected,
+.zoda-shell--light .zoda-pdp__blurb,
+.zoda-shell--light .zoda-pdp__blurb p,
+.zoda-shell--light .zoda-pdp__bullets,
+.zoda-shell--light .zoda-pdp__bullets li,
+.zoda-shell--light .zoda-pdp__model-info,
+.zoda-shell--light .zoda-pdp__model-info p,
+.zoda-shell--light .zoda-pdp__icon-tile,
+.zoda-shell--light .zoda-pdp__icon-tile-value {
+  color: #fff;
+}
+.zoda-shell--light .zoda-pdp__icon-tile-label {
+  color: rgba(255, 255, 255, 0.65);
+}
+.zoda-shell--light .zoda-pdp__price--strike {
+  color: rgba(255, 255, 255, 0.45);
+}
+.zoda-shell--light .zoda-pdp__size-guide-link {
+  color: #fff;
+}
+.zoda-shell--light .zoda-pdp__model-info {
+  border-top-color: rgba(255, 255, 255, 0.16);
+  border-bottom-color: rgba(255, 255, 255, 0.16);
+}
+.zoda-shell--light .zoda-pdp__icon-tile {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+.zoda-shell--light .zoda-pdp__swatch {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.zoda-shell--light .zoda-pdp__swatch--active {
+  box-shadow:
+    0 0 0 2px #000,
+    0 0 0 3px #fff;
+}
+.zoda-shell--light .zoda-pdp__desc-toggle {
+  color: #fff;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.zoda-shell--light .zoda-pdp__desc-toggle:hover {
+  color: var(--accent);
+}
+.zoda-pdp__accordions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+.zoda-pdp-acc {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+.zoda-pdp-acc:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+.zoda-pdp-acc__summary {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+}
+.zoda-pdp-acc__content {
+  padding: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+}
+.zoda-pdp-acc__content p {
+  margin: 0 0 10px;
+}
+.zoda-pdp-acc__content ul {
+  margin: 0 0 10px;
+  padding-left: 18px;
+}
+.zoda-pdp__desc {
+  position: relative;
+}
+.zoda-pdp__desc.is-clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.zoda-pdp__tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 14px;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.zoda-pdp__tech-tags span {
+  display: inline-flex;
+  align-items: center;
+}
+.zoda-pdp__tech-tags span + span::before {
+  content: "â€¢";
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0 12px;
+}
+.zoda-pdp__add-subnote {
+  margin: 8px 0 0;
+  text-align: center;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+.zoda-pi {
+  margin-top: 80px;
+  padding-top: 56px;
+  border-top: 1px solid var(--line);
+}
+.zoda-pi__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (min-width: 900px) {
+  .zoda-pi__inner {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 64px;
+  }
+}
+.zoda-pi__left,
+.zoda-pi__right {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+.zoda-pi__block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.zoda-pi__eyebrow {
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+.zoda-pi__title {
+  font-family: var(--zoda-font-display, "Euphora", "Commuters Sans", Arial, sans-serif);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+.zoda-pi__fabrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.zoda-pi__fabric {
+  position: relative;
+  width: 150px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+.zoda-pi__fabric img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.zoda-pi__fabric span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.45));
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.zoda-pi__meter-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+.zoda-pi-acc {
+  border-bottom: 1px solid var(--line);
+}
+.zoda-pi-acc__summary {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  line-height: 1;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-align: left;
+}
+.zoda-pi-acc__content {
+  padding: 0 0 20px;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--fg);
+}
+.zoda-pi-rte p {
+  margin: 0 0 10px;
+}
+.zoda-pi-rte ul {
+  margin: 0 0 10px;
+  padding-left: 18px;
+}
+.zoda-pi__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.zoda-pi__tags span {
+  background: #0a0a0a;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

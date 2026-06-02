@@ -6,6 +6,11 @@ import { ReviewsRail } from "./ReviewsRail";
 import { SiteHeader } from "./SiteHeader";
 import moneyFmLogo from "@/assets/moneyfmlogo (1).png";
 import straitsTimesLogo from "@/assets/the-straits-times-logo_480x480.png";
+import pocketImage from "@/assets/technology-pocket.avif";
+import buttonsImage from "@/assets/technology-buttons.avif";
+import runnersImage from "@/assets/technology-runners.jpg";
+import spotlightImage from "@/assets/tech-on-spotlight-image.webp";
+import sustainabilityVideo from "@/assets/sustainability-video.mp4";
 
 
 
@@ -19,6 +24,9 @@ export function ZodaCircuit() {
     s.textContent = ZODA_CIRCUIT_SCRIPT.replace(
       /const loopToStart = \(\) => \{[\s\S]*?\n    \};\n\n    const goTo =/,
       "const loopToStart = () => {\n      window.location.assign('/ikigai');\n    };\n\n    const goTo =",
+    ).replace(
+      "const clearVerticalSwipe = absY > 56 && absY > absX * 1.65;\n        if (!clearVerticalSwipe || (touchStartedInHorizontal && absX > absY * 0.45)) {\n          touchStartedInHorizontal = false;\n          return;\n        }",
+      "touchStartedInHorizontal = false;\n        return;",
     );
     document.body.appendChild(s);
     return () => {
@@ -86,8 +94,12 @@ export function ZodaCircuit() {
           <h1 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>Products in motion.</h1>
         </div>
         <div className="zoda-circuit__signal-meta" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>
-          <p className="zoda-circuit__copy">ZODA is built for training, recovery, and every hour between. Step into the circuit and move with intent.</p>
+          <p className="zoda-circuit__copy">Training, recovery, and every hour between. Step into the circuit and move with intent.</p>
           <div className="zoda-circuit__signal-line">In It To Win It</div>
+          <div className="zoda-circuit__actions zoda-circuit__actions--compact">
+            <a className="zoda-circuit__button" href="/collections/all">Shop The Drop</a>
+            <a className="zoda-circuit__button-secondary" href="/fabrics">See The Fabrics</a>
+          </div>
         </div>
       </div>
       <ProductMotionGallery />
@@ -100,6 +112,7 @@ export function ZodaCircuit() {
         <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Early starts. Extra laps. Final reps.</p>
         <div className="zoda-circuit__actions" data-animate="" style={{"--zoda-delay": "260ms"} as React.CSSProperties}>
           <a className="zoda-circuit__button" href="/collections/all">Shop Now</a>
+          <a className="zoda-circuit__button-secondary" href="/mission">Read The Mission</a>
         </div>
       </div>
       <div className="zoda-circuit__statements" aria-label="ZODA training cues">
@@ -114,24 +127,31 @@ export function ZodaCircuit() {
         <div>
           <p className="zoda-circuit__kicker" data-animate="">Alpha Standard / 08</p>
           <h2 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>Three standards.</h2>
+          <div className="zoda-circuit__actions zoda-circuit__actions--compact" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
+            <a className="zoda-circuit__button" href="/mission">Our Mission</a>
+            <a className="zoda-circuit__button-secondary" href="/fabrics">Fabric Standard</a>
+          </div>
         </div>
-        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Performance gear should work harder than ordinary activewear: move with the body, respect the planet, and connect athletes who train with purpose.</p>
+        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Performance gear should move with the body, respect the planet, and connect athletes who train with purpose.</p>
       </div>
       <div className="zoda-circuit__cards">
         <div className="zoda-circuit__pillar-card" tabIndex={0} data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
+          <figure className="zoda-circuit__card-media"><img src={pocketImage} alt="Close-up of ZODA garment pocket construction" loading="lazy" /></figure>
           <span className="zoda-circuit__card-number">01</span>
           <strong className="zoda-circuit__card-title">Technology</strong>
-          <p className="zoda-circuit__card-copy">Engineered fabrics, body-mapped fit, and strategic construction help manage sweat, stretch, chafe, and support when training intensity rises.</p>
+          <p className="zoda-circuit__card-copy">Body-mapped construction helps manage sweat, stretch, chafe, and support.</p>
         </div>
         <div className="zoda-circuit__pillar-card" tabIndex={0} data-animate="" style={{"--zoda-delay": "320ms"} as React.CSSProperties}>
+          <figure className="zoda-circuit__card-media"><video src={sustainabilityVideo} muted playsInline loop autoPlay aria-label="ZODA sustainability material motion" /></figure>
           <span className="zoda-circuit__card-number">02</span>
           <strong className="zoda-circuit__card-title">Sustainability</strong>
-          <p className="zoda-circuit__card-copy">We prioritize responsible fibers such as recycled polyester, regenerated nylon, and certified cotton so performance does not come at the planet's expense.</p>
+          <p className="zoda-circuit__card-copy">Responsible fibers support performance with a lighter footprint.</p>
         </div>
         <div className="zoda-circuit__pillar-card" tabIndex={0} data-animate="" style={{"--zoda-delay": "420ms"} as React.CSSProperties}>
+          <figure className="zoda-circuit__card-media"><img src={runnersImage} alt="Runners training together in ZODA performance context" loading="lazy" /></figure>
           <span className="zoda-circuit__card-number">03</span>
           <strong className="zoda-circuit__card-title">Community</strong>
-          <p className="zoda-circuit__card-copy">ZODA is built for athletes who show up, share standards, and push each other past the easy rep, the safe pace, and the old limit.</p>
+          <p className="zoda-circuit__card-copy">Built for athletes who show up, share standards, and keep moving.</p>
         </div>
       </div>
     </article>
@@ -143,7 +163,10 @@ export function ZodaCircuit() {
           <h2 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>Shop by collection.</h2>
         </div>
         <div>
-          <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Shop by training mode: performance staples, endurance gear, 24/7 wear, and accessories that finish the session.</p>
+          <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Shop by training mode: performance staples, endurance gear, 24/7 wear, and session accessories.</p>
+          <div className="zoda-circuit__actions zoda-circuit__actions--compact" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
+            <a className="zoda-circuit__button-secondary" href="/collections/all">View All Products</a>
+          </div>
         </div>
       </div>
       <div className="zoda-circuit__collection-accordion" data-zoda-collection-accordion="" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
@@ -205,7 +228,12 @@ export function ZodaCircuit() {
             <p className="zoda-circuit__kicker" data-animate="">Fabric System / 06</p>
             <h2 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>Fabric system.</h2>
           </div>
-          <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Eight fabric systems tuned for sweat control, stretch, breathability, support, and recovery.</p>
+          <div>
+            <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Eight fabric systems tuned for sweat control, stretch, breathability, support, and recovery.</p>
+            <div className="zoda-circuit__actions zoda-circuit__actions--compact" data-animate="" style={{"--zoda-delay": "240ms"} as React.CSSProperties}>
+              <a className="zoda-circuit__button-secondary" href="/fabrics">Compare Fabrics</a>
+            </div>
+          </div>
         </div>
         <div className="zoda-circuit__fabric-viewport" data-zoda-fabric-viewport="">
           <div className="zoda-circuit__fabric-track" data-zoda-fabric-track="">
@@ -270,7 +298,10 @@ export function ZodaCircuit() {
       <div className="zoda-circuit__content">
         <p className="zoda-circuit__kicker" data-animate="">Technology / 07</p>
         <h2 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>Inside Zenith Tech.</h2>
-        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>ZODA's precision-engineered innovation platform combines advanced fabric technology with meticulous design to push boundaries, elevate comfort, and unlock peak potential.</p>
+        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Advanced fabric technology meets precise construction for comfort, mobility, and focused performance.</p>
+        <div className="zoda-circuit__actions zoda-circuit__actions--compact" data-animate="" style={{"--zoda-delay": "240ms"} as React.CSSProperties}>
+          <a className="zoda-circuit__button-secondary" href="/fabrics">Explore Zenith Tech</a>
+        </div>
         <div className="zoda-circuit__feature-summary" data-animate="" style={{"--zoda-delay": "240ms"} as React.CSSProperties} aria-label="Active Zenith Tech feature summary">
           <article className="zoda-circuit__feature-summary-card is-active" data-zoda-feature-summary="">
             <span>01 / Compression</span><strong>Zenflex™</strong>
@@ -338,24 +369,27 @@ export function ZodaCircuit() {
         <div>
           <p className="zoda-circuit__kicker" data-animate="">What's Coming / 10</p>
           <h2 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>Exciting projects.</h2>
+          <div className="zoda-circuit__actions zoda-circuit__actions--compact" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
+            <a className="zoda-circuit__button-secondary" href="https://www.instagram.com/zoda.sg/" target="_blank" rel="noopener">Watch Updates</a>
+          </div>
         </div>
-        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Upcoming drops, community moments, and access-led projects built for athletes moving with purpose.</p>
+        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Upcoming drops, community moments, and access-led projects for athletes moving with purpose.</p>
       </div>
       <div className="zoda-circuit__proof-grid">
         <div className="zoda-circuit__proof-item" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
           <span>01 / Drops</span>
           <strong>Training releases</strong>
-          <p>New kits, fabric updates, and session-ready pieces built around how athletes actually move.</p>
+          <p>New kits and fabric updates built around real movement.</p>
         </div>
         <div className="zoda-circuit__proof-item" data-animate="" style={{"--zoda-delay": "320ms"} as React.CSSProperties}>
           <span>02 / Stories</span>
           <strong>Warrior notes</strong>
-          <p>Field notes from runners, lifters, and everyday competitors who stay in it when the work gets hard.</p>
+          <p>Field notes from athletes who stay in it when the work gets hard.</p>
         </div>
         <div className="zoda-circuit__proof-item" data-animate="" style={{"--zoda-delay": "420ms"} as React.CSSProperties}>
           <span>03 / Access</span>
           <strong>Inner circle</strong>
-          <p>NFC content, community challenges, and race-day moments that bring the ZODA circuit offline.</p>
+          <p>NFC content, challenges, and race-day moments offline.</p>
         </div>
       </div>
     </article>
@@ -365,6 +399,9 @@ export function ZodaCircuit() {
         <p className="zoda-circuit__kicker" data-animate="">Reviews / 04</p>
         <h2 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>What athletes are saying.</h2>
         <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Real ratings pulled from your Shopify products — no dummy text.</p>
+        <div className="zoda-circuit__actions zoda-circuit__actions--compact" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
+          <a className="zoda-circuit__button-secondary" href="/collections/all">Shop Rated Gear</a>
+        </div>
         <ReviewsRail />
       </div>
     </article>
@@ -374,24 +411,30 @@ export function ZodaCircuit() {
         <div>
           <p className="zoda-circuit__kicker" data-animate="">Prepare Your Kit / 05</p>
           <h2 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>Prepare your kit.</h2>
+          <div className="zoda-circuit__actions zoda-circuit__actions--compact" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
+            <a className="zoda-circuit__button" href="/collections/all">Build Your Kit</a>
+          </div>
         </div>
-        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Build a session-ready setup around compression, breathability, recovery, and the finishing details.</p>
+        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>A session-ready setup starts with support, airflow, and finishing details.</p>
       </div>
       <div className="zoda-circuit__proof-grid">
         <div className="zoda-circuit__proof-item" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
+          <figure className="zoda-circuit__proof-media"><img src={spotlightImage} alt="ZODA compression piece showing support and fit" loading="lazy" /></figure>
           <span>01 / Base</span>
           <strong>Lock in support</strong>
-          <p>Start with compression that holds shape through heat, sweat, and repeated movement.</p>
+          <p>Compression that holds shape through heat and sweat.</p>
         </div>
         <div className="zoda-circuit__proof-item" data-animate="" style={{"--zoda-delay": "320ms"} as React.CSSProperties}>
+          <figure className="zoda-circuit__proof-media"><img src={buttonsImage} alt="Close-up detail of breathable ZODA garment construction" loading="lazy" /></figure>
           <span>02 / Layer</span>
           <strong>Add breathability</strong>
-          <p>Choose lightweight tops and shorts built for airflow, comfort, and quick transitions.</p>
+          <p>Lightweight pieces built for airflow and quick transitions.</p>
         </div>
         <div className="zoda-circuit__proof-item" data-animate="" style={{"--zoda-delay": "420ms"} as React.CSSProperties}>
+          <figure className="zoda-circuit__proof-media"><img src={pocketImage} alt="ZODA detail image representing finishing accessories and storage" loading="lazy" /></figure>
           <span>03 / Finish</span>
           <strong>Complete the session</strong>
-          <p>Round out the kit with accessories and recovery pieces that keep the day moving.</p>
+          <p>Accessories and recovery pieces keep the day moving.</p>
         </div>
       </div>
     </article>
@@ -401,8 +444,11 @@ export function ZodaCircuit() {
         <div>
           <p className="zoda-circuit__kicker" data-animate="">Instagram / 11</p>
           <h2 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>Follow us on Instagram.</h2>
+          <div className="zoda-circuit__actions zoda-circuit__actions--compact" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
+            <a className="zoda-circuit__button" href="https://www.instagram.com/zoda.sg/" target="_blank" rel="noopener">Follow @zoda.sg</a>
+          </div>
         </div>
-        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Catch product drops, athlete stories, training notes, and behind-the-scenes progress from the ZODA circuit.</p>
+        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Product drops, athlete stories, training notes, and behind-the-scenes progress.</p>
       </div>
       <div className="zoda-circuit__proof-grid">
         <a className="zoda-circuit__proof-item" href="https://www.instagram.com/zoda.sg/" target="_blank" rel="noopener" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
