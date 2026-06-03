@@ -58,8 +58,8 @@ function CollectionPage() {
               <p className="zoda-shell__empty">No products in this collection yet.</p>
             ) : (
               <div className="zoda-collection-grid">
-                {data.products.map((p) => (
-                  <ProductCard key={p.id} p={p} />
+                {data.products.map((p, index) => (
+                  <ProductCard key={p.id} p={p} eager={index < 4} />
                 ))}
               </div>
             )}

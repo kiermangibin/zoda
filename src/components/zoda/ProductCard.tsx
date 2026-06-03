@@ -16,7 +16,7 @@ function formatMoney(amount: string, currency: string) {
 function isColor(n: string) { return /colou?r/i.test(n); }
 function isSize(n: string) { return /size/i.test(n); }
 
-export function ProductCard({ p }: { p: CollectionProduct }) {
+export function ProductCard({ p, eager = false }: { p: CollectionProduct; eager?: boolean }) {
   const addItem = useCartStore((s) => s.addItem);
   const open = useCartStore((s) => s.open);
   const isLoading = useCartStore((s) => s.isLoading);
@@ -115,7 +115,14 @@ export function ProductCard({ p }: { p: CollectionProduct }) {
       aria-label={p.title}
     >
       <div className="zoda-product-card__media">
-        {displayImage ? <img src={displayImage} alt={p.imageAlt ?? p.title} loading="lazy" /> : null}
+        {displayImage ? (
+          <img
+            src={displayImage}
+            alt={p.imageAlt ?? p.title}
+            loading={eager ? "eager" : "lazy"}
+            fetchPriority={eager ? "high" : "auto"}
+          />
+        ) : null}
 
         {sizes.length > 0 ? (
           <div className="zoda-product-card__sizes" role="group" aria-label="Quick add — choose a size">

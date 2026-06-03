@@ -4,7 +4,22 @@ import { Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-const Accordion = AccordionPrimitive.Root;
+type AccordionProps = Omit<AccordionPrimitive.AccordionSingleProps, "type"> & {
+  type?: "single";
+};
+
+const Accordion = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Root>,
+  AccordionProps
+>(({ type = "single", collapsible = true, ...props }, ref) => (
+  <AccordionPrimitive.Root
+    ref={ref}
+    type={type}
+    collapsible={collapsible}
+    {...props}
+  />
+));
+Accordion.displayName = AccordionPrimitive.Root.displayName;
 
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,

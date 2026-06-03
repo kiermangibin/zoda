@@ -47,16 +47,17 @@ const TECH_TAGS = ["ZoDry™", "ZoFresh™", "FluidMotion™"];
 function Accordion({
   title,
   children,
-  defaultOpen = false,
+  open,
+  onToggle,
 }: {
   title: string;
   children: React.ReactNode;
-  defaultOpen?: boolean;
+  open: boolean;
+  onToggle: () => void;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
   return (
     <div className="zoda-pi-acc">
-      <button type="button" className="zoda-pi-acc__summary" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+      <button type="button" className="zoda-pi-acc__summary" onClick={onToggle} aria-expanded={open}>
         <span>{title}</span>
         {open ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
       </button>
@@ -71,6 +72,7 @@ function renderHtml(html: string | null) {
 }
 
 export function ProductDetailsGrid({ data }: { data: ProductDetailsData }) {
+  const [openAccordion, setOpenAccordion] = useState<string | null>("features");
   const hasLeft =
     data.fabricSwatches.length > 0 || data.sculpt || data.thickness;
   const hasRight =
@@ -130,7 +132,13 @@ export function ProductDetailsGrid({ data }: { data: ProductDetailsData }) {
         {hasRight ? (
           <div className="zoda-pi__right">
             {data.features ? (
-              <Accordion title="Key Features" defaultOpen>
+              <Accordion
+                title="Key Features"
+                open={openAccordion === "features"}
+                onToggle={() =>
+                  setOpenAccordion((current) => (current === "features" ? null : "features"))
+                }
+              >
                 {renderHtml(data.features)}
                 <div className="zoda-pi__tags">
                   {TECH_TAGS.map((t) => (
@@ -140,15 +148,43 @@ export function ProductDetailsGrid({ data }: { data: ProductDetailsData }) {
               </Accordion>
             ) : null}
             {data.fabricRichText ? (
-              <Accordion title="Fabric">{renderHtml(data.fabricRichText)}</Accordion>
+              <Accordion
+                title="Fabric"
+                open={openAccordion === "fabric"}
+                onToggle={() =>
+                  setOpenAccordion((current) => (current === "fabric" ? null : "fabric"))
+                }
+              >
+                {renderHtml(data.fabricRichText)}
+              </Accordion>
             ) : null}
             {data.sizeGuide ? (
-              <Accordion title="Size + Fit">{renderHtml(data.sizeGuide)}</Accordion>
+              <Accordion
+                title="Size + Fit"
+                open={openAccordion === "size-fit"}
+                onToggle={() =>
+                  setOpenAccordion((current) => (current === "size-fit" ? null : "size-fit"))
+                }
+              >
+                {renderHtml(data.sizeGuide)}
+              </Accordion>
             ) : null}
             {data.care ? (
-              <Accordion title="Care Instructions">{renderHtml(data.care)}</Accordion>
+              <Accordion
+                title="Care Instructions"
+                open={openAccordion === "care"}
+                onToggle={() => setOpenAccordion((current) => (current === "care" ? null : "care"))}
+              >
+                {renderHtml(data.care)}
+              </Accordion>
             ) : null}
-            <Accordion title="Shipping and Returns">
+            <Accordion
+              title="Shipping and Returns"
+              open={openAccordion === "shipping"}
+              onToggle={() =>
+                setOpenAccordion((current) => (current === "shipping" ? null : "shipping"))
+              }
+            >
               <p>Free shipping on orders over $100. 30-day returns on unworn items.</p>
             </Accordion>
           </div>

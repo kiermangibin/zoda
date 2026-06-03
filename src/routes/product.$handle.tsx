@@ -177,6 +177,7 @@ function ProductPage() {
   }, [swatches]);
 
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [openPdpAccordion, setOpenPdpAccordion] = useState<string | null>("key-features");
 
   const initialOptions = useMemo(() => {
     const first = variants[0];
@@ -480,8 +481,16 @@ function ProductPage() {
                   text={product.description}
                 />
 
-              <div className="zoda-pdp__accordions">
-                  <PdpAccordion title="Key Features" defaultOpen>
+                <div className="zoda-pdp__accordions">
+                  <PdpAccordion
+                    title="Key Features"
+                    open={openPdpAccordion === "key-features"}
+                    onToggle={() =>
+                      setOpenPdpAccordion((current) =>
+                        current === "key-features" ? null : "key-features",
+                      )
+                    }
+                  >
                     {details.features ? (
                       <div dangerouslySetInnerHTML={{ __html: details.features }} />
                     ) : (
@@ -493,7 +502,13 @@ function ProductPage() {
                       {TECH_TAGS.map((t) => <span key={t}>{t}</span>)}
                     </div>
                   </PdpAccordion>
-                  <PdpAccordion title="Fabric">
+                  <PdpAccordion
+                    title="Fabric"
+                    open={openPdpAccordion === "fabric"}
+                    onToggle={() =>
+                      setOpenPdpAccordion((current) => (current === "fabric" ? null : "fabric"))
+                    }
+                  >
                     {details.fabricRichText ? (
                       <div dangerouslySetInnerHTML={{ __html: details.fabricRichText }} />
                     ) : (
@@ -501,7 +516,15 @@ function ProductPage() {
                     )}
                   </PdpAccordion>
                   <div id="zoda-size-fit">
-                    <PdpAccordion title="Size + Fit">
+                    <PdpAccordion
+                      title="Size + Fit"
+                      open={openPdpAccordion === "size-fit"}
+                      onToggle={() =>
+                        setOpenPdpAccordion((current) =>
+                          current === "size-fit" ? null : "size-fit",
+                        )
+                      }
+                    >
                       {details.sizeGuide ? (
                         <div dangerouslySetInnerHTML={{ __html: details.sizeGuide }} />
                       ) : (
@@ -509,14 +532,28 @@ function ProductPage() {
                       )}
                     </PdpAccordion>
                   </div>
-                  <PdpAccordion title="Care Instructions">
+                  <PdpAccordion
+                    title="Care Instructions"
+                    open={openPdpAccordion === "care"}
+                    onToggle={() =>
+                      setOpenPdpAccordion((current) => (current === "care" ? null : "care"))
+                    }
+                  >
                     {details.care ? (
                       <div dangerouslySetInnerHTML={{ __html: details.care }} />
                     ) : (
                       <p>Machine wash cold with like colors. Tumble dry low. Do not iron print. Do not bleach.</p>
                     )}
                   </PdpAccordion>
-                  <PdpAccordion title="Shipping and Returns">
+                  <PdpAccordion
+                    title="Shipping and Returns"
+                    open={openPdpAccordion === "shipping-returns"}
+                    onToggle={() =>
+                      setOpenPdpAccordion((current) =>
+                        current === "shipping-returns" ? null : "shipping-returns",
+                      )
+                    }
+                  >
                     <p>Free shipping on orders over $80. 30-day returns on unworn items with original tags.</p>
                   </PdpAccordion>
                 </div>
@@ -600,16 +637,21 @@ function ImageStrip({ images, title }: { images: { url: string; altText: string 
 
 function PdpAccordion({
   title,
-  defaultOpen = false,
+  open,
+  onToggle,
   children,
-}: { title: string; defaultOpen?: boolean; children: React.ReactNode }) {
-  const [open, setOpen] = useState(defaultOpen);
+}: {
+  title: string;
+  open: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <div className="zoda-pdp-acc">
       <button
         type="button"
         className="zoda-pdp-acc__summary"
-        onClick={() => setOpen((v) => !v)}
+        onClick={onToggle}
         aria-expanded={open}
       >
         <span>{title}</span>

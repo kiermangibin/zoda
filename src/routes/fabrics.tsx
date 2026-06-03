@@ -28,7 +28,7 @@ export const Route = createFileRoute("/fabrics")({
 
 function FabricsPage() {
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
+  const [openAccordions, setOpenAccordions] = useState<Record<string, number | null>>({});
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -36,12 +36,10 @@ function FabricsPage() {
       nextPath: "/",
       onAccordionChange: (panel, index) => {
         const handle = panel.dataset.fabricHandle;
-        if (!handle || index < 0) return;
+        if (!handle) return;
         setOpenAccordions((current) => ({
           ...current,
-          [`${handle}-0`]: index === 0,
-          [`${handle}-1`]: index === 1,
-          [`${handle}-2`]: index === 2,
+          [handle]: index < 0 ? null : index,
         }));
       },
     });
@@ -203,8 +201,7 @@ function FabricsPage() {
                       content: [f.community],
                     },
                   ].map((item, itemIndex) => {
-                    const accordionKey = `${f.handle}-${itemIndex}`;
-                    const isOpen = Boolean(openAccordions[accordionKey]);
+                    const isOpen = openAccordions[f.handle] === itemIndex;
 
                     return (
                       <article
@@ -223,7 +220,7 @@ function FabricsPage() {
                           onClick={() => {
                             setOpenAccordions((current) => ({
                               ...current,
-                              [accordionKey]: !isOpen,
+                              [f.handle]: isOpen ? null : itemIndex,
                             }));
                           }}
                         >
