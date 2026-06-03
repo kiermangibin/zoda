@@ -6180,6 +6180,7 @@
   #zoda-circuit-home .zoda-circuit__fabric-shell,
   #zoda-circuit-home .zoda-circuit__intro-row {
     align-self: center !important;
+    text-align: center !important;
   }
 
   #zoda-circuit-home .zoda-circuit__video-content {
@@ -6383,7 +6384,7 @@
     overflow-y: auto !important;
     padding-right: 2px !important;
     justify-self: center !important;
-    max-width: min(100%, 358px) !important;
+    max-width: 100% !important;
     width: 100% !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
@@ -6782,7 +6783,7 @@ body.index
   }
 
   #zoda-circuit-home-6 .zoda-circuit__fabric-shell {
-    gap: 10px !important;
+    gap: 20px !important;
     max-height: calc(100svh - 104px) !important;
   }
 
