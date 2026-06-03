@@ -40,8 +40,7 @@
 @media (min-width: 761px) {
   .zoda-fabrics-page[data-snap-active-panel]:not([data-snap-active-panel="1"])
     > .zoda-circuit.zoda-circuit--chrome-only,
-  .zoda-fabrics-page[data-snap-active-panel]:not([data-snap-active-panel="1"])
-    .zoda-site-header,
+  .zoda-fabrics-page[data-snap-active-panel]:not([data-snap-active-panel="1"]) .zoda-site-header,
   .zoda-fabrics-page[data-snap-active-panel]:not([data-snap-active-panel="1"])
     .zoda-shell__site-header {
     opacity: 0;
@@ -927,7 +926,7 @@
     font-size: clamp(18px, 5.5vw, 24px);
   }
   .zoda-fabrics-directory__kicker {
-    font-size: 10px;
+    font-size: 13px !important;
     margin-bottom: 6px;
   }
   .zoda-fabrics-directory__grid {
@@ -1036,7 +1035,7 @@
     justify-content: flex-start;
   }
   .zoda-fabrics-feature__eyebrow {
-    font-size: 11px;
+    font-size: 13px;
     margin-bottom: 8px;
   }
   .zoda-fabrics-feature__title {
