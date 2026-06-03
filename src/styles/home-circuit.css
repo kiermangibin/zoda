@@ -6378,7 +6378,7 @@
     display: grid !important;
     flex: 0 1 auto !important;
     gap: 6px !important;
-    max-height: min(46svh, 360px) !important;
+    max-height: 100% !important;
     min-height: 0 !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
@@ -6569,7 +6569,7 @@ body.index
   #zoda-circuit-home-12 .zoda-circuit__proof-item:has(.zoda-circuit__proof-media) {
     align-items: center !important;
     display: grid !important;
-    gap: 10px 12px !important;
+    gap: 0px 12px !important;
     grid-template-columns: 112px minmax(0, 1fr) !important;
     padding: 10px !important;
   }
@@ -6651,6 +6651,38 @@ body.index
     min-width: 0 !important;
     padding: 0 !important;
     width: min(73vw, 286px) !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-card .zoda-fabrics-card__face--back {
+    align-items: flex-start !important;
+    gap: 9px !important;
+    justify-content: center !important;
+    padding: 16px !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-card .zoda-fabrics-card__back-eyebrow {
+    font-size: clamp(17px, 5.4vw, 22px) !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-card .zoda-fabrics-card__back-text {
+    color: rgba(255, 255, 255, 0.82) !important;
+    display: -webkit-box !important;
+    font-size: clamp(11px, 3.25vw, 13px) !important;
+    line-height: 1.42 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 5 !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__fabric-card .zoda-fabrics-card__back-cta {
+    align-self: flex-start !important;
+    border-bottom: 1px solid var(--accent, #55cda1) !important;
+    color: #fff !important;
+    display: inline-block !important;
+    font-size: 10px !important;
+    margin-top: auto !important;
+    padding-bottom: 4px !important;
   }
 }
 
@@ -6869,7 +6901,7 @@ body.index
 
   #zoda-circuit-home-11 .zoda-circuit__proof-item:has(.zoda-circuit__proof-media) {
     align-items: stretch !important;
-    gap: 10px 12px !important;
+    gap: 0px 12px !important;
     grid-template-columns: 104px minmax(0, 1fr) !important;
     min-height: 108px !important;
     padding: 8px !important;

@@ -28,6 +28,8 @@ export const Route = createFileRoute("/fabrics")({
 
 function FabricsPage() {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const directoryGridRef = useRef<HTMLDivElement | null>(null);
+  const [directoryIndex, setDirectoryIndex] = useState(0);
   const [openAccordions, setOpenAccordions] = useState<Record<string, number | null>>({});
 
   useEffect(() => {
@@ -59,6 +61,18 @@ function FabricsPage() {
     }
     const root = rootRef.current as (HTMLDivElement & { __snapGoTo?: (id: string) => void }) | null;
     root?.__snapGoTo?.(`fabric-${handle}`);
+  };
+
+  const handleDirectoryScroll = () => {
+    const grid = directoryGridRef.current;
+    const firstCard = grid?.querySelector<HTMLElement>(".zoda-fabrics-card");
+    if (!grid || !firstCard) return;
+
+    const style = window.getComputedStyle(grid);
+    const gap = Number.parseFloat(style.columnGap || style.gap || "0") || 0;
+    const cardStep = firstCard.getBoundingClientRect().width + gap;
+    if (cardStep <= 0) return;
+    setDirectoryIndex(Math.max(0, Math.min(FABRICS.length - 1, Math.round(grid.scrollLeft / cardStep))));
   };
 
   return (
@@ -115,7 +129,11 @@ function FabricsPage() {
             <p className="zoda-fabrics-directory__kicker">Directory</p>
             <h2 className="zoda-fabrics-directory__title">Meet every fabric</h2>
           </header>
-          <div className="zoda-fabrics-directory__grid">
+          <div
+            ref={directoryGridRef}
+            className="zoda-fabrics-directory__grid"
+            onScroll={handleDirectoryScroll}
+          >
             {FABRICS.map((f) => (
               <a
                 key={f.handle}
@@ -145,6 +163,14 @@ function FabricsPage() {
                 </div>
               </a>
             ))}
+          </div>
+          <div className="zoda-fabrics-directory__mobile-ui" aria-hidden="true">
+            <div className="zoda-fabrics-directory__progress">
+              <span style={{ transform: `scaleX(${(directoryIndex + 1) / FABRICS.length})` }} />
+            </div>
+            <div className="zoda-fabrics-directory__count">
+              {String(directoryIndex + 1).padStart(2, "0")} / {String(FABRICS.length).padStart(2, "0")}
+            </div>
           </div>
         </section>
 

@@ -20,6 +20,21 @@ export function ZodaCircuit() {
     if (typeof window === "undefined") return;
     const root = document.getElementById("zoda-circuit-home");
     if (!root || root.dataset.ready === "true") return;
+    const handleFabricCardClick = (event: MouseEvent) => {
+      if (!window.matchMedia("(max-width: 760px)").matches) return;
+      const target = event.target instanceof Element ? event.target : null;
+      const card = target?.closest<HTMLElement>("[data-zoda-fabric-card]");
+      if (!card || !root.contains(card)) return;
+
+      const shouldReveal = !card.classList.contains("is-revealed");
+      root
+        .querySelectorAll<HTMLElement>("[data-zoda-fabric-card].is-revealed")
+        .forEach((revealedCard) => {
+          if (revealedCard !== card) revealedCard.classList.remove("is-revealed");
+        });
+      card.classList.toggle("is-revealed", shouldReveal);
+      card.setAttribute("aria-pressed", shouldReveal ? "true" : "false");
+    };
     const s = document.createElement("script");
     s.id = "zoda-circuit-script";
     s.textContent = ZODA_CIRCUIT_SCRIPT.replace(
@@ -35,8 +50,10 @@ export function ZodaCircuit() {
       "const clearVerticalSwipe = absY > 56 && absY > absX * 1.65;\n        if (!clearVerticalSwipe || (touchStartedInHorizontal && absX > absY * 0.45)) {\n          touchStartedInHorizontal = false;\n          return;\n        }",
       "touchStartedInHorizontal = false;\n        return;",
     );
+    root.addEventListener("click", handleFabricCardClick);
     document.body.appendChild(s);
     return () => {
+      root.removeEventListener("click", handleFabricCardClick);
       s.remove();
       // allow re-init if remounted
       delete (root as HTMLElement).dataset.ready;

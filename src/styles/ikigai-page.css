@@ -1177,7 +1177,7 @@
   }
 
   .zoda-ikigai-page .zoda-ikigai-purpose .zoda-fabrics-feature__desc {
-    font-size: 12.5px;
+    font-size: 10.5px;
     line-height: 1.36;
     max-width: 100%;
   }
@@ -1725,7 +1725,7 @@
   }
 
   .zoda-ikigai-page #ikigai-technology .zoda-fabrics-feature__desc {
-    font-size: 13px;
+    font-size: 13px !important;
     line-height: 1.38;
     margin-bottom: 10px;
   }
@@ -1930,7 +1930,7 @@
   .zoda-ikigai-page .zoda-ikigai-purpose .zoda-fabrics-feature__title,
   .zoda-ikigai-page .zoda-fabrics-feature__title,
   .zoda-ikigai-page .zoda-ikigai-pillars .zoda-fabrics-directory__title {
-    font-size: 30px !important;
+    font-size: 28px !important;
     line-height: 0.98;
     margin-bottom: 10px;
     max-width: 100%;
@@ -1947,7 +1947,7 @@
     -webkit-line-clamp: unset;
     -webkit-box-orient: initial;
     display: block;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.42;
     max-width: 100%;
     overflow: visible;
@@ -2006,6 +2006,10 @@
   .zoda-ikigai-page #ikigai-technology .zoda-fabrics-feature__desc,
   .zoda-ikigai-page .zoda-ikigai-community__lede {
     display: block;
+  }
+
+  .zoda-ikigai-page #ikigai-technology .zoda-fabrics-feature__desc {
+    font-size: 12px;
   }
 
   .zoda-ikigai-page .zoda-ikigai-purpose__cards {
@@ -2199,6 +2203,10 @@
 }
 
 @media (max-width: 760px) {
+  .zoda-ikigai-page .zoda-ikigai-purpose__copy > .zoda-fabrics-feature__actions {
+    display: none !important;
+  }
+
   .zoda-ikigai-page .zoda-fabrics-hero__lede,
   .zoda-ikigai-page .zoda-ikigai-pillars__lede,
   .zoda-ikigai-page .zoda-ikigai-community__lede {
