@@ -1981,3 +1981,10 @@
     display: none;
   }
 }
+
+@media (max-width: 760px) {
+  .zoda-mission-hero__content > p,
+  .zoda-mission-copy > p {
+    display: none !important;
+  }
+}

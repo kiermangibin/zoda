@@ -1289,8 +1289,8 @@
   font-family: 'Commuters Sans',Arial,sans-serif;
 }
 .zoda-shell__chrome {
-  position: sticky;
-  top: 0;
+  position: relative;
+  top: auto;
   z-index: 20;
   display: flex;
   align-items: center;
@@ -1648,8 +1648,8 @@
   background: rgba(8,10,9,0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
+  position: relative;
+  top: auto;
   z-index: 60;
 }
 

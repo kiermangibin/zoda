@@ -81,9 +81,43 @@
   color: var(--muted);
 } /* ---------- Light SiteHeader ---------- */
 
+.zoda-theme-header-shell {
+  position: relative !important;
+  top: auto !important;
+}
+
+.zoda-mobile-header-shell {
+  height: auto;
+  min-height: 0;
+  position: relative;
+}
+
+.zoda-mobile-sticky-only {
+  position: relative !important;
+  top: auto !important;
+}
+
+@media (max-width: 760px) {
+  .zoda-theme-header-shell,
+  .zoda-mobile-header-shell,
+  .zoda-mobile-sticky-only {
+    min-height: 72px !important;
+    position: sticky !important;
+    top: 0 !important;
+  }
+
+  .zoda-mobile-header {
+    left: 0 !important;
+    position: fixed !important;
+    right: 0 !important;
+    top: 0 !important;
+    width: 100vw !important;
+    z-index: 220 !important;
+  }
+}
+
 .zoda-site-header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 50;
   background: #fff;
   border-bottom: 1px solid var(--line);
@@ -93,6 +127,13 @@
   padding: 16px 32px;
   height: 72px;
   font-family: var(--zoda-font-sans);
+}
+
+@media (max-width: 760px) {
+  .zoda-site-header {
+    position: fixed;
+    top: 0;
+  }
 }
 .zoda-site-header__logo img {
   height: 28px;
@@ -360,8 +401,7 @@
    styles, which are scoped under .zoda-circuit, actually apply). Neutralizes
    the panel-style layout/height the .zoda-circuit base rule sets on home. */
 .zoda-circuit--chrome-only {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 120;
   height: auto !important;
   min-height: 0 !important;
@@ -371,9 +411,24 @@
   pointer-events: auto;
 }
 .zoda-circuit--chrome-only .zoda-circuit__chrome {
-  position: sticky !important;
+  position: relative !important;
   inset: auto !important;
-  top: 0;
+  top: auto;
+}
+
+@media (max-width: 760px) {
+  .zoda-circuit--chrome-only {
+    min-height: 72px !important;
+    position: sticky;
+    top: 0;
+  }
+
+  .zoda-circuit--chrome-only .zoda-circuit__chrome {
+    left: 0;
+    position: fixed !important;
+    right: 0;
+    top: 0;
+  }
 }
 
 .zoda-shell > .zoda-circuit.zoda-circuit--chrome-only {
@@ -630,4 +685,75 @@
   align-items: center;
   display: inline-flex;
   gap: 4px;
+}
+/* Theme-wide accordions aligned with the homepage callout style. */
+.zoda-theme-accordion {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018)),
+    rgba(7, 9, 8, 0.04);
+  border: 1px solid var(--zoda-line, rgba(0, 0, 0, 0.1));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.68);
+  overflow: hidden;
+}
+
+.zoda-theme-accordion + .zoda-theme-accordion {
+  margin-top: 8px;
+}
+
+.zoda-theme-accordion__button {
+  align-items: center !important;
+  color: var(--zoda-black, #0a0a0a) !important;
+  display: flex !important;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  gap: 12px !important;
+  letter-spacing: 0.08em !important;
+  min-height: 62px !important;
+  padding: 0 clamp(16px, 2vw, 24px) !important;
+  text-transform: uppercase !important;
+  transition:
+    background 180ms ease,
+    color 180ms ease !important;
+}
+
+.zoda-theme-accordion__button:hover {
+  background: rgba(85, 205, 161, 0.08) !important;
+}
+
+.zoda-theme-accordion__button:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--zoda-accent, #55cda1);
+  outline: 0;
+}
+
+.zoda-theme-accordion__button > span {
+  min-width: 0;
+}
+
+.zoda-theme-accordion__button > div {
+  align-items: center;
+  border: 1px solid rgba(85, 205, 161, 0.62);
+  color: var(--zoda-accent, #55cda1);
+  display: inline-flex;
+  flex: 0 0 22px;
+  height: 22px;
+  justify-content: center;
+  width: 22px;
+}
+
+.zoda-theme-accordion__button > div svg {
+  height: 12px;
+  width: 12px;
+}
+
+.zoda-theme-accordion__content {
+  background:
+    linear-gradient(90deg, rgba(85, 205, 161, 0.1), rgba(85, 205, 161, 0)),
+    rgba(0, 0, 0, 0.03);
+  border-top: 1px solid var(--zoda-line, rgba(0, 0, 0, 0.1));
+  color: var(--zoda-black, #0a0a0a);
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 16px clamp(16px, 2vw, 24px) 18px !important;
 }

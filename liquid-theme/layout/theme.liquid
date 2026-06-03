@@ -68,11 +68,8 @@
     {% comment %} Header {% endcomment %}
     <header
       class="
-        animation-1000 z-50
-        {{ settings.header_position }}
+        zoda-theme-header-shell animation-1000 z-50
         {% if settings.header_blend %} mix-blend-difference {% endif %}
-        {% if settings.header_position == 'dynamic' %}sticky top-0 left-0 right-0{% endif %}
-        {% if settings.header_position == 'sticky' %}sticky top-0 left-0 right-0{% endif %}
         {% unless request.design_mode %}
           {% if settings.enable_animations %}
             {% if settings.animate_header == 'slide' %}

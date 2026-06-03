@@ -70,100 +70,104 @@ function LightHeader({ menuId }: { menuId: string }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="zoda-site-header" data-open={mobileOpen}>
-      <a className="zoda-site-header__logo" href="/" aria-label="ZODA">
-        <img
-          src="https://zoda.sg/cdn/shop/files/ZODA_logo.svg?v=1741773590&width=352"
-          alt="ZODA"
-          loading="eager"
-        />
-      </a>
-
-      <nav className="zoda-site-header__nav" aria-label="ZODA navigation">
-        <a href="/collections/new-arrivals">New Arrivals</a>
-        <a href="/collections/womens-collection">Women</a>
-        <a href="/collections/mens-collection">Men</a>
-        <a href="/collections/unisex">Unisex</a>
-        <span className="zoda-site-header__nav-item">
-          <a href="/collections">Our Products</a>
-          <span className="zoda-site-header__menu" role="menu">
-            <a href="/collections/core-performance">Core Performance</a>
-            <a href="/collections/endurance">Endurance</a>
-            <a href="/collections/24-7-wear">24/7 Wear</a>
-            <a href="/collections/accessories">Accessories</a>
-          </span>
-        </span>
-        <span className="zoda-site-header__nav-item">
-          <a href="https://zoda.sg/pages/about-zoda" target="_blank" rel="noopener">
-            Who We Are
-          </a>
-          <span className="zoda-site-header__menu" role="menu">
-            <Link to="/fabrics">Our Fabrics</Link>
-            <Link to="/ikigai">Our Ikigai</Link>
-            <Link to="/mission">The Mission</Link>
-          </span>
-        </span>
-      </nav>
-
-      <div className="zoda-site-header__actions">
-        <HeaderCurrencySelector />
-        <button type="button" className="zoda-site-header__icon" aria-label="Search">
-          <Search className="h-5 w-5" />
-        </button>
-        <a
-          className="zoda-site-header__icon"
-          href={`https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/account`}
-          target="_blank"
-          rel="noopener"
-          aria-label="Account"
-        >
-          <User className="h-5 w-5" />
+    <div className="zoda-mobile-header-shell">
+      <header className="zoda-site-header zoda-mobile-header" data-open={mobileOpen}>
+        <a className="zoda-site-header__logo" href="/" aria-label="ZODA">
+          <img
+            src="https://zoda.sg/cdn/shop/files/ZODA_logo.svg?v=1741773590&width=352"
+            alt="ZODA"
+            loading="eager"
+          />
         </a>
-        <button
-          type="button"
-          className="zoda-site-header__icon"
-          aria-label={`Cart, ${totalItems} item${totalItems === 1 ? "" : "s"}`}
-          onClick={open}
-        >
-          <ShoppingBag className="h-5 w-5" />
-          {totalItems > 0 ? <span className="zoda-site-header__badge">{totalItems}</span> : null}
-        </button>
-        <button
-          type="button"
-          className="zoda-site-header__burger"
-          aria-label="Menu"
-          aria-expanded={mobileOpen}
-          aria-controls={menuId}
-          onClick={() => setMobileOpen((v) => !v)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
 
-      <div
-        className="zoda-site-header__mobile-panel"
-        id={menuId}
-        onClick={(e) => {
-          if ((e.target as HTMLElement).tagName === "A") setMobileOpen(false);
-        }}
-      >
-        <a href="/collections/new-arrivals">New Arrivals</a>
-        <a href="/collections/womens-collection">Women</a>
-        <a href="/collections/mens-collection">Men</a>
-        <a href="/collections/unisex">Unisex</a>
-        <strong>Our Products</strong>
-        <a href="/collections/core-performance">Core Performance</a>
-        <a href="/collections/endurance">Endurance</a>
-        <a href="/collections/24-7-wear">24/7 Wear</a>
-        <a href="/collections/accessories">Accessories</a>
-        <strong>Who We Are</strong>
-        <Link to="/fabrics">Our Fabrics</Link>
-        <Link to="/ikigai">Our Ikigai</Link>
-        <Link to="/mission">The Mission</Link>
-      </div>
-    </header>
+        <nav className="zoda-site-header__nav" aria-label="ZODA navigation">
+          <a href="/collections/new-arrivals">New Arrivals</a>
+          <a href="/collections/womens-collection">Women</a>
+          <a href="/collections/mens-collection">Men</a>
+          <a href="/collections/unisex">Unisex</a>
+          <span className="zoda-site-header__nav-item">
+            <a href="/collections">Our Products</a>
+            <span className="zoda-site-header__menu" role="menu">
+              <a href="/collections/core-performance">Core Performance</a>
+              <a href="/collections/endurance">Endurance</a>
+              <a href="/collections/24-7-wear">24/7 Wear</a>
+              <a href="/collections/accessories">Accessories</a>
+            </span>
+          </span>
+          <span className="zoda-site-header__nav-item">
+            <a href="https://zoda.sg/pages/about-zoda" target="_blank" rel="noopener">
+              Who We Are
+            </a>
+            <span className="zoda-site-header__menu" role="menu">
+              <Link to="/fabrics">Our Fabrics</Link>
+              <Link to="/ikigai">Our Ikigai</Link>
+              <Link to="/mission">The Mission</Link>
+            </span>
+          </span>
+        </nav>
+
+        <div className="zoda-site-header__actions">
+          <HeaderCurrencySelector />
+          <button type="button" className="zoda-site-header__icon" aria-label="Search">
+            <Search className="h-5 w-5" />
+          </button>
+          <a
+            className="zoda-site-header__icon"
+            href={`https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/account`}
+            target="_blank"
+            rel="noopener"
+            aria-label="Account"
+          >
+            <User className="h-5 w-5" />
+          </a>
+          <button
+            type="button"
+            className="zoda-site-header__icon"
+            aria-label={`Cart, ${totalItems} item${totalItems === 1 ? "" : "s"}`}
+            onClick={open}
+          >
+            <ShoppingBag className="h-5 w-5" />
+            {totalItems > 0 ? (
+              <span className="zoda-site-header__badge">{totalItems}</span>
+            ) : null}
+          </button>
+          <button
+            type="button"
+            className="zoda-site-header__burger"
+            aria-label="Menu"
+            aria-expanded={mobileOpen}
+            aria-controls={menuId}
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+
+        <div
+          className="zoda-site-header__mobile-panel"
+          id={menuId}
+          onClick={(e) => {
+            if ((e.target as HTMLElement).tagName === "A") setMobileOpen(false);
+          }}
+        >
+          <a href="/collections/new-arrivals">New Arrivals</a>
+          <a href="/collections/womens-collection">Women</a>
+          <a href="/collections/mens-collection">Men</a>
+          <a href="/collections/unisex">Unisex</a>
+          <strong>Our Products</strong>
+          <a href="/collections/core-performance">Core Performance</a>
+          <a href="/collections/endurance">Endurance</a>
+          <a href="/collections/24-7-wear">24/7 Wear</a>
+          <a href="/collections/accessories">Accessories</a>
+          <strong>Who We Are</strong>
+          <Link to="/fabrics">Our Fabrics</Link>
+          <Link to="/ikigai">Our Ikigai</Link>
+          <Link to="/mission">The Mission</Link>
+        </div>
+      </header>
+    </div>
   );
 }
 
@@ -189,7 +193,7 @@ export function SiteHeader({
   }
 
   const headerMarkup = (
-    <header className="zoda-circuit__chrome zoda-circuit__chrome--global">
+    <header className="zoda-circuit__chrome zoda-circuit__chrome--global zoda-mobile-header">
       <a className="zoda-circuit__logo" href="/" aria-label="ZODA">
         <img
           className="zoda-circuit__logo-image"
@@ -300,5 +304,5 @@ export function SiteHeader({
   );
 
   if (embedded) return headerMarkup;
-  return <div className="zoda-circuit zoda-circuit--chrome-only">{headerMarkup}</div>;
+  return <div className="zoda-circuit zoda-circuit--chrome-only zoda-mobile-header-shell">{headerMarkup}</div>;
 }

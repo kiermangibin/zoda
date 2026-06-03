@@ -105,6 +105,7 @@ export function initSnapController(
 
   const setActive = (index: number) => {
     activeIndex = Math.max(0, Math.min(index, panels.length - 1));
+    root.dataset.snapActivePanel = String(activeIndex + 1);
     panels.forEach((p, i) => p.classList.toggle("is-active", i === activeIndex));
     const panel = panels[activeIndex];
     if (panel?.hasAttribute("data-snap-accordion") && !accordionState.has(panel)) {
@@ -226,7 +227,6 @@ export function initSnapController(
   };
 
   const onTouchMove = (event: TouchEvent) => {
-    if (disableMobileTouchSnap && isMobile()) return;
     if (locked) {
       event.preventDefault();
       return;
@@ -234,6 +234,8 @@ export function initSnapController(
     const t = event.touches[0];
     const dy = touchStartY - t.clientY;
     const dx = touchStartX - t.clientX;
+
+    if (disableMobileTouchSnap && isMobile()) return;
     if (Math.abs(dy) < 28 || Math.abs(dx) > Math.abs(dy)) return;
     if (isInsideInternalScroller(event.target, dy)) return;
     event.preventDefault();
@@ -293,6 +295,7 @@ export function initSnapController(
   track.addEventListener("scroll", onScroll, { passive: true });
 
   setActive(0);
+  onScroll();
 
   // Expose a goTo method on the root for hash links etc.
   (root as HTMLElement & { __snapGoTo?: (id: string) => void }).__snapGoTo = (id: string) => {
@@ -313,6 +316,7 @@ export function initSnapController(
       item.removeEventListener("toggle", handler),
     );
     if (lockTimer) window.clearTimeout(lockTimer);
+    delete root.dataset.snapActivePanel;
     delete (root as HTMLElement & { __snapGoTo?: (id: string) => void }).__snapGoTo;
   };
 }

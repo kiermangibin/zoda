@@ -28,11 +28,47 @@
   left: 0;
   right: 0;
   z-index: 50;
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease;
 }
 .zoda-fabrics-page .zoda-site-header,
 .zoda-fabrics-page .zoda-shell__site-header {
   background: rgba(0, 0, 0, 0.78);
   backdrop-filter: blur(10px);
+}
+@media (min-width: 761px) {
+  .zoda-fabrics-page[data-snap-active-panel]:not([data-snap-active-panel="1"])
+    > .zoda-circuit.zoda-circuit--chrome-only,
+  .zoda-fabrics-page[data-snap-active-panel]:not([data-snap-active-panel="1"])
+    .zoda-site-header,
+  .zoda-fabrics-page[data-snap-active-panel]:not([data-snap-active-panel="1"])
+    .zoda-shell__site-header {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+  }
+  .zoda-fabrics-page[data-snap-active-panel="1"] > .zoda-circuit.zoda-circuit--chrome-only,
+  .zoda-fabrics-page[data-snap-active-panel="1"] .zoda-site-header,
+  .zoda-fabrics-page[data-snap-active-panel="1"] .zoda-shell__site-header,
+  .zoda-fabrics-page:not([data-snap-active-panel]) > .zoda-circuit.zoda-circuit--chrome-only,
+  .zoda-fabrics-page:not([data-snap-active-panel]) .zoda-site-header,
+  .zoda-fabrics-page:not([data-snap-active-panel]) .zoda-shell__site-header {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .zoda-fabrics-page > .zoda-circuit.zoda-circuit--chrome-only,
+  .zoda-fabrics-page .zoda-site-header,
+  .zoda-fabrics-page .zoda-shell__site-header {
+    opacity: 1;
+    pointer-events: auto;
+    position: fixed;
+    transform: none;
+  }
 }
 .zoda-fabrics-snap {
   position: absolute;
@@ -492,12 +528,12 @@
 }
 .zoda-fabrics-feature__accordion {
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.024)),
-    rgba(7, 9, 8, 0.58);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.024)),
+    rgba(7, 9, 8, 0.54);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
-    0 22px 70px rgba(0, 0, 0, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 24px 72px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   display: grid;
   margin: 0 0 18px;
   max-width: 640px;
@@ -523,8 +559,8 @@
   gap: 8px 12px;
   grid-template-columns: 30px minmax(0, 1fr) max-content 24px;
   list-style: none;
-  min-height: 50px;
-  padding: 10px 14px;
+  min-height: 62px;
+  padding: 0 clamp(16px, 2vw, 24px);
   text-align: left;
   transition:
     background 180ms ease,
@@ -538,8 +574,8 @@
   background: rgba(255, 255, 255, 0.055);
 }
 .zoda-fabrics-feature__accordion-trigger:focus-visible {
-  outline: 2px solid rgba(85, 205, 161, 0.72);
-  outline-offset: -2px;
+  box-shadow: inset 0 0 0 2px var(--accent, #55cda1);
+  outline: 0;
 }
 .zoda-fabrics-feature__accordion-index,
 .zoda-fabrics-feature__accordion-label {
@@ -567,7 +603,7 @@
   text-transform: uppercase;
 }
 .zoda-fabrics-feature__accordion-trigger i {
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(85, 205, 161, 0.62);
   display: block;
   height: 22px;
   position: relative;
@@ -595,7 +631,7 @@
 }
 .zoda-fabrics-feature__accordion-item[open] .zoda-fabrics-feature__accordion-trigger,
 .zoda-fabrics-feature__accordion-item.is-open .zoda-fabrics-feature__accordion-trigger {
-  background: rgba(0, 0, 0, 0.42);
+  background: #000;
 }
 .zoda-fabrics-feature__accordion-item[open] .zoda-fabrics-feature__accordion-trigger i,
 .zoda-fabrics-feature__accordion-item.is-open .zoda-fabrics-feature__accordion-trigger i {
@@ -1268,4 +1304,11 @@
 }
 .zoda-fabrics-card--flip.is-revealed .zoda-fabrics-card__flip-inner {
   transform: rotateY(180deg);
+}
+
+@media (max-width: 760px) {
+  .zoda-fabrics-page .zoda-fabrics-hero__lede,
+  .zoda-fabrics-page .zoda-fabrics-craft__copy {
+    display: none !important;
+  }
 }

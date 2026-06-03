@@ -110,7 +110,6 @@ function IkigaiPage() {
     if (!rootRef.current) return;
     const cleanup = initSnapController(rootRef.current, {
       nextPath: "/fabrics",
-      disableMobileTouchSnap: true,
     });
     return cleanup;
   }, []);

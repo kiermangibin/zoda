@@ -23,7 +23,7 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col justify-end px-5 pb-16 md:px-12 md:pb-20">
-        <p className="zoda-kicker mb-4">Our Mission / 01</p>
+        <p className="zoda-kicker mb-4">Our Mission</p>
         <h1 className="zoda-heading max-w-[1100px]" style={{ fontSize: "clamp(48px, 6.2vw, 112px)" }}>
           Changing the way humans experience activewear
         </h1>
@@ -71,7 +71,7 @@ export function Signal() {
     >
       <div className="mx-auto grid max-w-[1500px] gap-10 md:grid-cols-[1.16fr_0.62fr] md:items-end">
         <div>
-          <p className="zoda-kicker mb-4">What's New / 02</p>
+          <p className="zoda-kicker mb-4">What's New</p>
           <h2 className="zoda-heading">Products in motion.</h2>
         </div>
         <div className="grid gap-4 border-l border-white/15 pl-6 md:pl-10">
@@ -155,7 +155,7 @@ export function Collections() {
     <section id="collections" className="zoda-section">
       <div className="mx-auto grid max-w-[1500px] gap-10 md:grid-cols-2 md:items-end">
         <div>
-          <p className="zoda-kicker mb-4">Collection / 03</p>
+          <p className="zoda-kicker mb-4">Collection</p>
           <h2 className="zoda-heading">Shop by collection.</h2>
         </div>
         <p className="zoda-copy md:justify-self-end">
@@ -236,7 +236,7 @@ export function Reviews() {
   return (
     <section className="zoda-section">
       <div className="mx-auto max-w-[1500px]">
-        <p className="zoda-kicker mb-4">Reviews / 09</p>
+        <p className="zoda-kicker mb-4">Reviews</p>
         <h2 className="zoda-heading">What athletes are saying.</h2>
         <p className="zoda-copy mt-5">
           Fit, support, and recovery feedback from the people putting ZODA through real sessions.
@@ -278,7 +278,7 @@ export function PrepareKit() {
       <div className="mx-auto max-w-[1500px]">
         <div className="grid gap-8 md:grid-cols-2 md:items-end">
           <div>
-            <p className="zoda-kicker mb-4">Prepare Your Kit / 05</p>
+            <p className="zoda-kicker mb-4">Prepare Your Kit</p>
             <h2 className="zoda-heading">Prepare your kit.</h2>
           </div>
           <p className="zoda-copy md:justify-self-end">
@@ -320,7 +320,7 @@ export function FabricSystem() {
       <div className="mx-auto max-w-[1500px]">
         <div className="grid gap-8 md:grid-cols-2 md:items-end">
           <div>
-            <p className="zoda-kicker mb-4">Fabric System / 06</p>
+            <p className="zoda-kicker mb-4">Fabric System</p>
             <h2 className="zoda-heading">Fabric system.</h2>
           </div>
           <p className="zoda-copy md:justify-self-end">
@@ -388,7 +388,7 @@ export function Technology() {
   return (
     <section className="zoda-section">
       <div className="mx-auto max-w-[1500px]">
-        <p className="zoda-kicker mb-4">Technology / 07</p>
+        <p className="zoda-kicker mb-4">Technology</p>
         <h2 className="zoda-heading">Inside Zenith Tech.</h2>
         <p className="zoda-copy mt-5">
           ZODA's precision-engineered innovation platform combines advanced fabric technology with meticulous design to push boundaries, elevate comfort, and unlock peak potential.
@@ -432,7 +432,7 @@ export function AlphaStandards() {
       <div className="mx-auto max-w-[1500px]">
         <div className="grid gap-8 md:grid-cols-2 md:items-end">
           <div>
-            <p className="zoda-kicker mb-4">Alpha Standard / 04</p>
+            <p className="zoda-kicker mb-4">Alpha Standard</p>
             <h2 className="zoda-heading">Three standards.</h2>
           </div>
           <p className="zoda-copy md:justify-self-end">
@@ -465,7 +465,7 @@ export function Pursuit() {
     >
       <div className="mx-auto grid max-w-[1500px] gap-12 md:grid-cols-2 md:items-center">
         <div>
-          <p className="zoda-kicker mb-4">Mindset / 03</p>
+          <p className="zoda-kicker mb-4">Mindset</p>
           <h2 className="zoda-heading">Relentless Pursuit</h2>
           <p className="zoda-copy mt-5">Early starts. Extra laps. Final reps.</p>
           <div className="mt-8">
@@ -500,7 +500,7 @@ export function Community() {
       <div className="mx-auto max-w-[1500px]">
         <div className="grid gap-8 md:grid-cols-2 md:items-end">
           <div>
-            <p className="zoda-kicker mb-4">What's Coming / 10</p>
+            <p className="zoda-kicker mb-4">What's Coming</p>
             <h2 className="zoda-heading">Exciting projects.</h2>
           </div>
           <p className="zoda-copy md:justify-self-end">
@@ -536,7 +536,7 @@ export function InstagramSection() {
       <div className="mx-auto max-w-[1500px]">
         <div className="grid gap-8 md:grid-cols-2 md:items-end">
           <div>
-            <p className="zoda-kicker mb-4">Instagram / 11</p>
+            <p className="zoda-kicker mb-4">Instagram</p>
             <h2 className="zoda-heading">Follow us on Instagram.</h2>
           </div>
           <p className="zoda-copy md:justify-self-end">
@@ -581,7 +581,7 @@ export function FinalCTA() {
       }}
     >
       <div className="mx-auto max-w-[1200px] text-center md:text-left">
-        <p className="zoda-kicker mb-4">Contact / 12</p>
+        <p className="zoda-kicker mb-4">Contact</p>
         <h2 className="zoda-heading">Changing how humans experience activewear.</h2>
         <p className="zoda-copy mt-5 md:max-w-2xl">
           Shop the gear, speak with the team, or follow the ZODA circuit as we change how humans experience activewear.
