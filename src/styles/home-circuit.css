@@ -6870,14 +6870,14 @@ body.index
     align-items: stretch !important;
     gap: 10px 12px !important;
     grid-template-columns: 104px minmax(0, 1fr) !important;
-    min-height: 140px !important;
+    min-height: 108px !important;
     padding: 8px !important;
   }
 
   #zoda-circuit-home-11 .zoda-circuit__proof-media {
     aspect-ratio: auto !important;
-    height: 124px !important;
-    min-height: 124px !important;
+    height: 100px !important;
+    min-height: 100px !important;
     width: 104px !important;
   }
 
