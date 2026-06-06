@@ -443,6 +443,11 @@
   color: #fff;
 }
 
+.zoda-mission-path__space[data-type="badge"] {
+  align-content: center;
+  gap: 6px;
+}
+
 .zoda-mission-path__space[data-type="final"] {
   aspect-ratio: auto;
   background: transparent;

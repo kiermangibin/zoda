@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowLeft, Check, Dice5, RotateCcw, Trophy } from "lucide-react";
+import { ArrowLeft, BookOpen, Check, Dice5, RotateCcw, Trophy, X } from "lucide-react";
 
 import { CartDrawer } from "@/components/zoda/CartDrawer";
 import { SiteHeader } from "@/components/zoda/SiteHeader";
@@ -22,7 +22,8 @@ export const Route = createFileRoute("/mission_/play")({
       { property: "og:title", content: "Mission Play - ZODA" },
       {
         property: "og:description",
-        content: "A game-centered Mission board for rolling, picking challenges and tracking score.",
+        content:
+          "A game-centered Mission board for rolling, picking challenges and tracking score.",
       },
     ],
   }),
@@ -42,10 +43,14 @@ type MissionChallenge = MissionTask & {
   weekIndex: number;
 };
 
+type MissionResult = "hit" | "fail";
+type ChallengeResults = Record<string, MissionResult>;
+
 type ScoreNotice = {
   id: number;
   challengeName: string;
-  points: string;
+  earnedPoints: number;
+  result: MissionResult;
   totalPoints: number;
 };
 
@@ -95,17 +100,38 @@ const WEEK_THREE: MissionTask[] = [
 ];
 
 const MISSION_WEEKS = [
-  { badge: "Week 1", title: "Foundation", tier: "Initiator", icon: initiatorTrophy, items: WEEK_ONE },
+  {
+    badge: "Week 1",
+    title: "Foundation",
+    tier: "Initiator",
+    icon: initiatorTrophy,
+    items: WEEK_ONE,
+  },
   { badge: "Week 2", title: "Ascend", tier: "Ascender", icon: ascenderTrophy, items: WEEK_TWO },
-  { badge: "Week 3", title: "Dominance", tier: "Beast", icon: beastTrophy, items: WEEK_THREE },
+  { badge: "Week 3", title: "Dominance", tier: "Dominance", icon: beastTrophy, items: WEEK_THREE },
 ];
 
 const MISSION_PLAYBOOK_STORAGE_KEY = "zoda-mission-playbook-checks";
+const MISSION_RESULTS_STORAGE_KEY = "zoda-mission-play-results";
 const MISSION_DICE_STORAGE_KEY = "zoda-mission-dice-roll";
 const MISSION_PLAY_WEEK_STORAGE_KEY = "zoda-mission-play-active-week";
 const MISSION_PLAY_PICK_STORAGE_KEY = "zoda-mission-play-active-challenge";
 const SCOREBOARD_TARGET_POINTS = 450;
 const FINAL_MISSION_ID = "final-mission";
+const STREAK_BONUSES = [
+  { hits: 3, points: 10 },
+  { hits: 5, points: 20 },
+  { hits: 7, points: 30 },
+  { hits: 12, points: 50 },
+];
+const STREAK_RULEBOOK = [
+  "Every hit adds +1 to your streak.",
+  "One fail resets it.",
+  "3 / 5 / 7 hits = +10 / +20 / +30 points.",
+  "12 hits = +50 bonus + 1 Beast Save.",
+  "Hit = full points. Fail = half points.",
+  "No points if you didn't attempt.",
+];
 
 function toSlug(value: string) {
   return value
@@ -123,6 +149,14 @@ function getChallengeItemId(challenge: Pick<MissionChallenge, "badge" | "name">)
   return `${challenge.badge}-${challenge.name}`;
 }
 
+function getChallengeResultKey(challenge: Pick<MissionChallenge, "id">) {
+  return challenge.id;
+}
+
+function formatScore(value: number) {
+  return Number.isInteger(value) ? String(value) : value.toFixed(1);
+}
+
 const ALL_CHALLENGES: MissionChallenge[] = MISSION_WEEKS.flatMap((week, weekIndex) =>
   week.items.map((item) => ({
     ...item,
@@ -138,24 +172,55 @@ const ALL_CHALLENGES: MissionChallenge[] = MISSION_WEEKS.flatMap((week, weekInde
   })),
 );
 
-function getScoreboard(checkedItems: string[]) {
-  const completedChallenges = ALL_CHALLENGES.filter((challenge) =>
-    checkedItems.includes(getChallengeItemId(challenge)),
+function getScoreboard(results: ChallengeResults) {
+  const attemptedChallenges = ALL_CHALLENGES.filter(
+    (challenge) => results[getChallengeResultKey(challenge)],
   );
-  const completedPoints = completedChallenges.reduce(
-    (total, item) => total + getPointValue(item.points),
+  const hitChallenges = attemptedChallenges.filter(
+    (challenge) => results[getChallengeResultKey(challenge)] === "hit",
+  );
+  const failChallenges = attemptedChallenges.filter(
+    (challenge) => results[getChallengeResultKey(challenge)] === "fail",
+  );
+  const basePoints = attemptedChallenges.reduce(
+    (total, item) =>
+      total +
+      (results[getChallengeResultKey(item)] === "hit"
+        ? getPointValue(item.points)
+        : getPointValue(item.points) / 2),
     0,
   );
+  let currentStreak = 0;
+  let maxStreak = 0;
+
+  ALL_CHALLENGES.forEach((challenge) => {
+    const result = results[getChallengeResultKey(challenge)];
+    if (!result) return;
+
+    if (result === "hit") {
+      currentStreak += 1;
+      maxStreak = Math.max(maxStreak, currentStreak);
+      return;
+    }
+
+    currentStreak = 0;
+  });
+
+  const bonusPoints = STREAK_BONUSES.reduce(
+    (total, bonus) => (maxStreak >= bonus.hits ? total + bonus.points : total),
+    0,
+  );
+  const completedPoints = basePoints + bonusPoints;
   const weekCounts = MISSION_WEEKS.map((week, weekIndex) => {
     const total = ALL_CHALLENGES.filter((challenge) => challenge.weekIndex === weekIndex).length;
-    const completed = completedChallenges.filter(
+    const completed = attemptedChallenges.filter(
       (challenge) => challenge.weekIndex === weekIndex,
     ).length;
     return { week: week.badge, completed, total };
   });
   const badgeTier =
     completedPoints >= SCOREBOARD_TARGET_POINTS
-      ? "Beast"
+      ? "Dominance"
       : completedPoints >= 300
         ? "Ascender"
         : completedPoints > 0
@@ -164,9 +229,15 @@ function getScoreboard(checkedItems: string[]) {
 
   return {
     badgeTier,
-    beastSaves: Math.floor(completedChallenges.length / 12),
+    basePoints,
+    beastSaves: maxStreak >= 12 ? 1 : 0,
+    bonusPoints,
     completedPoints,
-    completedTasks: completedChallenges.length,
+    completedTasks: attemptedChallenges.length,
+    currentStreak,
+    failCount: failChallenges.length,
+    hitCount: hitChallenges.length,
+    maxStreak,
     targetPoints: SCOREBOARD_TARGET_POINTS,
     totalTasks: ALL_CHALLENGES.length,
     weekCounts,
@@ -174,20 +245,37 @@ function getScoreboard(checkedItems: string[]) {
 }
 
 function MissionPlayPage() {
-  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [challengeResults, setChallengeResults] = useState<ChallengeResults>({});
   const [activeWeekIndex, setActiveWeekIndex] = useState(0);
   const [activeChallengeId, setActiveChallengeId] = useState<string | null>(null);
   const [diceValue, setDiceValue] = useState<number | null>(null);
   const [diceRollCount, setDiceRollCount] = useState(0);
   const [scoreNotice, setScoreNotice] = useState<ScoreNotice | null>(null);
   const [lockedWeekNotice, setLockedWeekNotice] = useState<LockedWeekNotice | null>(null);
+  const [isRulebookOpen, setIsRulebookOpen] = useState(false);
 
   useEffect(() => {
     try {
-      const savedChecks = window.localStorage.getItem(MISSION_PLAYBOOK_STORAGE_KEY);
-      setCheckedItems(savedChecks ? JSON.parse(savedChecks) : []);
+      const savedResults = window.localStorage.getItem(MISSION_RESULTS_STORAGE_KEY);
+      if (savedResults) {
+        setChallengeResults(JSON.parse(savedResults) as ChallengeResults);
+      } else {
+        const savedChecks = window.localStorage.getItem(MISSION_PLAYBOOK_STORAGE_KEY);
+        const checkedItems = savedChecks ? (JSON.parse(savedChecks) as string[]) : [];
+        const migratedResults = ALL_CHALLENGES.reduce<ChallengeResults>(
+          (nextResults, challenge) => {
+            if (checkedItems.includes(getChallengeItemId(challenge))) {
+              nextResults[getChallengeResultKey(challenge)] = "hit";
+            }
+            return nextResults;
+          },
+          {},
+        );
+        setChallengeResults(migratedResults);
+        window.localStorage.setItem(MISSION_RESULTS_STORAGE_KEY, JSON.stringify(migratedResults));
+      }
     } catch {
-      setCheckedItems([]);
+      setChallengeResults({});
     }
 
     const savedWeek = Number(window.localStorage.getItem(MISSION_PLAY_WEEK_STORAGE_KEY) ?? "0");
@@ -207,20 +295,21 @@ function MissionPlayPage() {
     }
   }, []);
 
-  const scoreboard = useMemo(() => getScoreboard(checkedItems), [checkedItems]);
+  const scoreboard = useMemo(() => getScoreboard(challengeResults), [challengeResults]);
   const activeWeek = MISSION_WEEKS[activeWeekIndex];
   const activeWeekChallenges = useMemo(
     () => ALL_CHALLENGES.filter((challenge) => challenge.weekIndex === activeWeekIndex),
     [activeWeekIndex],
   );
   const incompleteActiveWeekChallenges = activeWeekChallenges.filter(
-    (challenge) => !checkedItems.includes(getChallengeItemId(challenge)),
+    (challenge) => !challengeResults[getChallengeResultKey(challenge)],
   );
   const activeChallenge = ALL_CHALLENGES.find((challenge) => challenge.id === activeChallengeId);
   const isFinalMissionSelected = activeChallengeId === FINAL_MISSION_ID;
-  const activeChallengeIsComplete = activeChallenge
-    ? checkedItems.includes(getChallengeItemId(activeChallenge))
-    : false;
+  const activeChallengeResult = activeChallenge
+    ? challengeResults[getChallengeResultKey(activeChallenge)]
+    : undefined;
+  const activeChallengeIsComplete = Boolean(activeChallengeResult);
   const isCurrentWeekComplete = incompleteActiveWeekChallenges.length === 0;
   const allTasksComplete = scoreboard.completedTasks === scoreboard.totalTasks;
   const unlockedWeekIndex = scoreboard.weekCounts.reduce(
@@ -272,6 +361,7 @@ function MissionPlayPage() {
     if (!requiredWeek) return;
 
     setScoreNotice(null);
+    setIsRulebookOpen(false);
     setLockedWeekNotice({
       id: Date.now(),
       remainingTasks: Math.max(requiredWeek.total - requiredWeek.completed, 0),
@@ -298,19 +388,34 @@ function MissionPlayPage() {
     window.localStorage.setItem(MISSION_PLAY_PICK_STORAGE_KEY, pickedChallenge.id);
   };
 
-  const markActiveChallengeComplete = () => {
+  const saveChallengeResults = (nextResults: ChallengeResults) => {
+    setChallengeResults(nextResults);
+    window.localStorage.setItem(MISSION_RESULTS_STORAGE_KEY, JSON.stringify(nextResults));
+    window.localStorage.setItem(
+      MISSION_PLAYBOOK_STORAGE_KEY,
+      JSON.stringify(
+        ALL_CHALLENGES.filter(
+          (challenge) => nextResults[getChallengeResultKey(challenge)] === "hit",
+        ).map((challenge) => getChallengeItemId(challenge)),
+      ),
+    );
+  };
+
+  const markActiveChallengeResult = (result: MissionResult) => {
     if (!activeChallenge || activeChallengeIsComplete) return;
-    const itemId = getChallengeItemId(activeChallenge);
-    const nextItems = [...checkedItems, itemId];
-    const nextScoreboard = getScoreboard(nextItems);
-    setCheckedItems(nextItems);
+    const nextResults = {
+      ...challengeResults,
+      [getChallengeResultKey(activeChallenge)]: result,
+    };
+    const nextScoreboard = getScoreboard(nextResults);
     setScoreNotice({
       id: Date.now(),
       challengeName: activeChallenge.name,
-      points: activeChallenge.points,
+      earnedPoints: nextScoreboard.completedPoints - scoreboard.completedPoints,
+      result,
       totalPoints: nextScoreboard.completedPoints,
     });
-    window.localStorage.setItem(MISSION_PLAYBOOK_STORAGE_KEY, JSON.stringify(nextItems));
+    saveChallengeResults(nextResults);
   };
 
   return (
@@ -333,13 +438,35 @@ function MissionPlayPage() {
         </section>
 
         <div className="zoda-mission-play__mobile-status" aria-label="Current score">
-          <span>{scoreboard.completedPoints} pts</span>
+          <span>{formatScore(scoreboard.completedPoints)} pts</span>
           <strong>
             {scoreboard.completedTasks}/{scoreboard.totalTasks} complete
           </strong>
         </div>
 
-        {lockedWeekNotice ? (
+        {isRulebookOpen ? (
+          <div
+            className="zoda-mission-play__notice zoda-mission-play__notice--rulebook"
+            role="dialog"
+            aria-label="Streak Hit Rulebook"
+            aria-modal="false"
+          >
+            <button
+              className="zoda-mission-play__notice-close"
+              type="button"
+              aria-label="Close rulebook"
+              onClick={() => setIsRulebookOpen(false)}
+            >
+              <X size={14} aria-hidden="true" />
+            </button>
+            <strong>Streak Hit Rulebook</strong>
+            <ul>
+              {STREAK_RULEBOOK.map((rule) => (
+                <li key={rule}>{rule}</li>
+              ))}
+            </ul>
+          </div>
+        ) : lockedWeekNotice ? (
           <div
             key={lockedWeekNotice.id}
             className="zoda-mission-play__notice zoda-mission-play__notice--lock"
@@ -356,13 +483,18 @@ function MissionPlayPage() {
         ) : scoreNotice ? (
           <div
             key={scoreNotice.id}
-            className="zoda-mission-play__notice"
+            className={`zoda-mission-play__notice zoda-mission-play__notice--${scoreNotice.result}`}
             role="status"
             aria-live="polite"
           >
-            <strong>{scoreNotice.points} points</strong>
-            <span>{scoreNotice.challengeName} complete</span>
-            <em>Score: {scoreNotice.totalPoints} / {scoreboard.targetPoints}</em>
+            <strong>
+              {scoreNotice.result === "hit" ? "Hit" : "Fail"} +
+              {formatScore(scoreNotice.earnedPoints)} points
+            </strong>
+            <span>{scoreNotice.challengeName} recorded</span>
+            <em>
+              Score: {formatScore(scoreNotice.totalPoints)} / {scoreboard.targetPoints}
+            </em>
           </div>
         ) : null}
 
@@ -379,7 +511,7 @@ function MissionPlayPage() {
               <div>
                 <dt>Score</dt>
                 <dd>
-                  {scoreboard.completedPoints} / {scoreboard.targetPoints}
+                  {formatScore(scoreboard.completedPoints)} / {scoreboard.targetPoints}
                 </dd>
               </div>
               <div>
@@ -389,8 +521,16 @@ function MissionPlayPage() {
                 </dd>
               </div>
               <div>
-                <dt>Progress</dt>
-                <dd>{progressPercent}%</dd>
+                <dt>Streak</dt>
+                <dd>{scoreboard.currentStreak}</dd>
+              </div>
+              <div>
+                <dt>Bonus</dt>
+                <dd>+{formatScore(scoreboard.bonusPoints)}</dd>
+              </div>
+              <div>
+                <dt>Hits</dt>
+                <dd>{scoreboard.hitCount}</dd>
               </div>
               <div>
                 <dt>Saves</dt>
@@ -439,15 +579,16 @@ function MissionPlayPage() {
                 Roll
               </button>
               {activeWeekChallenges.map((challenge, index) => {
-                const itemId = getChallengeItemId(challenge);
-                const isComplete = checkedItems.includes(itemId);
+                const result = challengeResults[getChallengeResultKey(challenge)];
                 const isActive = activeChallenge?.id === challenge.id;
 
                 return (
                   <button
                     key={challenge.id}
                     type="button"
-                    className={isComplete ? "is-complete" : isActive ? "is-active" : undefined}
+                    className={[result ? `is-${result}` : "", isActive ? "is-active" : ""]
+                      .filter(Boolean)
+                      .join(" ")}
                     data-tone={challenge.tone}
                     aria-pressed={isActive}
                     onClick={() => {
@@ -458,7 +599,8 @@ function MissionPlayPage() {
                     <span>{String(index + 1).padStart(2, "0")}</span>
                     <strong>{challenge.name}</strong>
                     <em>{challenge.points}</em>
-                    {isComplete ? <Check size={13} aria-hidden="true" /> : null}
+                    {result === "hit" ? <Check size={13} aria-hidden="true" /> : null}
+                    {result === "fail" ? <X size={13} aria-hidden="true" /> : null}
                   </button>
                 );
               })}
@@ -508,11 +650,25 @@ function MissionPlayPage() {
               </div>
               <small>{diceValue ? `Roll ${diceRollCount}: ${diceValue}` : "Ready to pick"}</small>
             </div>
+            <button
+              className="zoda-mission-play__rulebook-button"
+              type="button"
+              onClick={() => {
+                setLockedWeekNotice(null);
+                setScoreNotice(null);
+                setIsRulebookOpen(true);
+              }}
+            >
+              <BookOpen size={15} aria-hidden="true" />
+              Rulebook
+            </button>
 
             <div className="zoda-mission-play__challenge">
               {isFinalMissionSelected ? (
                 <>
-                  <span>{allTasksComplete ? "Final Mission unlocked" : "Final Mission locked"}</span>
+                  <span>
+                    {allTasksComplete ? "Final Mission unlocked" : "Final Mission locked"}
+                  </span>
                   <h2>Final Mission</h2>
                   {allTasksComplete ? (
                     <p>
@@ -556,7 +712,10 @@ function MissionPlayPage() {
                       type="button"
                       onClick={() => {
                         setActiveChallengeId(FINAL_MISSION_ID);
-                        window.localStorage.setItem(MISSION_PLAY_PICK_STORAGE_KEY, FINAL_MISSION_ID);
+                        window.localStorage.setItem(
+                          MISSION_PLAY_PICK_STORAGE_KEY,
+                          FINAL_MISSION_ID,
+                        );
                       }}
                     >
                       Final Mission Ready
@@ -571,20 +730,36 @@ function MissionPlayPage() {
                   <dl>
                     <div>
                       <dt>Points</dt>
-                      <dd>{activeChallenge.points}</dd>
+                      <dd>
+                        Hit {activeChallenge.points} / Fail +
+                        {formatScore(getPointValue(activeChallenge.points) / 2)}
+                      </dd>
                     </div>
                     <div>
                       <dt>Status</dt>
-                      <dd>{activeChallengeIsComplete ? "Complete" : "Active"}</dd>
+                      <dd>{activeChallengeResult ?? "Active"}</dd>
                     </div>
                   </dl>
-                  <button
-                    type="button"
-                    disabled={activeChallengeIsComplete}
-                    onClick={markActiveChallengeComplete}
-                  >
-                    {activeChallengeIsComplete ? "Completed" : "Mark Complete"}
-                  </button>
+                  {activeChallengeResult ? (
+                    <button type="button" disabled>
+                      {activeChallengeResult === "hit" ? "Hit Recorded" : "Fail Recorded"}
+                    </button>
+                  ) : (
+                    <div className="zoda-mission-play__challenge-actions">
+                      <button type="button" onClick={() => markActiveChallengeResult("hit")}>
+                        <Check size={15} aria-hidden="true" />
+                        Hit
+                      </button>
+                      <button
+                        type="button"
+                        data-result="fail"
+                        onClick={() => markActiveChallengeResult("fail")}
+                      >
+                        <X size={15} aria-hidden="true" />
+                        Fail
+                      </button>
+                    </div>
+                  )}
                 </>
               ) : (
                 <>

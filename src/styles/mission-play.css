@@ -122,7 +122,9 @@
 
 .zoda-mission-play__notice {
   animation: zoda-mission-play-notice 3200ms ease both;
-  background: var(--accent);
+  background:
+    linear-gradient(90deg, var(--accent) 0 8px, transparent 8px),
+    #fff;
   border: 1.5px solid #111;
   box-shadow:
     0 0 0 999px rgba(0, 0, 0, 0.18),
@@ -135,7 +137,7 @@
   left: 50%;
   letter-spacing: 0.06em;
   line-height: 1;
-  padding: 11px 12px;
+  padding: 12px 14px 12px 18px;
   position: fixed;
   top: clamp(76px, 12vh, 110px);
   transform: translateX(-50%);
@@ -152,11 +154,12 @@
 }
 
 .zoda-mission-play__notice strong {
-  color: var(--mission-play-orange);
+  color: #111;
   font-size: 13px;
 }
 
 .zoda-mission-play__notice span {
+  color: #111;
   font-size: 10px;
 }
 
@@ -166,7 +169,83 @@
 }
 
 .zoda-mission-play__notice--lock {
+  background:
+    linear-gradient(90deg, var(--mission-play-orange) 0 8px, transparent 8px),
+    #fff;
+}
+
+.zoda-mission-play__notice--hit strong {
+  color: #16845d;
+}
+
+.zoda-mission-play__notice--fail {
+  background:
+    linear-gradient(90deg, var(--mission-play-orange) 0 8px, transparent 8px),
+    #fff;
+}
+
+.zoda-mission-play__notice--fail strong {
+  color: var(--mission-play-orange);
+}
+
+.zoda-mission-play__notice--rulebook {
+  animation: zoda-mission-play-rulebook 180ms ease both;
   background: #fff;
+  gap: 12px;
+  padding: 18px;
+  width: min(calc(100vw - 24px), 440px);
+}
+
+.zoda-mission-play__notice--rulebook ul {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.zoda-mission-play__notice--rulebook li {
+  color: #111;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1.22;
+  padding-left: 14px;
+  position: relative;
+}
+
+.zoda-mission-play__notice--rulebook li::before {
+  background: var(--accent);
+  border-radius: 999px;
+  content: "";
+  height: 6px;
+  left: 0;
+  position: absolute;
+  top: 4px;
+  width: 6px;
+}
+
+.zoda-mission-play__notice-close {
+  align-items: center;
+  appearance: none;
+  background: #111;
+  border: 1.5px solid #111;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  height: 28px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 9px;
+  top: 9px;
+  width: 28px;
+}
+
+.zoda-mission-play__notice-close:hover,
+.zoda-mission-play__notice-close:focus-visible {
+  background: var(--accent);
+  color: #111;
+  outline: 0;
 }
 
 .zoda-mission-play__score,
@@ -421,13 +500,47 @@
   color: #fff;
 }
 
-.zoda-mission-play__board button.is-complete {
+.zoda-mission-play__board button.is-hit {
   background: #111;
   color: #fff;
 }
 
-.zoda-mission-play__board button.is-complete.is-active::after {
-  content: "Done";
+.zoda-mission-play__board button.is-hit::after,
+.zoda-mission-play__board button.is-fail::after {
+  border: 1.5px solid #111;
+  font-family: var(--zoda-font-mono, "Commuters Sans", Arial, sans-serif);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 5px 6px;
+  position: absolute;
+  right: 7px;
+  text-transform: uppercase;
+  top: auto;
+  bottom: 7px;
+}
+
+.zoda-mission-play__board button.is-hit::after {
+  background: var(--accent);
+  color: #111;
+  content: "Hit";
+}
+
+.zoda-mission-play__board button.is-fail {
+  background: rgba(248, 245, 234, 0.72);
+  color: rgba(17, 17, 17, 0.7);
+}
+
+.zoda-mission-play__board button.is-fail::after {
+  background: #fff;
+  color: var(--mission-play-orange);
+  content: "Fail";
+}
+
+.zoda-mission-play__board button.is-hit svg,
+.zoda-mission-play__board button.is-fail svg {
+  display: none;
 }
 
 .zoda-mission-play__board button span,
@@ -525,6 +638,7 @@
 }
 
 .zoda-mission-play__dice button,
+.zoda-mission-play__rulebook-button,
 .zoda-mission-play__challenge button,
 .zoda-mission-play__challenge a {
   align-items: center;
@@ -549,8 +663,15 @@
   background: var(--mission-play-orange);
 }
 
+.zoda-mission-play__rulebook-button {
+  background: transparent;
+  color: #111;
+}
+
 .zoda-mission-play__dice button:hover,
 .zoda-mission-play__dice button:focus-visible,
+.zoda-mission-play__rulebook-button:hover,
+.zoda-mission-play__rulebook-button:focus-visible,
 .zoda-mission-play__challenge button:hover,
 .zoda-mission-play__challenge button:focus-visible,
 .zoda-mission-play__challenge a:hover,
@@ -682,6 +803,17 @@
   font-weight: 800;
   line-height: 1.38;
   margin: 0;
+}
+
+.zoda-mission-play__challenge-actions {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.zoda-mission-play__challenge-actions button[data-result="fail"] {
+  background: transparent;
+  color: #111;
 }
 
 @media (min-width: 760px) {
@@ -817,5 +949,17 @@
   100% {
     opacity: 0;
     transform: translate(-50%, -8px) scale(0.98);
+  }
+}
+
+@keyframes zoda-mission-play-rulebook {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -8px) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
   }
 }

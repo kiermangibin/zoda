@@ -58,7 +58,7 @@ const MISSION_RULES = [
   "Complete 21 days with no misses.",
   "Miss? 12 hits earns one Beast Save.",
   "Hit 450+ points to qualify.",
-  "Earn a badge tier: Initiator, Ascender, Beast.",
+  "Earn a badge tier: Initiator, Ascender, Dominance.",
   "Step into the arena and win.",
 ];
 
@@ -77,7 +77,7 @@ const FINISHER_TIERS = [
   },
   {
     week: "Week 3 Finisher",
-    badge: "Beast",
+    badge: "Dominance",
     tone: "green",
     icon: beastTrophy,
   },
@@ -282,7 +282,7 @@ const MISSION_SPACES: MissionSpace[] = [
       id: `week-3-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
       label: item.name,
       type: "challenge",
-      week: "Week 3 / Beast",
+      week: "Week 3 / Dominance",
       points: item.points,
       tone: "green",
     }),
@@ -297,6 +297,19 @@ const MISSION_SPACES: MissionSpace[] = [
     icon: finalMissionIcon,
   },
 ];
+
+function getMissionSpaceDay(space: MissionSpace) {
+  if (space.type === "start" || space.type === "badge" || space.type === "final") return null;
+
+  const numberedSpaces = MISSION_SPACES.filter(
+    (missionSpace) =>
+      missionSpace.type !== "start" &&
+      missionSpace.type !== "badge" &&
+      missionSpace.type !== "final",
+  );
+  const dayIndex = numberedSpaces.findIndex((missionSpace) => missionSpace.id === space.id);
+  return dayIndex === -1 ? null : dayIndex + 1;
+}
 
 const INCLUSIONS = [
   "VentVault shoe garage",
@@ -369,7 +382,7 @@ function getScoreboard(checkedItems: string[]) {
   }));
   const badgeTier =
     completedPoints >= SCOREBOARD_TARGET_POINTS
-      ? "Beast"
+      ? "Dominance"
       : completedPoints >= 300
         ? "Ascender"
         : completedPoints > 0
@@ -485,7 +498,7 @@ function MissionPage() {
           <div className="zoda-mission-hero__card" aria-label="Mission summary card">
             <span>Play & Win</span>
             <strong>The Final Mission</strong>
-            <p>Start clean. Build the streak. Finish Beast.</p>
+            <p>Start clean. Build the streak. Finish Dominance.</p>
           </div>
         </section>
 
@@ -529,33 +542,37 @@ function MissionPage() {
                 <strong>{DAILY_MISSION_CHALLENGES.length} days</strong>
               </div>
               <div className="zoda-mission-path__track">
-                {MISSION_SPACES.map((space, index) => (
-                  <div
-                    key={space.id}
-                    className="zoda-mission-path__space"
-                    data-type={space.type}
-                    data-tone={space.tone}
-                  >
-                    {space.type === "start" ? (
-                      <>
-                        <img className="zoda-mission-path__start-logo" src={zodaZLogo} alt="" />
-                        <strong>{space.label}</strong>
-                        <em>{space.points}</em>
-                      </>
-                    ) : space.type === "final" && space.icon ? (
-                      <>
-                        <img className="zoda-mission-path__icon" src={space.icon} alt="" />
-                        <strong>{space.label}</strong>
-                      </>
-                    ) : (
-                      <>
-                        <span>{String(Math.max(index, 1)).padStart(2, "0")}</span>
-                        <strong>{space.label}</strong>
-                        <em>{space.points}</em>
-                      </>
-                    )}
-                  </div>
-                ))}
+                {MISSION_SPACES.map((space) => {
+                  const spaceDay = getMissionSpaceDay(space);
+
+                  return (
+                    <div
+                      key={space.id}
+                      className="zoda-mission-path__space"
+                      data-type={space.type}
+                      data-tone={space.tone}
+                    >
+                      {space.type === "start" ? (
+                        <>
+                          <img className="zoda-mission-path__start-logo" src={zodaZLogo} alt="" />
+                          <strong>{space.label}</strong>
+                          <em>{space.points}</em>
+                        </>
+                      ) : space.type === "final" && space.icon ? (
+                        <>
+                          <img className="zoda-mission-path__icon" src={space.icon} alt="" />
+                          <strong>{space.label}</strong>
+                        </>
+                      ) : (
+                        <>
+                          {spaceDay ? <span>{String(spaceDay).padStart(2, "0")}</span> : null}
+                          <strong>{space.label}</strong>
+                          <em>{space.points}</em>
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
