@@ -1,6 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Box, ChevronLeft, ChevronRight, Layers3, Medal, PackageCheck, Play } from "lucide-react";
+import {
+  Box,
+  ChevronLeft,
+  ChevronRight,
+  Layers3,
+  Medal,
+  PackageCheck,
+  Play,
+  Trophy,
+} from "lucide-react";
 
 import { CartDrawer } from "@/components/zoda/CartDrawer";
 import { SiteHeader } from "@/components/zoda/SiteHeader";
@@ -80,6 +89,7 @@ const WEEK_ONE = [
   { name: "Focus Discipline", points: "+20", detail: "4 hours screen-free block." },
   { name: "Protein Standard", points: "+20", detail: "1.5x B.W. protein minimum." },
   { name: "Sleep Lock", points: "+20", detail: "7 hours strict." },
+  { name: "Repeat Any", points: "+20", detail: "Repeat any challenge." },
   {
     name: "Beast Mode",
     points: "+60",
@@ -89,11 +99,10 @@ const WEEK_ONE = [
 ];
 
 const WEEK_TWO = [
-  { name: "Repeat Any", points: "+20", detail: "Repeat any challenge." },
-  { name: "Base Pace", points: "+30", detail: "5km under 6:00." },
   { name: "Push Session", points: "+25", detail: "30 burpees under control." },
   { name: "Clean Fuel 2.0", points: "+25", detail: "No sugar + 1.75x B.W. protein." },
   { name: "Focus Lock", points: "+20", detail: "Six hours with no social media." },
+  { name: "Base Pace", points: "+30", detail: "5km under 6:00." },
   { name: "Bonus", points: "+20", detail: "Player chooses any challenge." },
   { name: "Iron Distance", points: "+25", detail: "Farmers carry 24kg x2 for 100m." },
   {
@@ -104,6 +113,11 @@ const WEEK_TWO = [
 ];
 
 const WEEK_THREE = [
+  {
+    name: "Overdrive",
+    points: "+25",
+    detail: "Burn 750 cals + 2.0x B.W. protein.",
+  },
   { name: "Pressure Stack", points: "+25", detail: "25 diamond and 25 standard pushups." },
   { name: "Burpee War", points: "+30", detail: "75 burpees. Hit: under 15 min." },
   { name: "Cold Control", points: "+20", detail: "Ice bath (4-5 min)." },
@@ -112,11 +126,6 @@ const WEEK_THREE = [
     name: "Recovery Stack",
     points: "+20",
     detail: "Ice bath (5 min) + 7h sleep.",
-  },
-  {
-    name: "Overdrive",
-    points: "+25",
-    detail: "Burn 750 cals + 2.0x B.W. protein.",
   },
 ];
 
@@ -142,13 +151,11 @@ type MissionSpace = {
   type: "start" | "challenge" | "bonus" | "repeat" | "beast" | "badge" | "final";
   week: string;
   points: string;
-  detail: string;
   day?: number;
   tone?: "green" | "orange" | "gold" | "coral" | "mint" | "black";
   icon?: string;
 };
 
-const MISSION_START_STORAGE_KEY = "zoda-mission-start-date";
 const MISSION_PLAYBOOK_STORAGE_KEY = "zoda-mission-playbook-checks";
 
 function toSlug(value: string) {
@@ -156,31 +163,6 @@ function toSlug(value: string) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
-}
-
-function getLocalDateKey(date = new Date()) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-function parseLocalDateKey(value: string) {
-  const [year, month, day] = value.split("-").map(Number);
-  return new Date(year, month - 1, day);
-}
-
-function getMissionDayIndex(startDateKey: string, todayKey: string) {
-  const start = parseLocalDateKey(startDateKey);
-  const today = parseLocalDateKey(todayKey);
-  const diff = Math.floor((today.getTime() - start.getTime()) / 86_400_000);
-  return Math.min(Math.max(diff, 0), DAILY_MISSION_CHALLENGES.length - 1);
-}
-
-function getMissionStartDateForDay(dayNumber: number, today = new Date()) {
-  const startDate = new Date(today);
-  startDate.setDate(startDate.getDate() - (dayNumber - 1));
-  return getLocalDateKey(startDate);
 }
 
 function createDailyMissionSpace(
@@ -201,7 +183,6 @@ function createDailyMissionSpace(
             : "challenge",
     week,
     points: item.points,
-    detail: item.detail,
     day,
     tone:
       item.name === "Beast Mode"
@@ -230,7 +211,6 @@ const DAILY_MISSION_CHALLENGES: MissionSpace[] = [
     type: "final",
     week: "Day 21 / Arena Proof",
     points: "Win",
-    detail: "100 burpees, hydrate, wear the bag, post and tag @ZODA_FIT to complete the mission.",
     day: 21,
     tone: "orange",
     icon: finalMissionIcon,
@@ -244,36 +224,25 @@ const MISSION_SPACES: MissionSpace[] = [
     type: "start",
     week: "Entry",
     points: "Ready",
-    detail: "Begin the 21-day mission. Complete spaces, protect the streak and build toward Beast.",
     tone: "black",
   },
-  ...WEEK_ONE.slice(0, 4).map(
+  ...WEEK_ONE.map(
     (item): MissionSpace => ({
       id: `week-1-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
       label: item.name,
-      type: item.name === "Beast Mode" ? "beast" : "challenge",
+      type:
+        item.name === "Beast Mode" ? "beast" : item.name === "Repeat Any" ? "repeat" : "challenge",
       week: "Week 1 / Initiator",
       points: item.points,
-      detail: item.detail,
-      tone: item.name === "Beast Mode" ? "orange" : "green",
+      tone: item.name === "Beast Mode" ? "orange" : item.name === "Repeat Any" ? "mint" : "green",
     }),
   ),
-  {
-    id: "week-1-bonus",
-    label: "Bonus",
-    type: "bonus",
-    week: "Week 1 / Initiator",
-    points: "+10",
-    detail: "Optional boost space. Use it to add momentum before the Week 1 finisher.",
-    tone: "mint",
-  },
   {
     id: "badge-initiator",
     label: "Initiator",
     type: "badge",
     week: "Week 1 Finisher",
     points: "Tier 1",
-    detail: "Finish Week 1 with the streak intact to unlock the Initiator badge tier.",
     tone: "gold",
     icon: initiatorTrophy,
   },
@@ -291,7 +260,6 @@ const MISSION_SPACES: MissionSpace[] = [
               : "challenge",
       week: "Week 2 / Ascender",
       points: item.points,
-      detail: item.detail,
       tone:
         item.name === "Beast Mode"
           ? "orange"
@@ -306,7 +274,6 @@ const MISSION_SPACES: MissionSpace[] = [
     type: "badge",
     week: "Week 2 Finisher",
     points: "Tier 2",
-    detail: "Complete Week 2 to move from control into load, pace and pressure.",
     tone: "coral",
     icon: ascenderTrophy,
   },
@@ -317,7 +284,6 @@ const MISSION_SPACES: MissionSpace[] = [
       type: "challenge",
       week: "Week 3 / Beast",
       points: item.points,
-      detail: item.detail,
       tone: "green",
     }),
   ),
@@ -327,13 +293,10 @@ const MISSION_SPACES: MissionSpace[] = [
     type: "final",
     week: "Arena Proof",
     points: "Win",
-    detail: "100 burpees, hydrate, wear the bag, post and tag @ZODA_FIT to complete the mission.",
     tone: "orange",
     icon: finalMissionIcon,
   },
 ];
-
-const MISSION_DETAILS = [...MISSION_SPACES, ...DAILY_MISSION_CHALLENGES];
 
 const INCLUSIONS = [
   "VentVault shoe garage",
@@ -370,45 +333,70 @@ const PLAYBOOK_CARDS = [
   { type: "note" as const, title: "Streak Hit Rulebook", badge: "Rulebook", items: RULEBOOK },
 ];
 
+const SCOREBOARD_TASKS = [
+  ...WEEK_ONE.map((item) => ({ ...item, badge: "Week 1" })),
+  ...WEEK_TWO.map((item) => ({ ...item, badge: "Week 2" })),
+  ...WEEK_THREE.map((item) => ({ ...item, badge: "Week 3" })),
+];
+
+const SCOREBOARD_TOTAL_POINTS = SCOREBOARD_TASKS.reduce(
+  (total, item) => total + getPointValue(item.points),
+  0,
+);
+
+const SCOREBOARD_TARGET_POINTS = 450;
+
+function getPointValue(points: string) {
+  const match = points.match(/\d+/);
+  return match ? Number(match[0]) : 0;
+}
+
+function getScoreboard(checkedItems: string[]) {
+  const completedTasks = SCOREBOARD_TASKS.filter((item) =>
+    checkedItems.includes(`${item.badge}-${item.name}`),
+  );
+  const completedPoints = completedTasks.reduce(
+    (total, item) => total + getPointValue(item.points),
+    0,
+  );
+  const completedFinalSteps = FINAL_MISSION_STEPS.filter((item) =>
+    checkedItems.includes(`Arena Proof-${item}`),
+  ).length;
+  const weekCounts = ["Week 1", "Week 2", "Week 3"].map((week) => ({
+    week,
+    completed: completedTasks.filter((item) => item.badge === week).length,
+    total: SCOREBOARD_TASKS.filter((item) => item.badge === week).length,
+  }));
+  const badgeTier =
+    completedPoints >= SCOREBOARD_TARGET_POINTS
+      ? "Beast"
+      : completedPoints >= 300
+        ? "Ascender"
+        : completedPoints > 0
+          ? "Initiator"
+          : "Pending";
+
+  return {
+    badgeTier,
+    beastSaves: Math.floor(completedTasks.length / 12),
+    completedFinalSteps,
+    completedPoints,
+    completedTasks: completedTasks.length,
+    isVisible: completedTasks.length > 0 || completedFinalSteps > 0,
+    targetPoints: SCOREBOARD_TARGET_POINTS,
+    totalFinalSteps: FINAL_MISSION_STEPS.length,
+    totalPoints: SCOREBOARD_TOTAL_POINTS,
+    totalTasks: SCOREBOARD_TASKS.length,
+    weekCounts,
+  };
+}
+
 function MissionPage() {
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const [selectedSpaceId, setSelectedSpaceId] = useState("start");
   const [selectedPlaybookIndex, setSelectedPlaybookIndex] = useState(0);
-  const [missionStartDate, setMissionStartDate] = useState<string | null>(null);
   const [checkedPlaybookItems, setCheckedPlaybookItems] = useState<string[]>([]);
-  const [todayKey, setTodayKey] = useState("");
-  const activeMissionDay = useMemo(() => {
-    if (!missionStartDate || !todayKey) return null;
-    const dayIndex = getMissionDayIndex(missionStartDate, todayKey);
-    return {
-      challenge: DAILY_MISSION_CHALLENGES[dayIndex],
-      dayNumber: dayIndex + 1,
-    };
-  }, [missionStartDate, todayKey]);
-  const selectedSpace = useMemo(
-    () => MISSION_DETAILS.find((space) => space.id === selectedSpaceId) ?? MISSION_SPACES[0],
-    [selectedSpaceId],
-  );
-  const selectedMissionDay = useMemo(() => {
-    if (selectedSpace.day) return selectedSpace;
-    if (selectedSpace.type === "start") return DAILY_MISSION_CHALLENGES[0];
-    if (selectedSpace.id === "badge-initiator")
-      return DAILY_MISSION_CHALLENGES[WEEK_ONE.length - 1];
-    if (selectedSpace.id === "badge-ascender") {
-      return DAILY_MISSION_CHALLENGES[WEEK_ONE.length + WEEK_TWO.length - 1];
-    }
-    if (selectedSpace.type === "final") {
-      return DAILY_MISSION_CHALLENGES[DAILY_MISSION_CHALLENGES.length - 1];
-    }
-
-    return DAILY_MISSION_CHALLENGES.find(
-      (space) =>
-        space.label === selectedSpace.label &&
-        (space.week.split(" / ")[0] === selectedSpace.week.split(" / ")[0] ||
-          selectedSpace.week.includes(space.week.split(" / ")[0])),
-    );
-  }, [selectedSpace]);
   const selectedPlaybookCard = PLAYBOOK_CARDS[selectedPlaybookIndex];
+  const scoreboard = useMemo(() => getScoreboard(checkedPlaybookItems), [checkedPlaybookItems]);
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -417,10 +405,6 @@ function MissionPage() {
   }, []);
 
   useEffect(() => {
-    const today = getLocalDateKey();
-    setTodayKey(today);
-    setMissionStartDate(window.localStorage.getItem(MISSION_START_STORAGE_KEY));
-
     try {
       const savedChecks = window.localStorage.getItem(MISSION_PLAYBOOK_STORAGE_KEY);
       setCheckedPlaybookItems(savedChecks ? JSON.parse(savedChecks) : []);
@@ -428,23 +412,6 @@ function MissionPage() {
       setCheckedPlaybookItems([]);
     }
   }, []);
-
-  useEffect(() => {
-    if (!activeMissionDay) return;
-    setSelectedSpaceId(activeMissionDay.challenge.id);
-  }, [activeMissionDay]);
-
-  const handleStartMission = (dayNumber = 1) => {
-    const challenge = DAILY_MISSION_CHALLENGES[dayNumber - 1];
-    if (!challenge) return;
-    const today = new Date();
-    const startDate = getMissionStartDateForDay(dayNumber, today);
-    const currentTodayKey = getLocalDateKey(today);
-    window.localStorage.setItem(MISSION_START_STORAGE_KEY, startDate);
-    setTodayKey(currentTodayKey);
-    setMissionStartDate(startDate);
-    setSelectedSpaceId(challenge.id);
-  };
 
   const togglePlaybookItem = (itemId: string) => {
     setCheckedPlaybookItems((currentItems) => {
@@ -511,6 +478,9 @@ function MissionPage() {
               <span>450+ points</span>
               <span>3 badge tiers</span>
             </div>
+            <a className="zoda-mission-hero__play" href="/mission/play">
+              Play Mission
+            </a>
           </div>
           <div className="zoda-mission-hero__card" aria-label="Mission summary card">
             <span>Play & Win</span>
@@ -548,6 +518,9 @@ function MissionPage() {
                 </article>
               ))}
             </div>
+            <a className="zoda-mission-hero__play" href="/mission/play">
+              Play Mission
+            </a>
           </div>
           <div className="zoda-mission-game__stage">
             <div className="zoda-mission-path" aria-label="Interactive mission game path">
@@ -557,14 +530,11 @@ function MissionPage() {
               </div>
               <div className="zoda-mission-path__track">
                 {MISSION_SPACES.map((space, index) => (
-                  <button
+                  <div
                     key={space.id}
-                    type="button"
                     className="zoda-mission-path__space"
                     data-type={space.type}
                     data-tone={space.tone}
-                    aria-pressed={selectedSpace.id === space.id}
-                    onClick={() => setSelectedSpaceId(space.id)}
                   >
                     {space.type === "start" ? (
                       <>
@@ -584,55 +554,10 @@ function MissionPage() {
                         <em>{space.points}</em>
                       </>
                     )}
-                  </button>
+                  </div>
                 ))}
               </div>
             </div>
-
-            <aside
-              className="zoda-mission-game__detail"
-              data-tone={selectedSpace.tone}
-              aria-live="polite"
-            >
-              {selectedSpace.icon ? (
-                <img className="zoda-mission-game__detail-icon" src={selectedSpace.icon} alt="" />
-              ) : null}
-              <span>{selectedSpace.week}</span>
-              <h3>{selectedSpace.label}</h3>
-              <p>{selectedSpace.detail}</p>
-              {activeMissionDay ? (
-                <div className="zoda-mission-game__daily">
-                  <span>Mission Active</span>
-                  <strong>
-                    Day {activeMissionDay.dayNumber} / {DAILY_MISSION_CHALLENGES.length}
-                  </strong>
-                  <small>Started {missionStartDate}</small>
-                </div>
-              ) : null}
-              <dl>
-                <div>
-                  <dt>Points</dt>
-                  <dd>{selectedSpace.points}</dd>
-                </div>
-                <div>
-                  <dt>Space</dt>
-                  <dd>{selectedSpace.type}</dd>
-                </div>
-              </dl>
-              <div className="zoda-mission-game__actions">
-                <button type="button" onClick={() => handleStartMission(selectedMissionDay?.day)}>
-                  {activeMissionDay ? "Start Here" : "Start Mission"}
-                </button>
-                {activeMissionDay ? (
-                  <button
-                    type="button"
-                    onClick={() => setSelectedSpaceId(activeMissionDay.challenge.id)}
-                  >
-                    Today's Challenge
-                  </button>
-                ) : null}
-              </div>
-            </aside>
           </div>
         </section>
 
@@ -646,6 +571,10 @@ function MissionPage() {
               <Medal size={15} aria-hidden="true" /> Official Mission Playbook
             </p>
             <h2>Three weeks. Three tiers.</h2>
+            <MissionScoreboard scoreboard={scoreboard} />
+            <a className="zoda-mission-hero__play" href="/mission/play">
+              Play Mission
+            </a>
           </div>
           <div className="zoda-mission-playbook__cards" aria-label="Official mission playbook">
             <button
@@ -795,6 +724,63 @@ function MissionPage() {
   );
 }
 
+function MissionScoreboard({ scoreboard }: { scoreboard: ReturnType<typeof getScoreboard> }) {
+  if (!scoreboard.isVisible) return null;
+
+  const pointPercent = Math.min(
+    100,
+    Math.round((scoreboard.completedPoints / scoreboard.targetPoints) * 100),
+  );
+
+  return (
+    <aside className="zoda-mission-scoreboard" aria-live="polite">
+      <div className="zoda-mission-scoreboard__head">
+        <span>
+          <Trophy size={14} aria-hidden="true" /> Scoreboard
+        </span>
+        <strong>{scoreboard.badgeTier}</strong>
+      </div>
+      <dl>
+        <div>
+          <dt>Score</dt>
+          <dd>
+            {scoreboard.completedPoints} / {scoreboard.targetPoints}
+          </dd>
+        </div>
+        <div>
+          <dt>Tasks</dt>
+          <dd>
+            {scoreboard.completedTasks} / {scoreboard.totalTasks}
+          </dd>
+        </div>
+        <div>
+          <dt>Final</dt>
+          <dd>
+            {scoreboard.completedFinalSteps} / {scoreboard.totalFinalSteps}
+          </dd>
+        </div>
+        <div>
+          <dt>Saves</dt>
+          <dd>{scoreboard.beastSaves}</dd>
+        </div>
+      </dl>
+      <div className="zoda-mission-scoreboard__bar" aria-label={`${pointPercent}% to qualifier`}>
+        <i style={{ width: `${pointPercent}%` }} />
+      </div>
+      <div className="zoda-mission-scoreboard__weeks">
+        {scoreboard.weekCounts.map((week) => (
+          <span key={week.week}>
+            {week.week.replace("Week ", "W")}
+            <b>
+              {week.completed}/{week.total}
+            </b>
+          </span>
+        ))}
+      </div>
+    </aside>
+  );
+}
+
 function MissionWeek({
   title,
   badge,
@@ -863,25 +849,22 @@ function MissionPlaybookCard({
           <img src={zodaZLogo} alt="" aria-hidden="true" />
           <h3>{title}</h3>
         </div>
-        <ul className="zoda-mission-week__final-list">
-          {items.map((item) => {
-            const itemId = `${badge}-${item}`;
-            const isChecked = checkedItems.includes(itemId);
+        <p>100 burpees. Hydrate. Wear ZODA Mission Bag. Post & tag @ZODA_FIT + #ZODAMISSION.</p>
+      </article>
+    );
+  }
 
-            return (
-              <li key={itemId} className={isChecked ? "is-checked" : undefined}>
-                <button
-                  type="button"
-                  className="zoda-mission-week__check"
-                  aria-pressed={isChecked}
-                  onClick={() => onToggleItem(itemId)}
-                >
-                  <i aria-hidden="true" />
-                  <span>{item}</span>
-                </button>
-              </li>
-            );
-          })}
+  if (title === "Streak Hit Rulebook") {
+    return (
+      <article className="zoda-mission-week zoda-mission-week--note zoda-mission-week--rulebook">
+        <h3>{title}</h3>
+        <ul>
+          {items.map((item) => (
+            <li key={`${badge}-${item}`}>
+              <i aria-hidden="true" />
+              <span>{item}</span>
+            </li>
+          ))}
         </ul>
       </article>
     );

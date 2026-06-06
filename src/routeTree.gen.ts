@@ -15,6 +15,7 @@ import { Route as FabricsRouteImport } from './routes/fabrics'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
+import { Route as MissionPlayRouteImport } from './routes/mission_.play'
 import { Route as CollectionsHandleRouteImport } from './routes/collections.$handle'
 
 const MissionRoute = MissionRouteImport.update({
@@ -47,6 +48,11 @@ const ProductHandleRoute = ProductHandleRouteImport.update({
   path: '/product/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MissionPlayRoute = MissionPlayRouteImport.update({
+  id: '/mission_/play',
+  path: '/mission/play',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CollectionsHandleRoute = CollectionsHandleRouteImport.update({
   id: '/collections/$handle',
   path: '/collections/$handle',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/ikigai': typeof IkigaiRoute
   '/mission': typeof MissionRoute
   '/collections/$handle': typeof CollectionsHandleRoute
+  '/mission/play': typeof MissionPlayRoute
   '/product/$handle': typeof ProductHandleRoute
   '/collections/': typeof CollectionsIndexRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/ikigai': typeof IkigaiRoute
   '/mission': typeof MissionRoute
   '/collections/$handle': typeof CollectionsHandleRoute
+  '/mission/play': typeof MissionPlayRoute
   '/product/$handle': typeof ProductHandleRoute
   '/collections': typeof CollectionsIndexRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/ikigai': typeof IkigaiRoute
   '/mission': typeof MissionRoute
   '/collections/$handle': typeof CollectionsHandleRoute
+  '/mission_/play': typeof MissionPlayRoute
   '/product/$handle': typeof ProductHandleRoute
   '/collections/': typeof CollectionsIndexRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/ikigai'
     | '/mission'
     | '/collections/$handle'
+    | '/mission/play'
     | '/product/$handle'
     | '/collections/'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/ikigai'
     | '/mission'
     | '/collections/$handle'
+    | '/mission/play'
     | '/product/$handle'
     | '/collections'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/ikigai'
     | '/mission'
     | '/collections/$handle'
+    | '/mission_/play'
     | '/product/$handle'
     | '/collections/'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   IkigaiRoute: typeof IkigaiRoute
   MissionRoute: typeof MissionRoute
   CollectionsHandleRoute: typeof CollectionsHandleRoute
+  MissionPlayRoute: typeof MissionPlayRoute
   ProductHandleRoute: typeof ProductHandleRoute
   CollectionsIndexRoute: typeof CollectionsIndexRoute
 }
@@ -165,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mission_/play': {
+      id: '/mission_/play'
+      path: '/mission/play'
+      fullPath: '/mission/play'
+      preLoaderRoute: typeof MissionPlayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/collections/$handle': {
       id: '/collections/$handle'
       path: '/collections/$handle'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   IkigaiRoute: IkigaiRoute,
   MissionRoute: MissionRoute,
   CollectionsHandleRoute: CollectionsHandleRoute,
+  MissionPlayRoute: MissionPlayRoute,
   ProductHandleRoute: ProductHandleRoute,
   CollectionsIndexRoute: CollectionsIndexRoute,
 }

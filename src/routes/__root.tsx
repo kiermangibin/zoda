@@ -19,6 +19,7 @@ import "@/styles/pdp-page.css";
 import "@/styles/fabrics-page.css";
 import "@/styles/ikigai-page.css";
 import "@/styles/mission-page.css";
+import "@/styles/mission-play.css";
 import { useCartSync } from "@/hooks/useCartSync";
 
 function NotFoundComponent() {
