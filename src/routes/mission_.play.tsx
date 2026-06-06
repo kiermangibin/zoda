@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, BookOpen, Check, Dice5, RotateCcw, Trophy, X } from "lucide-react";
 
@@ -61,6 +61,12 @@ type LockedWeekNotice = {
   week: string;
 };
 
+type PlayWinNotice = {
+  id: number;
+  ruleId: string;
+  label: string;
+};
+
 const WEEK_ONE: MissionTask[] = [
   { name: "Clean Fuel", points: "+30", detail: "No sugar + no processed food (48h)." },
   { name: "Move Daily", points: "+20", detail: "45-minute walk (no phone except music)." },
@@ -116,6 +122,7 @@ const MISSION_RESULTS_STORAGE_KEY = "zoda-mission-play-results";
 const MISSION_DICE_STORAGE_KEY = "zoda-mission-dice-roll";
 const MISSION_PLAY_WEEK_STORAGE_KEY = "zoda-mission-play-active-week";
 const MISSION_PLAY_PICK_STORAGE_KEY = "zoda-mission-play-active-challenge";
+const MISSION_FINAL_STORAGE_KEY = "zoda-mission-final-complete";
 const SCOREBOARD_TARGET_POINTS = 450;
 const FINAL_MISSION_ID = "final-mission";
 const STREAK_BONUSES = [
@@ -244,7 +251,41 @@ function getScoreboard(results: ChallengeResults) {
   };
 }
 
+function getPlayWinRules(scoreboard: ReturnType<typeof getScoreboard>, finalMissionComplete: boolean) {
+  return [
+    {
+      id: "no-misses",
+      isComplete:
+        finalMissionComplete &&
+        scoreboard.completedTasks === scoreboard.totalTasks &&
+        scoreboard.failCount === 0,
+      label: "21 days. No misses.",
+    },
+    {
+      id: "beast-save",
+      isComplete: scoreboard.beastSaves > 0,
+      label: "Miss? 12 hits = 1 Beast Save.",
+    },
+    {
+      id: "points",
+      isComplete: scoreboard.completedPoints >= scoreboard.targetPoints,
+      label: "Hit 450+ points.",
+    },
+    {
+      id: "tier",
+      isComplete: finalMissionComplete,
+      label: "Earn a badge tier.",
+    },
+    {
+      id: "arena",
+      isComplete: finalMissionComplete,
+      label: "Step into the arena & win.",
+    },
+  ];
+}
+
 function MissionPlayPage() {
+  const hasLoadedProgress = useRef(false);
   const [challengeResults, setChallengeResults] = useState<ChallengeResults>({});
   const [activeWeekIndex, setActiveWeekIndex] = useState(0);
   const [activeChallengeId, setActiveChallengeId] = useState<string | null>(null);
@@ -252,6 +293,8 @@ function MissionPlayPage() {
   const [diceRollCount, setDiceRollCount] = useState(0);
   const [scoreNotice, setScoreNotice] = useState<ScoreNotice | null>(null);
   const [lockedWeekNotice, setLockedWeekNotice] = useState<LockedWeekNotice | null>(null);
+  const [playWinNotice, setPlayWinNotice] = useState<PlayWinNotice | null>(null);
+  const [finalMissionComplete, setFinalMissionComplete] = useState(false);
   const [isRulebookOpen, setIsRulebookOpen] = useState(false);
 
   useEffect(() => {
@@ -281,6 +324,7 @@ function MissionPlayPage() {
     const savedWeek = Number(window.localStorage.getItem(MISSION_PLAY_WEEK_STORAGE_KEY) ?? "0");
     setActiveWeekIndex(Math.min(Math.max(savedWeek, 0), MISSION_WEEKS.length - 1));
     setActiveChallengeId(window.localStorage.getItem(MISSION_PLAY_PICK_STORAGE_KEY));
+    setFinalMissionComplete(window.localStorage.getItem(MISSION_FINAL_STORAGE_KEY) === "true");
 
     try {
       const savedDiceRoll = window.localStorage.getItem(MISSION_DICE_STORAGE_KEY);
@@ -293,9 +337,15 @@ function MissionPlayPage() {
       setDiceValue(null);
       setDiceRollCount(0);
     }
+
+    hasLoadedProgress.current = true;
   }, []);
 
   const scoreboard = useMemo(() => getScoreboard(challengeResults), [challengeResults]);
+  const playWinRules = useMemo(
+    () => getPlayWinRules(scoreboard, finalMissionComplete),
+    [scoreboard, finalMissionComplete],
+  );
   const activeWeek = MISSION_WEEKS[activeWeekIndex];
   const activeWeekChallenges = useMemo(
     () => ALL_CHALLENGES.filter((challenge) => challenge.weekIndex === activeWeekIndex),
@@ -346,6 +396,13 @@ function MissionPlayPage() {
     return () => window.clearTimeout(timeoutId);
   }, [lockedWeekNotice]);
 
+  useEffect(() => {
+    if (!playWinNotice) return;
+
+    const timeoutId = window.setTimeout(() => setPlayWinNotice(null), 3200);
+    return () => window.clearTimeout(timeoutId);
+  }, [playWinNotice]);
+
   const saveActiveWeek = (weekIndex: number) => {
     if (weekIndex > unlockedWeekIndex) return;
 
@@ -361,6 +418,7 @@ function MissionPlayPage() {
     if (!requiredWeek) return;
 
     setScoreNotice(null);
+    setPlayWinNotice(null);
     setIsRulebookOpen(false);
     setLockedWeekNotice({
       id: Date.now(),
@@ -408,6 +466,13 @@ function MissionPlayPage() {
       [getChallengeResultKey(activeChallenge)]: result,
     };
     const nextScoreboard = getScoreboard(nextResults);
+    const newlyCompletedRule = getPlayWinRules(nextScoreboard, finalMissionComplete).find(
+      (rule) =>
+        rule.isComplete &&
+        !playWinRules.some(
+          (currentRule) => currentRule.id === rule.id && currentRule.isComplete,
+        ),
+    );
     setScoreNotice({
       id: Date.now(),
       challengeName: activeChallenge.name,
@@ -415,7 +480,43 @@ function MissionPlayPage() {
       result,
       totalPoints: nextScoreboard.completedPoints,
     });
+    if (hasLoadedProgress.current && newlyCompletedRule) {
+      setLockedWeekNotice(null);
+      setIsRulebookOpen(false);
+      setPlayWinNotice({
+        id: Date.now() + 1,
+        ruleId: newlyCompletedRule.id,
+        label: newlyCompletedRule.label,
+      });
+    }
     saveChallengeResults(nextResults);
+  };
+
+  const markFinalMissionComplete = () => {
+    if (!allTasksComplete || finalMissionComplete) return;
+
+    const nextPlayWinRules = getPlayWinRules(scoreboard, true);
+    const newlyCompletedRule = nextPlayWinRules.find(
+      (rule) =>
+        rule.isComplete &&
+        !playWinRules.some(
+          (currentRule) => currentRule.id === rule.id && currentRule.isComplete,
+        ),
+    );
+
+    setFinalMissionComplete(true);
+    window.localStorage.setItem(MISSION_FINAL_STORAGE_KEY, "true");
+    setLockedWeekNotice(null);
+    setScoreNotice(null);
+    setIsRulebookOpen(false);
+
+    if (newlyCompletedRule) {
+      setPlayWinNotice({
+        id: Date.now(),
+        ruleId: newlyCompletedRule.id,
+        label: newlyCompletedRule.label,
+      });
+    }
   };
 
   return (
@@ -479,6 +580,17 @@ function MissionPlayPage() {
               {lockedWeekNotice.remainingTasks} task
               {lockedWeekNotice.remainingTasks === 1 ? "" : "s"} remaining
             </em>
+          </div>
+        ) : playWinNotice ? (
+          <div
+            key={playWinNotice.id}
+            className="zoda-mission-play__notice zoda-mission-play__notice--play-win"
+            role="status"
+            aria-live="polite"
+          >
+            <strong>Play & Win cleared</strong>
+            <span>{playWinNotice.label}</span>
+            <em>Rule crossed off</em>
           </div>
         ) : scoreNotice ? (
           <div
@@ -563,6 +675,26 @@ function MissionPlayPage() {
                 );
               })}
             </div>
+            <div className="zoda-mission-play__play-win" aria-label="Play and win progress">
+              <span>Play & Win</span>
+              <strong>21-day build a habit mission</strong>
+              <ul>
+                {playWinRules.map((rule) => (
+                  <li
+                    key={rule.id}
+                    className={[
+                      rule.isComplete ? "is-complete" : "",
+                      playWinNotice?.ruleId === rule.id ? "is-cleared-now" : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                  >
+                    <i aria-hidden="true" />
+                    <span>{rule.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </aside>
 
           <section className="zoda-mission-play__board-wrap" aria-label="Mission game board">
@@ -610,6 +742,7 @@ function MissionPlayPage() {
                   className={[
                     "zoda-mission-play__final-tile",
                     isFinalMissionSelected ? "is-active" : "",
+                    finalMissionComplete ? "is-complete" : "",
                     allTasksComplete ? "is-unlocked" : "is-locked",
                   ]
                     .filter(Boolean)
@@ -620,7 +753,9 @@ function MissionPlayPage() {
                     window.localStorage.setItem(MISSION_PLAY_PICK_STORAGE_KEY, FINAL_MISSION_ID);
                   }}
                 >
-                  <span>{allTasksComplete ? "Unlocked" : "Locked"}</span>
+                  <span>
+                    {finalMissionComplete ? "Complete" : allTasksComplete ? "Unlocked" : "Locked"}
+                  </span>
                   <img src={finalMissionIcon} alt="" aria-hidden="true" />
                   <strong>Final Mission</strong>
                   <em>20/20</em>
@@ -667,10 +802,19 @@ function MissionPlayPage() {
               {isFinalMissionSelected ? (
                 <>
                   <span>
-                    {allTasksComplete ? "Final Mission unlocked" : "Final Mission locked"}
+                    {finalMissionComplete
+                      ? "Final Mission complete"
+                      : allTasksComplete
+                        ? "Final Mission unlocked"
+                        : "Final Mission locked"}
                   </span>
                   <h2>Final Mission</h2>
-                  {allTasksComplete ? (
+                  {finalMissionComplete ? (
+                    <p>
+                      Arena proof recorded. Your Mission board is complete and the badge tier is
+                      earned.
+                    </p>
+                  ) : allTasksComplete ? (
                     <p>
                       100 burpees. Hydrate. Wear ZODA Mission Bag. Post & tag @ZODA_FIT +
                       #ZODAMISSION.
@@ -690,10 +834,19 @@ function MissionPlayPage() {
                     </div>
                     <div>
                       <dt>Status</dt>
-                      <dd>{allTasksComplete ? "Ready" : "Locked"}</dd>
+                      <dd>
+                        {finalMissionComplete ? "Complete" : allTasksComplete ? "Ready" : "Locked"}
+                      </dd>
                     </div>
                   </dl>
-                  {allTasksComplete ? <a href="/mission">View Playbook</a> : null}
+                  {finalMissionComplete ? (
+                    <a href="/mission">View Playbook</a>
+                  ) : allTasksComplete ? (
+                    <button type="button" onClick={markFinalMissionComplete}>
+                      <Trophy size={15} aria-hidden="true" />
+                      Mark Final Complete
+                    </button>
+                  ) : null}
                 </>
               ) : isCurrentWeekComplete ? (
                 <>

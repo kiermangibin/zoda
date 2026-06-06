@@ -358,26 +358,65 @@ const SCOREBOARD_TOTAL_POINTS = SCOREBOARD_TASKS.reduce(
 );
 
 const SCOREBOARD_TARGET_POINTS = 450;
+const MISSION_RESULTS_STORAGE_KEY = "zoda-mission-play-results";
+const STREAK_BONUSES = [
+  { hits: 3, points: 10 },
+  { hits: 5, points: 20 },
+  { hits: 7, points: 30 },
+  { hits: 12, points: 50 },
+];
+
+type MissionResult = "hit" | "fail";
+type ChallengeResults = Record<string, MissionResult>;
 
 function getPointValue(points: string) {
   const match = points.match(/\d+/);
   return match ? Number(match[0]) : 0;
 }
 
-function getScoreboard(checkedItems: string[]) {
-  const completedTasks = SCOREBOARD_TASKS.filter((item) =>
-    checkedItems.includes(`${item.badge}-${item.name}`),
-  );
-  const completedPoints = completedTasks.reduce(
-    (total, item) => total + getPointValue(item.points),
+function toScoreboardChallengeId(item: { badge: string; name: string }) {
+  return `${item.badge}-${item.name}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function getScoreboard(checkedItems: string[], challengeResults: ChallengeResults) {
+  const resultForItem = (item: { badge: string; name: string }) =>
+    challengeResults[toScoreboardChallengeId(item)] ??
+    (checkedItems.includes(`${item.badge}-${item.name}`) ? "hit" : undefined);
+  const attemptedTasks = SCOREBOARD_TASKS.filter((item) => resultForItem(item));
+  const hitTasks = attemptedTasks.filter((item) => resultForItem(item) === "hit");
+  const failedTasks = attemptedTasks.filter((item) => resultForItem(item) === "fail");
+  const basePoints = attemptedTasks.reduce(
+    (total, item) =>
+      total + (resultForItem(item) === "hit" ? getPointValue(item.points) : getPointValue(item.points) / 2),
     0,
   );
-  const completedFinalSteps = FINAL_MISSION_STEPS.filter((item) =>
-    checkedItems.includes(`Arena Proof-${item}`),
-  ).length;
+  let currentStreak = 0;
+  let maxStreak = 0;
+
+  SCOREBOARD_TASKS.forEach((item) => {
+    const result = resultForItem(item);
+    if (!result) return;
+
+    if (result === "hit") {
+      currentStreak += 1;
+      maxStreak = Math.max(maxStreak, currentStreak);
+      return;
+    }
+
+    currentStreak = 0;
+  });
+
+  const bonusPoints = STREAK_BONUSES.reduce(
+    (total, bonus) => (maxStreak >= bonus.hits ? total + bonus.points : total),
+    0,
+  );
+  const completedPoints = basePoints + bonusPoints;
   const weekCounts = ["Week 1", "Week 2", "Week 3"].map((week) => ({
     week,
-    completed: completedTasks.filter((item) => item.badge === week).length,
+    completed: attemptedTasks.filter((item) => item.badge === week).length,
     total: SCOREBOARD_TASKS.filter((item) => item.badge === week).length,
   }));
   const badgeTier =
@@ -391,13 +430,15 @@ function getScoreboard(checkedItems: string[]) {
 
   return {
     badgeTier,
-    beastSaves: Math.floor(completedTasks.length / 12),
-    completedFinalSteps,
+    beastSaves: maxStreak >= 12 ? 1 : 0,
+    bonusPoints,
     completedPoints,
-    completedTasks: completedTasks.length,
-    isVisible: completedTasks.length > 0 || completedFinalSteps > 0,
+    completedTasks: attemptedTasks.length,
+    currentStreak,
+    failedTasks: failedTasks.length,
+    hitTasks: hitTasks.length,
+    isVisible: attemptedTasks.length > 0,
     targetPoints: SCOREBOARD_TARGET_POINTS,
-    totalFinalSteps: FINAL_MISSION_STEPS.length,
     totalPoints: SCOREBOARD_TOTAL_POINTS,
     totalTasks: SCOREBOARD_TASKS.length,
     weekCounts,
@@ -408,8 +449,12 @@ function MissionPage() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [selectedPlaybookIndex, setSelectedPlaybookIndex] = useState(0);
   const [checkedPlaybookItems, setCheckedPlaybookItems] = useState<string[]>([]);
+  const [challengeResults, setChallengeResults] = useState<ChallengeResults>({});
   const selectedPlaybookCard = PLAYBOOK_CARDS[selectedPlaybookIndex];
-  const scoreboard = useMemo(() => getScoreboard(checkedPlaybookItems), [checkedPlaybookItems]);
+  const scoreboard = useMemo(
+    () => getScoreboard(checkedPlaybookItems, challengeResults),
+    [checkedPlaybookItems, challengeResults],
+  );
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -421,8 +466,11 @@ function MissionPage() {
     try {
       const savedChecks = window.localStorage.getItem(MISSION_PLAYBOOK_STORAGE_KEY);
       setCheckedPlaybookItems(savedChecks ? JSON.parse(savedChecks) : []);
+      const savedResults = window.localStorage.getItem(MISSION_RESULTS_STORAGE_KEY);
+      setChallengeResults(savedResults ? JSON.parse(savedResults) : {});
     } catch {
       setCheckedPlaybookItems([]);
+      setChallengeResults({});
     }
   }, []);
 
@@ -433,6 +481,20 @@ function MissionPage() {
         : [...currentItems, itemId];
       window.localStorage.setItem(MISSION_PLAYBOOK_STORAGE_KEY, JSON.stringify(nextItems));
       return nextItems;
+    });
+    const task = SCOREBOARD_TASKS.find((item) => `${item.badge}-${item.name}` === itemId);
+    if (!task) return;
+
+    setChallengeResults((currentResults) => {
+      const resultKey = toScoreboardChallengeId(task);
+      const nextResults = { ...currentResults };
+      if (nextResults[resultKey]) {
+        delete nextResults[resultKey];
+      } else {
+        nextResults[resultKey] = "hit";
+      }
+      window.localStorage.setItem(MISSION_RESULTS_STORAGE_KEY, JSON.stringify(nextResults));
+      return nextResults;
     });
   };
 
@@ -771,10 +833,16 @@ function MissionScoreboard({ scoreboard }: { scoreboard: ReturnType<typeof getSc
           </dd>
         </div>
         <div>
-          <dt>Final</dt>
-          <dd>
-            {scoreboard.completedFinalSteps} / {scoreboard.totalFinalSteps}
-          </dd>
+          <dt>Streak</dt>
+          <dd>{scoreboard.currentStreak}</dd>
+        </div>
+        <div>
+          <dt>Bonus</dt>
+          <dd>+{scoreboard.bonusPoints}</dd>
+        </div>
+        <div>
+          <dt>Hits</dt>
+          <dd>{scoreboard.hitTasks}</dd>
         </div>
         <div>
           <dt>Saves</dt>

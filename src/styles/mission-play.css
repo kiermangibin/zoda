@@ -188,6 +188,16 @@
   color: var(--mission-play-orange);
 }
 
+.zoda-mission-play__notice--play-win {
+  background:
+    linear-gradient(90deg, var(--mission-play-orange) 0 8px, transparent 8px),
+    #fff;
+}
+
+.zoda-mission-play__notice--play-win strong {
+  color: var(--mission-play-orange);
+}
+
 .zoda-mission-play__notice--rulebook {
   animation: zoda-mission-play-rulebook 180ms ease both;
   background: #fff;
@@ -282,6 +292,7 @@
 .zoda-mission-play__score dt,
 .zoda-mission-play__score dd,
 .zoda-mission-play__weeks button,
+.zoda-mission-play__play-win,
 .zoda-mission-play__board-head span,
 .zoda-mission-play__board-head strong,
 .zoda-mission-play__board button,
@@ -385,6 +396,109 @@
 .zoda-mission-play__weeks button[data-locked="true"]:focus-visible {
   background: rgba(17, 17, 17, 0.08);
   outline: 0;
+}
+
+.zoda-mission-play__play-win {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.32)),
+    var(--mission-play-card);
+  border: 1.5px solid #111;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.14);
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.zoda-mission-play__play-win > span {
+  background: var(--mission-play-orange);
+  color: #fff;
+  display: inline-flex;
+  font-size: 9px;
+  justify-self: start;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 7px 9px;
+}
+
+.zoda-mission-play__play-win > strong {
+  color: #111;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+}
+
+.zoda-mission-play__play-win ul {
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.zoda-mission-play__play-win li {
+  align-items: center;
+  border-bottom: 1.5px solid rgba(17, 17, 17, 0.62);
+  color: #111;
+  display: grid;
+  font-size: 8.5px;
+  gap: 7px;
+  grid-template-columns: 10px minmax(0, 1fr);
+  min-height: 22px;
+  overflow: hidden;
+  padding: 2px 0 5px;
+  position: relative;
+}
+
+.zoda-mission-play__play-win li::after {
+  background: #111;
+  content: "";
+  height: 2px;
+  left: 18px;
+  position: absolute;
+  top: 48%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  width: calc(100% - 18px);
+}
+
+.zoda-mission-play__play-win li i {
+  border: 1.5px solid #111;
+  display: block;
+  height: 9px;
+  position: relative;
+  width: 9px;
+}
+
+.zoda-mission-play__play-win li.is-complete {
+  color: rgba(17, 17, 17, 0.62);
+}
+
+.zoda-mission-play__play-win li.is-complete i {
+  background: var(--accent);
+}
+
+.zoda-mission-play__play-win li.is-complete i::after {
+  border-bottom: 2px solid #111;
+  border-right: 2px solid #111;
+  content: "";
+  height: 7px;
+  left: 3px;
+  position: absolute;
+  top: -3px;
+  transform: rotate(45deg);
+  width: 4px;
+}
+
+.zoda-mission-play__play-win li.is-complete::after {
+  transform: scaleX(1);
+}
+
+.zoda-mission-play__play-win li.is-cleared-now::after {
+  animation: zoda-mission-play-crossout 420ms ease both;
+}
+
+.zoda-mission-play__play-win li.is-cleared-now i {
+  animation: zoda-mission-play-check-pop 420ms ease both;
 }
 
 .zoda-mission-play__board-wrap {
@@ -608,6 +722,22 @@
   background: var(--accent);
   color: #111;
   content: "Ready";
+}
+
+.zoda-mission-play__final-tile.is-complete {
+  background: #111;
+  color: #fff;
+}
+
+.zoda-mission-play__final-tile.is-complete img {
+  filter: none;
+  opacity: 1;
+}
+
+.zoda-mission-play__final-tile.is-complete::before {
+  background: var(--accent);
+  color: #111;
+  content: "Won";
 }
 
 .zoda-mission-play__start {
@@ -961,5 +1091,29 @@
   100% {
     opacity: 1;
     transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@keyframes zoda-mission-play-crossout {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes zoda-mission-play-check-pop {
+  0% {
+    transform: scale(0.72);
+  }
+
+  55% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
