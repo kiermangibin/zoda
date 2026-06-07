@@ -674,6 +674,25 @@
   top: 9px;
 }
 
+.zoda-mission-play__board button[aria-disabled="true"] {
+  cursor: default;
+}
+
+.zoda-mission-play__board button[aria-disabled="true"]:hover,
+.zoda-mission-play__board button[aria-disabled="true"]:focus-visible {
+  transform: none;
+}
+
+.zoda-mission-play__board button:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+.zoda-mission-play__board button:disabled:hover,
+.zoda-mission-play__board button:disabled:focus-visible {
+  transform: none;
+}
+
 .zoda-mission-play__board .zoda-mission-play__final-tile {
   background: #f8f5ea;
   justify-items: center;

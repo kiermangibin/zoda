@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Box,
@@ -8,7 +8,6 @@ import {
   Medal,
   PackageCheck,
   Play,
-  Trophy,
 } from "lucide-react";
 
 import { CartDrawer } from "@/components/zoda/CartDrawer";
@@ -58,7 +57,7 @@ const MISSION_RULES = [
   "Complete 21 days with no misses.",
   "Miss? 12 hits earns one Beast Save.",
   "Hit 450+ points to qualify.",
-  "Earn a badge tier: Initiator, Ascender, Dominance.",
+  "Earn a badge tier: Initiator, Ascender, Beast.",
   "Step into the arena and win.",
 ];
 
@@ -77,7 +76,7 @@ const FINISHER_TIERS = [
   },
   {
     week: "Week 3 Finisher",
-    badge: "Dominance",
+    badge: "Beast",
     tone: "green",
     icon: beastTrophy,
   },
@@ -352,27 +351,10 @@ const SCOREBOARD_TASKS = [
   ...WEEK_THREE.map((item) => ({ ...item, badge: "Week 3" })),
 ];
 
-const SCOREBOARD_TOTAL_POINTS = SCOREBOARD_TASKS.reduce(
-  (total, item) => total + getPointValue(item.points),
-  0,
-);
-
-const SCOREBOARD_TARGET_POINTS = 450;
 const MISSION_RESULTS_STORAGE_KEY = "zoda-mission-play-results";
-const STREAK_BONUSES = [
-  { hits: 3, points: 10 },
-  { hits: 5, points: 20 },
-  { hits: 7, points: 30 },
-  { hits: 12, points: 50 },
-];
 
 type MissionResult = "hit" | "fail";
 type ChallengeResults = Record<string, MissionResult>;
-
-function getPointValue(points: string) {
-  const match = points.match(/\d+/);
-  return match ? Number(match[0]) : 0;
-}
 
 function toScoreboardChallengeId(item: { badge: string; name: string }) {
   return `${item.badge}-${item.name}`
@@ -381,80 +363,12 @@ function toScoreboardChallengeId(item: { badge: string; name: string }) {
     .replace(/(^-|-$)/g, "");
 }
 
-function getScoreboard(checkedItems: string[], challengeResults: ChallengeResults) {
-  const resultForItem = (item: { badge: string; name: string }) =>
-    challengeResults[toScoreboardChallengeId(item)] ??
-    (checkedItems.includes(`${item.badge}-${item.name}`) ? "hit" : undefined);
-  const attemptedTasks = SCOREBOARD_TASKS.filter((item) => resultForItem(item));
-  const hitTasks = attemptedTasks.filter((item) => resultForItem(item) === "hit");
-  const failedTasks = attemptedTasks.filter((item) => resultForItem(item) === "fail");
-  const basePoints = attemptedTasks.reduce(
-    (total, item) =>
-      total + (resultForItem(item) === "hit" ? getPointValue(item.points) : getPointValue(item.points) / 2),
-    0,
-  );
-  let currentStreak = 0;
-  let maxStreak = 0;
-
-  SCOREBOARD_TASKS.forEach((item) => {
-    const result = resultForItem(item);
-    if (!result) return;
-
-    if (result === "hit") {
-      currentStreak += 1;
-      maxStreak = Math.max(maxStreak, currentStreak);
-      return;
-    }
-
-    currentStreak = 0;
-  });
-
-  const bonusPoints = STREAK_BONUSES.reduce(
-    (total, bonus) => (maxStreak >= bonus.hits ? total + bonus.points : total),
-    0,
-  );
-  const completedPoints = basePoints + bonusPoints;
-  const weekCounts = ["Week 1", "Week 2", "Week 3"].map((week) => ({
-    week,
-    completed: attemptedTasks.filter((item) => item.badge === week).length,
-    total: SCOREBOARD_TASKS.filter((item) => item.badge === week).length,
-  }));
-  const badgeTier =
-    completedPoints >= SCOREBOARD_TARGET_POINTS
-      ? "Dominance"
-      : completedPoints >= 300
-        ? "Ascender"
-        : completedPoints > 0
-          ? "Initiator"
-          : "Pending";
-
-  return {
-    badgeTier,
-    beastSaves: maxStreak >= 12 ? 1 : 0,
-    bonusPoints,
-    completedPoints,
-    completedTasks: attemptedTasks.length,
-    currentStreak,
-    failedTasks: failedTasks.length,
-    hitTasks: hitTasks.length,
-    isVisible: attemptedTasks.length > 0,
-    targetPoints: SCOREBOARD_TARGET_POINTS,
-    totalPoints: SCOREBOARD_TOTAL_POINTS,
-    totalTasks: SCOREBOARD_TASKS.length,
-    weekCounts,
-  };
-}
-
 function MissionPage() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [selectedPlaybookIndex, setSelectedPlaybookIndex] = useState(0);
   const [checkedPlaybookItems, setCheckedPlaybookItems] = useState<string[]>([]);
   const [challengeResults, setChallengeResults] = useState<ChallengeResults>({});
   const selectedPlaybookCard = PLAYBOOK_CARDS[selectedPlaybookIndex];
-  const scoreboard = useMemo(
-    () => getScoreboard(checkedPlaybookItems, challengeResults),
-    [checkedPlaybookItems, challengeResults],
-  );
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -560,7 +474,7 @@ function MissionPage() {
           <div className="zoda-mission-hero__card" aria-label="Mission summary card">
             <span>Play & Win</span>
             <strong>The Final Mission</strong>
-            <p>Start clean. Build the streak. Finish Dominance.</p>
+            <p>Start clean. Build the streak. Finish Beast.</p>
           </div>
         </section>
 
@@ -650,7 +564,6 @@ function MissionPage() {
               <Medal size={15} aria-hidden="true" /> Official Mission Playbook
             </p>
             <h2>Three weeks. Three tiers.</h2>
-            <MissionScoreboard scoreboard={scoreboard} />
             <a className="zoda-mission-hero__play" href="/mission/play">
               Play Mission
             </a>
@@ -800,69 +713,6 @@ function MissionPage() {
 
       <CartDrawer />
     </div>
-  );
-}
-
-function MissionScoreboard({ scoreboard }: { scoreboard: ReturnType<typeof getScoreboard> }) {
-  if (!scoreboard.isVisible) return null;
-
-  const pointPercent = Math.min(
-    100,
-    Math.round((scoreboard.completedPoints / scoreboard.targetPoints) * 100),
-  );
-
-  return (
-    <aside className="zoda-mission-scoreboard" aria-live="polite">
-      <div className="zoda-mission-scoreboard__head">
-        <span>
-          <Trophy size={14} aria-hidden="true" /> Scoreboard
-        </span>
-        <strong>{scoreboard.badgeTier}</strong>
-      </div>
-      <dl>
-        <div>
-          <dt>Score</dt>
-          <dd>
-            {scoreboard.completedPoints} / {scoreboard.targetPoints}
-          </dd>
-        </div>
-        <div>
-          <dt>Tasks</dt>
-          <dd>
-            {scoreboard.completedTasks} / {scoreboard.totalTasks}
-          </dd>
-        </div>
-        <div>
-          <dt>Streak</dt>
-          <dd>{scoreboard.currentStreak}</dd>
-        </div>
-        <div>
-          <dt>Bonus</dt>
-          <dd>+{scoreboard.bonusPoints}</dd>
-        </div>
-        <div>
-          <dt>Hits</dt>
-          <dd>{scoreboard.hitTasks}</dd>
-        </div>
-        <div>
-          <dt>Saves</dt>
-          <dd>{scoreboard.beastSaves}</dd>
-        </div>
-      </dl>
-      <div className="zoda-mission-scoreboard__bar" aria-label={`${pointPercent}% to qualifier`}>
-        <i style={{ width: `${pointPercent}%` }} />
-      </div>
-      <div className="zoda-mission-scoreboard__weeks">
-        {scoreboard.weekCounts.map((week) => (
-          <span key={week.week}>
-            {week.week.replace("Week ", "W")}
-            <b>
-              {week.completed}/{week.total}
-            </b>
-          </span>
-        ))}
-      </div>
-    </aside>
   );
 }
 

@@ -114,17 +114,20 @@ const MISSION_WEEKS = [
     items: WEEK_ONE,
   },
   { badge: "Week 2", title: "Ascend", tier: "Ascender", icon: ascenderTrophy, items: WEEK_TWO },
-  { badge: "Week 3", title: "Dominance", tier: "Dominance", icon: beastTrophy, items: WEEK_THREE },
+  { badge: "Week 3", title: "Dominance", tier: "Beast", icon: beastTrophy, items: WEEK_THREE },
 ];
 
 const MISSION_PLAYBOOK_STORAGE_KEY = "zoda-mission-playbook-checks";
 const MISSION_RESULTS_STORAGE_KEY = "zoda-mission-play-results";
 const MISSION_DICE_STORAGE_KEY = "zoda-mission-dice-roll";
+const MISSION_LAST_ROLL_STORAGE_KEY = "zoda-mission-last-roll-at";
 const MISSION_PLAY_WEEK_STORAGE_KEY = "zoda-mission-play-active-week";
 const MISSION_PLAY_PICK_STORAGE_KEY = "zoda-mission-play-active-challenge";
 const MISSION_FINAL_STORAGE_KEY = "zoda-mission-final-complete";
 const SCOREBOARD_TARGET_POINTS = 450;
 const FINAL_MISSION_ID = "final-mission";
+const ROLL_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+const REPEAT_ANY_MIN_ROLL = 3;
 const STREAK_BONUSES = [
   { hits: 3, points: 10 },
   { hits: 5, points: 20 },
@@ -162,6 +165,13 @@ function getChallengeResultKey(challenge: Pick<MissionChallenge, "id">) {
 
 function formatScore(value: number) {
   return Number.isInteger(value) ? String(value) : value.toFixed(1);
+}
+
+function formatRollTime(value: number) {
+  return new Intl.DateTimeFormat(undefined, {
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(new Date(value));
 }
 
 const ALL_CHALLENGES: MissionChallenge[] = MISSION_WEEKS.flatMap((week, weekIndex) =>
@@ -227,7 +237,7 @@ function getScoreboard(results: ChallengeResults) {
   });
   const badgeTier =
     completedPoints >= SCOREBOARD_TARGET_POINTS
-      ? "Dominance"
+      ? "Beast"
       : completedPoints >= 300
         ? "Ascender"
         : completedPoints > 0
@@ -291,6 +301,8 @@ function MissionPlayPage() {
   const [activeChallengeId, setActiveChallengeId] = useState<string | null>(null);
   const [diceValue, setDiceValue] = useState<number | null>(null);
   const [diceRollCount, setDiceRollCount] = useState(0);
+  const [lastRollAt, setLastRollAt] = useState<number | null>(null);
+  const [now, setNow] = useState(0);
   const [scoreNotice, setScoreNotice] = useState<ScoreNotice | null>(null);
   const [lockedWeekNotice, setLockedWeekNotice] = useState<LockedWeekNotice | null>(null);
   const [playWinNotice, setPlayWinNotice] = useState<PlayWinNotice | null>(null);
@@ -325,6 +337,8 @@ function MissionPlayPage() {
     setActiveWeekIndex(Math.min(Math.max(savedWeek, 0), MISSION_WEEKS.length - 1));
     setActiveChallengeId(window.localStorage.getItem(MISSION_PLAY_PICK_STORAGE_KEY));
     setFinalMissionComplete(window.localStorage.getItem(MISSION_FINAL_STORAGE_KEY) === "true");
+    const savedLastRollAt = Number(window.localStorage.getItem(MISSION_LAST_ROLL_STORAGE_KEY));
+    setLastRollAt(Number.isFinite(savedLastRollAt) && savedLastRollAt > 0 ? savedLastRollAt : null);
 
     try {
       const savedDiceRoll = window.localStorage.getItem(MISSION_DICE_STORAGE_KEY);
@@ -339,6 +353,12 @@ function MissionPlayPage() {
     }
 
     hasLoadedProgress.current = true;
+  }, []);
+
+  useEffect(() => {
+    setNow(Date.now());
+    const intervalId = window.setInterval(() => setNow(Date.now()), 30 * 1000);
+    return () => window.clearInterval(intervalId);
   }, []);
 
   const scoreboard = useMemo(() => getScoreboard(challengeResults), [challengeResults]);
@@ -362,6 +382,14 @@ function MissionPlayPage() {
   const activeChallengeIsComplete = Boolean(activeChallengeResult);
   const isCurrentWeekComplete = incompleteActiveWeekChallenges.length === 0;
   const allTasksComplete = scoreboard.completedTasks === scoreboard.totalTasks;
+  const nextRollAt = lastRollAt ? lastRollAt + ROLL_COOLDOWN_MS : null;
+  const rollIsOnCooldown = Boolean(nextRollAt && now > 0 && now < nextRollAt);
+  const canRollChallenge = !isCurrentWeekComplete && !rollIsOnCooldown;
+  const rollStatusLabel = rollIsOnCooldown && nextRollAt
+    ? `Next roll ${formatRollTime(nextRollAt)}`
+    : diceValue
+      ? `Roll ${diceRollCount}: ${diceValue}`
+      : "Ready to pick";
   const unlockedWeekIndex = scoreboard.weekCounts.reduce(
     (highestUnlocked, week, index, weeks) =>
       index === 0 || weeks[index - 1].completed === weeks[index - 1].total
@@ -429,20 +457,29 @@ function MissionPlayPage() {
   };
 
   const rollChallenge = () => {
-    if (incompleteActiveWeekChallenges.length === 0) return;
+    if (!canRollChallenge) return;
 
+    const rollTimestamp = Date.now();
     const nextValue = Math.floor(Math.random() * 6) + 1;
-    const pickedChallenge =
-      incompleteActiveWeekChallenges[(nextValue - 1) % incompleteActiveWeekChallenges.length];
     const nextCount = diceRollCount + 1;
+    const eligibleChallenges =
+      nextCount >= REPEAT_ANY_MIN_ROLL
+        ? incompleteActiveWeekChallenges
+        : incompleteActiveWeekChallenges.filter((challenge) => challenge.name !== "Repeat Any");
+    const pickableChallenges =
+      eligibleChallenges.length > 0 ? eligibleChallenges : incompleteActiveWeekChallenges;
+    const pickedChallenge =
+      pickableChallenges[(nextValue - 1) % pickableChallenges.length];
 
     setDiceValue(nextValue);
     setDiceRollCount(nextCount);
+    setLastRollAt(rollTimestamp);
     setActiveChallengeId(pickedChallenge.id);
     window.localStorage.setItem(
       MISSION_DICE_STORAGE_KEY,
       JSON.stringify({ value: nextValue, count: nextCount }),
     );
+    window.localStorage.setItem(MISSION_LAST_ROLL_STORAGE_KEY, String(rollTimestamp));
     window.localStorage.setItem(MISSION_PLAY_PICK_STORAGE_KEY, pickedChallenge.id);
   };
 
@@ -706,7 +743,12 @@ function MissionPlayPage() {
               <img src={activeWeek.icon} alt="" aria-hidden="true" />
             </div>
             <div className="zoda-mission-play__board">
-              <button className="zoda-mission-play__start" type="button" onClick={rollChallenge}>
+              <button
+                className="zoda-mission-play__start"
+                type="button"
+                onClick={rollChallenge}
+                disabled={!canRollChallenge}
+              >
                 <img src={zodaZLogo} alt="" aria-hidden="true" />
                 Roll
               </button>
@@ -723,10 +765,8 @@ function MissionPlayPage() {
                       .join(" ")}
                     data-tone={challenge.tone}
                     aria-pressed={isActive}
-                    onClick={() => {
-                      setActiveChallengeId(challenge.id);
-                      window.localStorage.setItem(MISSION_PLAY_PICK_STORAGE_KEY, challenge.id);
-                    }}
+                    aria-disabled="true"
+                    tabIndex={-1}
                   >
                     <span>{String(index + 1).padStart(2, "0")}</span>
                     <strong>{challenge.name}</strong>
@@ -769,7 +809,7 @@ function MissionPlayPage() {
               <button
                 type="button"
                 onClick={rollChallenge}
-                disabled={isCurrentWeekComplete}
+                disabled={!canRollChallenge}
                 aria-label="Roll dice to pick challenge"
               >
                 <Dice5 size={16} aria-hidden="true" />
@@ -783,7 +823,7 @@ function MissionPlayPage() {
                   {diceValue ? `Rolled ${diceValue}` : "Dice not rolled"}
                 </span>
               </div>
-              <small>{diceValue ? `Roll ${diceRollCount}: ${diceValue}` : "Ready to pick"}</small>
+              <small>{rollStatusLabel}</small>
             </div>
             <button
               className="zoda-mission-play__rulebook-button"
@@ -922,9 +962,9 @@ function MissionPlayPage() {
                     The dice will choose from the incomplete challenges in {activeWeek.title}. Clear
                     the week to unlock the next tier.
                   </p>
-                  <button type="button" onClick={rollChallenge}>
+                  <button type="button" onClick={rollChallenge} disabled={!canRollChallenge}>
                     <RotateCcw size={15} aria-hidden="true" />
-                    Pick Challenge
+                    {rollIsOnCooldown ? "Roll Locked" : "Pick Challenge"}
                   </button>
                 </>
               )}
