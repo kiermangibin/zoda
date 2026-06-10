@@ -29,15 +29,18 @@ function VerifiedBadgeIcon() {
 }
 
 function ReviewCardInner({ r }: { r: JudgemeReview }) {
+  const imageUrl = r.productImageUrl ?? r.imageUrl;
+  const imageAlt = r.productImageAlt ?? r.productTitle ?? "";
+
   return (
     <>
+      {imageUrl ? (
+        <div className="zoda-circuit__review-image">
+          <img src={imageUrl} alt={imageAlt} loading="lazy" />
+        </div>
+      ) : null}
       {r.productTitle ? (
         <span className="zoda-circuit__review-product-title">{r.productTitle}</span>
-      ) : null}
-      {r.imageUrl ? (
-        <div className="zoda-circuit__review-image">
-          <img src={r.imageUrl} alt="" loading="lazy" />
-        </div>
       ) : null}
       <p>{r.body}</p>
       <div className="zoda-circuit__review-stars" aria-label={`${r.rating} out of 5 stars`}>

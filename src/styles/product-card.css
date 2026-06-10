@@ -220,17 +220,33 @@ button.zoda-product-card__swatch.is-active {
   display: none;
 }
 .zoda-product-card__sizes-row {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 1fr);
+  display: flex;
   gap: 4px;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 1px;
+  scrollbar-width: none;
+}
+.zoda-product-card__sizes-row::-webkit-scrollbar {
+  display: none;
+}
+.zoda-product-card__sizes-row--fit {
+  display: grid;
+  gap: 3px;
+  grid-template-columns: repeat(var(--zoda-size-count), minmax(0, 1fr));
+  overflow-x: hidden;
+  padding: 0;
 }
 .zoda-product-card__size {
   appearance: none;
+  box-sizing: border-box;
   display: inline-flex;
+  flex: 0 0 42px;
   align-items: center;
   justify-content: center;
   min-height: 32px;
+  min-width: 42px;
   padding: 0 6px;
   background: #fff;
   color: #0a0a0a;
@@ -240,11 +256,19 @@ button.zoda-product-card__swatch.is-active {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
   cursor: pointer;
   transition:
     background 160ms ease,
     color 160ms ease,
     border-color 160ms ease;
+}
+.zoda-product-card__sizes-row--fit .zoda-product-card__size {
+  flex-basis: auto;
+  min-width: 0;
+  padding-inline: 2px;
+  width: 100%;
 }
 .zoda-product-card__size:hover {
   background: #0a0a0a;
@@ -280,6 +304,41 @@ button.zoda-product-card__swatch.is-active {
     opacity: 1;
     transform: none;
     pointer-events: auto;
+  }
+}
+@media (max-width: 640px) {
+  .zoda-product-card__sizes {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .zoda-product-card__size {
+    flex-basis: 34px;
+    min-width: 34px;
+    min-height: 28px;
+    padding: 0 5px;
+    font-size: 11px;
+  }
+
+  .zoda-product-card__sizes-row--fit .zoda-product-card__size {
+    flex-basis: auto;
+    min-width: 0;
+    padding-inline: 2px;
+  }
+
+  .zoda-product-card__sizes-row--mobile-peek {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 0;
+  }
+
+  .zoda-product-card__sizes-row--mobile-peek .zoda-product-card__size {
+    flex: 0 0 calc((100% - 14px) / 4.35);
+    min-width: 0;
+    padding-inline: 2px;
+    width: auto;
   }
 }
 .zoda-shell--light .zoda-product-card__sizes {

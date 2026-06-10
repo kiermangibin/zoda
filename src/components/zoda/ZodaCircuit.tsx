@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Pause, Play } from "lucide-react";
 import { ZODA_CIRCUIT_SCRIPT } from "./circuit-script";
 import { ProductMotionGallery } from "./ProductMotionGallery";
 import { CartDrawer } from "./CartDrawer";
@@ -16,6 +17,15 @@ import sustainabilityVideo from "@/assets/sustainability-video.mp4";
 
 
 export function ZodaCircuit() {
+  const [isHeroVideoPaused, setIsHeroVideoPaused] = useState(false);
+
+  const toggleHeroVideo = () => {
+    const frame = document.querySelector<HTMLIFrameElement>("[data-zoda-video-frame]");
+    const method = isHeroVideoPaused ? "play" : "pause";
+    frame?.contentWindow?.postMessage(JSON.stringify({ method }), "https://player.vimeo.com");
+    setIsHeroVideoPaused((paused) => !paused);
+  };
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const root = document.getElementById("zoda-circuit-home");
@@ -23,6 +33,7 @@ export function ZodaCircuit() {
     const handleFabricCardClick = (event: MouseEvent) => {
       if (!window.matchMedia("(max-width: 760px)").matches) return;
       const target = event.target instanceof Element ? event.target : null;
+      if (target?.closest("a[href]")) return;
       const card = target?.closest<HTMLElement>("[data-zoda-fabric-card]");
       if (!card || !root.contains(card)) return;
 
@@ -90,8 +101,17 @@ export function ZodaCircuit() {
   <div className="zoda-circuit__track" data-zoda-track="">
     <article id="zoda-circuit-home-1" className="zoda-circuit__panel zoda-circuit__panel--video is-active" data-zoda-panel="0">
       <div className="zoda-circuit__video-media" aria-hidden="true">
-        <iframe className="zoda-circuit__video" src="https://player.vimeo.com/video/1135229306?autoplay=1&muted=1&loop=0&autopause=1&controls=0&playsinline=1&title=0&byline=0&portrait=0" title="ZODA opener video" allow="autoPlay; fullscreen; picture-in-picture" loading="eager"></iframe>
+        <iframe className="zoda-circuit__video" data-zoda-video-frame="" src="https://player.vimeo.com/video/1135229306?autoplay=1&muted=1&loop=0&autopause=0&controls=0&playsinline=1&title=0&byline=0&portrait=0" title="ZODA opener video" allow="autoplay; fullscreen; picture-in-picture" loading="eager"></iframe>
       </div>
+      <button
+        type="button"
+        className="zoda-circuit__video-toggle"
+        onClick={toggleHeroVideo}
+        aria-label={isHeroVideoPaused ? "Play hero video" : "Pause hero video"}
+        aria-pressed={isHeroVideoPaused}
+      >
+        {isHeroVideoPaused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+      </button>
       <div className="zoda-circuit__content zoda-circuit__video-content">
         <p className="zoda-circuit__kicker" data-animate="">Our Mission</p>
         <h1 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>Changing the way humans experience activewear</h1>
@@ -189,7 +209,7 @@ export function ZodaCircuit() {
         <div>
           <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Shop by training mode: performance staples, endurance gear, 24/7 wear, and session accessories.</p>
           <div className="zoda-circuit__actions zoda-circuit__actions--compact" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
-            <a className="zoda-circuit__button-secondary" href="/collections/all">View All Products</a>
+            <a className="zoda-circuit__button-secondary" href="/collections">View All Products</a>
           </div>
         </div>
       </div>
@@ -262,13 +282,20 @@ export function ZodaCircuit() {
         <div className="zoda-circuit__fabric-viewport" data-zoda-fabric-viewport="">
           <div className="zoda-circuit__fabric-track" data-zoda-fabric-track="">
             {FABRICS.map((fabric, index) => (
-              <button
+              <article
                 key={fabric.handle}
                 className={`zoda-circuit__fabric-card zoda-fabrics-card zoda-fabrics-card--flip${
                   index === 0 ? " is-active" : ""
                 }`}
-                type="button"
+                role="button"
+                tabIndex={0}
+                aria-pressed="false"
                 data-zoda-fabric-card=""
+                onKeyDown={(event) => {
+                  if (event.key !== "Enter" && event.key !== " ") return;
+                  event.preventDefault();
+                  event.currentTarget.click();
+                }}
               >
                 <div className="zoda-fabrics-card__flip-inner">
                   <div className="zoda-fabrics-card__face zoda-fabrics-card__face--front">
@@ -287,10 +314,12 @@ export function ZodaCircuit() {
                   <div className="zoda-fabrics-card__face zoda-fabrics-card__face--back">
                     <span className="zoda-fabrics-card__back-eyebrow">{fabric.name}</span>
                     <p className="zoda-fabrics-card__back-text">{fabric.tagline}</p>
-                    <span className="zoda-fabrics-card__back-cta">Explore →</span>
+                    <a className="zoda-fabrics-card__back-cta" href={`/fabrics#fabric-${fabric.handle}`}>
+                      Explore →
+                    </a>
                   </div>
                 </div>
-              </button>
+              </article>
             ))}
           </div>
         </div>

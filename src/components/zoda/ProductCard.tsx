@@ -127,7 +127,14 @@ export function ProductCard({ p, eager = false }: { p: CollectionProduct; eager?
         {sizes.length > 0 ? (
           <div className="zoda-product-card__sizes" role="group" aria-label="Quick add — choose a size">
             <span className="zoda-product-card__sizes-label">Quick add</span>
-            <div className="zoda-product-card__sizes-row">
+            <div
+              className={`zoda-product-card__sizes-row${
+                sizes.length <= 5 ? " zoda-product-card__sizes-row--fit" : ""
+              }${
+                sizes.length > 4 ? " zoda-product-card__sizes-row--mobile-peek" : ""
+              }`}
+              style={{ "--zoda-size-count": sizes.length } as React.CSSProperties}
+            >
               {sizes.map((s) => (
                 <button
                   key={s.value}

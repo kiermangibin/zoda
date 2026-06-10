@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { storefrontApiRequest } from "./shopify";
 
 export interface JudgemeReview {
   id: string;
@@ -10,6 +11,8 @@ export interface JudgemeReview {
   productHandle: string | null;
   productUrl: string;
   imageUrl: string | null;
+  productImageUrl: string | null;
+  productImageAlt: string | null;
   createdAt: string | null;
 }
 
@@ -44,6 +47,25 @@ interface RawReview {
   created_at?: string;
 }
 
+const PRODUCT_IMAGE_QUERY = `
+  query ReviewProductImage($handle: String!) {
+    product(handle: $handle) {
+      title
+      featuredImage {
+        url
+        altText
+      }
+    }
+  }
+`;
+
+interface ProductImageQueryResult {
+  product: {
+    title: string;
+    featuredImage: { url: string; altText: string | null } | null;
+  } | null;
+}
+
 function pickImage(r: RawReview): string | null {
   if (Array.isArray(r.picture_urls) && r.picture_urls.length > 0) {
     return r.picture_urls[0];
@@ -74,7 +96,7 @@ export const getJudgemeReviews = createServerFn({ method: "GET" }).handler(
       if (!res.ok) return [];
       const json = (await res.json()) as { reviews?: RawReview[] };
       const reviews = json.reviews ?? [];
-      return reviews
+      const normalizedReviews = reviews
         .map((r): JudgemeReview => {
           const body = r.body && r.body.trim().length > 0 ? r.body : decode(r.body_html ?? "");
           const url = r.product_url ?? "";
@@ -89,10 +111,40 @@ export const getJudgemeReviews = createServerFn({ method: "GET" }).handler(
             productHandle: handleMatch ? handleMatch[1] : null,
             productUrl: url.startsWith("http") ? url : `${SHOP_URL}${url}`,
             imageUrl: pickImage(r),
+            productImageUrl: null,
+            productImageAlt: null,
             createdAt: r.created_at ?? null,
           };
         })
         .filter((r) => r.body.length > 0 && r.reviewerName.length > 0);
+
+      const handles = Array.from(
+        new Set(normalizedReviews.map((r) => r.productHandle).filter((handle): handle is string => Boolean(handle))),
+      );
+      const productImages = new Map<string, { url: string | null; altText: string | null }>();
+
+      await Promise.all(
+        handles.map(async (handle) => {
+          try {
+            const data = await storefrontApiRequest<ProductImageQueryResult>(PRODUCT_IMAGE_QUERY, { handle });
+            productImages.set(handle, {
+              url: data.product?.featuredImage?.url ?? null,
+              altText: data.product?.featuredImage?.altText ?? data.product?.title ?? null,
+            });
+          } catch {
+            productImages.set(handle, { url: null, altText: null });
+          }
+        }),
+      );
+
+      return normalizedReviews.map((review) => {
+        const productImage = review.productHandle ? productImages.get(review.productHandle) : null;
+        return {
+          ...review,
+          productImageUrl: productImage?.url ?? null,
+          productImageAlt: productImage?.altText ?? review.productTitle ?? null,
+        };
+      });
     } catch {
       return [];
     }
