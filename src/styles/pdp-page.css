@@ -489,9 +489,19 @@
   color: #0a0a0a;
 }
 .zoda-pdp__variants--sizes {
+  flex-wrap: nowrap;
   gap: 6px;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 1px 0 4px;
+  scrollbar-width: none;
+}
+.zoda-pdp__variants--sizes::-webkit-scrollbar {
+  display: none;
 }
 .zoda-pdp__variants--sizes .zoda-pdp__variant {
+  flex: 0 0 auto;
   min-width: 56px;
   padding: 14px 16px;
   font-size: 13px;
@@ -547,13 +557,14 @@
 }
 .zoda-pdp__cta-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 10px;
   margin-top: 8px;
 }
 .zoda-pdp__cta-row .zoda-pdp__add {
   width: 100%;
   margin: 0;
+  min-width: 0;
 }
 .zoda-pdp__find {
   height: 56px;
@@ -569,6 +580,8 @@
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.4);
   cursor: pointer;
+  min-width: 0;
+  white-space: nowrap;
   transition:
     background 0.15s,
     color 0.15s,
@@ -578,6 +591,31 @@
   background: #fff;
   color: #0a0a0a;
   border-color: #fff;
+}
+@media (max-width: 640px) {
+  .zoda-pdp__variants--sizes .zoda-pdp__variant {
+    min-width: 44px;
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .zoda-pdp__cta-row {
+    gap: 8px;
+  }
+
+  .zoda-pdp__cta-row .zoda-pdp__add,
+  .zoda-pdp__find {
+    height: 50px;
+    padding: 0 10px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+
+  .zoda-pdp__cta-row .zoda-pdp__add svg {
+    width: 14px;
+    height: 14px;
+  }
 }
 .zoda-pdp__shipping-note {
   text-align: center;

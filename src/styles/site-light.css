@@ -678,7 +678,9 @@
 .zoda-circuit .zoda-circuit__review-info {
   align-items: center;
   display: inline-flex !important;
+  flex-direction: row !important;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
 }
 .zoda-circuit .zoda-circuit__review-verified {

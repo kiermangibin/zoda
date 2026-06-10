@@ -508,6 +508,35 @@
   width: max(100%, calc(177.78vh + 180px));
   z-index: 1;
 }
+.zoda-circuit .zoda-circuit__video-toggle {
+  align-items: center;
+  background: rgba(7, 9, 8, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  bottom: clamp(18px, 3vw, 34px);
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  position: absolute;
+  right: clamp(18px, 3vw, 34px);
+  width: 44px;
+  z-index: 5;
+}
+.zoda-circuit .zoda-circuit__video-toggle:hover,
+.zoda-circuit .zoda-circuit__video-toggle:focus-visible {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  outline: 0;
+}
+.zoda-circuit .zoda-circuit__video-toggle:focus-visible {
+  box-shadow: 0 0 0 3px rgba(85, 205, 161, 0.32);
+}
+.zoda-circuit .zoda-circuit__video-toggle svg {
+  height: 18px;
+  width: 18px;
+}
 .zoda-circuit .zoda-circuit__panel--pursuit {
   align-items: center;
   background:
@@ -2884,7 +2913,7 @@
   }
   .zoda-circuit .zoda-circuit__review-card span {
     font-size: 10px !important;
-    margin-bottom: 22px !important;
+    margin-bottom: 0px !important;
   }
   .zoda-circuit .zoda-circuit__review-card p {
     font-size: clamp(14px, 4.1vw, 16px) !important;
@@ -4562,7 +4591,7 @@
 .zoda-circuit .zoda-circuit__review-card {
   display: flex !important;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   height: fit-content !important;
   min-height: 0 !important;
   text-decoration: none;
@@ -4576,11 +4605,12 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--zoda-accent);
-  margin: 0 0 2px !important;
+  margin: 0 !important;
 }
 .zoda-circuit .zoda-circuit__review-image {
   width: 100%;
-  height: 140px;
+  aspect-ratio: 1 / 2;
+  height: auto;
   overflow: hidden;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.04);
@@ -4592,11 +4622,19 @@
   display: block;
 }
 .zoda-circuit .zoda-circuit__review-card p {
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  max-height: 76px;
   margin: 0 !important;
-  -webkit-line-clamp: 5;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  overflow-y: auto;
+  padding-right: 0;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 14px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 14px), transparent);
+}
+.zoda-circuit .zoda-circuit__review-card p::-webkit-scrollbar {
+  display: none;
+  width: 0;
 }
 .zoda-circuit .zoda-circuit__review-stars {
   display: inline-flex;
@@ -4640,8 +4678,10 @@
 }
 .zoda-circuit .zoda-circuit__review-info {
   display: flex !important;
-  flex-direction: column;
+  align-items: center;
+  flex-flow: row wrap;
   gap: 6px;
+  justify-content: center;
   min-width: 0;
   margin: 0 !important;
 }
@@ -4658,7 +4698,7 @@
   display: inline-flex !important;
   align-items: center;
   gap: 4px;
-  align-self: flex-start;
+  align-self: center;
   background: var(--zoda-accent);
   color: #fff !important;
   font-family: "Commuters Sans", Arial, sans-serif;
@@ -4681,7 +4721,13 @@
     padding: 16px !important;
   }
   .zoda-circuit .zoda-circuit__review-image {
-    height: 120px;
+    aspect-ratio: 1 / 2;
+    height: auto;
+  }
+  .zoda-circuit .zoda-circuit__review-card p {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    max-height: 68px;
   }
 }
 
@@ -6760,7 +6806,7 @@ body.index
   }
 
   #zoda-circuit-home-5 .zoda-circuit__collection-accordion {
-    --zoda-collection-tab-size: 38px !important;
+    --zoda-collection-tab-size: 42px !important;
     max-height: calc(100svh - 142px) !important;
   }
 
@@ -6774,8 +6820,8 @@ body.index
   }
 
   #zoda-circuit-home-5 .zoda-circuit__collection-panel-copy {
-    font-size: 11px !important;
-    line-height: 1.35 !important;
+    font-size: 12.5px !important;
+    line-height: 1.42 !important;
   }
 
   #zoda-circuit-home-5 .zoda-circuit__collection-tab {
@@ -6786,7 +6832,7 @@ body.index
   #zoda-circuit-home-5 .zoda-circuit__collection-tab-text {
     display: grid !important;
     gap: 6px !important;
-    grid-template-columns: 58px minmax(0, 1fr) !important;
+    grid-template-columns: 68px minmax(0, 1fr) !important;
     width: 100% !important;
   }
 
@@ -6800,7 +6846,7 @@ body.index
 
   #zoda-circuit-home-5 .zoda-circuit__collection-tab-title {
     font-family: "Commuters Sans", Arial, sans-serif !important;
-    font-size: 9.5px !important;
+    font-size: 11px !important;
     justify-self: start !important;
     letter-spacing: 0.02em !important;
     text-align: left !important;
@@ -6968,4 +7014,68 @@ body.index
     padding-inline: 22px !important;
     width: auto !important;
   }
+}
+
+/* Hero mobile fix: keep the opening video active. */
+@media (max-width: 760px) {
+  #zoda-circuit-home #zoda-circuit-home-1.zoda-circuit__panel--video {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    padding-bottom: 18px !important;
+  }
+
+  #zoda-circuit-home #zoda-circuit-home-1 .zoda-circuit__video-media {
+    inset: 0 !important;
+  }
+
+  #zoda-circuit-home #zoda-circuit-home-1 .zoda-circuit__video {
+    display: block !important;
+    opacity: 1 !important;
+    pointer-events: none;
+  }
+
+  #zoda-circuit-home #zoda-circuit-home-1 .zoda-circuit__video-toggle {
+    bottom: 18px !important;
+    height: 42px !important;
+    right: 18px !important;
+    width: 42px !important;
+  }
+}
+
+/* Mobile signal panel controls: keep short CTAs on one row and remove the slogan line. */
+@media (max-width: 760px) {
+  #zoda-circuit-home-2 .zoda-circuit__signal-line {
+    display: none !important;
+  }
+
+  #zoda-circuit-home-2 .zoda-circuit__actions--compact {
+    align-items: stretch !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+    justify-content: center !important;
+    max-width: min(100%, 360px) !important;
+    width: 100% !important;
+  }
+
+  #zoda-circuit-home-2 .zoda-circuit__actions--compact .zoda-circuit__button,
+  #zoda-circuit-home-2 .zoda-circuit__actions--compact .zoda-circuit__button-secondary {
+    flex: 1 1 0 !important;
+    min-height: 42px !important;
+    min-width: 0 !important;
+    padding-inline: 10px !important;
+    white-space: nowrap !important;
+    width: auto !important;
+  }
+}
+
+/* Reviews: keep product images portrait and consistently sized. */
+#zoda-circuit-home-9 .zoda-circuit__review-image {
+  aspect-ratio: 1/1 !important;
+  align-self: start !important;
+  flex: 0 0 auto !important;
+  height: auto !important;
+  max-width: 114px !important;
+  width: min(32vw, 114px) !important;
 }
