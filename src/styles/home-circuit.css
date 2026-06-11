@@ -213,12 +213,19 @@
 }
 .zoda-circuit .zoda-circuit__track {
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   overscroll-behavior: contain;
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.zoda-circuit .zoda-circuit__track::-webkit-scrollbar {
+  display: none;
 }
 .zoda-circuit.is-programmatic-scrolling .zoda-circuit__track {
+  overflow-x: hidden !important;
   overflow-y: auto !important;
   scroll-behavior: auto !important;
   scroll-snap-type: none !important;
@@ -2205,6 +2212,17 @@
   .zoda-circuit * {
     max-width: 100%;
   }
+}
+
+#zoda-circuit-home .zoda-circuit__track {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+#zoda-circuit-home .zoda-circuit__track::-webkit-scrollbar {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
 }
 @media (max-width: 430px) {
   .zoda-circuit .zoda-circuit__panel {

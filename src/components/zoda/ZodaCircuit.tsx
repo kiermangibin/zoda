@@ -102,7 +102,7 @@ export function ZodaCircuit() {
       "const loopToStart = () => {\n      window.location.assign('/ikigai');\n    };\n\n    const goTo =",
     ).replace(
       "let splashFrame = 0;\n\n    if (!track || !panels.length) return;",
-      "let splashFrame = 0;\n\n    if (!track || !panels.length) return;\n\n    const getPanelHash = (index) => panels[index]?.id ? `#${panels[index].id}` : '';\n\n    const getIndexForHash = () => {\n      const hash = window.location.hash;\n      if (!hash) return -1;\n      const id = hash.slice(1);\n      return panels.findIndex((panel) => panel.id === id);\n    };\n\n    const writePanelHistory = (index, mode = 'replace') => {\n      const hash = getPanelHash(index);\n      if (!hash || window.location.hash === hash) return;\n      const nextUrl = `${window.location.pathname}${window.location.search}${hash}`;\n      if (mode === 'push') window.history.pushState({ zodaPanel: index }, '', nextUrl);\n      else window.history.replaceState({ zodaPanel: index }, '', nextUrl);\n    };",
+      "let splashFrame = 0;\n    let snapScrollFrame = 0;\n\n    if (!track || !panels.length) return;\n\n    const getIndexForHash = () => -1;\n    const writePanelHistory = () => {};",
     ).replace(
       "const setActive = (index) => {",
       "const setActive = (index, syncUrl = false) => {",
@@ -117,16 +117,16 @@ export function ZodaCircuit() {
       "if (index !== activeIndex) setActive(index, true);\n      return index;\n    };\n\n    const getFabricVisibleCards",
     ).replace(
       "const goTo = (index, behavior = reduceMotion ? 'auto' : 'smooth') => {\n      const next = Math.max(0, Math.min(index, panels.length - 1));\n      track.scrollTo({ top: panels[next].offsetTop, behavior });\n      setActive(next);\n    };",
-      "const goTo = (index, behavior = reduceMotion ? 'auto' : 'smooth', historyMode = 'push') => {\n      const next = Math.max(0, Math.min(index, panels.length - 1));\n      root.classList.add('is-programmatic-scrolling');\n      track.scrollTo({ top: panels[next].offsetTop, behavior: 'auto' });\n      if (historyMode) writePanelHistory(next, historyMode);\n      setActive(next);\n      window.setTimeout(() => {\n        root.classList.remove('is-programmatic-scrolling');\n      }, 120);\n    };",
+      "const goTo = (index, behavior = reduceMotion ? 'auto' : 'smooth') => {\n      const next = Math.max(0, Math.min(index, panels.length - 1));\n      const targetTop = panels[next].offsetTop;\n      const startTop = track.scrollTop;\n      const distance = targetTop - startTop;\n      const duration = behavior === 'smooth' && !reduceMotion ? Math.min(980, Math.max(520, Math.abs(distance) * 0.16)) : 0;\n      root.classList.add('is-programmatic-scrolling');\n      if (snapScrollFrame) window.cancelAnimationFrame(snapScrollFrame);\n      if (!duration) {\n        track.scrollTo({ top: targetTop, behavior: 'auto' });\n      } else {\n        const startedAt = performance.now();\n        const ease = (t) => 1 - Math.pow(1 - t, 3);\n        const animate = (now) => {\n          const progress = Math.min(1, (now - startedAt) / duration);\n          track.scrollTop = startTop + distance * ease(progress);\n          if (progress < 1) {\n            snapScrollFrame = window.requestAnimationFrame(animate);\n            return;\n          }\n          track.scrollTop = targetTop;\n          snapScrollFrame = 0;\n        };\n        snapScrollFrame = window.requestAnimationFrame(animate);\n      }\n      setActive(next);\n      window.setTimeout(() => {\n        root.classList.remove('is-programmatic-scrolling');\n      }, duration + 120);\n    };",
     ).replace(
       "const step = (direction) => {\n      if (!snapEnabled || locked) return;\n      locked = true;\n\n      if (!isMobile() && activeIndex === fabricPanelIndex && stepFabric(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && activeIndex === pillarPanelIndex && stepPillars(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && activeIndex === collectionPanelIndex && stepCollection(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && activeIndex === featurePanelIndex && stepFeature(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (activeIndex === panels.length - 1 && direction > 0) {\n        loopToStart();\n        return;\n      }\n\n      goTo(activeIndex + direction);\n      window.setTimeout(() => { locked = false; }, 640);\n    };",
       "const step = (direction) => {\n      if (!snapEnabled || locked) return;\n      locked = true;\n      const currentIndex = syncActiveAtScroll();\n\n      if (!isMobile() && currentIndex === fabricPanelIndex && stepFabric(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && currentIndex === pillarPanelIndex && stepPillars(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && currentIndex === collectionPanelIndex && stepCollection(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && currentIndex === featurePanelIndex && stepFeature(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (currentIndex === 0 && direction < 0) {\n        window.location.assign('/fabrics');\n        return;\n      }\n\n      if (currentIndex === panels.length - 1 && direction > 0) {\n        loopToStart();\n        return;\n      }\n\n      goTo(currentIndex + direction);\n      window.setTimeout(() => { locked = false; }, 640);\n    };",
     ).replace(
       "dots.forEach((dot, index) => {\n      dot.addEventListener('click', (event) => {\n        event.preventDefault();\n        goTo(index);\n      });\n    });\n\n    collectionTabs.forEach((tab, index) => {",
-      "dots.forEach((dot, index) => {\n      dot.addEventListener('click', (event) => {\n        event.preventDefault();\n        goTo(index);\n      });\n    });\n\n    window.addEventListener('popstate', () => {\n      const index = getIndexForHash();\n      if (index < 0) return;\n      locked = false;\n      goTo(index, 'auto', false);\n    });\n\n    collectionTabs.forEach((tab, index) => {",
+      "dots.forEach((dot, index) => {\n      dot.addEventListener('click', (event) => {\n        event.preventDefault();\n        locked = false;\n        goTo(index);\n      });\n    });\n\n    window.addEventListener('popstate', () => {\n      const index = getIndexForHash();\n      if (index < 0) return;\n      locked = false;\n      goTo(index, 'auto', false);\n    });\n\n    collectionTabs.forEach((tab, index) => {",
     ).replace(
       "updateFeature(0);\n    setActive(getNearestPanelIndex());",
-      "updateFeature(0);\n    const initialHashIndex = getIndexForHash();\n    if (initialHashIndex >= 0) goTo(initialHashIndex, 'auto', false);\n    else setActive(getNearestPanelIndex(), true);",
+      "updateFeature(0);\n    setActive(getNearestPanelIndex());",
     ).replace(
       "const mobileHorizontalSelector = '[data-zoda-fabric-viewport], .zoda-circuit__panel--pillars .zoda-circuit__cards, [data-zoda-collection-accordion], [data-zoda-feature-accordion]';",
       "const mobileHorizontalSelector = '[data-zoda-fabric-viewport], .zoda-circuit__panel--pillars .zoda-circuit__cards, [data-zoda-feature-accordion]';",
@@ -168,18 +168,18 @@ export function ZodaCircuit() {
 
   
     <nav className="zoda-circuit__dots" aria-label="Training circuit navigation">
-      <a className="zoda-circuit__dot is-active" href="#zoda-circuit-home-1" data-zoda-dot="0" aria-label="Hero"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-2" data-zoda-dot="1" aria-label="What's New"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-5" data-zoda-dot="2" aria-label="Collection"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-9" data-zoda-dot="3" aria-label="Reviews"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-11" data-zoda-dot="4" aria-label="Prepare Your Kit"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-6" data-zoda-dot="5" aria-label="Fabric"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-7" data-zoda-dot="6" aria-label="Technology"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-4" data-zoda-dot="7" aria-label="Pillars"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-3" data-zoda-dot="8" aria-label="Mindset"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-8" data-zoda-dot="9" aria-label="What's Coming"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-12" data-zoda-dot="10" aria-label="Instagram"></a>
-      <a className="zoda-circuit__dot" href="#zoda-circuit-home-10" data-zoda-dot="11" aria-label="Contact"></a>
+      <button className="zoda-circuit__dot is-active" type="button" data-zoda-dot="0" aria-label="Hero"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="1" aria-label="What's New"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="2" aria-label="Collection"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="3" aria-label="Reviews"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="4" aria-label="Prepare Your Kit"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="5" aria-label="Fabric"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="6" aria-label="Technology"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="7" aria-label="Pillars"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="8" aria-label="Mindset"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="9" aria-label="What's Coming"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="10" aria-label="Instagram"></button>
+      <button className="zoda-circuit__dot" type="button" data-zoda-dot="11" aria-label="Contact"></button>
     </nav>
   
 
