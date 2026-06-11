@@ -451,12 +451,23 @@
 }
 
 .zoda-ikigai-community__values li {
+  align-items: center;
+  display: inline-flex;
   font-size: clamp(11px, 1vw, 13px);
+  gap: 8px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 6px 12px;
   border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 999px;
+  border-radius: 0;
+}
+
+.zoda-ikigai-community__values li::before {
+  background: var(--accent);
+  content: "";
+  flex: 0 0 auto;
+  height: 5px;
+  width: 5px;
 }
 
 @media (max-width: 720px) {
@@ -608,7 +619,7 @@
   .zoda-ikigai-page .zoda-ikigai-pillars__media {
     grid-row: span 2;
     aspect-ratio: 1;
-    border-radius: 6px;
+    border-radius: 0px;
     max-height: none;
   }
 
@@ -1107,7 +1118,6 @@
 .zoda-ikigai-community__values li {
   background: rgba(7, 9, 8, 0.5);
   border-color: rgba(255, 255, 255, 0.16);
-  border-radius: 0;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
@@ -1438,7 +1448,7 @@
     border-color 220ms ease,
     color 220ms ease,
     transform 220ms ease;
-  white-space: normal;
+  white-space: nowrap;
   width: max-content;
 }
 
@@ -1623,19 +1633,27 @@
 
 @media (max-width: 760px) {
   .zoda-ikigai-page .zoda-fabrics-feature__actions {
-    flex-wrap: nowrap;
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 16px;
     max-width: 100%;
+    width: fit-content;
   }
 
   .zoda-ikigai-page .zoda-fabrics-feature__shop,
   .zoda-ikigai-page .zoda-fabrics-feature__back {
     flex: 0 1 auto;
     font-size: 11px;
+    max-width: calc(100vw - 32px);
     min-height: 42px;
+    min-width: 0;
+    overflow: visible;
+    overflow-wrap: anywhere;
     padding-inline: 14px;
-    white-space: nowrap;
+    text-overflow: clip;
+    white-space: normal;
+    width: auto;
   }
 
   .zoda-ikigai-page #ikigai-technology .zoda-fabrics-feature__media {
@@ -2211,5 +2229,114 @@
   .zoda-ikigai-page .zoda-ikigai-pillars__lede,
   .zoda-ikigai-page .zoda-ikigai-community__lede {
     display: none !important;
+  }
+}
+
+/* Mobile typography pass. */
+@media (max-width: 760px) {
+  .zoda-ikigai-page .zoda-fabrics-hero__lede,
+  .zoda-ikigai-page .zoda-fabrics-feature__desc,
+  .zoda-ikigai-page .zoda-ikigai-duo__body,
+  .zoda-ikigai-page .zoda-ikigai-pillars__lede,
+  .zoda-ikigai-page .zoda-ikigai-pillars__desc,
+  .zoda-ikigai-page .zoda-ikigai-tech__accordion .zoda-fabrics-craft__panel p,
+  .zoda-ikigai-page .zoda-ikigai-community__lede {
+    font-size: clamp(12px, 2.8vw, 16px) !important;
+    line-height: 1.44 !important;
+  }
+
+  .zoda-ikigai-page .zoda-ikigai-purpose__label,
+  .zoda-ikigai-page .zoda-ikigai-duo__index,
+  .zoda-ikigai-page .zoda-ikigai-community__values li,
+  .zoda-ikigai-page .zoda-fabrics-feature__shop,
+  .zoda-ikigai-page .zoda-fabrics-feature__back {
+    font-size: clamp(10.5px, 2.9vw, 12px) !important;
+    line-height: 1.18 !important;
+  }
+}
+
+/* Mission / Vision mobile carousel. */
+@media (max-width: 760px) {
+  .zoda-ikigai-page .zoda-ikigai-purpose {
+    overflow: hidden !important;
+  }
+
+  .zoda-ikigai-page .zoda-ikigai-purpose__cards {
+    align-items: stretch !important;
+    display: flex !important;
+    gap: 12px !important;
+    grid-template-columns: none !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 0 18px 12px 0 !important;
+    scroll-padding-left: 0 !important;
+    scroll-snap-type: x mandatory !important;
+    scrollbar-width: none !important;
+    width: 100% !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .zoda-ikigai-page .zoda-ikigai-purpose__cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .zoda-ikigai-page .zoda-ikigai-purpose__card {
+    flex: 0 0 min(86vw, 380px) !important;
+    min-height: clamp(180px, 30svh, 260px) !important;
+    max-width: min(86vw, 380px) !important;
+    padding: 18px !important;
+    scroll-snap-align: start !important;
+    width: min(86vw, 380px) !important;
+  }
+
+  .zoda-ikigai-page .zoda-ikigai-purpose__card .zoda-ikigai-duo__body {
+    max-width: 100% !important;
+  }
+}
+
+/* Ikigai community wordplay. */
+.zoda-ikigai-page .zoda-ikigai-community__values {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  max-width: min(780px, 100%);
+  flex-direction: column;
+}
+
+.zoda-ikigai-page .zoda-ikigai-community__values li {
+  align-items: center;
+  background: rgba(7, 9, 8, 0.58);
+  display: inline-flex;
+  gap: 8px;
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+.zoda-ikigai-page .zoda-ikigai-community__values li::before {
+  flex: 0 0 auto;
+}
+
+.zoda-ikigai-page .zoda-ikigai-community__letter {
+  color: var(--accent);
+  font-family: var(--zoda-font-display, "Euphora", "Commuters Sans", Arial, sans-serif);
+  font-size: 1.4em;
+  line-height: 0.8;
+}
+
+@media (max-width: 760px) {
+  .zoda-ikigai-page .zoda-ikigai-community__values {
+    display: flex !important;
+    flex-direction: column;
+    gap: 6px;
+    width: min(100%, 360px);
+  }
+
+  .zoda-ikigai-page .zoda-ikigai-community__values li {
+    justify-content: flex-start;
+    min-height: 34px;
+    padding: 7px 9px !important;
+    text-align: left !important;
+    width: 100%;
   }
 }

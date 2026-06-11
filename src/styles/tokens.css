@@ -100,7 +100,12 @@ img {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  line-height: 1;
   cursor: pointer;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
+  white-space: normal;
   transition:
     background 180ms ease,
     color 180ms ease,
@@ -128,7 +133,12 @@ img {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  line-height: 1;
   cursor: pointer;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
+  white-space: normal;
   transition:
     border-color 180ms ease,
     color 180ms ease;
@@ -136,6 +146,14 @@ img {
 .zoda-button-secondary:hover {
   border-color: var(--zoda-accent);
   color: var(--zoda-accent);
+}
+
+@media (max-width: 760px) {
+  .zoda-button,
+  .zoda-button-secondary {
+    min-width: 0;
+    padding-inline: clamp(10px, 3vw, 18px);
+  }
 }
 
 .zoda-card {

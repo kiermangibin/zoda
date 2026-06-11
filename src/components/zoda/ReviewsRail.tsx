@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { getJudgemeReviews, type JudgemeReview } from "@/lib/judgeme-reviews.functions";
@@ -42,7 +42,7 @@ function ReviewCardInner({ r }: { r: JudgemeReview }) {
       {r.productTitle ? (
         <span className="zoda-circuit__review-product-title">{r.productTitle}</span>
       ) : null}
-      <p>{r.body}</p>
+      <p className="zoda-circuit__review-copy">{r.body}</p>
       <div className="zoda-circuit__review-stars" aria-label={`${r.rating} out of 5 stars`}>
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
@@ -77,6 +77,33 @@ export function ReviewsRail() {
     staleTime: 5 * 60_000,
   });
   const trackRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const updateOverflowState = () => {
+      track.querySelectorAll<HTMLParagraphElement>(".zoda-circuit__review-copy").forEach((copy) => {
+        copy.classList.toggle(
+          "zoda-circuit__review-copy--overflowing",
+          copy.scrollHeight > copy.clientHeight + 1,
+        );
+      });
+    };
+
+    updateOverflowState();
+    const frame = window.requestAnimationFrame(updateOverflowState);
+    const observer = new ResizeObserver(updateOverflowState);
+    observer.observe(track);
+    track.querySelectorAll(".zoda-circuit__review-copy").forEach((copy) => observer.observe(copy));
+    window.addEventListener("resize", updateOverflowState);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", updateOverflowState);
+    };
+  }, [data]);
 
   const scrollBy = (dir: 1 | -1) => {
     const el = trackRef.current;

@@ -7,6 +7,7 @@ export type SnapControllerOptions = {
   panelSelector?: string;
   dotSelector?: string;
   lockMs?: number;
+  previousPath?: string;
   nextPath?: string;
   loopToStart?: boolean;
   onAccordionChange?: (panel: HTMLElement, index: number) => void;
@@ -22,6 +23,7 @@ export function initSnapController(
     panelSelector = "[data-snap-panel]",
     dotSelector = "[data-snap-dot]",
     lockMs = 720,
+    previousPath,
     nextPath,
     loopToStart = false,
     onAccordionChange,
@@ -142,6 +144,13 @@ export function initSnapController(
         },
         Math.min(lockMs, 420),
       );
+      return;
+    }
+    if (direction < 0 && activeIndex <= 0) {
+      if (previousPath) {
+        locked = true;
+        window.location.assign(previousPath);
+      }
       return;
     }
     if (direction > 0 && activeIndex >= panels.length - 1) {

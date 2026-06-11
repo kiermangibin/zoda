@@ -109,6 +109,7 @@ function IkigaiPage() {
   useEffect(() => {
     if (!rootRef.current) return;
     const cleanup = initSnapController(rootRef.current, {
+      previousPath: "/",
       nextPath: "/fabrics",
     });
     return cleanup;
@@ -173,13 +174,7 @@ function IkigaiPage() {
               challenges and the indomitable spirit that fuels true champions. ZODA® is not just a
               brand. It is a mindset.
             </p>
-            <p className="zoda-fabrics-feature__desc">
-              Hence we are building The Absolute Alpha Standard in Activewear. Performance Sports
-              clothing that comes to life with deep innovation in fabric, game changing technology
-              in the construction and precision in design that defines our true purpose - to equip
-              athletes with the tools and inspiration to ascend beyond their perceived limits,
-              forging a path of continuous growth and self-discovery.
-            </p>
+
             <div className="zoda-fabrics-feature__actions">
               <Link to="/fabrics" className="zoda-fabrics-feature__shop">
                 Learn More
@@ -190,8 +185,12 @@ function IkigaiPage() {
             </div>
           </div>
 
-          <div className="zoda-ikigai-purpose__cards" aria-label="Vision and mission">
-            <article className="zoda-ikigai-purpose__card">
+          <div
+            className="zoda-ikigai-purpose__cards"
+            aria-label="Vision and mission"
+            aria-roledescription="carousel"
+          >
+            <article className="zoda-ikigai-purpose__card" aria-label="Vision, 1 of 2">
               <span className="zoda-ikigai-purpose__label">Our Vision</span>
               <p className="zoda-ikigai-duo__body">
                 To create activewear that redefines the athlete's experience, pushing the boundaries
@@ -199,7 +198,7 @@ function IkigaiPage() {
               </p>
             </article>
 
-            <article className="zoda-ikigai-purpose__card">
+            <article className="zoda-ikigai-purpose__card" aria-label="Mission, 2 of 2">
               <span className="zoda-ikigai-purpose__label">Our Mission</span>
               <p className="zoda-ikigai-duo__body">
                 To deliver exceptional products and services that exceed customer expectations while
@@ -426,14 +425,19 @@ function IkigaiPage() {
           <div className="zoda-ikigai-community__content">
             <p className="zoda-fabrics-hero__kicker">Community</p>
             <h2 className="zoda-fabrics-hero__title">Together we achieve more.</h2>
-            <p className="zoda-ikigai-community__lede">
+            {/* <p className="zoda-ikigai-community__lede">
               ZODA is more than a brand; it's a community of champions united by a passion for
               pushing limits. Whether you're a pro or just starting out, ZODA welcomes you - because
               together, we achieve more.
-            </p>
+            </p> */}
             <ul className="zoda-ikigai-community__values">
               {COMMUNITY_VALUES.map((v) => (
-                <li key={v}>{v}</li>
+                <li key={v} aria-label={v}>
+                  <span className="zoda-ikigai-community__letter" aria-hidden="true">
+                    {v[0]}
+                  </span>
+                  <span>{v.slice(1)}</span>
+                </li>
               ))}
             </ul>
             <div className="zoda-fabrics-feature__actions">
