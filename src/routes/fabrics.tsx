@@ -28,8 +28,9 @@ export const Route = createFileRoute("/fabrics")({
 
 function FabricsPage() {
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const directoryGridRef = useRef<HTMLDivElement | null>(null);
-  const [directoryIndex, setDirectoryIndex] = useState(0);
+  const fabricViewportRef = useRef<HTMLDivElement | null>(null);
+  const fabricTrackRef = useRef<HTMLDivElement | null>(null);
+  const [activeFabricIndex, setActiveFabricIndex] = useState(0);
   const [openAccordions, setOpenAccordions] = useState<Record<string, number | null>>({});
 
   useEffect(() => {
@@ -49,35 +50,118 @@ function FabricsPage() {
     return cleanup;
   }, []);
 
-  const handleDirectoryClick = (event: React.MouseEvent<HTMLAnchorElement>, handle: string) => {
-    event.preventDefault();
-    const target = event.currentTarget;
-    const coarse = typeof window !== "undefined" && window.matchMedia("(hover: none)").matches;
-    if (coarse && !target.classList.contains("is-revealed")) {
-      rootRef.current
-        ?.querySelectorAll(".zoda-fabrics-card.is-revealed")
-        .forEach((el) => el.classList.remove("is-revealed"));
-      target.classList.add("is-revealed");
+  useEffect(() => {
+    const viewport = fabricViewportRef.current;
+    const track = fabricTrackRef.current;
+    if (!viewport || !track) return;
+
+    const cardNodes = () =>
+      Array.from(track.querySelectorAll<HTMLElement>(".zoda-circuit__fabric-card"));
+    const updateActiveCard = () => {
+      const cards = cardNodes();
+      if (!cards.length) return;
+
+      const rect = viewport.getBoundingClientRect();
+      const center = rect.left + rect.width / 2;
+      let nextIndex = 0;
+      let bestDistance = Number.POSITIVE_INFINITY;
+
+      cards.forEach((card, index) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const distance = Math.abs(cardCenter - center);
+
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          nextIndex = index;
+        }
+      });
+
+      setActiveFabricIndex((current) => (current === nextIndex ? current : nextIndex));
+      cards.forEach((card, index) => {
+        card.classList.toggle("is-active", index === nextIndex);
+      });
+    };
+
+    let rafId = 0;
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        updateActiveCard();
+      });
+    };
+
+    const handleResize = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        updateActiveCard();
+      });
+    };
+
+    updateActiveCard();
+    viewport.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      viewport.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", handleResize);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  const handleFabricCardTap = (
+    event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+    index: number,
+  ) => {
+    const isTouch = typeof window !== "undefined" && window.matchMedia("(hover: none)").matches;
+    const track = fabricTrackRef.current;
+    if (!track) return;
+    if ((event.target as HTMLElement | null)?.closest(".zoda-fabrics-card__back-cta")) return;
+
+    const target = event.currentTarget as HTMLElement;
+    if (isTouch) {
+      event.preventDefault();
+      if (!target.classList.contains("is-revealed")) {
+        track.querySelectorAll(".zoda-fabrics-card.is-revealed").forEach((el) => {
+          el.classList.remove("is-revealed");
+        });
+        target.classList.add("is-revealed");
+      } else {
+        target.classList.remove("is-revealed");
+      }
+      setActiveFabricIndex(index);
       return;
     }
+
+    const targetCard = track.querySelector<HTMLElement>(`[data-zoda-fabric-card][data-index='${index}']`);
+    if (!targetCard) return;
+    targetCard.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    setActiveFabricIndex(index);
+  };
+
+  const handleExploreClick = (event: React.MouseEvent<HTMLAnchorElement>, handle: string) => {
+    event.preventDefault();
     const root = rootRef.current as (HTMLDivElement & { __snapGoTo?: (id: string) => void }) | null;
-    root?.__snapGoTo?.(`fabric-${handle}`);
+    if (!root?.__snapGoTo) {
+      window.location.hash = `#fabric-${handle}`;
+      return;
+    }
+    root.__snapGoTo(`fabric-${handle}`);
   };
 
-  const handleDirectoryScroll = () => {
-    const grid = directoryGridRef.current;
-    const firstCard = grid?.querySelector<HTMLElement>(".zoda-fabrics-card");
-    if (!grid || !firstCard) return;
-
-    const style = window.getComputedStyle(grid);
-    const gap = Number.parseFloat(style.columnGap || style.gap || "0") || 0;
-    const cardStep = firstCard.getBoundingClientRect().width + gap;
-    if (cardStep <= 0) return;
-    setDirectoryIndex(Math.max(0, Math.min(FABRICS.length - 1, Math.round(grid.scrollLeft / cardStep))));
-  };
+  const fabricProgress = `${(activeFabricIndex + 1) / FABRICS.length}`;
+  const fabricCounter = `${String(activeFabricIndex + 1).padStart(2, "0")} / ${String(
+    FABRICS.length,
+  ).padStart(2, "0")}`;
 
   return (
-    <div ref={rootRef} className="zoda-shell zoda-shell--light zoda-fabrics-page" data-snap-root>
+    <div
+      ref={rootRef}
+      className="zoda-shell zoda-shell--light zoda-fabrics-page zoda-circuit"
+      data-snap-root
+    >
       <SiteHeader menuId="fabrics-mobile-menu" />
 
       <div className="zoda-circuit zoda-fabrics-dots-host" aria-hidden={false}>
@@ -124,53 +208,91 @@ function FabricsPage() {
           </div>
         </section>
 
-        {/* Tile grid */}
-        <section className="zoda-fabrics-snap__section zoda-fabrics-directory" data-snap-panel>
-          <header className="zoda-fabrics-directory__head">
-            <p className="zoda-fabrics-directory__kicker">Directory</p>
-            <h2 className="zoda-fabrics-directory__title">Meet every fabric</h2>
-          </header>
-          <div
-            ref={directoryGridRef}
-            className="zoda-fabrics-directory__grid"
-            onScroll={handleDirectoryScroll}
-          >
-            {FABRICS.map((f) => (
-              <a
-                key={f.handle}
-                href={`#fabric-${f.handle}`}
-                className="zoda-fabrics-card zoda-fabrics-card--flip"
-                onClick={(e) => handleDirectoryClick(e, f.handle)}
-              >
-                <div className="zoda-fabrics-card__flip-inner">
-                  <div className="zoda-fabrics-card__face zoda-fabrics-card__face--front">
-                    <img
-                      className="zoda-fabrics-card__img"
-                      src={f.swatchImage}
-                      alt={`${f.name} swatch`}
-                      loading="lazy"
-                    />
-                    <div className="zoda-fabrics-card__overlay" />
-                    <div className="zoda-fabrics-card__body">
-                      <span className="zoda-fabrics-card__name">{f.name}</span>
-                      <span className="zoda-fabrics-card__cta">View →</span>
-                    </div>
-                  </div>
-                  <div className="zoda-fabrics-card__face zoda-fabrics-card__face--back">
-                    <span className="zoda-fabrics-card__back-eyebrow">{f.name}</span>
-                    <p className="zoda-fabrics-card__back-text">{f.tagline}</p>
-                    <span className="zoda-fabrics-card__back-cta">Explore →</span>
-                  </div>
+        {/* Fabric system (replacing the directory section only) */}
+        <section
+          id="zoda-circuit-home-6"
+          className="zoda-fabrics-snap__section zoda-circuit__panel zoda-circuit__panel--fabric"
+          data-snap-panel
+        >
+          <div className="zoda-circuit__fabric-shell" data-zoda-fabric="">
+            <div className="zoda-circuit__fabric-head">
+              <div>
+                <p className="zoda-circuit__kicker">Fabric System</p>
+                <h2 className="zoda-circuit__heading">Fabric system.</h2>
+              </div>
+              <div>
+                <p className="zoda-circuit__copy">
+                  Eight fabric systems tuned for sweat control, stretch, breathability, support, and
+                  recovery.
+                </p>
+                <div className="zoda-circuit__actions zoda-circuit__actions--compact">
+                  <a className="zoda-circuit__button-secondary" href="/collections">
+                    Compare Fabrics
+                  </a>
                 </div>
-              </a>
-            ))}
-          </div>
-          <div className="zoda-fabrics-directory__mobile-ui" aria-hidden="true">
-            <div className="zoda-fabrics-directory__progress">
-              <span style={{ transform: `scaleX(${(directoryIndex + 1) / FABRICS.length})` }} />
+              </div>
             </div>
-            <div className="zoda-fabrics-directory__count">
-              {String(directoryIndex + 1).padStart(2, "0")} / {String(FABRICS.length).padStart(2, "0")}
+            <div
+              className="zoda-circuit__fabric-viewport"
+              ref={fabricViewportRef}
+              data-zoda-fabric-viewport
+            >
+              <div className="zoda-circuit__fabric-track" ref={fabricTrackRef} data-zoda-fabric-track>
+                {FABRICS.map((fabric, index) => (
+                  <article
+                    key={fabric.handle}
+                    className={`zoda-circuit__fabric-card zoda-fabrics-card zoda-fabrics-card--flip${
+                      index === activeFabricIndex ? " is-active" : ""
+                    }`}
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={index === activeFabricIndex}
+                    data-index={index}
+                    onClick={(event) => handleFabricCardTap(event, index)}
+                    onKeyDown={(event) => {
+                      if (event.key !== "Enter" && event.key !== " ") return;
+                      event.preventDefault();
+                      handleFabricCardTap(event, index);
+                    }}
+                    data-zoda-fabric-card=""
+                  >
+                    <div className="zoda-fabrics-card__flip-inner">
+                      <div className="zoda-fabrics-card__face zoda-fabrics-card__face--front">
+                        <img
+                          className="zoda-fabrics-card__img"
+                          src={fabric.swatchImage}
+                          alt={`${fabric.name} swatch`}
+                          loading="lazy"
+                        />
+                        <div className="zoda-fabrics-card__overlay" />
+                        <div className="zoda-fabrics-card__body">
+                          <span className="zoda-fabrics-card__name">{fabric.name}</span>
+                          <span className="zoda-fabrics-card__cta">View →</span>
+                        </div>
+                      </div>
+                      <div className="zoda-fabrics-card__face zoda-fabrics-card__face--back">
+                        <span className="zoda-fabrics-card__back-eyebrow">{fabric.name}</span>
+                        <p className="zoda-fabrics-card__back-text">{fabric.tagline}</p>
+                        <a
+                          className="zoda-fabrics-card__back-cta"
+                          href={`#fabric-${fabric.handle}`}
+                          onClick={(event) => handleExploreClick(event, fabric.handle)}
+                        >
+                          Explore →
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div className="zoda-circuit__fabric-ui" aria-hidden="true">
+              <div className="zoda-circuit__fabric-progress">
+                <span data-zoda-fabric-progress style={{ transform: `scaleX(${fabricProgress})` }} />
+              </div>
+              <div className="zoda-circuit__fabric-count" data-zoda-fabric-count>
+                {fabricCounter}
+              </div>
             </div>
           </div>
         </section>
@@ -233,9 +355,7 @@ function FabricsPage() {
                     return (
                       <article
                         key={item.title}
-                        className={`zoda-fabrics-feature__accordion-item${
-                          isOpen ? " is-open" : ""
-                        }`}
+                        className={`zoda-fabrics-feature__accordion-item${isOpen ? " is-open" : ""}`}
                         data-snap-accordion-item
                       >
                         <button

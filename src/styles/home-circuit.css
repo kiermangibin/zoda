@@ -5445,7 +5445,7 @@
   }
 
   .zoda-circuit .zoda-circuit__copy {
-    font-size: 14px !important;
+    font-size: 16px !important;
     line-height: 1.34 !important;
     margin-top: 12px !important;
   }
@@ -5562,7 +5562,7 @@
     -webkit-box-orient: vertical !important;
     -webkit-line-clamp: 2 !important;
     display: -webkit-box !important;
-    overflow: hidden !important;
+    /* overflow: hidden !important; */
   }
 
   .zoda-circuit .zoda-circuit__kit-stack span:nth-child(n + 4) {
@@ -5650,7 +5650,7 @@
     -webkit-box-orient: vertical !important;
     -webkit-line-clamp: 2 !important;
     display: -webkit-box !important;
-    overflow: hidden !important;
+    /* overflow: !important; */
   }
 
   .zoda-circuit .zoda-circuit__kit-stack span {
@@ -6461,7 +6461,7 @@
     -webkit-box-orient: vertical !important;
     -webkit-line-clamp: 2 !important;
     display: -webkit-box !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   #zoda-circuit-home-5 .zoda-circuit__kit-stack {
@@ -6914,6 +6914,16 @@ body.index
     width: 100% !important;
   }
 
+  #zoda-circuit-home-6 .zoda-circuit__button,
+  #zoda-circuit-home-6 .zoda-circuit__button-secondary {
+    width: max-content !important;
+    min-width: 0 !important;
+  }
+
+  #zoda-circuit-home-6 .zoda-circuit__actions {
+    justify-content: center !important;
+  }
+
   #zoda-circuit-home-5 .zoda-circuit__heading,
   #zoda-circuit-home-6 .zoda-circuit__fabric-head .zoda-circuit__heading,
   #zoda-circuit-home-7 .zoda-circuit__heading,
@@ -6935,7 +6945,7 @@ body.index
   }
 
   #zoda-circuit-home-5 .zoda-circuit__collection-panel-title {
-    font-size: clamp(24px, 8vw, 29px) !important;
+    font-size: clamp(20px, 6vw, 24px) !important;
   }
 
   #zoda-circuit-home-5 .zoda-circuit__collection-panel-copy {

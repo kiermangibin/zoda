@@ -58,12 +58,6 @@
 
 # Content & Copy
 
-## Mobile Content Reduction
-
-- [ ] Review long-form content sections on mobile.
-- [ ] Consider removing secondary paragraphs from mobile versions where content becomes too dense.
-- [ ] Test simplified content against desktop layout before final implementation.
-
 ## Mission / Vision Section
 
 - [x] Convert Mission & Vision content into a carousel on mobile.
@@ -85,11 +79,6 @@
 - [x] Maintain proper visual hierarchy after scaling text.
 
 # Layout & Spacing
-
-## Global Spacing Audit
-
-- [ ] Improve content alignment.
-- [ ] Ensure balanced breathing room without creating excessive whitespace.
 
 ## CTA Layout
 
@@ -113,12 +102,6 @@
 - [x] Replace mixed bullet treatments with square bullets sitewide.
 
 # Homepage Section Reorganization
-
-## Mobile Content Flow
-
-- [ ] Review crowded mobile sections.
-- [ ] Relocate homepage elements where necessary to improve flow.
-- [ ] Prioritize guiding users through the intended journey instead of forcing interaction with sticky sections.
 
 # Visual QA
 
