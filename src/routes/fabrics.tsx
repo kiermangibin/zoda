@@ -35,6 +35,7 @@ function FabricsPage() {
   useEffect(() => {
     if (!rootRef.current) return;
     const cleanup = initSnapController(rootRef.current, {
+      previousPath: "/ikigai",
       nextPath: "/",
       onAccordionChange: (panel, index) => {
         const handle = panel.dataset.fabricHandle;

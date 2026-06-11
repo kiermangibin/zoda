@@ -225,7 +225,7 @@
 
 .zoda-mission-play__notice--rulebook li::before {
   background: var(--accent);
-  border-radius: 999px;
+  border-radius: 0;
   content: "";
   height: 6px;
   left: 0;
@@ -1134,5 +1134,26 @@
 
   100% {
     transform: scale(1);
+  }
+}
+
+/* Mobile typography pass. */
+@media (max-width: 759px) {
+  .zoda-mission-play__challenge p,
+  .zoda-mission-play__notice--rulebook li {
+    font-size: clamp(12px, 3.35vw, 14px) !important;
+    line-height: 1.28 !important;
+  }
+
+  .zoda-mission-play__mobile-status,
+  .zoda-mission-play__board button strong,
+  .zoda-mission-play__challenge-actions button,
+  .zoda-mission-play__rulebook-button {
+    font-size: clamp(10px, 2.8vw, 11.5px) !important;
+  }
+
+  .zoda-mission-play__board button span,
+  .zoda-mission-play__board button em {
+    font-size: clamp(8.5px, 2.4vw, 10px) !important;
   }
 }

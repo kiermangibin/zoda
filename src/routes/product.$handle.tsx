@@ -237,8 +237,7 @@ function ProductPage() {
   const sizeOpt = options.find((o) => isSizeName(o.name));
   const otherOpts = options.filter((o) => o !== colorOpt && o !== sizeOpt);
 
-  // Scroll-syncing not required — strip is layout-only
-  useEffect(() => { /* placeholder for future variant->image sync */ }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="zoda-shell zoda-shell--light">
@@ -670,7 +669,7 @@ function PdpDescription({ html, text }: { html?: string | null; text?: string | 
       <p className="zoda-pdp__desc-label">Description</p>
       {!hasContent ? (
         <p className="zoda-pdp__blurb">
-          Engineered for everyday performance — placeholder description.
+          Built for everyday performance, easy movement, and repeat wear.
         </p>
       ) : (
         <>

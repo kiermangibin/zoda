@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Pause, Play } from "lucide-react";
+import { Play, Volume2, VolumeX } from "lucide-react";
 import { ZODA_CIRCUIT_SCRIPT } from "./circuit-script";
 import { ProductMotionGallery } from "./ProductMotionGallery";
 import { CartDrawer } from "./CartDrawer";
@@ -18,13 +18,29 @@ import sustainabilityVideo from "@/assets/sustainability-video.mp4";
 
 export function ZodaCircuit() {
   const [isHeroVideoPaused, setIsHeroVideoPaused] = useState(false);
+  const [isHeroVideoMuted, setIsHeroVideoMuted] = useState(true);
 
-  const toggleHeroVideo = () => {
+  const handleHeroVideoControl = () => {
     const frame = document.querySelector<HTMLIFrameElement>("[data-zoda-video-frame]");
-    const method = isHeroVideoPaused ? "play" : "pause";
-    frame?.contentWindow?.postMessage(JSON.stringify({ method }), "https://player.vimeo.com");
-    setIsHeroVideoPaused((paused) => !paused);
+    if (isHeroVideoPaused) {
+      frame?.contentWindow?.postMessage(JSON.stringify({ method: "play" }), "https://player.vimeo.com");
+      setIsHeroVideoPaused(false);
+      return;
+    }
+
+    const nextMuted = !isHeroVideoMuted;
+    frame?.contentWindow?.postMessage(
+      JSON.stringify({ method: "setVolume", value: nextMuted ? 0 : 1 }),
+      "https://player.vimeo.com",
+    );
+    setIsHeroVideoMuted(nextMuted);
   };
+
+  const heroVideoControlLabel = isHeroVideoPaused
+    ? "Play hero video"
+    : isHeroVideoMuted
+      ? "Unmute hero video"
+      : "Mute hero video";
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -46,11 +62,71 @@ export function ZodaCircuit() {
       card.classList.toggle("is-revealed", shouldReveal);
       card.setAttribute("aria-pressed", shouldReveal ? "true" : "false");
     };
+    const prepareGrid = root.querySelector<HTMLElement>("#zoda-circuit-home-11 .zoda-circuit__proof-grid");
+    const prepareCards = Array.from(
+      root.querySelectorAll<HTMLElement>("#zoda-circuit-home-11 .zoda-circuit__proof-item"),
+    );
+    let prepareFrame = 0;
+    const updatePrepareActiveCard = () => {
+      if (!prepareGrid || !prepareCards.length) return;
+      const gridBounds = prepareGrid.getBoundingClientRect();
+      const gridCenter = gridBounds.left + gridBounds.width / 2;
+      let activeCard = prepareCards[0];
+      let activeDistance = Number.POSITIVE_INFINITY;
+
+      prepareCards.forEach((card) => {
+        const cardBounds = card.getBoundingClientRect();
+        const cardCenter = cardBounds.left + cardBounds.width / 2;
+        const distance = Math.abs(gridCenter - cardCenter);
+        if (distance < activeDistance) {
+          activeCard = card;
+          activeDistance = distance;
+        }
+      });
+
+      prepareCards.forEach((card) => {
+        card.classList.toggle("is-active", card === activeCard);
+      });
+    };
+    const requestPrepareActiveCardUpdate = () => {
+      if (prepareFrame) return;
+      prepareFrame = window.requestAnimationFrame(() => {
+        prepareFrame = 0;
+        updatePrepareActiveCard();
+      });
+    };
     const s = document.createElement("script");
     s.id = "zoda-circuit-script";
     s.textContent = ZODA_CIRCUIT_SCRIPT.replace(
       /const loopToStart = \(\) => \{[\s\S]*?\n    \};\n\n    const goTo =/,
       "const loopToStart = () => {\n      window.location.assign('/ikigai');\n    };\n\n    const goTo =",
+    ).replace(
+      "let splashFrame = 0;\n\n    if (!track || !panels.length) return;",
+      "let splashFrame = 0;\n\n    if (!track || !panels.length) return;\n\n    const getPanelHash = (index) => panels[index]?.id ? `#${panels[index].id}` : '';\n\n    const getIndexForHash = () => {\n      const hash = window.location.hash;\n      if (!hash) return -1;\n      const id = hash.slice(1);\n      return panels.findIndex((panel) => panel.id === id);\n    };\n\n    const writePanelHistory = (index, mode = 'replace') => {\n      const hash = getPanelHash(index);\n      if (!hash || window.location.hash === hash) return;\n      const nextUrl = `${window.location.pathname}${window.location.search}${hash}`;\n      if (mode === 'push') window.history.pushState({ zodaPanel: index }, '', nextUrl);\n      else window.history.replaceState({ zodaPanel: index }, '', nextUrl);\n    };",
+    ).replace(
+      "const setActive = (index) => {",
+      "const setActive = (index, syncUrl = false) => {",
+    ).replace(
+      "      requestSplashUpdate();\n    };\n\n    const getNearestPanelIndex = () => {",
+      "      if (syncUrl) writePanelHistory(activeIndex, 'replace');\n      requestSplashUpdate();\n    };\n\n    const getNearestPanelIndex = () => {",
+    ).replace(
+      "if (index !== activeIndex) setActive(index);\n    };\n\n    const getPanelIndexAtScroll",
+      "if (index !== activeIndex) setActive(index, true);\n    };\n\n    const getPanelIndexAtScroll",
+    ).replace(
+      "if (index !== activeIndex) setActive(index);\n      return index;\n    };\n\n    const getFabricVisibleCards",
+      "if (index !== activeIndex) setActive(index, true);\n      return index;\n    };\n\n    const getFabricVisibleCards",
+    ).replace(
+      "const goTo = (index, behavior = reduceMotion ? 'auto' : 'smooth') => {\n      const next = Math.max(0, Math.min(index, panels.length - 1));\n      track.scrollTo({ top: panels[next].offsetTop, behavior });\n      setActive(next);\n    };",
+      "const goTo = (index, behavior = reduceMotion ? 'auto' : 'smooth', historyMode = 'push') => {\n      const next = Math.max(0, Math.min(index, panels.length - 1));\n      root.classList.add('is-programmatic-scrolling');\n      track.scrollTo({ top: panels[next].offsetTop, behavior: 'auto' });\n      if (historyMode) writePanelHistory(next, historyMode);\n      setActive(next);\n      window.setTimeout(() => {\n        root.classList.remove('is-programmatic-scrolling');\n      }, 120);\n    };",
+    ).replace(
+      "const step = (direction) => {\n      if (!snapEnabled || locked) return;\n      locked = true;\n\n      if (!isMobile() && activeIndex === fabricPanelIndex && stepFabric(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && activeIndex === pillarPanelIndex && stepPillars(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && activeIndex === collectionPanelIndex && stepCollection(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && activeIndex === featurePanelIndex && stepFeature(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (activeIndex === panels.length - 1 && direction > 0) {\n        loopToStart();\n        return;\n      }\n\n      goTo(activeIndex + direction);\n      window.setTimeout(() => { locked = false; }, 640);\n    };",
+      "const step = (direction) => {\n      if (!snapEnabled || locked) return;\n      locked = true;\n      const currentIndex = syncActiveAtScroll();\n\n      if (!isMobile() && currentIndex === fabricPanelIndex && stepFabric(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && currentIndex === pillarPanelIndex && stepPillars(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && currentIndex === collectionPanelIndex && stepCollection(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (!isMobile() && currentIndex === featurePanelIndex && stepFeature(direction)) {\n        window.setTimeout(() => { locked = false; }, 520);\n        return;\n      }\n\n      if (currentIndex === 0 && direction < 0) {\n        window.location.assign('/fabrics');\n        return;\n      }\n\n      if (currentIndex === panels.length - 1 && direction > 0) {\n        loopToStart();\n        return;\n      }\n\n      goTo(currentIndex + direction);\n      window.setTimeout(() => { locked = false; }, 640);\n    };",
+    ).replace(
+      "dots.forEach((dot, index) => {\n      dot.addEventListener('click', (event) => {\n        event.preventDefault();\n        goTo(index);\n      });\n    });\n\n    collectionTabs.forEach((tab, index) => {",
+      "dots.forEach((dot, index) => {\n      dot.addEventListener('click', (event) => {\n        event.preventDefault();\n        goTo(index);\n      });\n    });\n\n    window.addEventListener('popstate', () => {\n      const index = getIndexForHash();\n      if (index < 0) return;\n      locked = false;\n      goTo(index, 'auto', false);\n    });\n\n    collectionTabs.forEach((tab, index) => {",
+    ).replace(
+      "updateFeature(0);\n    setActive(getNearestPanelIndex());",
+      "updateFeature(0);\n    const initialHashIndex = getIndexForHash();\n    if (initialHashIndex >= 0) goTo(initialHashIndex, 'auto', false);\n    else setActive(getNearestPanelIndex(), true);",
     ).replace(
       "const mobileHorizontalSelector = '[data-zoda-fabric-viewport], .zoda-circuit__panel--pillars .zoda-circuit__cards, [data-zoda-collection-accordion], [data-zoda-feature-accordion]';",
       "const mobileHorizontalSelector = '[data-zoda-fabric-viewport], .zoda-circuit__panel--pillars .zoda-circuit__cards, [data-zoda-feature-accordion]';",
@@ -60,11 +136,20 @@ export function ZodaCircuit() {
     ).replace(
       "const clearVerticalSwipe = absY > 56 && absY > absX * 1.65;\n        if (!clearVerticalSwipe || (touchStartedInHorizontal && absX > absY * 0.45)) {\n          touchStartedInHorizontal = false;\n          return;\n        }",
       "touchStartedInHorizontal = false;\n        return;",
+    ).replace(
+      /    const videoFrame = root\.querySelector\('\[data-zoda-video-frame\]'\);\n    const nativeVideo = root\.querySelector\('\[data-zoda-native-video\]'\);\n    const requestVideoSound = \(\) => \{[\s\S]*?    \['click', 'touchstart', 'keydown', 'wheel'\]\.forEach\(\(eventName\) => \{\n      root\.addEventListener\(eventName, requestVideoSound, \{ once: true, passive: true \}\);\n    \}\);\n\n/,
+      "",
     );
     root.addEventListener("click", handleFabricCardClick);
+    prepareGrid?.addEventListener("scroll", requestPrepareActiveCardUpdate, { passive: true });
+    window.addEventListener("resize", requestPrepareActiveCardUpdate);
+    updatePrepareActiveCard();
     document.body.appendChild(s);
     return () => {
       root.removeEventListener("click", handleFabricCardClick);
+      prepareGrid?.removeEventListener("scroll", requestPrepareActiveCardUpdate);
+      window.removeEventListener("resize", requestPrepareActiveCardUpdate);
+      if (prepareFrame) window.cancelAnimationFrame(prepareFrame);
       s.remove();
       // allow re-init if remounted
       delete (root as HTMLElement).dataset.ready;
@@ -106,11 +191,17 @@ export function ZodaCircuit() {
       <button
         type="button"
         className="zoda-circuit__video-toggle"
-        onClick={toggleHeroVideo}
-        aria-label={isHeroVideoPaused ? "Play hero video" : "Pause hero video"}
-        aria-pressed={isHeroVideoPaused}
+        onClick={handleHeroVideoControl}
+        aria-label={heroVideoControlLabel}
+        aria-pressed={!isHeroVideoMuted && !isHeroVideoPaused}
       >
-        {isHeroVideoPaused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+        {isHeroVideoPaused ? (
+          <Play aria-hidden="true" />
+        ) : isHeroVideoMuted ? (
+          <VolumeX aria-hidden="true" />
+        ) : (
+          <Volume2 aria-hidden="true" />
+        )}
       </button>
       <div className="zoda-circuit__content zoda-circuit__video-content">
         <p className="zoda-circuit__kicker" data-animate="">Our Mission</p>
@@ -181,21 +272,27 @@ export function ZodaCircuit() {
       <div className="zoda-circuit__cards">
         <div className="zoda-circuit__pillar-card" tabIndex={0} data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
           <figure className="zoda-circuit__card-media"><img src={pocketImage} alt="Close-up of ZODA garment pocket construction" loading="lazy" /></figure>
-          <span className="zoda-circuit__card-number">01</span>
-          <strong className="zoda-circuit__card-title">Technology</strong>
-          <p className="zoda-circuit__card-copy">Body-mapped construction helps manage sweat, stretch, chafe, and support.</p>
+          <div className="zoda-circuit__pillar-copybox">
+            <span className="zoda-circuit__card-number">01</span>
+            <strong className="zoda-circuit__card-title">Technology</strong>
+            <p className="zoda-circuit__card-copy">Body-mapped construction helps manage sweat, stretch, chafe, and support.</p>
+          </div>
         </div>
         <div className="zoda-circuit__pillar-card" tabIndex={0} data-animate="" style={{"--zoda-delay": "320ms"} as React.CSSProperties}>
           <figure className="zoda-circuit__card-media"><video src={sustainabilityVideo} muted playsInline loop autoPlay aria-label="ZODA sustainability material motion" /></figure>
-          <span className="zoda-circuit__card-number">02</span>
-          <strong className="zoda-circuit__card-title">Sustainability</strong>
-          <p className="zoda-circuit__card-copy">Responsible fibers support performance with a lighter footprint.</p>
+          <div className="zoda-circuit__pillar-copybox">
+            <span className="zoda-circuit__card-number">02</span>
+            <strong className="zoda-circuit__card-title">Sustainability</strong>
+            <p className="zoda-circuit__card-copy">Responsible fibers support performance with a lighter footprint.</p>
+          </div>
         </div>
         <div className="zoda-circuit__pillar-card" tabIndex={0} data-animate="" style={{"--zoda-delay": "420ms"} as React.CSSProperties}>
           <figure className="zoda-circuit__card-media"><img src={runnersImage} alt="Runners training together in ZODA performance context" loading="lazy" /></figure>
-          <span className="zoda-circuit__card-number">03</span>
-          <strong className="zoda-circuit__card-title">Community</strong>
-          <p className="zoda-circuit__card-copy">Built for athletes who show up, share standards, and keep moving.</p>
+          <div className="zoda-circuit__pillar-copybox">
+            <span className="zoda-circuit__card-number">03</span>
+            <strong className="zoda-circuit__card-title">Community</strong>
+            <p className="zoda-circuit__card-copy">Built for athletes who show up, share standards, and keep moving.</p>
+          </div>
         </div>
       </div>
     </article>
@@ -434,7 +531,7 @@ export function ZodaCircuit() {
       <div className="zoda-circuit__content">
         <p className="zoda-circuit__kicker" data-animate="">Reviews</p>
         <h2 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>What athletes are saying.</h2>
-        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Real ratings pulled from your Shopify products — no dummy text.</p>
+        <p className="zoda-circuit__copy" data-animate="" style={{"--zoda-delay": "180ms"} as React.CSSProperties}>Product reviews from athletes training in ZODA gear.</p>
         <div className="zoda-circuit__actions zoda-circuit__actions--compact" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
           <a className="zoda-circuit__button-secondary" href="/collections/all">Shop Rated Gear</a>
         </div>
@@ -456,21 +553,27 @@ export function ZodaCircuit() {
       <div className="zoda-circuit__proof-grid">
         <div className="zoda-circuit__proof-item" data-animate="" style={{"--zoda-delay": "220ms"} as React.CSSProperties}>
           <figure className="zoda-circuit__proof-media"><img src={spotlightImage} alt="ZODA compression piece showing support and fit" loading="lazy" /></figure>
-          <span>01 / Base</span>
-          <strong>Lock in support</strong>
-          <p>Compression that holds shape through heat and sweat.</p>
+          <div className="zoda-circuit__proof-copybox">
+            <span>01 / Base</span>
+            <strong>Lock in support</strong>
+            <p>Compression that holds shape through heat and sweat.</p>
+          </div>
         </div>
         <div className="zoda-circuit__proof-item" data-animate="" style={{"--zoda-delay": "320ms"} as React.CSSProperties}>
           <figure className="zoda-circuit__proof-media"><img src={buttonsImage} alt="Close-up detail of breathable ZODA garment construction" loading="lazy" /></figure>
-          <span>02 / Layer</span>
-          <strong>Add breathability</strong>
-          <p>Lightweight pieces built for airflow and quick transitions.</p>
+          <div className="zoda-circuit__proof-copybox">
+            <span>02 / Layer</span>
+            <strong>Add breathability</strong>
+            <p>Lightweight pieces built for airflow and quick transitions.</p>
+          </div>
         </div>
         <div className="zoda-circuit__proof-item" data-animate="" style={{"--zoda-delay": "420ms"} as React.CSSProperties}>
           <figure className="zoda-circuit__proof-media"><img src={pocketImage} alt="ZODA detail image representing finishing accessories and storage" loading="lazy" /></figure>
-          <span>03 / Finish</span>
-          <strong>Complete the session</strong>
-          <p>Accessories and recovery pieces keep the day moving.</p>
+          <div className="zoda-circuit__proof-copybox">
+            <span>03 / Finish</span>
+            <strong>Complete the session</strong>
+            <p>Accessories and recovery pieces keep the day moving.</p>
+          </div>
         </div>
       </div>
     </article>

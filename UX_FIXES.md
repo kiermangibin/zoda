@@ -31,21 +31,30 @@
 - [x] Make the review text smaller with a fixed-height area that scrolls vertically when needed.
 - [x] Make the product images the same size with a 1:1 ratio.
 
-# Navigation & Interaction
+## Prepare Your Kit Section
+
+- [x] Apply the same styling and mobile carousel behavior used by `zoda-circuit__pillar-card` to `zoda-circuit__proof-item`, including the active state styling and functionality.
 
 ## Fabric Section
 
 - [x] Ensure the **Explore** button links directly to the Fabrics page.
 
+## Alpha Standard/Pillars Section
+
+- [x] Make the "Our Mission" and "Fabric Standard" buttons display on a single line on mobile devices.
+- [x] Wrap each content group (01 Technology, 02 Sustainability, and 03 Community) in its own separate container, with the number, title, and description contained within the container.
+
+# Navigation & Interaction
+
 ## Sticky/Scroll Sections
 
-- [ ] Review sticky section behavior.
-- [ ] Improve scroll progression so users naturally continue through the intended content flow.
-- [ ] Investigate issue where scrolling back does not properly return users to the previous section.
+- [x] Review sticky section behavior.
+- [x] Improve scroll progression so users naturally continue through the intended content flow.
+- [x] Investigate issue where scrolling back does not properly return users to the previous section.
 
 ## Back Navigation
 
-- [ ] Investigate issue where returning to the previous page or section does not work as expected.
+- [x] Investigate issue where returning to the previous page or section does not work as expected.
 
 # Content & Copy
 
@@ -57,54 +66,51 @@
 
 ## Mission / Vision Section
 
-- [ ] Convert Mission & Vision content into a carousel on mobile.
-- [ ] Alternative option: show one item at a time instead of displaying both simultaneously.
+- [x] Convert Mission & Vision content into a carousel on mobile.
+- [x] Alternative option: show one item at a time like tabs in desktop instead of displaying both simultaneously.
 
 ## AI-Generated Copy Cleanup
 
-- [ ] Review all sections for copy that sounds like internal notes.
-- [ ] Rewrite placeholder or internal-sounding content into polished customer-facing copy.
+- [x] Review all sections for copy that sounds like internal notes.
+- [x] Rewrite placeholder or internal-sounding content into polished customer-facing copy.
 
 # Typography
 
 ## Global Mobile Typography Pass
 
-- [ ] Increase font sizes across the mobile experience.
-- [ ] Review all headings for readability.
-- [ ] Review all body text for readability.
-- [ ] Increase the size of key content blocks that currently feel undersized.
-- [ ] Maintain proper visual hierarchy after scaling text.
+- [x] Increase body font sizes across the mobile experience consistent.
+- [x] Review all headings for readability.
+- [x] Review all body text for readability.
+- [x] Increase the size of key content blocks that currently feel undersized.
+- [x] Maintain proper visual hierarchy after scaling text.
 
 # Layout & Spacing
 
 ## Global Spacing Audit
 
-- [ ] Reduce unnecessary top padding throughout the site.
-- [ ] Review vertical spacing consistency across all sections.
 - [ ] Improve content alignment.
 - [ ] Ensure balanced breathing room without creating excessive whitespace.
 
 ## CTA Layout
 
-- [x] Keep buttons on a single row whenever possible.
-- [x] Avoid wrapping buttons into multiple lines unless necessary.
-- [x] Preserve sufficient spacing between adjacent buttons.
+- [x] Keep buttons on a single row whenever possible in mobile.
+- [x] Avoid wrapping buttons into multiple lines unless necessary in smaller screen.
 
-# Community Section
+# Community Section on Ikigai Page
 
 ## Community Wordplay Enhancement
 
-- [ ] Explore ways to make the "Community" wordplay more visually obvious.
-- [ ] Consider presenting Community-related items in a continuous visual sequence.
-- [ ] Alternative: remove current treatment and replace with a cleaner list format.
-- [ ] Add square bullets for better visual structure.
+- [x] Explore ways to make the "Community" wordplay more visually obvious.
+- [x] Consider presenting Community-related items in a continuous visual sequence.
+- [x] Alternative: remove current treatment and replace with a cleaner list format.
+- [x] Add square bullets for better visual structure.
 
 # Lists & Bullets
 
 ## Consistency Pass
 
-- [ ] Standardize all bullet styles.
-- [ ] Replace mixed bullet treatments with square bullets sitewide.
+- [x] Standardize all bullet styles.
+- [x] Replace mixed bullet treatments with square bullets sitewide.
 
 # Homepage Section Reorganization
 
@@ -131,11 +137,6 @@
 
 Recurring issues observed in AI-generated layouts that should be included in future prompts:
 
-- [ ] Avoid excessive vertical spacing.
-- [ ] Avoid undersized typography on mobile.
-- [ ] Keep CTA buttons side-by-side when possible.
-- [ ] Do not wrap short button labels unnecessarily.
-- [ ] Maintain consistent alignment throughout sections.
 - [ ] Prevent orphaned content with large empty spaces.
 - [ ] Ensure sticky sections support natural scrolling behavior.
 - [ ] Use consistent bullet styles.
