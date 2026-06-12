@@ -1340,7 +1340,7 @@
   font-weight: 800;
   line-height: 0.98;
   margin: 0;
-  max-width: 13ch;
+  max-width: 17ch;
   text-transform: uppercase;
 }
 
@@ -1618,7 +1618,7 @@
     padding: clamp(16px, 1.6vw, 22px);
   }
 
-.zoda-mission-reward-card[data-featured="true"] {
+  .zoda-mission-reward-card[data-featured="true"] {
     transform: none;
   }
 
@@ -2489,7 +2489,7 @@
 
   .zoda-mission-rewards__copy h2 {
     font-size: clamp(20px, 6.2vw, 24px);
-    max-width: 13ch;
+    max-width: 17ch;
   }
 
   .zoda-mission-rewards__copy .zoda-mission-hero__play {
