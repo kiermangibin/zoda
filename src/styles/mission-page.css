@@ -1614,7 +1614,7 @@
 
   .zoda-mission-reward-card {
     align-content: start;
-    min-height: min(430px, calc(100svh - 180px));
+    min-height: min(330px, calc(100svh - 180px));
     padding: clamp(16px, 1.6vw, 22px);
   }
 
