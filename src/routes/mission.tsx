@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  Box,
   ChevronLeft,
   ChevronRight,
   Layers3,
   Medal,
-  PackageCheck,
   Play,
 } from "lucide-react";
 
@@ -14,6 +12,7 @@ import { CartDrawer } from "@/components/zoda/CartDrawer";
 import { SiteHeader } from "@/components/zoda/SiteHeader";
 import { initSnapController } from "@/components/zoda/snap-controller";
 import ascenderTrophy from "@/assets/ascender-trophy.png";
+import missionBagImage from "@/assets/Backpack.png";
 import finalMissionIcon from "@/assets/Final Mission.png";
 import beastTrophy from "@/assets/finisher-trophy.png";
 import initiatorTrophy from "@/assets/Initiator-trophy.png";
@@ -48,6 +47,7 @@ type Panel = {
 const PANELS: Panel[] = [
   { id: "mission-intro", label: "Intro" },
   { id: "mission-game", label: "Game" },
+  { id: "mission-rewards", label: "Rewards" },
   { id: "mission-playbook", label: "Playbook" },
   { id: "mission-inclusions", label: "Inclusions" },
   { id: "mission-materials", label: "Materials" },
@@ -79,6 +79,36 @@ const FINISHER_TIERS = [
     badge: "Beast",
     tone: "green",
     icon: beastTrophy,
+  },
+];
+
+const REWARD_TIERS = [
+  {
+    name: "Initiator",
+    points: "1+",
+    label: "Tier 1",
+    icon: initiatorTrophy,
+    tone: "gold",
+    summary: "Get on the board and prove the mission has started.",
+    rewards: ["Mission tier status", "Week 1 finisher badge", "Progress counted toward the final run"],
+  },
+  {
+    name: "Ascender",
+    points: "300+",
+    label: "Tier 2",
+    icon: ascenderTrophy,
+    tone: "coral",
+    summary: "Clear the middle gate with enough points to show consistency.",
+    rewards: ["Ascender badge tier", "Higher leaderboard placement", "Final Mission qualification path"],
+  },
+  {
+    name: "Beast",
+    points: "450+",
+    label: "Top Tier",
+    icon: beastTrophy,
+    tone: "green",
+    summary: "Reach the official target score and finish in Beast territory.",
+    rewards: ["Beast badge tier", "Win-qualified mission score", "Full Play & Win status"],
   },
 ];
 
@@ -310,17 +340,31 @@ function getMissionSpaceDay(space: MissionSpace) {
   return dayIndex === -1 ? null : dayIndex + 1;
 }
 
-const INCLUSIONS = [
-  "VentVault shoe garage",
-  "ShadeVault hardshell",
-  "LaptopVault compartment",
-  "ShieldPocket passport",
-  "QuickDraw phone pocket",
-  "HeatLock meal sleeve",
-  "Side pockets for bottle & umbrella",
-  "AirRidge cool-back panel",
-  "StackBack luggage pass through",
-  "TriFit shoulder adjustment system",
+const BLUEPRINT_GROUPS = [
+  {
+    title: "Main Compartments",
+    items: [
+      { number: "01", label: "Full-Access Clamshell" },
+      { number: "02", label: "Compressed Expansion Vault" },
+      { number: "03", label: "Direct-Access Internal Portal (QAP)" },
+      { number: "04", label: "LaptopVault Compartment" },
+      { number: "05", label: "VentVault Shoe Garage" },
+      { number: "06", label: "ShadeVault Hardshell" },
+      { number: "07", label: "QuickDivide Rails" },
+    ],
+  },
+  {
+    title: "Pockets & Access",
+    items: [
+      { number: "08", label: "ShieldPocket Passport" },
+      { number: "09", label: "QuickDraw Phone Pocket" },
+      { number: "10", label: "HeatLock Meal Sleeve" },
+      { number: "11", label: "LockHold 1.5L Bottle Holster" },
+      { number: "12", label: "StormSleeve Umbrella Pocket" },
+      { number: "13", label: "MagEdge Twin Pockets" },
+      { number: "14", label: "SideLift Laptop Access" },
+    ],
+  },
 ];
 
 const MATERIAL_FACTS = [
@@ -372,7 +416,11 @@ function MissionPage() {
 
   useEffect(() => {
     if (!rootRef.current) return;
-    const cleanup = initSnapController(rootRef.current, { loopToStart: true });
+    const cleanup = initSnapController(rootRef.current, {
+      lockMs: 1250,
+      loopToStart: true,
+      previousPath: "/",
+    });
     return cleanup;
   }, []);
 
@@ -471,11 +519,6 @@ function MissionPage() {
               Play Mission
             </a>
           </div>
-          <div className="zoda-mission-hero__card" aria-label="Mission summary card">
-            <span>Play & Win</span>
-            <strong>The Final Mission</strong>
-            <p>Start clean. Build the streak. Finish Beast.</p>
-          </div>
         </section>
 
         <section
@@ -551,6 +594,55 @@ function MissionPage() {
                 })}
               </div>
             </div>
+          </div>
+        </section>
+
+        <section
+          id="mission-rewards"
+          className="zoda-fabrics-snap__section zoda-mission-section zoda-mission-rewards"
+          data-snap-panel
+        >
+          <div className="zoda-mission-copy zoda-mission-rewards__copy">
+            <p className="zoda-mission-kicker">
+              <Medal size={15} aria-hidden="true" /> Reward Tiers
+            </p>
+            <h2>Stack points. Unlock your tier.</h2>
+            <p>
+              Your reward level is based on the points you bank across the mission. Every hit,
+              streak bonus and Beast Save push you closer to the top tier.
+            </p>
+            <a className="zoda-mission-hero__play" href="/mission/play">
+              Start Scoring
+            </a>
+          </div>
+          <div className="zoda-mission-rewards__pricing" aria-label="Mission reward tiers">
+            {REWARD_TIERS.map((tier) => (
+              <article
+                key={tier.name}
+                className="zoda-mission-reward-card"
+                data-tone={tier.tone}
+                data-featured={tier.name === "Beast" ? "true" : undefined}
+              >
+                <div className="zoda-mission-reward-card__head">
+                  <span>{tier.label}</span>
+                  <img src={tier.icon} alt="" aria-hidden="true" />
+                </div>
+                <h3>{tier.name}</h3>
+                <p>{tier.summary}</p>
+                <div className="zoda-mission-reward-card__points">
+                  <strong>{tier.points}</strong>
+                  <span>points</span>
+                </div>
+                <ul>
+                  {tier.rewards.map((reward) => (
+                    <li key={reward}>
+                      <i aria-hidden="true" />
+                      <span>{reward}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -644,23 +736,31 @@ function MissionPage() {
           className="zoda-fabrics-snap__section zoda-mission-section zoda-mission-inclusions"
           data-snap-panel
         >
-          <div className="zoda-mission-copy">
-            <p className="zoda-mission-kicker">
-              <PackageCheck size={15} aria-hidden="true" /> Mission Bag Inclusions
-            </p>
-            <h2>Everything loaded for the arena.</h2>
-          </div>
-          <div className="zoda-mission-inclusions__grid">
-            <ul>
-              {INCLUSIONS.map((item, index) => (
-                <li key={item}>
-                  <Box size={16} aria-hidden="true" />
-                  <span>
-                    {String(index + 1).padStart(2, "0")} {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
+          <div className="zoda-mission-inclusions__grid" aria-label="Mission bag blueprint">
+            <div className="zoda-mission-blueprint-board">
+              <div className="zoda-mission-blueprint-board__head">
+                <span>The Mission Blueprint</span>
+                <strong>The ZODA Mission Bag</strong>
+              </div>
+              <div className="zoda-mission-blueprint-board__specs">
+                {BLUEPRINT_GROUPS.map((group) => (
+                  <section className="zoda-mission-blueprint-group" key={group.title}>
+                    <h3>{group.title}</h3>
+                    <ul>
+                      {group.items.map((item) => (
+                        <li key={item.label}>
+                          <span>{item.number}.</span>
+                          <strong>{item.label}</strong>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ))}
+              </div>
+              <div className="zoda-mission-blueprint-board__image" aria-label="Mission bag image">
+                <img src={missionBagImage} alt="ZODA Mission backpack" />
+              </div>
+            </div>
           </div>
         </section>
 
@@ -676,7 +776,9 @@ function MissionPage() {
             <h2>Leave the mess. Carry your mission.</h2>
             <p>This bag is built for athletes who move with intent and live with a purpose.</p>
             <p>Organized. Protected. Ready. Because your standards don't switch off.</p>
-            <strong>Warrior's Base</strong>
+            <a className="zoda-mission-materials__cta" href="/collections/accessories">
+              Shop Mission Gear
+            </a>
           </div>
           <div className="zoda-mission-materials__facts" aria-label="Mission bag material facts">
             <div className="zoda-mission-materials__facts-head">

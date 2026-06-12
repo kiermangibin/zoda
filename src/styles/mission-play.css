@@ -6,6 +6,7 @@
   --mission-play-paper: #d8c3a5;
   --mission-play-ink: #111;
   --mission-play-orange: #ff4b16;
+  --mission-play-header-height: 72px;
   background: var(--mission-play-bg);
   color: #f7f4ea;
   min-height: 100vh;
@@ -27,7 +28,8 @@
   box-sizing: border-box;
   display: grid;
   gap: 16px;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--mission-play-header-height));
+  min-height: calc(100dvh - var(--mission-play-header-height));
   padding: 84px 14px 22px;
 }
 
