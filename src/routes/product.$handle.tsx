@@ -13,6 +13,7 @@ import {
   type ProductDetailsData,
   type MetaobjectRef,
 } from "@/components/zoda/ProductDetailsGrid";
+import "@/styles/pdp-page.css";
 
 const TECH_TAGS = ["ZoDry™", "ZoFresh™", "FluidMotion™"];
 

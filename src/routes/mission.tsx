@@ -18,6 +18,8 @@ import beastTrophy from "@/assets/finisher-trophy.png";
 import initiatorTrophy from "@/assets/Initiator-trophy.png";
 import sustainabilityVideo from "@/assets/sustainability-video.mp4";
 import zodaZLogo from "@/assets/zoda-Z.png";
+import "@/styles/fabrics-page.css";
+import "@/styles/mission-page.css";
 
 export const Route = createFileRoute("/mission")({
   head: () => ({

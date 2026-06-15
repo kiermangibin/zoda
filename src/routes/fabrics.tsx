@@ -5,6 +5,7 @@ import { CartDrawer } from "@/components/zoda/CartDrawer";
 import { SiteHeader } from "@/components/zoda/SiteHeader";
 import { FABRICS } from "@/lib/fabrics";
 import { initSnapController } from "@/components/zoda/snap-controller";
+import "@/styles/fabrics-page.css";
 
 export const Route = createFileRoute("/fabrics")({
   head: () => ({

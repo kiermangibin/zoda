@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ZodaCircuit } from "@/components/zoda/ZodaCircuit";
+import "@/styles/home-circuit.css";
 
 export const Route = createFileRoute("/")({
   head: () => ({

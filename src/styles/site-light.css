@@ -675,7 +675,7 @@
 .zoda-footer__social a:hover {
   color: var(--accent, #55cda1);
 } /* Reviews: badge inline beside reviewer name */
-.zoda-circuit .zoda-circuit__review-info {
+.zoda-shell .zoda-circuit .zoda-circuit__review-info {
   align-items: center;
   display: inline-flex !important;
   flex-direction: row !important;
@@ -683,7 +683,7 @@
   justify-content: center;
   gap: 8px;
 }
-.zoda-circuit .zoda-circuit__review-verified {
+.zoda-shell .zoda-circuit .zoda-circuit__review-verified {
   align-items: center;
   display: inline-flex;
   gap: 4px;

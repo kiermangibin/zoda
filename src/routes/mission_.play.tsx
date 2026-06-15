@@ -9,6 +9,7 @@ import beastTrophy from "@/assets/finisher-trophy.png";
 import finalMissionIcon from "@/assets/Final Mission.png";
 import initiatorTrophy from "@/assets/Initiator-trophy.png";
 import zodaZLogo from "@/assets/zoda-Z.png";
+import "@/styles/mission-play.css";
 
 export const Route = createFileRoute("/mission_/play")({
   head: () => ({

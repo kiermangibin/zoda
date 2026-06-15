@@ -8,6 +8,8 @@ import sustainabilityVideo from "@/assets/sustainability-video.mp4";
 import technologyButtons from "@/assets/technology-buttons.avif";
 import technologyPocket from "@/assets/technology-pocket.avif";
 import technologyRunners from "@/assets/technology-runners.jpg";
+import "@/styles/fabrics-page.css";
+import "@/styles/ikigai-page.css";
 
 export const Route = createFileRoute("/ikigai")({
   head: () => ({
