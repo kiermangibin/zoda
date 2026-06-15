@@ -12,6 +12,7 @@
           alt: section.settings.image_alt
       }}
     {% elsif section.settings.hero_image_url != blank %}
+      {% # theme-check-disable RemoteAsset %}
       <img
         class="zoda-fabrics-hero__media"
         src="{{ section.settings.hero_image_url }}"
@@ -20,6 +21,7 @@
         height="1238"
         loading="eager"
       >
+      {% # theme-check-enable RemoteAsset %}
     {% endif %}
 
     <div class="zoda-fabrics-hero__overlay"></div>

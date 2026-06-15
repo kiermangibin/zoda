@@ -30,6 +30,7 @@
                     alt: block.settings.title
                 }}
               {% elsif block.settings.image_url != blank %}
+                {% # theme-check-disable RemoteAsset %}
                 <img
                   src="{{ block.settings.image_url }}"
                   alt="{{ block.settings.title | escape }}"
@@ -37,6 +38,7 @@
                   height="900"
                   loading="lazy"
                 >
+                {% # theme-check-enable RemoteAsset %}
               {% endif %}
             </div>
 

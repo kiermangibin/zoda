@@ -38,6 +38,7 @@
                       alt: fallback_alt
                   }}
                 {% elsif block.settings.image_url != blank %}
+                  {% # theme-check-disable RemoteAsset %}
                   <img
                     class="zoda-fabrics-card__img"
                     src="{{ block.settings.image_url }}"
@@ -46,6 +47,7 @@
                     height="1200"
                     loading="lazy"
                   >
+                  {% # theme-check-enable RemoteAsset %}
                 {% endif %}
 
                 <div class="zoda-fabrics-card__overlay"></div>

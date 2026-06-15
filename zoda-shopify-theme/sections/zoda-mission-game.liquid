@@ -3,7 +3,6 @@
   assign ascender_icon = 'ascender-trophy.png' | asset_url
   assign beast_icon = 'finisher-trophy.png' | asset_url
   assign final_icon = 'Final Mission.png' | asset_url
-  assign zoda_logo = 'zoda-Z.png' | asset_url
 %}
 
 <section
@@ -34,21 +33,21 @@
           <span>Week 1 Finisher</span>
           <strong>Initiator</strong>
         </div>
-        <img src="{{ initiator_icon }}" alt="" width="160" height="160">
+        <img src="{{ 'Initiator-trophy.png' | asset_url }}" alt="" width="160" height="160">
       </article>
       <article class="zoda-mission-finisher" data-tone="coral">
         <div>
           <span>Week 2 Finisher</span>
           <strong>Ascender</strong>
         </div>
-        <img src="{{ ascender_icon }}" alt="" width="160" height="160">
+        <img src="{{ 'ascender-trophy.png' | asset_url }}" alt="" width="160" height="160">
       </article>
       <article class="zoda-mission-finisher" data-tone="green">
         <div>
           <span>Week 3 Finisher</span>
           <strong>Beast</strong>
         </div>
-        <img src="{{ beast_icon }}" alt="" width="160" height="160">
+        <img src="{{ 'finisher-trophy.png' | asset_url }}" alt="" width="160" height="160">
       </article>
     </div>
   </div>
@@ -74,7 +73,7 @@
           data-detail="Begin the 21-day mission. Complete spaces, protect the streak and build toward Beast."
           aria-pressed="true"
         >
-          <img class="zoda-mission-path__start-logo" src="{{ zoda_logo }}" alt="" width="96" height="96">
+          <img class="zoda-mission-path__start-logo" src="{{ 'zoda-Z.png' | asset_url }}" alt="" width="96" height="96">
           <strong>Start</strong>
           <em>Ready</em>
         </button>
@@ -111,7 +110,15 @@
               aria-pressed="false"
             >
               {% if block.settings.space_type == 'final' and space_icon != blank %}
-                <img class="zoda-mission-path__icon" src="{{ space_icon }}" alt="" width="96" height="96">
+                {% if block.settings.icon == 'initiator' %}
+                  <img class="zoda-mission-path__icon" src="{{ 'Initiator-trophy.png' | asset_url }}" alt="" width="96" height="96">
+                {% elsif block.settings.icon == 'ascender' %}
+                  <img class="zoda-mission-path__icon" src="{{ 'ascender-trophy.png' | asset_url }}" alt="" width="96" height="96">
+                {% elsif block.settings.icon == 'beast' %}
+                  <img class="zoda-mission-path__icon" src="{{ 'finisher-trophy.png' | asset_url }}" alt="" width="96" height="96">
+                {% elsif block.settings.icon == 'final' %}
+                  <img class="zoda-mission-path__icon" src="{{ 'Final Mission.png' | asset_url }}" alt="" width="96" height="96">
+                {% endif %}
                 <strong>{{ block.settings.label }}</strong>
               {% else %}
                 <span>{{ block.settings.day }}</span>
@@ -125,7 +132,7 @@
     </div>
 
     <aside class="zoda-mission-game__detail" data-tone="black" data-mission-detail aria-live="polite">
-      <img class="zoda-mission-game__detail-icon" data-mission-detail-icon src="" alt="" width="96" height="96" hidden>
+      <img class="zoda-mission-game__detail-icon" data-mission-detail-icon src="{{ 'zoda-Z.png' | asset_url }}" alt="" width="96" height="96" hidden>
       <span data-mission-detail-week>Entry</span>
       <h3 data-mission-detail-title>Start</h3>
       <p data-mission-detail-copy>Begin the 21-day mission. Complete spaces, protect the streak and build toward Beast.</p>

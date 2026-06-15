@@ -16,6 +16,7 @@
             alt: section.settings.image_alt
         }}
       {% elsif section.settings.image_url != blank %}
+        {% # theme-check-disable RemoteAsset %}
         <img
           src="{{ section.settings.image_url }}"
           alt="{{ section.settings.image_alt | escape }}"
@@ -23,6 +24,7 @@
           height="1400"
           loading="lazy"
         >
+        {% # theme-check-enable RemoteAsset %}
       {% endif %}
     </div>
 

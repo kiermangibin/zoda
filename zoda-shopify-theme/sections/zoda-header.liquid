@@ -39,7 +39,7 @@
       {% else %}
         <img
           class="zoda-header__logo"
-          src="https://zoda.sg/cdn/shop/files/ZODA_logo.svg?v=1741773590&width=352"
+          src="{{ 'zoda-z.svg' | asset_url }}"
           alt="{{ section.settings.logo_text | default: shop.name | escape }}"
           loading="eager"
           width="148"
@@ -50,17 +50,17 @@
 
     <nav class="zoda-header__nav" aria-label="Main navigation">
       {% if section.settings.use_current_navigation %}
-        <a href="/collections/new-arrivals">New Arrivals</a>
-        <a href="/collections/womens-collection">Women</a>
-        <a href="/collections/mens-collection">Men</a>
-        <a href="/collections/unisex">Unisex</a>
+        <a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a>
+        <a href="{{ routes.collections_url }}/womens-collection">Women</a>
+        <a href="{{ routes.collections_url }}/mens-collection">Men</a>
+        <a href="{{ routes.collections_url }}/unisex">Unisex</a>
         <span class="zoda-header__nav-item">
           <a class="zoda-header__nav-trigger" href="{{ routes.collections_url }}">Our Products</a>
           <span class="zoda-header__menu" role="menu">
-            <a href="/collections/core-performance" role="menuitem">Core Performance</a>
-            <a href="/collections/endurance" role="menuitem">Endurance</a>
-            <a href="/collections/24-7-wear" role="menuitem">24/7 Wear</a>
-            <a href="/collections/accessories" role="menuitem">Accessories</a>
+            <a href="{{ routes.collections_url }}/core-performance" role="menuitem">Core Performance</a>
+            <a href="{{ routes.collections_url }}/endurance" role="menuitem">Endurance</a>
+            <a href="{{ routes.collections_url }}/24-7-wear" role="menuitem">24/7 Wear</a>
+            <a href="{{ routes.collections_url }}/accessories" role="menuitem">Accessories</a>
           </span>
         </span>
         <span class="zoda-header__nav-item">
@@ -186,16 +186,16 @@
 
     <nav class="zoda-header__drawer-nav" aria-label="Mobile navigation">
       {% if section.settings.use_current_navigation %}
-        <a href="/collections/new-arrivals">New Arrivals</a>
-        <a href="/collections/womens-collection">Women</a>
-        <a href="/collections/mens-collection">Men</a>
-        <a href="/collections/unisex">Unisex</a>
+        <a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a>
+        <a href="{{ routes.collections_url }}/womens-collection">Women</a>
+        <a href="{{ routes.collections_url }}/mens-collection">Men</a>
+        <a href="{{ routes.collections_url }}/unisex">Unisex</a>
         <div class="zoda-header__drawer-group">
           <a href="{{ routes.collections_url }}"><strong>Our Products</strong></a>
-          <a href="/collections/core-performance">Core Performance</a>
-          <a href="/collections/endurance">Endurance</a>
-          <a href="/collections/24-7-wear">24/7 Wear</a>
-          <a href="/collections/accessories">Accessories</a>
+          <a href="{{ routes.collections_url }}/core-performance">Core Performance</a>
+          <a href="{{ routes.collections_url }}/endurance">Endurance</a>
+          <a href="{{ routes.collections_url }}/24-7-wear">24/7 Wear</a>
+          <a href="{{ routes.collections_url }}/accessories">Accessories</a>
         </div>
         <div class="zoda-header__drawer-group">
           <a href="/pages/about-zoda"><strong>Who We Are</strong></a>

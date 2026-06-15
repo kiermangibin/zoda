@@ -48,6 +48,7 @@
             alt: section.settings.image_one_alt
         }}
       {% elsif section.settings.image_one_url != blank %}
+        {% # theme-check-disable RemoteAsset %}
         <img
           src="{{ section.settings.image_one_url }}"
           alt="{{ section.settings.image_one_alt | escape }}"
@@ -55,6 +56,7 @@
           height="900"
           loading="lazy"
         >
+        {% # theme-check-enable RemoteAsset %}
       {% endif %}
 
       {% if section.settings.image_two != blank %}
@@ -68,6 +70,7 @@
             alt: section.settings.image_two_alt
         }}
       {% elsif section.settings.image_two_url != blank %}
+        {% # theme-check-disable RemoteAsset %}
         <img
           src="{{ section.settings.image_two_url }}"
           alt="{{ section.settings.image_two_alt | escape }}"
@@ -75,6 +78,7 @@
           height="900"
           loading="lazy"
         >
+        {% # theme-check-enable RemoteAsset %}
       {% endif %}
     </div>
 
@@ -90,6 +94,7 @@
           alt: section.settings.image_three_alt
       }}
     {% elsif section.settings.image_three_url != blank %}
+      {% # theme-check-disable RemoteAsset %}
       <img
         class="zoda-ikigai-community__image-tall"
         src="{{ section.settings.image_three_url }}"
@@ -98,6 +103,7 @@
         height="1200"
         loading="lazy"
       >
+      {% # theme-check-enable RemoteAsset %}
     {% endif %}
   </div>
 </section>

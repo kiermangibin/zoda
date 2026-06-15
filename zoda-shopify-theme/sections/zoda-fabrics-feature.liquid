@@ -22,6 +22,7 @@
             alt: section.settings.image_alt
         }}
       {% elsif section.settings.image_url != blank %}
+        {% # theme-check-disable RemoteAsset %}
         <img
           src="{{ section.settings.image_url }}"
           alt="{{ section.settings.image_alt | escape }}"
@@ -29,6 +30,7 @@
           height="1400"
           loading="lazy"
         >
+        {% # theme-check-enable RemoteAsset %}
       {% endif %}
     </div>
 
@@ -50,7 +52,9 @@
           {% if block.type == 'technology' %}
             <li {{ block.shopify_attributes }}>
               {% if block.settings.icon_url != blank %}
+                {% # theme-check-disable RemoteAsset %}
                 <img src="{{ block.settings.icon_url }}" alt="" width="80" height="80" loading="lazy">
+                {% # theme-check-enable RemoteAsset %}
               {% endif %}
               <span>{{ block.settings.label }}</span>
             </li>

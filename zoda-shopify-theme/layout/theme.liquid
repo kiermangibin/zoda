@@ -31,7 +31,6 @@
       assign uses_zoda_foundation = false
       assign uses_zoda_home = false
       assign uses_zoda_product = false
-      assign uses_zoda_collection = false
       assign uses_zoda_fabrics = false
       assign uses_zoda_ikigai = false
       assign uses_zoda_mission = false
@@ -81,7 +80,6 @@
 
       if zoda_template_suffix contains 'collection'
         assign uses_zoda_foundation = true
-        assign uses_zoda_collection = true
       endif
     %}
     {% if uses_zoda_foundation %}

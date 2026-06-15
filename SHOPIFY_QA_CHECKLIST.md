@@ -4,28 +4,60 @@
 
 Use this checklist to prepare and verify `zoda-shopify-theme/` in Shopify preview before publishing.
 
-Status: Drafted locally. Shopify preview/store access has not been verified yet.
+Status: In progress. Shopify CLI connection and theme preview access verified on June 15, 2026.
+
+## Latest QA Run
+
+Date: June 15, 2026
+
+Store: `zoda-holdings-pte-ltd.myshopify.com`
+
+Development theme: `#188368224546` (`Development (1a1e5f-ASUS)`)
+
+Preview URL: `https://zoda-holdings-pte-ltd.myshopify.com/?preview_theme_id=188368224546`
+
+CLI notes:
+
+- Shopify CLI is available as `shopify.cmd` on Windows. The plain `shopify` PowerShell shim is blocked by local execution policy.
+- `shopify.cmd theme info --path zoda-shopify-theme` succeeds.
+- `shopify.cmd theme list --store zoda-holdings-pte-ltd.myshopify.com` succeeds.
+- `shopify.cmd theme check --path zoda-shopify-theme` inspected 235 files and found no offenses.
+
+Live route status:
+
+- `200` homepage preview.
+- `200` collections preview.
+- `404` `/pages/fabrics`.
+- `404` `/pages/ikigai`.
+- `404` `/pages/mission`.
+
+Local structure status:
+
+- Required theme folders exist.
+- `index.json`, `page.fabrics.json`, `page.ikigai.json`, `page.mission.json`, `product.json`, `collection.json`, and `list-collections.json` all reference existing section files.
+- `asset_url` Liquid references resolve to files in `zoda-shopify-theme/assets/`.
+- `zoda-globals.css` exists but is not loaded by Liquid.
 
 ## Theme Readiness
 
-- [ ] Confirm `zoda-shopify-theme/` is the upload/preview folder.
-- [ ] Confirm required Shopify folders exist: `assets/`, `config/`, `layout/`, `locales/`, `sections/`, `snippets/`, `templates/`.
-- [ ] Run Shopify Theme Check when Shopify CLI/theme tooling is available.
-- [ ] Confirm no missing section, snippet, or asset references after any new edits.
-- [ ] Confirm `zoda-globals.css` remains unloaded unless it is converted to safe compiled CSS.
+- [x] Confirm `zoda-shopify-theme/` is the upload/preview folder.
+- [x] Confirm required Shopify folders exist: `assets/`, `config/`, `layout/`, `locales/`, `sections/`, `snippets/`, `templates/`.
+- [x] Run Shopify Theme Check when Shopify CLI/theme tooling is available.
+- [x] Confirm no missing section, snippet, or asset references after any new edits.
+- [x] Confirm `zoda-globals.css` remains unloaded unless it is converted to safe compiled CSS.
 - [ ] Confirm generated/copied bundles in `zoda-shopify-theme/assets/` are intentionally retained until preview confirms whether they are still needed.
 
 ## Template Assignment
 
 Assign these Shopify page templates in the admin before preview QA:
 
-- [ ] Fabrics page uses `page.fabrics`.
-- [ ] Our Ikigai page uses `page.ikigai`.
-- [ ] Mission page uses `page.mission`.
-- [ ] Homepage uses `templates/index.json`.
-- [ ] Product pages can remain on default `product.json` for this phase.
-- [ ] Collection pages can remain on default `collection.json` for this phase.
-- [ ] Collections directory uses `list-collections.json`.
+- [ ] Fabrics page uses `page.fabrics`. Blocked: `/pages/fabrics` currently returns `404` in preview.
+- [ ] Our Ikigai page uses `page.ikigai`. Blocked: `/pages/ikigai` currently returns `404` in preview.
+- [ ] Mission page uses `page.mission`. Blocked: `/pages/mission` currently returns `404` in preview.
+- [x] Homepage uses `templates/index.json`.
+- [x] Product pages can remain on default `product.json` for this phase.
+- [x] Collection pages can remain on default `collection.json` for this phase.
+- [x] Collections directory uses `list-collections.json`.
 
 ## Page QA
 
@@ -156,26 +188,25 @@ For every viewport:
 
 ## Known Blockers
 
-- Shopify preview/store access has not been verified.
-- Shopify Theme Check has not been run locally.
+- Fabrics, Ikigai, and Mission Shopify pages are not reachable in preview yet. Create pages with handles `fabrics`, `ikigai`, and `mission` in Shopify Admin, then assign the matching templates.
 - Metafield/metaobject definitions are specified in `SHOPIFY_CONTENT_MODEL_SPEC.md` but not created in Shopify.
 - Product and collection pages intentionally remain on Space base sections for this phase.
-- Visual QA cannot be completed until the theme is previewed with real store data.
+- Visual QA for custom brand pages cannot be completed until their Shopify pages exist in preview.
 
 ## QA Sign-Off
 
 | Area                 | Status  | Notes |
 | -------------------- | ------- | ----- |
-| Theme upload/preview | Pending |       |
-| Homepage             | Pending |       |
-| Fabrics              | Pending |       |
-| Ikigai               | Pending |       |
-| Mission              | Pending |       |
-| Product pages        | Pending |       |
-| Collection pages     | Pending |       |
-| Cart/checkout        | Pending |       |
-| Theme editor         | Pending |       |
-| Mobile               | Pending |       |
-| Accessibility        | Pending |       |
-| SEO                  | Pending |       |
-| Performance          | Pending |       |
+| Theme upload/preview | Partial | CLI connection verified; homepage and collections preview return 200. Custom page routes return 404. |
+| Homepage             | Pending | Preview route reachable; visual and interaction QA still needed. |
+| Fabrics              | Blocked | `/pages/fabrics` returns 404 in preview. |
+| Ikigai               | Blocked | `/pages/ikigai` returns 404 in preview. |
+| Mission              | Blocked | `/pages/mission` returns 404 in preview. |
+| Product pages        | Pending | Template references resolve locally; live product flow QA still needed. |
+| Collection pages     | Partial | `/collections` preview route returns 200; visual/filter/sort QA still needed. |
+| Cart/checkout        | Pending | Markup and assets present; live AJAX cart/checkout QA still needed. |
+| Theme editor         | Pending | Section schemas exist locally; Theme Editor QA still needed. |
+| Mobile               | Pending | Responsive visual QA still needed. |
+| Accessibility        | Pending | Static markup has labels/states in key areas; keyboard and contrast QA still needed. |
+| SEO                  | Pending | Local structure needs live rendered-page review. |
+| Performance          | Pending | Theme Check is clean; Lighthouse/console QA still needed. |

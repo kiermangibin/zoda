@@ -760,9 +760,10 @@
 }
 .zoda-circuit .zoda-circuit__fabric-viewport {
   cursor: grab;
-  max-width: min(100%, 1160px);
+  max-width: none;
   overflow: hidden;
   padding: 10px clamp(28px, 5vw, 78px) 16px 0;
+  width: 100%;
 }
 .zoda-circuit .zoda-circuit__fabric-track {
   display: flex;
@@ -912,8 +913,9 @@
   gap: 14px;
   justify-content: space-between;
   margin-top: 24px;
-  max-width: min(100%, 1160px);
+  max-width: none;
   padding-right: clamp(28px, 5vw, 78px);
+  width: 100%;
 }
 .zoda-circuit .zoda-circuit__fabric-progress {
   background: rgba(255, 255, 255, 0.14);
@@ -3368,7 +3370,7 @@
 
   .zoda-circuit .zoda-circuit__fabric-viewport,
   .zoda-circuit .zoda-circuit__fabric-ui {
-    max-width: min(100%, 1420px) !important;
+    max-width: 100% !important;
     padding-right: 0;
   }
 
@@ -7432,6 +7434,55 @@ body.index
   }
 }
 
+/* Mobile performance pass: keep iOS scrolling native and reduce expensive paint work. */
+@media (max-width: 760px) {
+  #zoda-circuit-home .zoda-circuit__track,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__track {
+    scroll-behavior: auto !important;
+    scroll-snap-type: y mandatory !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__panel {
+    contain: layout paint style;
+    scroll-snap-stop: normal !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__chrome,
+  #zoda-circuit-home .zoda-circuit__gallery-item,
+  #zoda-circuit-home .zoda-circuit__pillar-card,
+  #zoda-circuit-home .zoda-circuit__collection-panel,
+  #zoda-circuit-home .zoda-circuit__collection-tab,
+  #zoda-circuit-home .zoda-circuit__callout,
+  #zoda-circuit-home .zoda-circuit__feature-panel,
+  #zoda-circuit-home .zoda-circuit__review-card,
+  #zoda-circuit-home .zoda-circuit__proof-item,
+  #zoda-circuit-home .zoda-pim-card,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__chrome,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__gallery-item,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__pillar-card,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__collection-panel,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__collection-tab,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__callout,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__feature-panel,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__review-card,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__proof-item,
+  .zoda-circuit[data-zoda-home-section] .zoda-pim-card {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__gallery-track,
+  #zoda-circuit-home .zoda-circuit__reviews-track,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__gallery-track,
+  .zoda-circuit[data-zoda-home-section] .zoda-circuit__reviews-track {
+    animation-duration: 34s !important;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+  }
+}
+
 /* Mobile typography pass: raise small body copy without changing desktop hierarchy. */
 @media (max-width: 760px) {
   .zoda-circuit .zoda-circuit__copy,
@@ -7465,4 +7516,136 @@ body.index
   .zoda-circuit .zoda-circuit__card-title {
     line-height: 1.04 !important;
   }
+}
+
+/* Homepage performance pass: keep motion but avoid paint-heavy animation work. */
+#zoda-circuit-home .zoda-circuit__panel,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__panel {
+  contain: layout paint style;
+}
+
+#zoda-circuit-home .zoda-circuit__panel::before,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__panel::before {
+  content: "" !important;
+  display: block !important;
+  filter: none !important;
+  opacity: 0.12 !important;
+  transition: opacity 180ms ease, transform 220ms ease !important;
+  will-change: transform, opacity;
+}
+
+#zoda-circuit-home.is-looping::after {
+  display: block !important;
+  will-change: opacity;
+}
+
+#zoda-circuit-home .zoda-circuit__gallery-track,
+#zoda-circuit-home .zoda-circuit__reviews-track,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__gallery-track,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__reviews-track {
+  animation-play-state: running !important;
+  animation-timing-function: linear !important;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+#zoda-circuit-home .zoda-circuit__gallery-track,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__gallery-track {
+  animation: zoda-gallery-roll 32s linear infinite !important;
+}
+
+#zoda-circuit-home .zoda-circuit__reviews-track,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__reviews-track {
+  animation: zoda-review-loop 42s linear infinite !important;
+}
+
+#zoda-circuit-home .zoda-circuit__fabric-track,
+#zoda-circuit-home .zoda-circuit__collection-panel,
+#zoda-circuit-home .zoda-circuit__feature-summary-card,
+#zoda-circuit-home .zoda-circuit__callout,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__fabric-track,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__collection-panel,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__feature-summary-card,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__callout {
+  will-change: auto !important;
+}
+
+#zoda-circuit-home .zoda-circuit__chrome,
+#zoda-circuit-home .zoda-circuit__nav-menu,
+#zoda-circuit-home .zoda-header-currency__menu,
+#zoda-circuit-home .zoda-circuit__gallery-item,
+#zoda-circuit-home .zoda-circuit__pillar-card,
+#zoda-circuit-home .zoda-circuit__fabric-card,
+#zoda-circuit-home .zoda-circuit__collection-panel,
+#zoda-circuit-home .zoda-circuit__collection-tab,
+#zoda-circuit-home .zoda-circuit__collection-panel-content,
+#zoda-circuit-home .zoda-circuit__callout,
+#zoda-circuit-home .zoda-circuit__feature-summary-card,
+#zoda-circuit-home .zoda-circuit__review-card,
+#zoda-circuit-home .zoda-circuit__proof-item,
+#zoda-circuit-home .zoda-circuit__contact-link,
+#zoda-circuit-home .zoda-pim-card,
+#zoda-circuit-home .zoda-product-card,
+#zoda-circuit-home .zoda-product-card__quick-add,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__chrome,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__nav-menu,
+.zoda-circuit[data-zoda-home-section] .zoda-header-currency__menu,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__gallery-item,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__pillar-card,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__fabric-card,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__collection-panel,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__collection-tab,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__collection-panel-content,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__callout,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__feature-summary-card,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__review-card,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__proof-item,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__contact-link,
+.zoda-circuit[data-zoda-home-section] .zoda-pim-card,
+.zoda-circuit[data-zoda-home-section] .zoda-product-card,
+.zoda-circuit[data-zoda-home-section] .zoda-product-card__quick-add {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+#zoda-circuit-home .zoda-circuit__button,
+#zoda-circuit-home .zoda-circuit__button-secondary,
+#zoda-circuit-home .zoda-circuit__collection-tab,
+#zoda-circuit-home .zoda-circuit__pillar-card,
+#zoda-circuit-home .zoda-circuit__fabric-card,
+#zoda-circuit-home .zoda-circuit__proof-item,
+#zoda-circuit-home .zoda-circuit__review-card,
+#zoda-circuit-home .zoda-pim-card,
+#zoda-circuit-home .zoda-product-card,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__button,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__button-secondary,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__collection-tab,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__pillar-card,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__fabric-card,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__proof-item,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__review-card,
+.zoda-circuit[data-zoda-home-section] .zoda-pim-card,
+.zoda-circuit[data-zoda-home-section] .zoda-product-card {
+  transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease !important;
+}
+
+#zoda-circuit-home .zoda-circuit__button:hover,
+#zoda-circuit-home .zoda-circuit__button-secondary:hover,
+#zoda-circuit-home .zoda-circuit__pillar-card:hover,
+#zoda-circuit-home .zoda-circuit__fabric-card:hover,
+#zoda-circuit-home .zoda-circuit__proof-item:hover,
+#zoda-circuit-home .zoda-circuit__review-card:hover,
+#zoda-circuit-home .zoda-pim-card:hover,
+#zoda-circuit-home .zoda-product-card:hover,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__button:hover,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__button-secondary:hover,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__pillar-card:hover,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__fabric-card:hover,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__proof-item:hover,
+.zoda-circuit[data-zoda-home-section] .zoda-circuit__review-card:hover,
+.zoda-circuit[data-zoda-home-section] .zoda-pim-card:hover,
+.zoda-circuit[data-zoda-home-section] .zoda-product-card:hover {
+  will-change: transform;
 }

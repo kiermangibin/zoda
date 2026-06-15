@@ -93,7 +93,11 @@
         if (!snapEnabled || locked || !inSnapRange()) return false;
         setActive(getNearestIndex());
         const next = activeIndex + direction;
-        if (next < 0 || next >= sections.length) return false;
+        if (next < 0) {
+          goTo(0, 'auto');
+          return true;
+        }
+        if (next >= sections.length) return false;
         locked = true;
         goTo(next);
         window.setTimeout(() => {
@@ -233,6 +237,7 @@
     const horizontalScrollSelector = '.zoda-circuit__signal-gallery, .zoda-circuit__fabric-viewport, .zoda-circuit__cards, .zoda-circuit__proof-grid, .zoda-circuit__reviews-grid';
     const isHorizontalSwipe = (event, deltaX, deltaY) => Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 18 && event.target instanceof Element && event.target.closest(horizontalScrollSelector);
     let splashFrame = 0;
+    let activeScrollFrame = 0;
 
     if (!track || !panels.length) return;
 
@@ -304,6 +309,14 @@
     const syncActiveFromScroll = () => {
       const index = getNearestPanelIndex();
       if (index !== activeIndex) setActive(index);
+    };
+
+    const requestActiveSync = () => {
+      if (activeScrollFrame) return;
+      activeScrollFrame = window.requestAnimationFrame(() => {
+        activeScrollFrame = 0;
+        syncActiveFromScroll();
+      });
     };
 
     const getPanelIndexAtScroll = () => {
@@ -478,33 +491,39 @@
     const step = (direction) => {
       if (!snapEnabled || locked) return;
       locked = true;
+      const currentIndex = syncActiveAtScroll();
 
-      if (!isMobile() && activeIndex === fabricPanelIndex && stepFabric(direction)) {
+      if (!isMobile() && currentIndex === fabricPanelIndex && stepFabric(direction)) {
         window.setTimeout(() => { locked = false; }, 520);
         return;
       }
 
-      if (!isMobile() && activeIndex === pillarPanelIndex && stepPillars(direction)) {
+      if (!isMobile() && currentIndex === pillarPanelIndex && stepPillars(direction)) {
         window.setTimeout(() => { locked = false; }, 520);
         return;
       }
 
-      if (!isMobile() && activeIndex === collectionPanelIndex && stepCollection(direction)) {
+      if (!isMobile() && currentIndex === collectionPanelIndex && stepCollection(direction)) {
         window.setTimeout(() => { locked = false; }, 520);
         return;
       }
 
-      if (!isMobile() && activeIndex === featurePanelIndex && stepFeature(direction)) {
+      if (!isMobile() && currentIndex === featurePanelIndex && stepFeature(direction)) {
         window.setTimeout(() => { locked = false; }, 520);
         return;
       }
 
-      if (activeIndex === panels.length - 1 && direction > 0) {
+      if (currentIndex === 0 && direction < 0) {
+        locked = false;
+        return;
+      }
+
+      if (currentIndex === panels.length - 1 && direction > 0) {
         loopToStart();
         return;
       }
 
-      goTo(activeIndex + direction);
+      goTo(currentIndex + direction);
       window.setTimeout(() => { locked = false; }, 640);
     };
 
@@ -540,6 +559,7 @@
     dots.forEach((dot, index) => {
       dot.addEventListener('click', (event) => {
         event.preventDefault();
+        locked = false;
         goTo(index);
       });
     });
@@ -691,10 +711,11 @@
     window.addEventListener('resize', () => {
       updateFabric(fabricIndex);
       updatePillars(pillarIndex, false);
+      requestActiveSync();
     });
     track.addEventListener('scroll', () => {
       requestSplashUpdate();
-      window.requestAnimationFrame(syncActiveFromScroll);
+      requestActiveSync();
     }, { passive: true });
     if (fabricViewport) {
       fabricViewport.addEventListener('scroll', () => {
