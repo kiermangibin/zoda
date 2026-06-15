@@ -13,6 +13,7 @@ export type SnapControllerOptions = {
   onAccordionChange?: (panel: HTMLElement, index: number) => void;
   disableMobileTouchSnap?: boolean;
   allowPreviousPathFromHero?: boolean;
+  onBeforeStep?: (direction: number, panel: HTMLElement, activeIndex: number) => boolean;
 };
 
 export function initSnapController(
@@ -30,6 +31,7 @@ export function initSnapController(
     onAccordionChange,
     disableMobileTouchSnap = false,
     allowPreviousPathFromHero = false,
+    onBeforeStep,
   } = opts;
 
   const track = root.querySelector<HTMLElement>(trackSelector);
@@ -137,6 +139,18 @@ export function initSnapController(
 
   const step = (direction: number) => {
     if (locked) return;
+    const panel = panels[activeIndex];
+    if (panel && onBeforeStep?.(direction, panel, activeIndex)) {
+      locked = true;
+      if (lockTimer) window.clearTimeout(lockTimer);
+      lockTimer = window.setTimeout(
+        () => {
+          locked = false;
+        },
+        Math.min(lockMs, 420),
+      );
+      return;
+    }
     if (stepAccordion(direction)) {
       locked = true;
       if (lockTimer) window.clearTimeout(lockTimer);

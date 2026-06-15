@@ -31,14 +31,84 @@ function FabricsPage() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const fabricViewportRef = useRef<HTMLDivElement | null>(null);
   const fabricTrackRef = useRef<HTMLDivElement | null>(null);
+  const activeFabricIndexRef = useRef(0);
   const [activeFabricIndex, setActiveFabricIndex] = useState(0);
   const [openAccordions, setOpenAccordions] = useState<Record<string, number | null>>({});
+
+  const setSyncedActiveFabricIndex = (index: number) => {
+    const next = Math.max(0, Math.min(index, FABRICS.length - 1));
+    activeFabricIndexRef.current = next;
+    setActiveFabricIndex(next);
+  };
+
+  const getFabricCards = () =>
+    Array.from(
+      fabricTrackRef.current?.querySelectorAll<HTMLElement>("[data-zoda-fabric-card]") ?? [],
+    );
+
+  const getVisibleFabricCardCount = () => {
+    const viewport = fabricViewportRef.current;
+    const track = fabricTrackRef.current;
+    const cards = getFabricCards();
+    if (!viewport || !track || !cards.length) return 1;
+
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.columnGap || style.gap || "0") || 0;
+    const cardWidth = cards[0].getBoundingClientRect().width || 1;
+    const viewportWidth = viewport.clientWidth || cardWidth;
+
+    return Math.max(
+      1,
+      Math.min(cards.length, Math.floor((viewportWidth + gap) / (cardWidth + gap))),
+    );
+  };
+
+  const getFabricReleaseIndex = () => {
+    const cards = getFabricCards();
+    return Math.max(0, cards.length - getVisibleFabricCardCount());
+  };
+
+  const moveFabricCardsToIndex = (index: number) => {
+    const viewport = fabricViewportRef.current;
+    const track = fabricTrackRef.current;
+    const cards = getFabricCards();
+    if (!viewport || !track || !cards.length) return false;
+
+    const releaseIndex = getFabricReleaseIndex();
+    const next = Math.max(0, Math.min(index, releaseIndex));
+    const useNativeScroll = window.matchMedia("(max-width: 760px)").matches;
+
+    if (useNativeScroll) {
+      track.style.transform = "none";
+      viewport.scrollTo({ left: cards[next].offsetLeft, behavior: "smooth" });
+    } else {
+      track.style.transform = `translate3d(${-cards[next].offsetLeft}px, 0, 0)`;
+    }
+
+    cards.forEach((card, cardIndex) => {
+      card.classList.toggle("is-active", cardIndex === next);
+    });
+    setSyncedActiveFabricIndex(next);
+    return true;
+  };
 
   useEffect(() => {
     if (!rootRef.current) return;
     const cleanup = initSnapController(rootRef.current, {
       previousPath: "/ikigai",
       nextPath: "/",
+      onBeforeStep: (direction, panel) => {
+        if (!panel.hasAttribute("data-zoda-fabric-system")) return false;
+        const current = activeFabricIndexRef.current;
+        const releaseIndex = getFabricReleaseIndex();
+        if (direction > 0 && current < releaseIndex) {
+          return moveFabricCardsToIndex(current + 1);
+        }
+        if (direction < 0 && current > 0) {
+          return moveFabricCardsToIndex(current - 1);
+        }
+        return false;
+      },
       onAccordionChange: (panel, index) => {
         const handle = panel.dataset.fabricHandle;
         if (!handle) return;
@@ -78,7 +148,10 @@ function FabricsPage() {
         }
       });
 
-      setActiveFabricIndex((current) => (current === nextIndex ? current : nextIndex));
+      if (activeFabricIndexRef.current !== nextIndex) {
+        activeFabricIndexRef.current = nextIndex;
+        setActiveFabricIndex(nextIndex);
+      }
       cards.forEach((card, index) => {
         card.classList.toggle("is-active", index === nextIndex);
       });
@@ -132,14 +205,11 @@ function FabricsPage() {
       } else {
         target.classList.remove("is-revealed");
       }
-      setActiveFabricIndex(index);
+      setSyncedActiveFabricIndex(index);
       return;
     }
 
-    const targetCard = track.querySelector<HTMLElement>(`[data-zoda-fabric-card][data-index='${index}']`);
-    if (!targetCard) return;
-    targetCard.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    setActiveFabricIndex(index);
+    moveFabricCardsToIndex(index);
   };
 
   const handleExploreClick = (event: React.MouseEvent<HTMLAnchorElement>, handle: string) => {
@@ -214,6 +284,7 @@ function FabricsPage() {
           id="zoda-circuit-home-6"
           className="zoda-fabrics-snap__section zoda-circuit__panel zoda-circuit__panel--fabric"
           data-snap-panel
+          data-zoda-fabric-system
         >
           <div className="zoda-circuit__fabric-shell" data-zoda-fabric="">
             <div className="zoda-circuit__fabric-head">
