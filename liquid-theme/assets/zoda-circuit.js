@@ -64,6 +64,7 @@
     const horizontalScrollSelector = '.zoda-circuit__signal-gallery, .zoda-circuit__fabric-viewport, .zoda-circuit__cards, .zoda-circuit__proof-grid, .zoda-circuit__reviews-grid';
     const isHorizontalSwipe = (event, deltaX, deltaY) => Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 18 && event.target instanceof Element && event.target.closest(horizontalScrollSelector);
     let splashFrame = 0;
+    let activeScrollFrame = 0;
 
     if (!track || !panels.length) return;
 
@@ -89,7 +90,7 @@
     });
 
     const updateSplash = () => {
-      if (reduceMotion || !panels.length) return;
+      if (reduceMotion || isMobile() || !panels.length) return;
       const maxScroll = Math.max(1, track.scrollHeight - track.clientHeight);
       const progress = track.scrollTop / maxScroll;
       const x = Math.sin(progress * Math.PI * 2.4) * 74;
@@ -100,7 +101,7 @@
     };
 
     const requestSplashUpdate = () => {
-      if (splashFrame) return;
+      if (splashFrame || isMobile()) return;
       splashFrame = window.requestAnimationFrame(() => {
         splashFrame = 0;
         updateSplash();
@@ -108,7 +109,9 @@
     };
 
     const setActive = (index) => {
-      activeIndex = Math.max(0, Math.min(index, panels.length - 1));
+      const nextIndex = Math.max(0, Math.min(index, panels.length - 1));
+      if (nextIndex === activeIndex && root.dataset.activePanel === String(nextIndex + 1)) return;
+      activeIndex = nextIndex;
       root.dataset.activePanel = String(activeIndex + 1);
       panels.forEach((panel, panelIndex) => {
         panel.classList.toggle('is-active', panelIndex === activeIndex);
@@ -135,6 +138,14 @@
     const syncActiveFromScroll = () => {
       const index = getNearestPanelIndex();
       if (index !== activeIndex) setActive(index);
+    };
+
+    const requestActiveSync = () => {
+      if (activeScrollFrame) return;
+      activeScrollFrame = window.requestAnimationFrame(() => {
+        activeScrollFrame = 0;
+        syncActiveFromScroll();
+      });
     };
 
     const getPanelIndexAtScroll = () => {
@@ -350,6 +361,7 @@
 
     const stepInternalForPanel = (panelIndex, direction) => {
       if (!snapEnabled) return false;
+      if (isMobile() && panelIndex === collectionPanelIndex) return false;
       if (panelIndex === collectionPanelIndex) return stepCollection(direction);
       if (panelIndex === featurePanelIndex) return stepFeature(direction);
       if (panelIndex === fabricPanelIndex) return stepFabric(direction);
@@ -383,7 +395,19 @@
       tab.addEventListener('click', () => updateFeature(index));
     });
 
-    const videoFrame = root.querySelector('[data-zoda-video-frame]');
+    const hydrateHeroVideo = () => {
+      const frame = root.querySelector('[data-zoda-video-frame]');
+      if (!frame) return null;
+      if (isMobile()) {
+        frame.removeAttribute('src');
+        return null;
+      }
+      const source = frame.dataset.src;
+      if (source && frame.getAttribute('src') !== source) frame.setAttribute('src', source);
+      return frame;
+    };
+
+    let videoFrame = hydrateHeroVideo();
     const nativeVideo = root.querySelector('[data-zoda-native-video]');
     const requestVideoSound = () => {
       if (videoFrame && videoFrame.contentWindow) {
@@ -470,11 +494,8 @@
       }
       syncActiveAtScroll();
       if (isMobile()) {
-        const clearVerticalSwipe = absY > 56 && absY > absX * 1.65;
-        if (!clearVerticalSwipe || (touchStartedInHorizontal && absX > absY * 0.45)) {
-          touchStartedInHorizontal = false;
-          return;
-        }
+        touchStartedInHorizontal = false;
+        return;
       }
       touchStartedInHorizontal = false;
       if (isHorizontalSwipe(event, deltaX, deltaY)) return;
@@ -514,18 +535,20 @@
           const index = Number(entry.target.dataset.zodaPanel);
           if (!Number.isNaN(index)) setActive(index);
         });
-      }, { root: isMobile() ? null : track, threshold: 0.56 });
+      }, { root: track, threshold: 0.56 });
 
       panels.forEach((panel) => observer.observe(panel));
     }
 
     window.addEventListener('resize', () => {
+      videoFrame = hydrateHeroVideo();
       updateFabric(fabricIndex);
       updatePillars(pillarIndex, false);
+      requestActiveSync();
     });
     track.addEventListener('scroll', () => {
       requestSplashUpdate();
-      window.requestAnimationFrame(syncActiveFromScroll);
+      requestActiveSync();
     }, { passive: true });
     if (fabricViewport) {
       fabricViewport.addEventListener('scroll', () => {
@@ -551,4 +574,3 @@
     updateFeature(0);
     setActive(getNearestPanelIndex());
   })();
-

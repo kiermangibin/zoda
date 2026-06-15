@@ -12,13 +12,13 @@ import pocketImage from "@/assets/technology-pocket.avif";
 import buttonsImage from "@/assets/technology-buttons.avif";
 import runnersImage from "@/assets/technology-runners.jpg";
 import spotlightImage from "@/assets/tech-on-spotlight-image.webp";
-import sustainabilityVideo from "@/assets/sustainability-video.mp4";
 
 
 
 export function ZodaCircuit() {
   const [isHeroVideoPaused, setIsHeroVideoPaused] = useState(false);
   const [isHeroVideoMuted, setIsHeroVideoMuted] = useState(true);
+  const [shouldMountHeroVideo, setShouldMountHeroVideo] = useState(false);
 
   const handleHeroVideoControl = () => {
     const frame = document.querySelector<HTMLIFrameElement>("[data-zoda-video-frame]");
@@ -41,6 +41,15 @@ export function ZodaCircuit() {
     : isHeroVideoMuted
       ? "Unmute hero video"
       : "Mute hero video";
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const media = window.matchMedia("(min-width: 761px)");
+    const update = () => setShouldMountHeroVideo(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -101,8 +110,8 @@ export function ZodaCircuit() {
       /const loopToStart = \(\) => \{[\s\S]*?\n    \};\n\n    const goTo =/,
       "const loopToStart = () => {\n      window.location.assign('/ikigai');\n    };\n\n    const goTo =",
     ).replace(
-      "let splashFrame = 0;\n\n    if (!track || !panels.length) return;",
-      "let splashFrame = 0;\n    let snapScrollFrame = 0;\n\n    if (!track || !panels.length) return;\n\n    const getIndexForHash = () => -1;\n    const writePanelHistory = () => {};",
+      "let splashFrame = 0;\n    let activeScrollFrame = 0;\n\n    if (!track || !panels.length) return;",
+      "let splashFrame = 0;\n    let activeScrollFrame = 0;\n    let snapScrollFrame = 0;\n\n    if (!track || !panels.length) return;\n\n    const getIndexForHash = () => -1;\n    const writePanelHistory = () => {};",
     ).replace(
       "const setActive = (index) => {",
       "const setActive = (index, syncUrl = false) => {",
@@ -186,9 +195,12 @@ export function ZodaCircuit() {
   <div className="zoda-circuit__track" data-zoda-track="">
     <article id="zoda-circuit-home-1" className="zoda-circuit__panel zoda-circuit__panel--video is-active" data-zoda-panel="0">
       <div className="zoda-circuit__video-media" aria-hidden="true">
-        <iframe className="zoda-circuit__video" data-zoda-video-frame="" src="https://player.vimeo.com/video/1135229306?autoplay=1&muted=1&loop=0&autopause=0&controls=0&playsinline=1&title=0&byline=0&portrait=0" title="ZODA opener video" allow="autoplay; fullscreen; picture-in-picture" loading="eager"></iframe>
+        {shouldMountHeroVideo ? (
+          <iframe className="zoda-circuit__video" data-zoda-video-frame="" src="https://player.vimeo.com/video/1135229306?autoplay=1&muted=1&loop=0&autopause=0&controls=0&playsinline=1&title=0&byline=0&portrait=0" title="ZODA opener video" allow="autoplay; fullscreen; picture-in-picture" loading="eager"></iframe>
+        ) : null}
       </div>
-      <button
+      {shouldMountHeroVideo ? (
+        <button
         type="button"
         className="zoda-circuit__video-toggle"
         onClick={handleHeroVideoControl}
@@ -202,7 +214,8 @@ export function ZodaCircuit() {
         ) : (
           <Volume2 aria-hidden="true" />
         )}
-      </button>
+        </button>
+      ) : null}
       <div className="zoda-circuit__content zoda-circuit__video-content">
         <p className="zoda-circuit__kicker" data-animate="">Our Mission</p>
         <h1 className="zoda-circuit__heading" data-animate="" style={{"--zoda-delay": "90ms"} as React.CSSProperties}>Changing the way humans experience activewear</h1>
@@ -279,7 +292,7 @@ export function ZodaCircuit() {
           </div>
         </div>
         <div className="zoda-circuit__pillar-card" tabIndex={0} data-animate="" style={{"--zoda-delay": "320ms"} as React.CSSProperties}>
-          <figure className="zoda-circuit__card-media"><video src={sustainabilityVideo} muted playsInline loop autoPlay aria-label="ZODA sustainability material motion" /></figure>
+          <figure className="zoda-circuit__card-media"><img src={runnersImage} alt="ZODA activewear in motion" loading="lazy" /></figure>
           <div className="zoda-circuit__pillar-copybox">
             <span className="zoda-circuit__card-number">02</span>
             <strong className="zoda-circuit__card-title">Sustainability</strong>

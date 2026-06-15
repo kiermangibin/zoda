@@ -6661,3 +6661,126 @@ body.index main#root :is(#zoda-home-width-override, .zoda-circuit[data-zoda-home
     display: none !important;
   }
 }
+
+/* Mobile performance pass: keep iOS scrolling native and reduce expensive paint work. */
+@media (max-width: 760px) {
+  #zoda-circuit-home .zoda-circuit__track {
+    scroll-behavior: auto !important;
+    scroll-snap-type: y mandatory !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__panel {
+    contain: layout paint style;
+    scroll-snap-stop: normal !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__chrome,
+  #zoda-circuit-home .zoda-circuit__gallery-item,
+  #zoda-circuit-home .zoda-circuit__pillar-card,
+  #zoda-circuit-home .zoda-circuit__collection-panel,
+  #zoda-circuit-home .zoda-circuit__collection-tab,
+  #zoda-circuit-home .zoda-circuit__callout,
+  #zoda-circuit-home .zoda-circuit__feature-panel,
+  #zoda-circuit-home .zoda-circuit__review-card,
+  #zoda-circuit-home .zoda-circuit__proof-item,
+  #zoda-circuit-home .zoda-pim-card {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  #zoda-circuit-home .zoda-circuit__gallery-track,
+  #zoda-circuit-home .zoda-circuit__reviews-track {
+    animation-duration: 34s !important;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+  }
+}
+
+/* Homepage performance pass: keep motion but avoid paint-heavy animation work. */
+#zoda-circuit-home .zoda-circuit__panel {
+  contain: layout paint style;
+}
+
+#zoda-circuit-home .zoda-circuit__panel::before {
+  content: "" !important;
+  display: block !important;
+  filter: none !important;
+  opacity: 0.12 !important;
+  transition: opacity 180ms ease, transform 220ms ease !important;
+  will-change: transform, opacity;
+}
+
+#zoda-circuit-home.is-looping::after {
+  display: block !important;
+  will-change: opacity;
+}
+
+#zoda-circuit-home .zoda-circuit__gallery-track,
+#zoda-circuit-home .zoda-circuit__reviews-track {
+  animation-play-state: running !important;
+  animation-timing-function: linear !important;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+#zoda-circuit-home .zoda-circuit__gallery-track {
+  animation: zoda-gallery-roll 32s linear infinite !important;
+}
+
+#zoda-circuit-home .zoda-circuit__reviews-track {
+  animation: zoda-review-loop 42s linear infinite !important;
+}
+
+#zoda-circuit-home .zoda-circuit__fabric-track,
+#zoda-circuit-home .zoda-circuit__collection-panel,
+#zoda-circuit-home .zoda-circuit__feature-summary-card,
+#zoda-circuit-home .zoda-circuit__callout {
+  will-change: auto !important;
+}
+
+#zoda-circuit-home .zoda-circuit__chrome,
+#zoda-circuit-home .zoda-circuit__nav-menu,
+#zoda-circuit-home .zoda-header-currency__menu,
+#zoda-circuit-home .zoda-circuit__gallery-item,
+#zoda-circuit-home .zoda-circuit__pillar-card,
+#zoda-circuit-home .zoda-circuit__fabric-card,
+#zoda-circuit-home .zoda-circuit__collection-panel,
+#zoda-circuit-home .zoda-circuit__collection-tab,
+#zoda-circuit-home .zoda-circuit__collection-panel-content,
+#zoda-circuit-home .zoda-circuit__callout,
+#zoda-circuit-home .zoda-circuit__feature-summary-card,
+#zoda-circuit-home .zoda-circuit__review-card,
+#zoda-circuit-home .zoda-circuit__proof-item,
+#zoda-circuit-home .zoda-circuit__contact-link,
+#zoda-circuit-home .zoda-pim-card,
+#zoda-circuit-home .zoda-product-card,
+#zoda-circuit-home .zoda-product-card__quick-add {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+#zoda-circuit-home .zoda-circuit__button,
+#zoda-circuit-home .zoda-circuit__button-secondary,
+#zoda-circuit-home .zoda-circuit__collection-tab,
+#zoda-circuit-home .zoda-circuit__pillar-card,
+#zoda-circuit-home .zoda-circuit__fabric-card,
+#zoda-circuit-home .zoda-circuit__proof-item,
+#zoda-circuit-home .zoda-circuit__review-card,
+#zoda-circuit-home .zoda-pim-card,
+#zoda-circuit-home .zoda-product-card {
+  transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease !important;
+}
+
+#zoda-circuit-home .zoda-circuit__button:hover,
+#zoda-circuit-home .zoda-circuit__button-secondary:hover,
+#zoda-circuit-home .zoda-circuit__pillar-card:hover,
+#zoda-circuit-home .zoda-circuit__fabric-card:hover,
+#zoda-circuit-home .zoda-circuit__proof-item:hover,
+#zoda-circuit-home .zoda-circuit__review-card:hover,
+#zoda-circuit-home .zoda-pim-card:hover,
+#zoda-circuit-home .zoda-product-card:hover {
+  will-change: transform;
+}
