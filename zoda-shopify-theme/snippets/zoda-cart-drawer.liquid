@@ -1,0 +1,94 @@
+<div class="zoda-cart-drawer zoda-cart-drawer--light" data-zoda-cart-drawer data-open="false" aria-hidden="true">
+  <div class="zoda-cart-drawer__backdrop" data-zoda-cart-close></div>
+
+  <aside class="zoda-cart-drawer__panel" role="dialog" aria-label="Cart">
+    <header class="zoda-cart-drawer__head">
+      <strong class="zoda-cart-drawer__title">
+        Your cart
+        <span class="zoda-cart-drawer__count" data-zoda-cart-count>{{ cart.item_count }}</span>
+      </strong>
+      <button type="button" aria-label="Close cart" class="zoda-cart-drawer__close" data-zoda-cart-close>
+        &times;
+      </button>
+    </header>
+
+    <div class="zoda-cart-drawer__list" data-zoda-cart-body>
+      {% if cart.item_count == 0 %}
+        <div class="zoda-cart-drawer__empty">
+          <p class="zoda-cart-drawer__empty-title">Your cart is empty.</p>
+          <p class="zoda-cart-drawer__empty-sub">Find your next ZODA piece and build the kit.</p>
+          <a class="zoda-cart-drawer__empty-cta" href="{{ routes.collections_url }}">Shop ZODA</a>
+        </div>
+      {% else %}
+        {% for item in cart.items %}
+          <div class="zoda-cart-drawer__item" data-cart-line="{{ item.key }}">
+            <div class="zoda-cart-drawer__item-thumb">
+              {% if item.image %}
+                <img
+                  src="{{ item.image | image_url: width: 220 }}"
+                  alt="{{ item.image.alt | default: item.product.title | escape }}"
+                  loading="lazy"
+                  width="220"
+                  height="286"
+                >
+              {% endif %}
+            </div>
+
+            <div class="zoda-cart-drawer__item-body">
+              <div class="zoda-cart-drawer__item-head">
+                <div>
+                  <p class="zoda-cart-drawer__item-title">{{ item.product.title }}</p>
+                  {% if item.variant.title and item.variant.title != 'Default Title' %}
+                    <p class="zoda-cart-drawer__item-variant">{{ item.variant.title }}</p>
+                  {% endif %}
+                </div>
+                <p class="zoda-cart-drawer__item-price">{{ item.final_line_price | money }}</p>
+              </div>
+
+              <div class="zoda-cart-drawer__item-foot">
+                <div class="zoda-cart-drawer__qty">
+                  <button
+                    type="button"
+                    class="zoda-cart-drawer__qty-btn"
+                    data-cart-qty="-1"
+                    data-key="{{ item.key }}"
+                    aria-label="Decrease quantity for {{ item.product.title | escape }}"
+                  >
+                    -
+                  </button>
+                  <span class="zoda-cart-drawer__qty-val" data-cart-quantity>{{ item.quantity }}</span>
+                  <button
+                    type="button"
+                    class="zoda-cart-drawer__qty-btn"
+                    data-cart-qty="+1"
+                    data-key="{{ item.key }}"
+                    aria-label="Increase quantity for {{ item.product.title | escape }}"
+                  >
+                    +
+                  </button>
+                </div>
+
+                <button type="button" class="zoda-cart-drawer__remove" data-cart-remove data-key="{{ item.key }}">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if cart.item_count > 0 %}
+      <footer class="zoda-cart-drawer__footer">
+        <div class="zoda-cart-drawer__totals-row">
+          <span>Subtotal</span>
+          <span data-zoda-cart-subtotal>{{ cart.total_price | money }}</span>
+        </div>
+        <p class="zoda-cart-drawer__totals-note">Shipping and taxes calculated at checkout.</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="zoda-cart-drawer__checkout">Checkout</button>
+        </form>
+      </footer>
+    {% endif %}
+  </aside>
+</div>

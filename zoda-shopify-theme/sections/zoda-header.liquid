@@ -1,0 +1,303 @@
+{{ 'zoda-header.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign menu_links = section.settings.menu.links
+  assign header_logo = section.settings.logo
+  assign cart_count = cart.item_count
+%}
+
+<header class="zoda-header" data-zoda-header>
+  {% if section.settings.announcement != blank %}
+    <div class="zoda-header__announcement">
+      <span>{{ section.settings.announcement }}</span>
+    </div>
+  {% endif %}
+
+  <div class="zoda-header__bar">
+    <button
+      type="button"
+      class="zoda-header__icon zoda-header__menu-button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      data-zoda-menu-toggle
+    >
+      <span></span>
+      <span></span>
+    </button>
+
+    <a class="zoda-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {% if header_logo != blank %}
+        {{
+          header_logo
+          | image_url: width: 280
+          | image_tag:
+            loading: 'eager',
+            widths: '120, 180, 240, 280',
+            class: 'zoda-header__logo',
+            alt: shop.name
+        }}
+      {% else %}
+        <img
+          class="zoda-header__logo"
+          src="https://zoda.sg/cdn/shop/files/ZODA_logo.svg?v=1741773590&width=352"
+          alt="{{ section.settings.logo_text | default: shop.name | escape }}"
+          loading="eager"
+          width="148"
+          height="32"
+        >
+      {% endif %}
+    </a>
+
+    <nav class="zoda-header__nav" aria-label="Main navigation">
+      {% if section.settings.use_current_navigation %}
+        <a href="/collections/new-arrivals">New Arrivals</a>
+        <a href="/collections/womens-collection">Women</a>
+        <a href="/collections/mens-collection">Men</a>
+        <a href="/collections/unisex">Unisex</a>
+        <span class="zoda-header__nav-item">
+          <a class="zoda-header__nav-trigger" href="{{ routes.collections_url }}">Our Products</a>
+          <span class="zoda-header__menu" role="menu">
+            <a href="/collections/core-performance" role="menuitem">Core Performance</a>
+            <a href="/collections/endurance" role="menuitem">Endurance</a>
+            <a href="/collections/24-7-wear" role="menuitem">24/7 Wear</a>
+            <a href="/collections/accessories" role="menuitem">Accessories</a>
+          </span>
+        </span>
+        <span class="zoda-header__nav-item">
+          <a class="zoda-header__nav-trigger" href="/pages/about-zoda">Who We Are</a>
+          <span class="zoda-header__menu" role="menu">
+            <a href="/pages/fabrics" role="menuitem">Our Fabrics</a>
+            <a href="/pages/ikigai" role="menuitem">Our Ikigai</a>
+            <a href="/pages/mission" role="menuitem">The Mission</a>
+          </span>
+        </span>
+      {% elsif menu_links.size > 0 %}
+        {% for link in menu_links %}
+          {% if link.links.size > 0 %}
+            <span class="zoda-header__nav-item">
+              <a
+                class="zoda-header__nav-trigger"
+                href="{{ link.url }}"
+                {% if link.active %}
+                  aria-current="page"
+                {% endif %}
+              >
+                {{ link.title }}
+              </a>
+              <span class="zoda-header__menu" role="menu">
+                {% for child_link in link.links %}
+                  <a
+                    href="{{ child_link.url }}"
+                    role="menuitem"
+                    {% if child_link.active %}
+                      aria-current="page"
+                    {% endif %}
+                  >
+                    {{ child_link.title }}
+                  </a>
+                {% endfor %}
+              </span>
+            </span>
+          {% else %}
+            <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>
+              {{ link.title }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <a href="{{ routes.collections_url }}">Shop</a>
+        <a href="/pages/fabrics">Fabrics</a>
+        <a href="/pages/ikigai">Ikigai</a>
+        <a href="/pages/mission">Mission</a>
+      {% endif %}
+    </nav>
+
+    <div class="zoda-header__tools zoda-circuit__chrome-actions">
+      {% if section.settings.show_localization %}
+        {% if settings.enable_region or settings.enable_language %}
+          <details class="zoda-header-currency">
+            <summary class="zoda-header-currency__trigger" aria-label="Select currency">
+              <span>{{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }}</span>
+              <span class="zoda-header-currency__chevron" aria-hidden="true"></span>
+            </summary>
+
+            <div class="zoda-header-currency__menu" role="menu">
+              {% form 'localization', class: 'zoda-header-currency__form' %}
+                {% for country in localization.available_countries %}
+                  <button
+                    type="submit"
+                    class="zoda-header-currency__option"
+                    name="country_code"
+                    value="{{ country.iso_code }}"
+                    role="menuitem"
+                  >
+                    <span>{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</span>
+                    {% if country.iso_code == localization.country.iso_code %}
+                      <span aria-hidden="true">*</span>
+                    {% endif %}
+                  </button>
+                {% endfor %}
+              {% endform %}
+            </div>
+          </details>
+        {% endif %}
+      {% endif %}
+
+      {% if shop.customer_accounts_enabled and section.settings.show_account %}
+        <a class="zoda-header__icon zoda-circuit__chrome-icon" href="{{ routes.account_url }}" aria-label="Account">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M20 21a8 8 0 0 0-16 0"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+      {% endif %}
+
+      {% if section.settings.show_cart %}
+        <a
+          class="zoda-header__icon zoda-circuit__chrome-icon zoda-header__cart"
+          href="{{ routes.cart_url }}"
+          aria-label="Cart"
+          data-zoda-cart-open
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+            <path d="M3 6h18"></path>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span
+            class="zoda-header__cart-count zoda-circuit__chrome-badge"
+            data-zoda-cart-count
+            {% if cart_count == 0 %}
+              style="display: none"
+            {% endif %}
+          >
+            {{ cart_count }}
+          </span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="zoda-header__drawer" data-zoda-menu-drawer aria-hidden="true">
+    <div class="zoda-header__drawer-head">
+      <span>{{ section.settings.logo_text | default: shop.name }}</span>
+      <button type="button" class="zoda-header__drawer-close" aria-label="Close menu" data-zoda-menu-toggle>Close</button>
+    </div>
+
+    <nav class="zoda-header__drawer-nav" aria-label="Mobile navigation">
+      {% if section.settings.use_current_navigation %}
+        <a href="/collections/new-arrivals">New Arrivals</a>
+        <a href="/collections/womens-collection">Women</a>
+        <a href="/collections/mens-collection">Men</a>
+        <a href="/collections/unisex">Unisex</a>
+        <div class="zoda-header__drawer-group">
+          <a href="{{ routes.collections_url }}"><strong>Our Products</strong></a>
+          <a href="/collections/core-performance">Core Performance</a>
+          <a href="/collections/endurance">Endurance</a>
+          <a href="/collections/24-7-wear">24/7 Wear</a>
+          <a href="/collections/accessories">Accessories</a>
+        </div>
+        <div class="zoda-header__drawer-group">
+          <a href="/pages/about-zoda"><strong>Who We Are</strong></a>
+          <a href="/pages/fabrics">Our Fabrics</a>
+          <a href="/pages/ikigai">Our Ikigai</a>
+          <a href="/pages/mission">The Mission</a>
+        </div>
+      {% elsif menu_links.size > 0 %}
+        {% for link in menu_links %}
+          {% if link.links.size > 0 %}
+            <div class="zoda-header__drawer-group">
+              <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>
+                <strong>{{ link.title }}</strong>
+              </a>
+              {% for child_link in link.links %}
+                <a href="{{ child_link.url }}" {% if child_link.active %}aria-current="page"{% endif %}>
+                  {{ child_link.title }}
+                </a>
+              {% endfor %}
+            </div>
+          {% else %}
+            <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>
+              {{ link.title }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <a href="{{ routes.collections_url }}">Shop</a>
+        <a href="/pages/fabrics">Fabrics</a>
+        <a href="/pages/ikigai">Ikigai</a>
+        <a href="/pages/mission">Mission</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+<script src="{{ 'zoda-header.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "ZODA Header",
+  "tag": "section",
+  "class": "zoda-header-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement",
+      "label": "Announcement",
+      "default": "Free shipping on orders over $99"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "ZODA"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_current_navigation",
+      "label": "Use current ZODA navigation",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_localization",
+      "label": "Show country/language",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZODA Header"
+    }
+  ]
+}
+{% endschema %}

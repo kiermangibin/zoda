@@ -12,6 +12,7 @@ export type SnapControllerOptions = {
   loopToStart?: boolean;
   onAccordionChange?: (panel: HTMLElement, index: number) => void;
   disableMobileTouchSnap?: boolean;
+  allowPreviousPathFromHero?: boolean;
 };
 
 export function initSnapController(
@@ -28,6 +29,7 @@ export function initSnapController(
     loopToStart = false,
     onAccordionChange,
     disableMobileTouchSnap = false,
+    allowPreviousPathFromHero = false,
   } = opts;
 
   const track = root.querySelector<HTMLElement>(trackSelector);
@@ -147,7 +149,7 @@ export function initSnapController(
       return;
     }
     if (direction < 0 && activeIndex <= 0) {
-      if (previousPath) {
+      if (previousPath && allowPreviousPathFromHero) {
         locked = true;
         window.location.assign(previousPath);
       }

@@ -37,4 +37,4 @@ Suggested Shopify asset names:
 - `assets/zoda-ikigai-page.css`
 - `assets/zoda-mission-page.css`
 
-Load foundation files first, then shared shell/component files, then page-specific files. Do not change the existing `liquid-theme/` asset tags until those Shopify asset files actually exist in the theme.
+Load foundation files first, then shared shell/component files, then page-specific files. Implement Shopify asset loading in `zoda-shopify-theme/`; the Vite/React files under `src/` remain the source for page structure, styling, copy, and behavior.

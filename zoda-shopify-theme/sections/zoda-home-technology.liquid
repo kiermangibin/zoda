@@ -1,0 +1,225 @@
+<section id="zoda-home-technology-{{ section.id }}" class="zoda-circuit" data-zoda-home-section="technology">
+  <article id="zoda-circuit-home-7" class="zoda-circuit__panel zoda-circuit__panel--product">
+    <div class="zoda-circuit__content">
+      {% if section.settings.kicker != blank %}
+        <p class="zoda-circuit__kicker" data-animate>{{ section.settings.kicker }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="zoda-circuit__heading" data-animate style="--zoda-delay: 90ms">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.copy != blank %}
+        <p class="zoda-circuit__copy" data-animate style="--zoda-delay: 180ms">
+          {{ section.settings.copy }}
+        </p>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <div
+          class="zoda-circuit__feature-summary"
+          data-animate
+          data-zoda-home-technology-summaries
+          style="--zoda-delay: 240ms"
+          aria-label="{{ section.settings.summary_label | escape }}"
+        >
+          {% for block in section.blocks %}
+            <article
+              class="zoda-circuit__feature-summary-card{% if forloop.first %} is-active{% endif %}"
+              data-zoda-home-technology-summary
+              {{ block.shopify_attributes }}
+            >
+              <span>{{ forloop.index | prepend: '0' | slice: -2, 2 }} / {{ block.settings.category }}</span>
+              {% if block.settings.title != blank %}
+                <strong>{{ block.settings.title }}</strong>
+              {% endif %}
+              {% if block.settings.summary != blank %}
+                <p>{{ block.settings.summary }}</p>
+              {% endif %}
+            </article>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div
+        class="zoda-circuit__callouts"
+        data-zoda-home-technology-accordion
+        data-animate
+        style="--zoda-delay: 260ms"
+      >
+        {% for block in section.blocks %}
+          {% liquid
+            assign is_open = false
+            if forloop.first
+              assign is_open = true
+            endif
+            assign panel_id = 'zoda-home-technology-' | append: section.id | append: '-' | append: forloop.index
+            assign tab_id = panel_id | append: '-tab'
+            assign details = block.settings.details | newline_to_br | split: '<br />'
+          %}
+
+          <article
+            class="zoda-circuit__feature-item{% if is_open %} is-open{% endif %}"
+            data-zoda-home-technology-item
+          >
+            <button
+              class="zoda-circuit__callout{% if is_open %} is-active{% endif %}"
+              id="{{ tab_id }}"
+              type="button"
+              aria-expanded="{% if is_open %}true{% else %}false{% endif %}"
+              aria-controls="{{ panel_id }}"
+              data-zoda-home-technology-tab
+            >
+              <span class="zoda-circuit__callout-title">{{ block.settings.title }}</span>
+              <span>{{ block.settings.short_label }}</span>
+              <i class="zoda-circuit__toggle-switch" aria-hidden="true"></i>
+            </button>
+
+            <div
+              class="zoda-circuit__feature-panel"
+              id="{{ panel_id }}"
+              role="region"
+              aria-labelledby="{{ tab_id }}"
+            >
+              {% if block.settings.panel_label != blank %}
+                <span>{{ block.settings.panel_label }}</span>
+              {% endif %}
+
+              {% if block.settings.details != blank %}
+                <ul>
+                  {% for detail in details %}
+                    {% assign stripped_detail = detail | strip %}
+                    {% if stripped_detail != blank %}
+                      <li>{{ stripped_detail }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById('zoda-home-technology-{{ section.id }}');
+    if (!root) return;
+
+    const items = Array.from(root.querySelectorAll('[data-zoda-home-technology-item]'));
+    const tabs = Array.from(root.querySelectorAll('[data-zoda-home-technology-tab]'));
+    const summaries = Array.from(root.querySelectorAll('[data-zoda-home-technology-summary]'));
+    if (!items.length) return;
+
+    const setActive = (index) => {
+      items.forEach((item, itemIndex) => {
+        const active = itemIndex === index;
+        item.classList.toggle('is-open', active);
+        tabs[itemIndex]?.classList.toggle('is-active', active);
+        tabs[itemIndex]?.setAttribute('aria-expanded', active ? 'true' : 'false');
+        summaries[itemIndex]?.classList.toggle('is-active', active);
+      });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => setActive(index));
+      tab.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+        event.preventDefault();
+        const direction = event.key === 'ArrowDown' ? 1 : -1;
+        const next = Math.max(0, Math.min(index + direction, tabs.length - 1));
+        tabs[next].focus();
+        setActive(next);
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "ZODA Technology",
+  "tag": "section",
+  "class": "zoda-home-technology-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Technology / 07"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Inside Zenith Tech."
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "ZODA's precision-engineered innovation platform combines advanced fabric technology with meticulous design to push boundaries, elevate comfort, and unlock peak potential."
+    },
+    {
+      "type": "text",
+      "id": "summary_label",
+      "label": "Summary label",
+      "default": "Active Zenith Tech feature summary"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "technology_feature",
+      "name": "Technology feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category",
+          "default": "Compression"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Zenflex"
+        },
+        {
+          "type": "text",
+          "id": "short_label",
+          "label": "Short label",
+          "default": "Compression support"
+        },
+        {
+          "type": "textarea",
+          "id": "summary",
+          "label": "Summary",
+          "default": "Compression-specific stretch and support engineered for locked-in movement without restricting the body."
+        },
+        {
+          "type": "text",
+          "id": "panel_label",
+          "label": "Panel label",
+          "default": "Zenith Tech Feature"
+        },
+        {
+          "type": "textarea",
+          "id": "details",
+          "label": "Details",
+          "default": "Helps the garment contour to the body while maintaining comfort under pressure.\nBuilt for athletes who need compression that supports effort without restricting motion."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZODA Technology"
+    }
+  ]
+}
+{% endschema %}

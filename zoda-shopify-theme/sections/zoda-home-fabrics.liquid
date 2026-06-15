@@ -1,0 +1,218 @@
+<section id="zoda-home-fabrics-{{ section.id }}" class="zoda-circuit" data-zoda-home-section="fabrics">
+  <article id="zoda-circuit-home-6" class="zoda-circuit__panel zoda-circuit__panel--fabric">
+    <div class="zoda-circuit__fabric-shell" data-zoda-home-fabrics>
+      <div class="zoda-circuit__fabric-head">
+        <div>
+          {% if section.settings.kicker != blank %}
+            <p class="zoda-circuit__kicker" data-animate>{{ section.settings.kicker }}</p>
+          {% endif %}
+
+          {% if section.settings.heading != blank %}
+            <h2 class="zoda-circuit__heading" data-animate style="--zoda-delay: 90ms">
+              {{ section.settings.heading }}
+            </h2>
+          {% endif %}
+        </div>
+
+        {% if section.settings.copy != blank %}
+          <p class="zoda-circuit__copy" data-animate style="--zoda-delay: 180ms">
+            {{ section.settings.copy }}
+          </p>
+        {% endif %}
+      </div>
+
+      {% if section.blocks.size > 0 %}
+        <div class="zoda-circuit__fabric-viewport" data-zoda-home-fabrics-viewport data-animate style="--zoda-delay: 220ms">
+          <div class="zoda-circuit__fabric-track" data-zoda-home-fabrics-track>
+            {% for block in section.blocks %}
+              {% assign tags = block.settings.tags | newline_to_br | split: '<br />' %}
+
+              <button
+                class="zoda-circuit__fabric-card{% if forloop.first %} is-active{% endif %}"
+                type="button"
+                aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+                data-zoda-home-fabrics-card
+                {{ block.shopify_attributes }}
+              >
+                <span class="zoda-circuit__fabric-index">
+                  {{ forloop.index | prepend: '0' | slice: -2, 2 }} / {{ section.settings.card_label }}
+                </span>
+
+                {% if block.settings.name != blank %}
+                  <strong>{{ block.settings.name }}</strong>
+                {% endif %}
+
+                {% if block.settings.copy != blank %}
+                  <p>{{ block.settings.copy }}</p>
+                {% endif %}
+
+                {% if block.settings.tags != blank %}
+                  <span class="zoda-circuit__tags">
+                    {% for tag in tags %}
+                      {% assign stripped_tag = tag | strip %}
+                      {% if stripped_tag != blank %}
+                        <span>{{ stripped_tag }}</span>
+                      {% endif %}
+                    {% endfor %}
+                  </span>
+                {% endif %}
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="zoda-circuit__fabric-ui" aria-hidden="true">
+          <div class="zoda-circuit__fabric-progress">
+            <span data-zoda-home-fabrics-progress></span>
+          </div>
+          <div class="zoda-circuit__fabric-count" data-zoda-home-fabrics-count>
+            01 / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </article>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById('zoda-home-fabrics-{{ section.id }}');
+    if (!root) return;
+
+    const viewport = root.querySelector('[data-zoda-home-fabrics-viewport]');
+    const track = root.querySelector('[data-zoda-home-fabrics-track]');
+    const cards = Array.from(root.querySelectorAll('[data-zoda-home-fabrics-card]'));
+    const progress = root.querySelector('[data-zoda-home-fabrics-progress]');
+    const count = root.querySelector('[data-zoda-home-fabrics-count]');
+    if (!viewport || !track || !cards.length) return;
+
+    const pad = (value) => String(value).padStart(2, '0');
+    const isMobile = () => window.matchMedia('(max-width: 760px)').matches;
+
+    const setActive = (index, shouldScroll = true) => {
+      const next = Math.max(0, Math.min(index, cards.length - 1));
+
+      cards.forEach((card, cardIndex) => {
+        const active = cardIndex === next;
+        card.classList.toggle('is-active', active);
+        card.setAttribute('aria-current', active ? 'true' : 'false');
+      });
+
+      if (progress) {
+        progress.style.width = `${((next + 1) / cards.length) * 100}%`;
+      }
+
+      if (count) {
+        count.textContent = `${pad(next + 1)} / ${pad(cards.length)}`;
+      }
+
+      if (!shouldScroll) return;
+
+      if (isMobile()) {
+        cards[next].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        return;
+      }
+
+      const style = window.getComputedStyle(track);
+      const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+      const width = cards[0].getBoundingClientRect().width || 0;
+      track.style.transform = `translate3d(${next * -(width + gap)}px, 0, 0)`;
+    };
+
+    cards.forEach((card, index) => {
+      card.addEventListener('click', () => setActive(index));
+      card.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        const direction = event.key === 'ArrowRight' ? 1 : -1;
+        const next = Math.max(0, Math.min(index + direction, cards.length - 1));
+        cards[next].focus();
+        setActive(next);
+      });
+    });
+
+    viewport.addEventListener(
+      'scroll',
+      () => {
+        if (!isMobile()) return;
+        const style = window.getComputedStyle(track);
+        const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+        const width = cards[0].getBoundingClientRect().width || 1;
+        setActive(Math.round(viewport.scrollLeft / (width + gap)), false);
+      },
+      { passive: true }
+    );
+
+    window.addEventListener('resize', () => {
+      const activeIndex = cards.findIndex((card) => card.classList.contains('is-active'));
+      setActive(activeIndex >= 0 ? activeIndex : 0, false);
+    });
+
+    setActive(0, false);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "ZODA Fabrics",
+  "tag": "section",
+  "class": "zoda-home-fabrics-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Fabric System / 06"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Fabric system."
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Eight fabric systems tuned for sweat control, stretch, breathability, support, and recovery."
+    },
+    {
+      "type": "text",
+      "id": "card_label",
+      "label": "Card label",
+      "default": "ZODA FABRIC"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "fabric",
+      "name": "Fabric",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "ZENCOT"
+        },
+        {
+          "type": "textarea",
+          "id": "copy",
+          "label": "Copy",
+          "default": "BCI cotton and elastane for soft, breathable performance."
+        },
+        {
+          "type": "textarea",
+          "id": "tags",
+          "label": "Tags",
+          "default": "FluidMotion\nZO-Fresh\nBreathable"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZODA Fabrics"
+    }
+  ]
+}
+{% endschema %}

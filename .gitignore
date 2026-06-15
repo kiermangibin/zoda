@@ -18,12 +18,10 @@ tmp-screens/
 *.local
 
 # Generated Shopify exports and local verification artifacts
-zoda-shopify-theme/
 zoda-shopify-theme.zip
 live-*.png
 cart-*.png
 *-debug.png
-SHOPIFY_*.md
 
 # Wrangler / Cloudflare
 .wrangler/

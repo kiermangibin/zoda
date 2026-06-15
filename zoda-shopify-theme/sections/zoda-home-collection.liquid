@@ -1,0 +1,211 @@
+<section id="zoda-home-collection-{{ section.id }}" class="zoda-circuit" data-zoda-home-section="collection">
+  <article id="zoda-circuit-home-5" class="zoda-circuit__panel zoda-circuit__panel--collections">
+    <div class="zoda-circuit__intro-row">
+      <div>
+        {% if section.settings.kicker != blank %}
+          <p class="zoda-circuit__kicker" data-animate>{{ section.settings.kicker }}</p>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="zoda-circuit__heading" data-animate style="--zoda-delay: 90ms">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+      </div>
+
+      {% if section.settings.copy != blank %}
+        <div>
+          <p class="zoda-circuit__copy" data-animate style="--zoda-delay: 180ms">
+            {{ section.settings.copy }}
+          </p>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div
+        class="zoda-circuit__collection-accordion"
+        data-zoda-home-collection-accordion
+        data-animate
+        style="--zoda-delay: 220ms"
+      >
+        {% for block in section.blocks %}
+          {% liquid
+            assign is_open = false
+            if forloop.first
+              assign is_open = true
+            endif
+            assign panel_id = 'zoda-home-collection-' | append: section.id | append: '-' | append: forloop.index
+            assign tab_id = panel_id | append: '-tab'
+            assign kit_items = block.settings.kit_items | newline_to_br | split: '<br />'
+          %}
+
+          <article
+            class="zoda-circuit__collection-panel{% if is_open %} is-open{% endif %}"
+            data-zoda-home-collection-panel
+            {{ block.shopify_attributes }}
+          >
+            <div
+              class="zoda-circuit__collection-panel-content"
+              id="{{ panel_id }}"
+              role="region"
+              aria-labelledby="{{ tab_id }}"
+            >
+              <span class="zoda-circuit__collection-progress">
+                {{ forloop.index | prepend: '0' | slice: -2, 2 }} / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}
+              </span>
+
+              {% if block.settings.panel_title != blank %}
+                <h3 class="zoda-circuit__collection-panel-title">{{ block.settings.panel_title }}</h3>
+              {% endif %}
+
+              {% if block.settings.copy != blank %}
+                <p class="zoda-circuit__collection-panel-copy">{{ block.settings.copy }}</p>
+              {% endif %}
+
+              {% if block.settings.kit_items != blank %}
+                <span class="zoda-circuit__kit-stack" aria-label="{{ block.settings.panel_title | escape }} kit">
+                  {% for item in kit_items %}
+                    {% assign stripped_item = item | strip %}
+                    {% if stripped_item != blank %}
+                      <span>
+                        <b>{{ forloop.index | prepend: '0' | slice: -2, 2 }}</b>
+                        {{ stripped_item }}
+                        <em></em>
+                      </span>
+                    {% endif %}
+                  {% endfor %}
+                </span>
+              {% endif %}
+
+              {% if block.settings.button_label != blank and block.settings.button_url != blank %}
+                <a class="zoda-circuit__collection-arrow" href="{{ block.settings.button_url }}">
+                  {{ block.settings.button_label }}
+                </a>
+              {% endif %}
+            </div>
+
+            <button
+              class="zoda-circuit__collection-tab"
+              id="{{ tab_id }}"
+              type="button"
+              aria-controls="{{ panel_id }}"
+              aria-expanded="{% if is_open %}true{% else %}false{% endif %}"
+              data-zoda-home-collection-tab
+            >
+              <span class="zoda-circuit__collection-tab-text">
+                {% if block.settings.tab_kicker != blank %}
+                  <span class="zoda-circuit__collection-tab-kicker">{{ block.settings.tab_kicker }}</span>
+                {% endif %}
+                <span class="zoda-circuit__collection-tab-title">{{ block.settings.tab_title }}</span>
+              </span>
+            </button>
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById('zoda-home-collection-{{ section.id }}');
+    if (!root) return;
+
+    const panels = Array.from(root.querySelectorAll('[data-zoda-home-collection-panel]'));
+    const tabs = Array.from(root.querySelectorAll('[data-zoda-home-collection-tab]'));
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        panels.forEach((panel, panelIndex) => {
+          const active = panelIndex === index;
+          panel.classList.toggle('is-open', active);
+          panel.classList.toggle('is-past', panelIndex < index);
+          tabs[panelIndex]?.setAttribute('aria-expanded', active ? 'true' : 'false');
+        });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "ZODA Collection",
+  "tag": "section",
+  "class": "zoda-home-collection-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Collection / 05"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by collection."
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Shop by training mode: performance staples, endurance gear, 24/7 wear, and accessories that finish the session."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_panel",
+      "name": "Collection panel",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_kicker",
+          "label": "Tab kicker",
+          "default": "Train"
+        },
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Tab title",
+          "default": "Core Performance"
+        },
+        {
+          "type": "text",
+          "id": "panel_title",
+          "label": "Panel title",
+          "default": "Core Performance"
+        },
+        {
+          "type": "textarea",
+          "id": "copy",
+          "label": "Copy",
+          "default": "Compression, tanks, bras, shorts, and support layers built to stay locked in during high-output training."
+        },
+        {
+          "type": "textarea",
+          "id": "kit_items",
+          "label": "Kit items",
+          "default": "Compression top\nTraining bra\nRun short\nSupport layer"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop Core"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZODA Collection"
+    }
+  ]
+}
+{% endschema %}

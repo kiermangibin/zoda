@@ -1,0 +1,247 @@
+{{ 'zoda-footer.css' | asset_url | stylesheet_tag }}
+
+<footer class="zoda-footer-main">
+  <div class="zoda-footer-main__inner">
+    <div class="zoda-footer-main__brand">
+      <a class="zoda-footer-main__logo" href="{{ routes.root_url }}">{{ section.settings.logo_text | default: shop.name }}</a>
+      {% if section.settings.statement != blank %}
+        <p>{{ section.settings.statement }}</p>
+      {% endif %}
+    </div>
+
+    <div class="zoda-footer-main__columns">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'menu' %}
+            <div class="zoda-footer-main__column" {{ block.shopify_attributes }}>
+              {% if block.settings.heading != blank %}
+                <h2>{{ block.settings.heading }}</h2>
+              {% endif %}
+              {% if block.settings.menu.links.size > 0 %}
+                <nav aria-label="{{ block.settings.heading | escape }}">
+                  {% for link in block.settings.menu.links %}
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                  {% endfor %}
+                </nav>
+              {% endif %}
+            </div>
+          {% when 'contact' %}
+            <div class="zoda-footer-main__column" {{ block.shopify_attributes }}>
+              {% if block.settings.heading != blank %}
+                <h2>{{ block.settings.heading }}</h2>
+              {% endif %}
+              {% if block.settings.email != blank %}
+                <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+              {% endif %}
+              {% if block.settings.phone != blank %}
+                <a href="tel:{{ block.settings.phone | replace: ' ', '' }}">{{ block.settings.phone }}</a>
+              {% endif %}
+            </div>
+          {% when 'social' %}
+            <div class="zoda-footer-main__column" {{ block.shopify_attributes }}>
+              {% if block.settings.heading != blank %}
+                <h2>{{ block.settings.heading }}</h2>
+              {% endif %}
+              {% if block.settings.instagram != blank %}
+                <a href="{{ block.settings.instagram }}" target="_blank" rel="noopener">Instagram</a>
+              {% endif %}
+              {% if block.settings.tiktok != blank %}
+                <a href="{{ block.settings.tiktok }}" target="_blank" rel="noopener">TikTok</a>
+              {% endif %}
+              {% if block.settings.linkedin != blank %}
+                <a href="{{ block.settings.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+              {% endif %}
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    {% if section.settings.show_newsletter %}
+      <div class="zoda-footer-main__newsletter">
+        <div>
+          <h2>{{ section.settings.newsletter_heading }}</h2>
+          {% if section.settings.newsletter_copy != blank %}
+            <p>{{ section.settings.newsletter_copy }}</p>
+          {% endif %}
+        </div>
+
+        {% form 'customer', class: 'zoda-footer-main__form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label for="ZodaFooterEmail-{{ section.id }}" class="visually-hidden">Email</label>
+          <input
+            id="ZodaFooterEmail-{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            value="{{ form.email }}"
+            placeholder="Email address"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+          >
+          <button type="submit">{{ section.settings.newsletter_button }}</button>
+          {% if form.posted_successfully? %}
+            <p class="zoda-footer-main__form-message">{{ section.settings.newsletter_success }}</p>
+          {% elsif form.errors %}
+            <p class="zoda-footer-main__form-message">{{ form.errors | default_errors }}</p>
+          {% endif %}
+        {% endform %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="zoda-footer-main__bottom">
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+    {% if section.settings.policy_menu.links.size > 0 %}
+      <nav aria-label="Policies">
+        {% for link in section.settings.policy_menu.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      </nav>
+    {% endif %}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "ZODA Footer",
+  "tag": "section",
+  "class": "zoda-footer-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "ZODA"
+    },
+    {
+      "type": "textarea",
+      "id": "statement",
+      "label": "Statement",
+      "default": "Changing the way humans experience activewear."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show newsletter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "Stay in the circuit"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_copy",
+      "label": "Newsletter copy",
+      "default": "Product drops, training notes, and ZODA updates."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Newsletter button",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_success",
+      "label": "Newsletter success message",
+      "default": "Success. You are in."
+    },
+    {
+      "type": "link_list",
+      "id": "policy_menu",
+      "label": "Policy menu",
+      "default": "footer"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "main-menu"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Contact"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default": "hello@zoda.sg"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default": "+65 9670 2034"
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Social",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Social"
+        },
+        {
+          "type": "url",
+          "id": "instagram",
+          "label": "Instagram"
+        },
+        {
+          "type": "url",
+          "id": "tiktok",
+          "label": "TikTok"
+        },
+        {
+          "type": "url",
+          "id": "linkedin",
+          "label": "LinkedIn"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZODA Footer",
+      "blocks": [
+        {
+          "type": "menu"
+        },
+        {
+          "type": "contact"
+        },
+        {
+          "type": "social"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

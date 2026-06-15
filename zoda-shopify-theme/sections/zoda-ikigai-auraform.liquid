@@ -1,0 +1,138 @@
+<section class="zoda-fabrics-page zoda-ikigai-page" data-zoda-page-section="ikigai-auraform">
+  <div
+    id="ikigai-auraform"
+    class="zoda-fabrics-snap__section zoda-fabrics-feature"
+    data-orientation="{{ section.settings.orientation }}"
+  >
+    <div class="zoda-fabrics-feature__media">
+      {% if section.settings.image != blank %}
+        {{
+          section.settings.image
+          | image_url: width: 1400
+          | image_tag:
+            loading: 'lazy',
+            widths: '540, 720, 960, 1200, 1400',
+            sizes: '(max-width: 760px) 100vw, 50vw',
+            alt: section.settings.image_alt
+        }}
+      {% elsif section.settings.image_url != blank %}
+        <img
+          src="{{ section.settings.image_url }}"
+          alt="{{ section.settings.image_alt | escape }}"
+          width="1400"
+          height="1400"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+
+    <div class="zoda-fabrics-feature__body">
+      {% if section.settings.eyebrow != blank %}
+        <p class="zoda-fabrics-feature__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="zoda-fabrics-feature__title">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.copy != blank %}
+        <p class="zoda-fabrics-feature__desc">{{ section.settings.copy }}</p>
+      {% endif %}
+
+      <div class="zoda-fabrics-feature__actions">
+        {% if section.settings.primary_label != blank and section.settings.primary_url != blank %}
+          <a class="zoda-fabrics-feature__shop" href="{{ section.settings.primary_url }}">
+            {{ section.settings.primary_label }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_label != blank and section.settings.secondary_url != blank %}
+          <a class="zoda-fabrics-feature__back" href="{{ section.settings.secondary_url }}">
+            {{ section.settings.secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ZODA Ikigai AuraForm",
+  "tag": "section",
+  "class": "zoda-ikigai-auraform-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "orientation",
+      "label": "Media orientation",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "image_url",
+      "label": "Fallback image URL"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "default": "AuraForm by ZODA"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Tech on Spotlight"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "AuraForm"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Experience the pinnacle of performance and comfort with ZODA's AuraForm. This technically advanced blend is meticulously engineered using Zenith Tech exclusively for sports bras. We focused on providing the right support in the construction of the fabric along with exceptional durability, empowering you to push your limits with confidence."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Meet the fabric"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "See in action"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZODA Ikigai AuraForm"
+    }
+  ]
+}
+{% endschema %}

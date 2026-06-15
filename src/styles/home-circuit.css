@@ -760,9 +760,10 @@
 }
 .zoda-circuit .zoda-circuit__fabric-viewport {
   cursor: grab;
-  max-width: min(100%, 1160px);
+  max-width: none;
   overflow: hidden;
   padding: 10px clamp(28px, 5vw, 78px) 16px 0;
+  width: 100%;
 }
 .zoda-circuit .zoda-circuit__fabric-track {
   display: flex;
@@ -912,8 +913,9 @@
   gap: 14px;
   justify-content: space-between;
   margin-top: 24px;
-  max-width: min(100%, 1160px);
+  max-width: none;
   padding-right: clamp(28px, 5vw, 78px);
+  width: 100%;
 }
 .zoda-circuit .zoda-circuit__fabric-progress {
   background: rgba(255, 255, 255, 0.14);
@@ -3368,7 +3370,7 @@
 
   .zoda-circuit .zoda-circuit__fabric-viewport,
   .zoda-circuit .zoda-circuit__fabric-ui {
-    max-width: min(100%, 1420px) !important;
+    max-width: 100% !important;
     padding-right: 0;
   }
 

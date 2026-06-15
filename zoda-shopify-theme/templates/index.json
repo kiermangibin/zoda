@@ -1,0 +1,589 @@
+{
+  "sections": {
+    "zoda_home_hero": {
+      "type": "zoda-home-hero",
+      "blocks": {
+        "press_straits": {
+          "type": "press_logo",
+          "settings": {
+            "label": "The Straits Times",
+            "url": "https://www.straitstimes.com/life/style/the-next-fit-thing-sportswears-glow-up-moment-is-here",
+            "open_new_tab": true
+          }
+        },
+        "press_money": {
+          "type": "press_logo",
+          "settings": {
+            "label": "Money FM 89.3",
+            "url": "https://www.instagram.com/p/DIdbKN5BiQI/",
+            "open_new_tab": true
+          }
+        }
+      },
+      "block_order": ["press_straits", "press_money"],
+      "settings": {
+        "kicker": "Our Mission / 01",
+        "heading": "Changing the way humans experience activewear",
+        "primary_label": "Partner With Us",
+        "primary_url": "mailto:hello@zoda.sg?subject=Partnership%20Inquiry",
+        "secondary_label": "Explore Collections",
+        "secondary_url": "/collections/core-performance",
+        "video_embed_url": "https://player.vimeo.com/video/1135229306?autoplay=1&muted=1&loop=0&autopause=1&controls=0&playsinline=1&title=0&byline=0&portrait=0",
+        "video_title": "ZODA opener video",
+        "press_label": "YOU MIGHT HAVE SEEN US AT:"
+      }
+    },
+    "zoda_home_product_motion": {
+      "type": "zoda-home-product-motion",
+      "settings": {
+        "kicker": "What's New / 02",
+        "heading": "Products in motion.",
+        "copy": "ZODA is built for training, recovery, and every hour between. Step into the circuit and move with intent.",
+        "line": "In It To Win It",
+        "product_limit": 8
+      }
+    },
+    "zoda_home_mindset": {
+      "type": "zoda-home-mindset",
+      "blocks": {
+        "statement_train": {
+          "type": "statement",
+          "settings": {
+            "number": "01",
+            "text": "Train harder."
+          }
+        },
+        "statement_recover": {
+          "type": "statement",
+          "settings": {
+            "number": "02",
+            "text": "Recover sharper."
+          }
+        },
+        "statement_move": {
+          "type": "statement",
+          "settings": {
+            "number": "03",
+            "text": "Move with intent."
+          }
+        }
+      },
+      "block_order": ["statement_train", "statement_recover", "statement_move"],
+      "settings": {
+        "kicker": "Mindset / 09",
+        "heading": "Relentless Pursuit",
+        "copy": "Early starts. Extra laps. Final reps.",
+        "button_label": "Shop Now",
+        "button_url": "/collections/all",
+        "statements_label": "ZODA training cues"
+      }
+    },
+    "zoda_home_pillars": {
+      "type": "zoda-home-pillars",
+      "blocks": {
+        "pillar_technology": {
+          "type": "pillar",
+          "settings": {
+            "number": "01",
+            "title": "Technology",
+            "copy": "Engineered fabrics, body-mapped fit, and strategic construction help manage sweat, stretch, chafe, and support when training intensity rises."
+          }
+        },
+        "pillar_sustainability": {
+          "type": "pillar",
+          "settings": {
+            "number": "02",
+            "title": "Sustainability",
+            "copy": "We prioritize responsible fibers such as recycled polyester, regenerated nylon, and certified cotton so performance does not come at the planet's expense."
+          }
+        },
+        "pillar_community": {
+          "type": "pillar",
+          "settings": {
+            "number": "03",
+            "title": "Community",
+            "copy": "ZODA is built for athletes who show up, share standards, and push each other past the easy rep, the safe pace, and the old limit."
+          }
+        }
+      },
+      "block_order": ["pillar_technology", "pillar_sustainability", "pillar_community"],
+      "settings": {
+        "kicker": "Alpha Standard / 08",
+        "heading": "Three standards.",
+        "copy": "Performance gear should work harder than ordinary activewear: move with the body, respect the planet, and connect athletes who train with purpose."
+      }
+    },
+    "zoda_home_collection": {
+      "type": "zoda-home-collection",
+      "blocks": {
+        "collection_core": {
+          "type": "collection_panel",
+          "settings": {
+            "tab_kicker": "Train",
+            "tab_title": "Core Performance",
+            "panel_title": "Core Performance",
+            "copy": "Compression, tanks, bras, shorts, and support layers built to stay locked in during high-output training.",
+            "kit_items": "Compression top\nTraining bra\nRun short\nSupport layer",
+            "button_label": "Shop Core",
+            "button_url": "/collections/core-performance"
+          }
+        },
+        "collection_endurance": {
+          "type": "collection_panel",
+          "settings": {
+            "tab_kicker": "Go Long",
+            "tab_title": "Endurance",
+            "panel_title": "Endurance",
+            "copy": "Lightweight breathable pieces for heat, humidity, distance, and race-day effort without extra drag.",
+            "kit_items": "Run top\nRace short\nCooling cap\nLight layer",
+            "button_label": "Shop Endurance",
+            "button_url": "/collections/endurance"
+          }
+        },
+        "collection_wear": {
+          "type": "collection_panel",
+          "settings": {
+            "tab_kicker": "Recover",
+            "tab_title": "24/7 Wear",
+            "panel_title": "24/7 Wear",
+            "copy": "Clean everyday performance wear for travel, studio, recovery, and off-duty movement.",
+            "kit_items": "Everyday tee\nRecovery jogger\nSoft layer\nTravel short",
+            "button_label": "Shop 24/7",
+            "button_url": "/collections/24-7-wear"
+          }
+        },
+        "collection_accessories": {
+          "type": "collection_panel",
+          "settings": {
+            "tab_kicker": "Finish",
+            "tab_title": "Accessories",
+            "panel_title": "Accessories",
+            "copy": "Headbands, sweatbands, scrunchies, and small essentials made to finish the session.",
+            "kit_items": "Headband\nSweatband\nScrunchie\nEssentials",
+            "button_label": "Shop Accessories",
+            "button_url": "/collections/accessories"
+          }
+        }
+      },
+      "block_order": [
+        "collection_core",
+        "collection_endurance",
+        "collection_wear",
+        "collection_accessories"
+      ],
+      "settings": {
+        "kicker": "Collection / 03",
+        "heading": "Shop by collection.",
+        "copy": "Shop by training mode: performance staples, endurance gear, 24/7 wear, and accessories that finish the session."
+      }
+    },
+    "zoda_home_fabrics": {
+      "type": "zoda-home-fabrics",
+      "blocks": {
+        "fabric_zencot": {
+          "type": "fabric",
+          "settings": {
+            "name": "ZENCOT",
+            "copy": "BCI cotton and elastane for soft, breathable performance.",
+            "tags": "FluidMotion\nZO-Fresh\nBreathable"
+          }
+        },
+        "fabric_zoenix": {
+          "type": "fabric",
+          "settings": {
+            "name": "Zoenix",
+            "copy": "Recycled polyester engineered for humidity and sweat movement.",
+            "tags": "ZO-Dry\nZO-Fresh\nRPET"
+          }
+        },
+        "fabric_zoenix_lite": {
+          "type": "fabric",
+          "settings": {
+            "name": "ZoenixLite",
+            "copy": "Lightweight stretch for fast, breathable movement.",
+            "tags": "ZO-Vent\n4-way stretch\nLightweight"
+          }
+        },
+        "fabric_rpstrng": {
+          "type": "fabric",
+          "settings": {
+            "name": "RPSTRNG",
+            "copy": "Regenerated nylon blend built for durable training.",
+            "tags": "Durability\nZO-Dry\nProtection"
+          }
+        },
+        "fabric_auraform": {
+          "type": "fabric",
+          "settings": {
+            "name": "AuraForm",
+            "copy": "Premium support, sculpted fit, and recovery stretch.",
+            "tags": "Zenith Tech\nRecovery\nSupport"
+          }
+        },
+        "fabric_nycurv": {
+          "type": "fabric",
+          "settings": {
+            "name": "NyCurv",
+            "copy": "High-denier nylon for durability and shape recovery.",
+            "tags": "High-denier\nStretch\nShape hold"
+          }
+        },
+        "fabric_nyx": {
+          "type": "fabric",
+          "settings": {
+            "name": "NyX",
+            "copy": "Lightweight support for demanding workouts.",
+            "tags": "Support\nLightweight\nTraining"
+          }
+        },
+        "fabric_nyxlite": {
+          "type": "fabric",
+          "settings": {
+            "name": "NyXlite",
+            "copy": "Breathable recycled stretch for everyday movement.",
+            "tags": "Breathable\nAnti-odour\n4-way stretch"
+          }
+        }
+      },
+      "block_order": [
+        "fabric_zencot",
+        "fabric_zoenix",
+        "fabric_zoenix_lite",
+        "fabric_rpstrng",
+        "fabric_auraform",
+        "fabric_nycurv",
+        "fabric_nyx",
+        "fabric_nyxlite"
+      ],
+      "settings": {
+        "kicker": "Fabric System / 06",
+        "heading": "Fabric system.",
+        "copy": "Eight fabric systems tuned for sweat control, stretch, breathability, support, and recovery.",
+        "card_label": "ZODA FABRIC"
+      }
+    },
+    "zoda_home_technology": {
+      "type": "zoda-home-technology",
+      "blocks": {
+        "tech_zenflex": {
+          "type": "technology_feature",
+          "settings": {
+            "category": "Compression",
+            "title": "Zenflex",
+            "short_label": "Compression support",
+            "summary": "Compression-specific stretch and support engineered for locked-in movement without restricting the body.",
+            "panel_label": "Zenith Tech Feature",
+            "details": "Helps the garment contour to the body while maintaining comfort under pressure.\nBuilt for athletes who need compression that supports effort without restricting motion."
+          }
+        },
+        "tech_vent": {
+          "type": "technology_feature",
+          "settings": {
+            "category": "Cooling",
+            "title": "ZO-Vent + Unbound",
+            "short_label": "Airflow mobility",
+            "summary": "Airflow, cooling, and unrestricted mobility for high-intensity work under pressure.",
+            "panel_label": "Cooling Fabric",
+            "details": "Breathable performance fabric supports unrestricted mobility and all-day comfort.\nBuilt to keep athletes light, cool, and focused under pressure."
+          }
+        },
+        "tech_dry": {
+          "type": "technology_feature",
+          "settings": {
+            "category": "Moisture",
+            "title": "ZO-Dry + SwiftWick",
+            "short_label": "Moisture movement",
+            "summary": "Fast sweat movement that keeps athletes dry, cool, and distraction-free.",
+            "panel_label": "Moisture Fabric",
+            "details": "Keeps you dry, cool, and comfortable through demanding training sessions.\nDesigned for distraction-free performance at every level."
+          }
+        },
+        "tech_fresh": {
+          "type": "technology_feature",
+          "settings": {
+            "category": "Freshness",
+            "title": "ZO-Fresh + Unconquered",
+            "short_label": "Freshness control",
+            "summary": "Antimicrobial fabric technology for long-lasting freshness during extended wear.",
+            "panel_label": "Freshness Fabric",
+            "details": "Delivers long-lasting freshness and confidence during extended wear.\nMade to keep athletes focused, fresh, and ready for every challenge."
+          }
+        },
+        "tech_motion": {
+          "type": "technology_feature",
+          "settings": {
+            "category": "Mobility",
+            "title": "FluidMotion",
+            "short_label": "Mobility",
+            "summary": "Multi-directional stretch that moves naturally with the body for unrestricted performance.",
+            "panel_label": "Movement Fabric",
+            "details": "Enhances flexibility, mobility, and unrestricted performance in motion.\nCreated for comfort-driven movement without limitations."
+          }
+        }
+      },
+      "block_order": ["tech_zenflex", "tech_vent", "tech_dry", "tech_fresh", "tech_motion"],
+      "settings": {
+        "kicker": "Technology / 07",
+        "heading": "Inside Zenith Tech.",
+        "copy": "ZODA's precision-engineered innovation platform combines advanced fabric technology with meticulous design to push boundaries, elevate comfort, and unlock peak potential.",
+        "summary_label": "Active Zenith Tech feature summary"
+      }
+    },
+    "zoda_home_coming": {
+      "type": "zoda-home-proof",
+      "blocks": {
+        "coming_drops": {
+          "type": "proof_item",
+          "settings": {
+            "meta": "01 / Drops",
+            "title": "Training releases",
+            "copy": "New kits, fabric updates, and session-ready pieces built around how athletes actually move."
+          }
+        },
+        "coming_stories": {
+          "type": "proof_item",
+          "settings": {
+            "meta": "02 / Stories",
+            "title": "Warrior notes",
+            "copy": "Field notes from runners, lifters, and everyday competitors who stay in it when the work gets hard."
+          }
+        },
+        "coming_access": {
+          "type": "proof_item",
+          "settings": {
+            "meta": "03 / Access",
+            "title": "Inner circle",
+            "copy": "NFC content, community challenges, and race-day moments that bring the ZODA circuit offline."
+          }
+        }
+      },
+      "block_order": ["coming_drops", "coming_stories", "coming_access"],
+      "settings": {
+        "section_key": "coming",
+        "panel_id": "zoda-circuit-home-8",
+        "modifier_class": "",
+        "kicker": "What's Coming / 10",
+        "heading": "Exciting projects.",
+        "copy": "Upcoming drops, community moments, and access-led projects built for athletes moving with purpose."
+      }
+    },
+    "zoda_home_reviews": {
+      "type": "zoda-home-reviews",
+      "blocks": {
+        "review_amelia": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "tag": "01 / Compression",
+            "quote": "The shorts stay locked in during strength work, but they do not feel heavy after the session.",
+            "name": "Amelia Tan",
+            "role": "Strength Training",
+            "product": "on Core Performance",
+            "initials": "AT",
+            "verified": true
+          }
+        },
+        "review_marcus": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "tag": "02 / Sweat",
+            "quote": "The fabric dries fast after humid runs, then still looks sharp enough to wear after training.",
+            "name": "Marcus Lee",
+            "role": "Hybrid Training",
+            "product": "on Endurance",
+            "initials": "ML",
+            "verified": true
+          }
+        },
+        "review_sarah": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "tag": "03 / Support",
+            "quote": "The support feels secure without digging in. It moves with me through lifting and recovery.",
+            "name": "Sarah K.",
+            "role": "Studio Athlete",
+            "product": "on AuraForm",
+            "initials": "SK",
+            "verified": true
+          }
+        },
+        "review_daniel": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "tag": "04 / Recovery",
+            "quote": "The fabric holds its shape after repeated wear, washing, and long movement blocks.",
+            "name": "Daniel K.",
+            "role": "Daily Athlete",
+            "product": "on 24/7 Wear",
+            "initials": "DK",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["review_amelia", "review_marcus", "review_sarah", "review_daniel"],
+      "settings": {
+        "kicker": "Reviews / 04",
+        "heading": "What athletes are saying.",
+        "copy": "Real product feedback and athlete notes. Replace these blocks with a reviews app when the store is connected.",
+        "loop_reviews": true,
+        "empty_heading": "Reviews coming soon.",
+        "empty_copy": "Connect a review app or add manual review blocks to populate this section."
+      }
+    },
+    "zoda_home_prepare": {
+      "type": "zoda-home-proof",
+      "blocks": {
+        "prepare_base": {
+          "type": "proof_item",
+          "settings": {
+            "meta": "01 / Base",
+            "title": "Lock in support",
+            "copy": "Compression that holds shape through heat and sweat.",
+            "image_asset": "tech-on-spotlight-image.webp",
+            "image_alt": "ZODA compression piece showing support and fit"
+          }
+        },
+        "prepare_layer": {
+          "type": "proof_item",
+          "settings": {
+            "meta": "02 / Layer",
+            "title": "Add breathability",
+            "copy": "Lightweight pieces built for airflow and quick transitions.",
+            "image_asset": "technology-buttons.avif",
+            "image_alt": "Close-up detail of breathable ZODA garment construction"
+          }
+        },
+        "prepare_finish": {
+          "type": "proof_item",
+          "settings": {
+            "meta": "03 / Finish",
+            "title": "Complete the session",
+            "copy": "Accessories and recovery pieces keep the day moving.",
+            "image_asset": "technology-pocket.avif",
+            "image_alt": "ZODA detail image representing finishing accessories and storage"
+          }
+        }
+      },
+      "block_order": ["prepare_base", "prepare_layer", "prepare_finish"],
+      "settings": {
+        "section_key": "prepare",
+        "panel_id": "zoda-circuit-home-11",
+        "modifier_class": "zoda-circuit__panel--prepare",
+        "kicker": "Prepare Your Kit / 05",
+        "heading": "Prepare your kit.",
+        "copy": "Build a session-ready setup around compression, breathability, recovery, and the finishing details."
+      }
+    },
+    "zoda_home_instagram": {
+      "type": "zoda-home-proof",
+      "blocks": {
+        "instagram_drops": {
+          "type": "proof_item",
+          "settings": {
+            "meta": "01 / Drops",
+            "title": "@zoda.sg",
+            "copy": "New releases, restocks, and product details from the ZODA team.",
+            "url": "https://www.instagram.com/zoda.sg/",
+            "open_new_tab": true
+          }
+        },
+        "instagram_training": {
+          "type": "proof_item",
+          "settings": {
+            "meta": "02 / Training",
+            "title": "Session notes",
+            "copy": "How athletes use the kit across strength, endurance, recovery, and travel.",
+            "url": "https://www.instagram.com/zoda.sg/",
+            "open_new_tab": true
+          }
+        },
+        "instagram_community": {
+          "type": "proof_item",
+          "settings": {
+            "meta": "03 / Community",
+            "title": "Move with us",
+            "copy": "Follow the people, stories, and standards shaping the next ZODA chapter.",
+            "url": "https://www.instagram.com/zoda.sg/",
+            "open_new_tab": true
+          }
+        }
+      },
+      "block_order": ["instagram_drops", "instagram_training", "instagram_community"],
+      "settings": {
+        "section_key": "instagram",
+        "panel_id": "zoda-circuit-home-12",
+        "modifier_class": "zoda-circuit__panel--instagram",
+        "kicker": "Instagram / 11",
+        "heading": "Follow us on Instagram.",
+        "copy": "Catch product drops, athlete stories, training notes, and behind-the-scenes progress from the ZODA circuit."
+      }
+    },
+    "zoda_home_contact": {
+      "type": "zoda-home-contact",
+      "blocks": {
+        "social_instagram": {
+          "type": "social_link",
+          "settings": {
+            "icon": "instagram",
+            "label": "Instagram",
+            "url": "https://www.instagram.com/zoda.sg/"
+          }
+        },
+        "social_linkedin": {
+          "type": "social_link",
+          "settings": {
+            "icon": "linkedin",
+            "label": "LinkedIn",
+            "url": "https://sg.linkedin.com/company/zodaholdings"
+          }
+        },
+        "social_tiktok": {
+          "type": "social_link",
+          "settings": {
+            "icon": "tiktok",
+            "label": "TikTok"
+          }
+        },
+        "social_facebook": {
+          "type": "social_link",
+          "settings": {
+            "icon": "facebook",
+            "label": "Facebook"
+          }
+        }
+      },
+      "block_order": ["social_instagram", "social_linkedin", "social_tiktok", "social_facebook"],
+      "settings": {
+        "kicker": "Contact / 12",
+        "heading": "Changing how humans experience activewear.",
+        "copy": "Shop the gear, speak with the team, or follow the ZODA circuit as we change how humans experience activewear.",
+        "primary_label": "Shop ZODA",
+        "primary_url": "/collections/all",
+        "secondary_label": "Partner With Us",
+        "secondary_url": "mailto:hello@zoda.sg?subject=Partnership%20Inquiry",
+        "phone_label": "Phone",
+        "phone_number": "+65 9670 2034",
+        "email_label": "Email",
+        "email_address": "hello@zoda.sg",
+        "socials_label": "ZODA social links"
+      }
+    }
+  },
+  "order": [
+    "zoda_home_hero",
+    "zoda_home_product_motion",
+    "zoda_home_collection",
+    "zoda_home_reviews",
+    "zoda_home_prepare",
+    "zoda_home_fabrics",
+    "zoda_home_technology",
+    "zoda_home_pillars",
+    "zoda_home_mindset",
+    "zoda_home_coming",
+    "zoda_home_instagram",
+    "zoda_home_contact"
+  ]
+}

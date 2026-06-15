@@ -1,0 +1,105 @@
+<section
+  id="mission-materials"
+  class="zoda-fabrics-page zoda-mission-page zoda-fabrics-snap__section zoda-mission-section zoda-mission-materials"
+  data-zoda-page-section="mission-materials"
+>
+  <div class="zoda-mission-materials__statement">
+    {% if section.settings.kicker != blank %}
+      <p class="zoda-mission-kicker">{{ section.settings.kicker }}</p>
+    {% endif %}
+    {% if section.settings.heading != blank %}
+      <h2>{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.copy_primary != blank %}
+      <p>{{ section.settings.copy_primary }}</p>
+    {% endif %}
+    {% if section.settings.copy_secondary != blank %}
+      <p>{{ section.settings.copy_secondary }}</p>
+    {% endif %}
+    {% if section.settings.badge != blank %}
+      <strong>{{ section.settings.badge }}</strong>
+    {% endif %}
+  </div>
+
+  <div class="zoda-mission-materials__facts" aria-label="{{ section.settings.facts_label | escape }}">
+    <div class="zoda-mission-materials__facts-head">
+      <span>{{ section.settings.serving_label }}</span>
+      <strong>{{ section.settings.serving_value }}</strong>
+    </div>
+    <i aria-hidden="true"></i>
+    {% if section.settings.daily_value_label != blank %}
+      <small>{{ section.settings.daily_value_label }}</small>
+    {% endif %}
+    <dl>
+      {% for block in section.blocks %}
+        {% if block.settings.label != blank or block.settings.value != blank %}
+          <div {{ block.shopify_attributes }}>
+            <dt>{{ block.settings.label }}</dt>
+            <dd>{{ block.settings.value }}</dd>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </dl>
+    <i aria-hidden="true"></i>
+    {% if section.settings.note != blank %}
+      <p>{{ section.settings.note }}</p>
+    {% endif %}
+    <div class="zoda-mission-materials__ingredients">
+      {% if section.settings.ingredients_label != blank %}
+        <span>{{ section.settings.ingredients_label }}</span>
+      {% endif %}
+      {% if section.settings.ingredients != blank %}
+        <p>{{ section.settings.ingredients }}</p>
+      {% endif %}
+      {% if section.settings.footer_note != blank %}
+        <strong>{{ section.settings.footer_note }}</strong>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ZODA Mission Materials",
+  "tag": "section",
+  "class": "zoda-mission-materials-section",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Bag Materials" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Leave the mess. Carry your mission." },
+    { "type": "text", "id": "copy_primary", "label": "Primary copy", "default": "This bag is built for athletes who move with intent and live with a purpose." },
+    { "type": "text", "id": "copy_secondary", "label": "Secondary copy", "default": "Organized. Protected. Ready. Because your standards don't switch off." },
+    { "type": "text", "id": "badge", "label": "Badge", "default": "Warrior's Base" },
+    { "type": "text", "id": "facts_label", "label": "Facts accessibility label", "default": "Mission bag material facts" },
+    { "type": "text", "id": "serving_label", "label": "Serving label", "default": "Serving size" },
+    { "type": "text", "id": "serving_value", "label": "Serving value", "default": "1 Mission Bag" },
+    { "type": "text", "id": "daily_value_label", "label": "Daily value label", "default": "% Daily Value*" },
+    { "type": "textarea", "id": "note", "label": "Note", "default": "*Calculated from champion energy. Built to perform even better with a complete ZODA set." },
+    { "type": "text", "id": "ingredients_label", "label": "Ingredients label", "default": "Ingredients:" },
+    { "type": "textarea", "id": "ingredients", "label": "Ingredients", "default": "Ultra premium military grade DWR Cordura, LIBO sealed system, seventeen (17) rounds of load testing, four (4) revision cycles, ninety six (96) prototype adjustments, one (1) relentless standard." },
+    { "type": "text", "id": "footer_note", "label": "Footer note", "default": "Sleep: optional" }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Fact",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZODA Mission Materials",
+      "blocks": [
+        { "type": "fact", "settings": { "label": "Load stability rating", "value": "11 / 10" } },
+        { "type": "fact", "settings": { "label": "Impact tolerance", "value": "High" } },
+        { "type": "fact", "settings": { "label": "Ventilation isolation", "value": "Active" } },
+        { "type": "fact", "settings": { "label": "Thermal control", "value": "100%" } },
+        { "type": "fact", "settings": { "label": "Access speed", "value": "0.8&quot;" } },
+        { "type": "fact", "settings": { "label": "Style compromise", "value": "Not found" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

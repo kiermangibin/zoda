@@ -433,7 +433,7 @@ export function AlphaStandards() {
         <div className="grid gap-8 md:grid-cols-2 md:items-end">
           <div>
             <p className="zoda-kicker mb-4">Alpha Standard</p>
-            <h2 className="zoda-heading">Three standards.</h2>
+            <h2 className="zoda-heading">Three Pillars.</h2>
           </div>
           <p className="zoda-copy md:justify-self-end">
             Performance gear should work harder than ordinary activewear: move with the body, respect the planet, and connect athletes who train with purpose.

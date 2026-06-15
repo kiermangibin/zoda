@@ -1,0 +1,198 @@
+<section id="zoda-home-contact-{{ section.id }}" class="zoda-circuit" data-zoda-home-section="contact">
+  <article id="zoda-circuit-home-10" class="zoda-circuit__panel zoda-circuit__panel--restart">
+    <div class="zoda-circuit__content">
+      {% if section.settings.kicker != blank %}
+        <p class="zoda-circuit__kicker" data-animate>{{ section.settings.kicker }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="zoda-circuit__heading" data-animate style="--zoda-delay: 90ms">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.copy != blank %}
+        <p class="zoda-circuit__copy" data-animate style="--zoda-delay: 180ms">
+          {{ section.settings.copy }}
+        </p>
+      {% endif %}
+
+      <div class="zoda-circuit__actions" data-animate style="--zoda-delay: 260ms">
+        {% if section.settings.primary_label != blank and section.settings.primary_url != blank %}
+          <a class="zoda-circuit__button" href="{{ section.settings.primary_url }}">
+            {{ section.settings.primary_label }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_label != blank and section.settings.secondary_url != blank %}
+          <a class="zoda-circuit__button-secondary" href="{{ section.settings.secondary_url }}">
+            {{ section.settings.secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="zoda-circuit__contact-grid" data-animate style="--zoda-delay: 340ms">
+        {% if section.settings.phone_label != blank and section.settings.phone_number != blank %}
+          <a
+            class="zoda-circuit__contact-link"
+            href="tel:{{ section.settings.phone_number | remove: ' ' }}"
+            aria-label="Call ZODA at {{ section.settings.phone_number | escape }}"
+          >
+            <span>{{ section.settings.phone_label }}</span>
+            <strong class="zoda-circuit__contact-value">{{ section.settings.phone_number }}</strong>
+          </a>
+        {% endif %}
+
+        {% if section.settings.email_label != blank and section.settings.email_address != blank %}
+          <a
+            class="zoda-circuit__contact-link"
+            href="mailto:{{ section.settings.email_address }}"
+            aria-label="Email ZODA at {{ section.settings.email_address | escape }}"
+          >
+            <span>{{ section.settings.email_label }}</span>
+            <strong class="zoda-circuit__contact-value">{{ section.settings.email_address }}</strong>
+          </a>
+        {% endif %}
+      </div>
+
+      {% if section.blocks.size > 0 %}
+        <div
+          class="zoda-circuit__socials"
+          data-animate
+          style="--zoda-delay: 420ms"
+          aria-label="{{ section.settings.socials_label | escape }}"
+        >
+          {% for block in section.blocks %}
+            {% if block.settings.url != blank %}
+              <a
+                href="{{ block.settings.url }}"
+                target="_blank"
+                rel="noopener"
+                aria-label="{{ block.settings.label | escape }}"
+                {{ block.shopify_attributes }}
+              >
+                {% render 'zoda-social-icon', icon: block.settings.icon %}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </article>
+</section>
+
+{% schema %}
+{
+  "name": "ZODA Contact",
+  "tag": "section",
+  "class": "zoda-home-contact-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Contact / 09"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Changing how humans experience activewear."
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Shop the gear, speak with the team, or follow the ZODA circuit as we change how humans experience activewear."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Shop ZODA"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Partner With Us"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Phone label",
+      "default": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone number",
+      "default": "+65 9670 2034"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email label",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "label": "Email address",
+      "default": "hello@zoda.sg"
+    },
+    {
+      "type": "text",
+      "id": "socials_label",
+      "label": "Social links label",
+      "default": "ZODA social links"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_link",
+      "name": "Social link",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "linkedin", "label": "LinkedIn" },
+            { "value": "tiktok", "label": "TikTok" },
+            { "value": "facebook", "label": "Facebook" }
+          ],
+          "default": "instagram"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Accessible label",
+          "default": "Instagram"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZODA Contact"
+    }
+  ]
+}
+{% endschema %}

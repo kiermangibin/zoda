@@ -1,0 +1,1 @@
+{"type":"header","name":"Header group","sections":{"zoda_header":{"type":"zoda-header","settings":{"announcement":"","logo_text":"ZODA","menu":"main-menu","use_current_navigation":true,"show_search":true,"show_account":true,"show_cart":true,"show_localization":true}}},"order":["zoda_header"]}

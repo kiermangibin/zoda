@@ -1,0 +1,128 @@
+<section class="zoda-fabrics-page zoda-ikigai-page" data-zoda-page-section="ikigai-intro">
+  <div id="ikigai-intro" class="zoda-fabrics-snap__section zoda-ikigai-purpose">
+    <div class="zoda-ikigai-purpose__copy">
+      {% if section.settings.heading != blank %}
+        <h2 class="zoda-fabrics-feature__title">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.copy_primary != blank %}
+        <p class="zoda-fabrics-feature__desc">{{ section.settings.copy_primary }}</p>
+      {% endif %}
+
+      {% if section.settings.copy_secondary != blank %}
+        <p class="zoda-fabrics-feature__desc">{{ section.settings.copy_secondary }}</p>
+      {% endif %}
+
+      <div class="zoda-fabrics-feature__actions">
+        {% if section.settings.primary_label != blank and section.settings.primary_url != blank %}
+          <a class="zoda-fabrics-feature__shop" href="{{ section.settings.primary_url }}">
+            {{ section.settings.primary_label }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_label != blank and section.settings.secondary_url != blank %}
+          <a class="zoda-fabrics-feature__back" href="{{ section.settings.secondary_url }}">
+            {{ section.settings.secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="zoda-ikigai-purpose__cards" aria-label="{{ section.settings.cards_label | escape }}">
+        {% for block in section.blocks %}
+          <article class="zoda-ikigai-purpose__card" {{ block.shopify_attributes }}>
+            {% if block.settings.label != blank %}
+              <span class="zoda-ikigai-purpose__label">{{ block.settings.label }}</span>
+            {% endif %}
+
+            {% if block.settings.copy != blank %}
+              <p class="zoda-ikigai-duo__body">{{ block.settings.copy }}</p>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ZODA Ikigai Intro",
+  "tag": "section",
+  "class": "zoda-ikigai-intro-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Ikigai"
+    },
+    {
+      "type": "textarea",
+      "id": "copy_primary",
+      "label": "Primary copy",
+      "default": "ZODA is inspired by the Ikigai of empowering the inner Alpha. We champion the relentless pursuit of personal excellence, the unwavering determination to overcome challenges and the indomitable spirit that fuels true champions. ZODA is not just a brand. It is a mindset."
+    },
+    {
+      "type": "textarea",
+      "id": "copy_secondary",
+      "label": "Secondary copy",
+      "default": "Hence we are building The Absolute Alpha Standard in Activewear. Performance sports clothing that comes to life with deep innovation in fabric, game changing technology in the construction and precision in design."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Shop the collection"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "cards_label",
+      "label": "Cards label",
+      "default": "Vision and mission"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "statement",
+      "name": "Statement card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Our Vision"
+        },
+        {
+          "type": "textarea",
+          "id": "copy",
+          "label": "Copy",
+          "default": "To create activewear that redefines the athlete's experience, pushing the boundaries of innovation and inspiring a global community."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZODA Ikigai Intro"
+    }
+  ]
+}
+{% endschema %}

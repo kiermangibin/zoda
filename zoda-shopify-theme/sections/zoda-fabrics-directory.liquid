@@ -1,0 +1,167 @@
+<section class="zoda-fabrics-page" data-zoda-page-section="fabrics-directory">
+  <div class="zoda-fabrics-snap__section zoda-fabrics-directory">
+    <header class="zoda-fabrics-directory__head">
+      {% if section.settings.kicker != blank %}
+        <p class="zoda-fabrics-directory__kicker">{{ section.settings.kicker }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="zoda-fabrics-directory__title">{{ section.settings.heading }}</h2>
+      {% endif %}
+    </header>
+
+    {% if section.blocks.size > 0 %}
+      <div class="zoda-fabrics-directory__grid">
+        {% for block in section.blocks %}
+          {% liquid
+            assign card_id = block.settings.anchor_id | default: block.settings.name | handleize
+            assign fallback_alt = block.settings.name | append: ' swatch'
+          %}
+
+          <a
+            href="#fabric-{{ card_id }}"
+            class="zoda-fabrics-card zoda-fabrics-card--flip"
+            data-zoda-fabric-directory-card
+            {{ block.shopify_attributes }}
+          >
+            <div class="zoda-fabrics-card__flip-inner">
+              <div class="zoda-fabrics-card__face zoda-fabrics-card__face--front">
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1200
+                    | image_tag:
+                      class: 'zoda-fabrics-card__img',
+                      loading: 'lazy',
+                      widths: '360, 540, 720, 960, 1200',
+                      sizes: '(max-width: 760px) 78vw, 28vw',
+                      alt: fallback_alt
+                  }}
+                {% elsif block.settings.image_url != blank %}
+                  <img
+                    class="zoda-fabrics-card__img"
+                    src="{{ block.settings.image_url }}"
+                    alt="{{ fallback_alt | escape }}"
+                    width="1200"
+                    height="1200"
+                    loading="lazy"
+                  >
+                {% endif %}
+
+                <div class="zoda-fabrics-card__overlay"></div>
+                <div class="zoda-fabrics-card__body">
+                  {% if block.settings.name != blank %}
+                    <span class="zoda-fabrics-card__name">{{ block.settings.name }}</span>
+                  {% endif %}
+                  {% if section.settings.card_cta != blank %}
+                    <span class="zoda-fabrics-card__cta">{{ section.settings.card_cta }}</span>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="zoda-fabrics-card__face zoda-fabrics-card__face--back">
+                {% if block.settings.name != blank %}
+                  <span class="zoda-fabrics-card__back-eyebrow">{{ block.settings.name }}</span>
+                {% endif %}
+                {% if block.settings.tagline != blank %}
+                  <p class="zoda-fabrics-card__back-text">{{ block.settings.tagline }}</p>
+                {% endif %}
+                {% if section.settings.back_cta != blank %}
+                  <span class="zoda-fabrics-card__back-cta">{{ section.settings.back_cta }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  (() => {
+    const cards = document.querySelectorAll('[data-zoda-fabric-directory-card]');
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        cards.forEach((item) => item.classList.remove('is-revealed'));
+        card.classList.add('is-revealed');
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "ZODA Fabrics Directory",
+  "tag": "section",
+  "class": "zoda-fabrics-directory-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Directory"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Meet every fabric"
+    },
+    {
+      "type": "text",
+      "id": "card_cta",
+      "label": "Card CTA",
+      "default": "View"
+    },
+    {
+      "type": "text",
+      "id": "back_cta",
+      "label": "Back CTA",
+      "default": "Explore"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "fabric_card",
+      "name": "Fabric card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "ZENCOT"
+        },
+        {
+          "type": "textarea",
+          "id": "tagline",
+          "label": "Tagline",
+          "default": "Luxurious BCI cotton and elastane blend for exceptional breathability and soft feel."
+        },
+        {
+          "type": "text",
+          "id": "anchor_id",
+          "label": "Anchor ID",
+          "default": "zencot"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Swatch image"
+        },
+        {
+          "type": "url",
+          "id": "image_url",
+          "label": "Fallback image URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZODA Fabrics Directory"
+    }
+  ]
+}
+{% endschema %}

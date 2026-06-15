@@ -50,5 +50,5 @@ ${body.trim()}
 {% endschema %}
 `;
 
-fs.writeFileSync("/dev-server/liquid-theme/sections/circuit-home.liquid", out);
+fs.writeFileSync("/dev-server/zoda-shopify-theme/sections/circuit-home.liquid", out);
 console.log("wrote sections/circuit-home.liquid", out.length, "bytes");
