@@ -1,8 +1,12 @@
 # Shopify Content Model Spec
 
+## Source of Truth Update
+
+As of 2026-06-17, this content model applies to `zoda-theme-187588706594/` only. `zoda-shopify-theme/` is old/deprecated and must not be used as a reference, donor, merge source, or deploy target.
+
 ## Purpose
 
-This document converts the migration tracker content model into an implementation-ready Shopify metafield and metaobject spec for the final theme in `zoda-shopify-theme/`.
+This document converts the migration tracker content model into an implementation-ready Shopify metafield and metaobject spec for the final theme in `zoda-theme-187588706594/`.
 
 Status: Drafted locally, not created in Shopify yet.
 

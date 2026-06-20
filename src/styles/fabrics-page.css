@@ -1,7 +1,7 @@
-/* Fabrics page styles extracted from site-light.css. */
+﻿/* Fabrics page styles extracted from site-light.css. */
 
 /* ============================================================
-   FABRICS PAGE â€” snap-scroll, mirrors zoda.sg layout
+   FABRICS PAGE — snap-scroll, mirrors zoda.sg layout
    ============================================================ */
 .zoda-fabrics-page {
   height: 100vh;
@@ -19,7 +19,7 @@
 .zoda-fabrics-page *::before,
 .zoda-fabrics-page *::after {
   box-sizing: border-box;
-} /* Fabrics page header overlays the snap content â€” no flow height,
+} /* Fabrics page header overlays the snap content — no flow height,
    so it never pushes the snap container below the viewport (mobile fix). */
 .zoda-fabrics-page > .zoda-circuit.zoda-circuit--chrome-only,
 .zoda-fabrics-page .zoda-site-header,
@@ -854,7 +854,7 @@
   }
 }
 
-/* Snap dots on Fabrics page â€” reuse homepage .zoda-circuit__dot styling
+/* Snap dots on Fabrics page — reuse homepage .zoda-circuit__dot styling
    without inheriting the full circuit shell (height/background). */
 .zoda-fabrics-dots-host.zoda-circuit {
   background: transparent;
@@ -905,7 +905,7 @@
   opacity: 0;
   transition: opacity 180ms ease;
 } /* ============================================================
-   FABRICS â€” mobile responsive (matches homepage mobile snap)
+   FABRICS — mobile responsive (matches homepage mobile snap)
    ============================================================ */
 @media (max-width: 760px) {
   /* Hide vertical dots on mobile to free up width (homepage does too) */
@@ -1315,7 +1315,7 @@
   }
 }
 
-/* ============ Fabrics directory â€” flip cards ============ */
+/* ============ Fabrics directory — flip cards ============ */
 .zoda-fabrics-card--flip {
   perspective: 1200px;
   background: transparent;

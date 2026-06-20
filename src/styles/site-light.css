@@ -1,4 +1,4 @@
-/* Light "base theme" â€” matches live zoda.sg look for non-home pages. */
+﻿/* Light "base theme" — matches live zoda.sg look for non-home pages. */
 
 .zoda-shell--light {
   --bg: #ffffff;
@@ -467,7 +467,7 @@
 .zoda-shell .zoda-site-header__mobile-panel {
   z-index: 121;
 } /* ============================================================
-   DARK OVERRIDE â€” flips the "light" shell to the home dark theme,
+   DARK OVERRIDE — flips the "light" shell to the home dark theme,
    matches product cards to the home gallery look, adds footer.
    ============================================================ */
 
@@ -480,7 +480,7 @@
   --accent: #55cda1;
   background: var(--bg);
   color: var(--fg);
-} /* Header â€” dark */
+} /* Header — dark */
 .zoda-shell--light .zoda-site-header {
   background: #050505;
   border-bottom: 1px solid var(--line);
@@ -533,10 +533,10 @@
 }
 .zoda-shell--light .zoda-shell__heading h1 {
   color: #fff;
-} /* Collections index list â€” dark */
+} /* Collections index list — dark */
 .zoda-shell--light .zoda-shell__main ul a {
   color: #fff !important;
-} /* Product grid â€” match home gallery card styling */
+} /* Product grid — match home gallery card styling */
 .zoda-shell--light .zoda-collection-grid {
   background: transparent;
   border: 0;

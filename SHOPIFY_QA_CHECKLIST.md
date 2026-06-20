@@ -1,51 +1,51 @@
 # Shopify QA Checklist
 
+## Source of Truth Update
+
+As of 2026-06-17, QA applies to `zoda-theme-187588706594/` only. `zoda-shopify-theme/` is old/deprecated and must not be used as a reference, donor, merge source, or deploy target.
+
 ## Purpose
 
-Use this checklist to prepare and verify `zoda-shopify-theme/` in Shopify preview before publishing.
+Use this checklist to prepare and verify `zoda-theme-187588706594/` in Shopify preview before publishing.
 
-Status: In progress. Shopify CLI connection and theme preview access verified on June 15, 2026.
+Status: In progress. Shopify CLI pull succeeded for `zoda-fit` theme `#187588706594` on June 17, 2026.
 
 ## Latest QA Run
 
-Date: June 15, 2026
+Date: June 17, 2026
 
-Store: `zoda-holdings-pte-ltd.myshopify.com`
+Store: `zoda-fit.myshopify.com`
 
-Development theme: `#188368224546` (`Development (1a1e5f-ASUS)`)
+Development theme: `#187588706594` (`Website 2.0 [Dev]`)
 
-Preview URL: `https://zoda-holdings-pte-ltd.myshopify.com/?preview_theme_id=188368224546`
+Preview URL: `https://zoda-fit.myshopify.com?preview_theme_id=187588706594`
 
 CLI notes:
 
 - Shopify CLI is available as `shopify.cmd` on Windows. The plain `shopify` PowerShell shim is blocked by local execution policy.
-- `shopify.cmd theme info --path zoda-shopify-theme` succeeds.
-- `shopify.cmd theme list --store zoda-holdings-pte-ltd.myshopify.com` succeeds.
-- `shopify.cmd theme check --path zoda-shopify-theme` inspected 235 files and found no offenses.
+- `shopify.cmd theme check --path zoda-theme-187588706594 --fail-level error` passed with 0 errors.
+- Current accepted warnings are remote asset references, hardcoded route suggestions in inherited/base sections, and the deprecated `helvetica_n7` default font warning.
+- `shopify.cmd theme dev --store zoda-fit --theme 187588706594 --path zoda-theme-187588706594` is pending Shopify CLI device-login approval.
 
 Live route status:
 
-- `200` homepage preview.
-- `200` collections preview.
-- `404` `/pages/fabrics`.
-- `404` `/pages/ikigai`.
-- `404` `/pages/mission`.
+- Pending fresh Shopify preview QA after CLI auth.
 
 Local structure status:
 
 - Required theme folders exist.
-- `index.json`, `page.fabrics.json`, `page.ikigai.json`, `page.mission.json`, `product.json`, `collection.json`, and `list-collections.json` all reference existing section files.
-- `asset_url` Liquid references resolve to files in `zoda-shopify-theme/assets/`.
-- `zoda-globals.css` exists but is not loaded by Liquid.
+- `index.json`, `page.fabrics.json`, `page.ikigai.json`, `product.json`, `collection.json`, and `list-collections.json` all reference existing section files.
+- `asset_url` Liquid references resolve to files in `zoda-theme-187588706594/assets/`.
+- Structural audit confirms no missing section, snippet, asset, or JSON-template references.
 
 ## Theme Readiness
 
-- [x] Confirm `zoda-shopify-theme/` is the upload/preview folder.
+- [x] Confirm `zoda-theme-187588706594/` is the upload/preview folder.
 - [x] Confirm required Shopify folders exist: `assets/`, `config/`, `layout/`, `locales/`, `sections/`, `snippets/`, `templates/`.
 - [x] Run Shopify Theme Check when Shopify CLI/theme tooling is available.
 - [x] Confirm no missing section, snippet, or asset references after any new edits.
 - [x] Confirm `zoda-globals.css` remains unloaded unless it is converted to safe compiled CSS.
-- [ ] Confirm generated/copied bundles in `zoda-shopify-theme/assets/` are intentionally retained until preview confirms whether they are still needed.
+- [ ] Confirm generated/copied bundles in `zoda-theme-187588706594/assets/` are intentionally retained until preview confirms whether they are still needed.
 
 ## Template Assignment
 
@@ -53,7 +53,7 @@ Assign these Shopify page templates in the admin before preview QA:
 
 - [ ] Fabrics page uses `page.fabrics`. Blocked: `/pages/fabrics` currently returns `404` in preview.
 - [ ] Our Ikigai page uses `page.ikigai`. Blocked: `/pages/ikigai` currently returns `404` in preview.
-- [ ] Mission page uses `page.mission`. Blocked: `/pages/mission` currently returns `404` in preview.
+- [x] Mission page is out of scope for this pulled theme; no `page.mission` template exists in `zoda-theme-187588706594/`.
 - [x] Homepage uses `templates/index.json`.
 - [x] Product pages can remain on default `product.json` for this phase.
 - [x] Collection pages can remain on default `collection.json` for this phase.
@@ -86,17 +86,6 @@ Assign these Shopify page templates in the admin before preview QA:
 - [ ] Community images load.
 - [ ] Mobile view shows all content without clipping.
 
-### Mission
-
-- [ ] Hero video loads.
-- [ ] Mission board spaces update the detail panel.
-- [ ] Start Mission stores mission state in the browser.
-- [ ] Playbook previous/next controls work.
-- [ ] Playbook dots work.
-- [ ] Playbook checklist items persist after reload.
-- [ ] Inclusions and materials sections render correctly.
-- [ ] Mobile view shows all content without clipping.
-
 ### Product Pages
 
 - [ ] Default Space product page renders product media, title, price, options, add-to-cart, description, accordions, recommendations, and recent products.
@@ -109,8 +98,8 @@ Assign these Shopify page templates in the admin before preview QA:
 - [ ] Collection banner renders title/copy.
 - [ ] Product grid renders products.
 - [ ] Filters work.
-- [ ] Sorting behavior matches settings.
-- [ ] Pagination or infinite load behavior works if enabled by the base theme.
+- [ ] Sorting behaviour matches settings.
+- [ ] Pagination or infinite load behaviour works if enabled by the base theme.
 
 ### Cart
 
@@ -188,7 +177,8 @@ For every viewport:
 
 ## Known Blockers
 
-- Fabrics, Ikigai, and Mission Shopify pages are not reachable in preview yet. Create pages with handles `fabrics`, `ikigai`, and `mission` in Shopify Admin, then assign the matching templates.
+- Fabrics and Ikigai Shopify pages need fresh preview QA after CLI auth. If the routes do not exist, create pages with handles `fabrics` and `ikigai` in Shopify Admin, then assign the matching templates.
+- Mission is out of scope for theme `#187588706594`; no `page.mission` template exists in the pulled active theme.
 - Metafield/metaobject definitions are specified in `SHOPIFY_CONTENT_MODEL_SPEC.md` but not created in Shopify.
 - Product and collection pages intentionally remain on Space base sections for this phase.
 - Visual QA for custom brand pages cannot be completed until their Shopify pages exist in preview.
@@ -197,11 +187,11 @@ For every viewport:
 
 | Area                 | Status  | Notes |
 | -------------------- | ------- | ----- |
-| Theme upload/preview | Partial | CLI connection verified; homepage and collections preview return 200. Custom page routes return 404. |
-| Homepage             | Pending | Preview route reachable; visual and interaction QA still needed. |
-| Fabrics              | Blocked | `/pages/fabrics` returns 404 in preview. |
-| Ikigai               | Blocked | `/pages/ikigai` returns 404 in preview. |
-| Mission              | Blocked | `/pages/mission` returns 404 in preview. |
+| Theme upload/preview | Partial | Local validation is passing; Shopify preview is pending CLI device-login approval. |
+| Homepage             | Pending | Visual and interaction QA still needed in Shopify preview. |
+| Fabrics              | Pending | Template references resolve locally; live page route/template QA still needed. |
+| Ikigai               | Pending | Template references resolve locally; live page route/template QA still needed. |
+| Mission              | Deferred | Out of scope for theme `#187588706594`; no pulled active template exists. |
 | Product pages        | Pending | Template references resolve locally; live product flow QA still needed. |
 | Collection pages     | Partial | `/collections` preview route returns 200; visual/filter/sort QA still needed. |
 | Cart/checkout        | Pending | Markup and assets present; live AJAX cart/checkout QA still needed. |

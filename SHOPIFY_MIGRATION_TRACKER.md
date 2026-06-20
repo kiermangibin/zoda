@@ -1,13 +1,17 @@
 # Shopify Migration Tracker
 
+## Source of Truth Update
+
+As of 2026-06-17, `zoda-theme-187588706594/` is the only active Shopify theme implementation folder for Shopify theme `Website 2.0 [Dev]` (`#187588706594`) on store `zoda-fit`. `zoda-shopify-theme/` is old/deprecated and must not be used as a reference, donor, merge source, or deploy target unless a future task explicitly asks for a separate salvage review.
+
 ## Project Overview
 
 | Field                             | Value                                                                                                                                                                                                                                                       |
 | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Project Name                      | ZODA Shopify OS 2.0 Migration                                                                                                                                                                                                                               |
 | Source Technology Stack           | TanStack Start, Vite, React 19, TypeScript, TanStack Router/Query, Radix/shadcn UI, Zustand, Tailwind tooling, custom CSS                                                                                                                                   |
-| Target Shopify Theme Architecture | Shopify Online Store 2.0 theme in `zoda-shopify-theme/`, scaffolded from `incoming/space-theme-extracted/`, using Liquid layouts, JSON templates, modular page-area sections, snippets, CSS assets, vanilla JS, theme settings, metafields, and metaobjects |
-| Current Migration Status          | `zoda-shopify-theme/` scaffolded from `incoming/space-theme-extracted/`; ZODA foundation assets copied. The Vite/React app remains the source for page structure, styling, copy, and behavior.                                         |
+| Target Shopify Theme Architecture | Shopify Online Store 2.0 theme in `zoda-theme-187588706594/`, scaffolded from `incoming/space-theme-extracted/`, using Liquid layouts, JSON templates, modular page-area sections, snippets, CSS assets, vanilla JS, theme settings, metafields, and metaobjects |
+| Current Migration Status          | `zoda-theme-187588706594/` scaffolded from `incoming/space-theme-extracted/`; ZODA foundation assets copied. The Vite/React app remains the source for page structure, styling, copy, and behaviour.                                         |
 | Last Updated                      | 2026-05-31                                                                                                                                                                                                                                                  |
 
 ## Migration Dashboard
@@ -17,9 +21,9 @@
 | Area             | Progress | Notes                                                                                                                                                                     |
 | ---------------- | -------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Audit            |      55% | Active theme structure, modular page templates, section schemas, JS syntax, and final-theme references checked locally.                                                   |
-| Foundation       |      30% | `zoda-shopify-theme/` scaffolded from Space base; ZODA assets copied and conditionally wired. First homepage section started.                                             |
-| Sections         |      91% | Homepage, Fabrics, Ikigai, and Mission modular sections created and reference-audited. Product/collection cleanup and QA still pending.                                   |
-| Templates        |      97% | Homepage, Fabrics, Ikigai, and Mission templates assembled and reference-audited. Remaining work is product/collection cleanup and QA.                                    |
+| Foundation       |      30% | `zoda-theme-187588706594/` scaffolded from Space base; ZODA assets copied and conditionally wired. First homepage section started.                                             |
+| Sections         |      91% | Homepage, Fabrics, and Ikigai launch sections are present in the pulled theme and reference-audited. Mission is out of scope for theme `#187588706594`. Product/collection cleanup and QA still pending. |
+| Templates        |      97% | Homepage, Fabrics, and Ikigai templates are present in the pulled theme and reference-audited. Mission is out of scope for theme `#187588706594`. Remaining work is product/collection cleanup and QA. |
 | Content Modeling |      30% | Product, collection, page metafield requirements and reusable metaobject requirements drafted in `SHOPIFY_CONTENT_MODEL_SPEC.md`; definitions not created in Shopify yet. |
 | QA               |      10% | `SHOPIFY_QA_CHECKLIST.md` drafted; Shopify preview/store access and live QA still pending.                                                                                |
 
@@ -45,8 +49,8 @@
 | Collections Directory   | `templates/list-collections.json`, Space `sections/list-collections__main.liquid`                      | Review      | Reviewed final theme reality: collections directory remains Space base with banner and collection grid.                                                     |
 | Fabrics Page            | `templates/page.fabrics.json`, modular `zoda-fabrics-*` sections                                       | Review      | Created `zoda-fabrics-hero`, `zoda-fabrics-directory`, and reusable `zoda-fabrics-feature`; needs visual/mobile QA.                                         |
 | Ikigai Page             | `templates/page.ikigai.json`, modular `zoda-ikigai-*` sections                                         | Review      | Created hero, intro, pillars, technology, AuraForm, sustainability, and community sections. Needs visual/mobile QA.                                         |
-| Mission Page            | `templates/page.mission.json`, modular `zoda-mission-*` sections, JS                                   | Review      | Created Mission hero, game, playbook, inclusions, and materials sections with vanilla JS. Needs visual/mobile QA.                                           |
-| Snap Scroll Behavior    | `assets/zoda-page.js` or page-specific JS                                                              | Not Started | Needs reduced-motion and mobile content-height safeguards.                                                                                                  |
+| Mission Page            | Out of scope for theme `#187588706594`                                                                 | Deferred    | No `page.mission` template or `zoda-mission-*` sections exist in the pulled active theme. Do not restore Mission work unless requested as a separate salvage task. |
+| Snap Scroll behaviour    | `assets/zoda-page.js` or page-specific JS                                                              | Not Started | Needs reduced-motion and mobile content-height safeguards.                                                                                                  |
 | Circuit Interactions    | `assets/zoda-circuit.js`                                                                               | Not Started | Existing asset needs audit and cleanup.                                                                                                                     |
 | Swatches                | `snippets/zoda-swatches.liquid` or product card/PDP snippets                                           | Not Started | Decide metafield/variant-option source.                                                                                                                     |
 | Icons                   | `snippets/zoda-icon.liquid` or static SVG assets                                                       | Not Started | Replace `lucide-react`.                                                                                                                                     |
@@ -56,7 +60,7 @@
 | Dependency                             | Action   | Status      | Notes                                                                                                                                           |
 | -------------------------------------- | -------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | Shopify Liquid base theme              | Keep     | Pending     | Active production target.                                                                                                                       |
-| `zoda-shopify-theme/assets/zoda-*.css` | Keep     | In Progress | Foundation assets copied; layout references added with guarded page/template loading.                                                           |
+| `zoda-theme-187588706594/assets/zoda-*.css` | Keep     | In Progress | Foundation assets copied; layout references added with guarded page/template loading.                                                           |
 | `zoda-cart.js`                         | Keep     | Review      | Uses Shopify AJAX Cart API, refreshes `zoda-cart-drawer-fragment`, and keeps drawer DOM references fresh after rerender. Needs live Shopify QA. |
 | `zoda-circuit.js`                      | Keep     | In Progress | Copied to final theme assets; audit for homepage-only scope and performance needed.                                                             |
 | Theme audio/media assets               | Keep     | Pending     | Keep only if used, compressed, and licensed.                                                                                                    |
@@ -75,7 +79,7 @@
 | Storefront API helpers                 | Replace  | Pending     | Use Liquid product/collection/cart objects on theme pages.                                                                                      |
 | embla-carousel-react                   | Rewrite  | Pending     | Use vanilla slider only where needed.                                                                                                           |
 | zod                                    | Remove   | Pending     | Not needed in theme runtime.                                                                                                                    |
-| Mission localStorage logic             | Rewrite  | In Progress | `zoda-mission.js` stores the mission start date and playbook checklist state.                                                                   |
+| Mission localStorage logic             | Defer    | Out of Scope | No Mission runtime is present in the pulled active theme.                                                                                       |
 | `dist/`, `.tanstack/`, `.wrangler/`    | Remove   | Pending     | Exclude from final Shopify deliverable.                                                                                                         |
 
 ## Section Inventory
@@ -87,7 +91,7 @@
 | Homepage   |                   9 | `zoda-home-*`              | Blocks for repeatable layout items; metaobjects only for reused fabrics/technology/press/reviews.                                                |
 | Fabrics    |                   3 | `zoda-fabrics-*`           | `fabric_system` metaobjects for each fabric.                                                                                                     |
 | Ikigai     |                   7 | `zoda-ikigai-*`            | Blocks for pillars/cards; metaobjects only if reused elsewhere.                                                                                  |
-| Mission    |                   5 | `zoda-mission-*`           | Blocks for steps/checklists/badges; optional metaobjects for campaigns.                                                                          |
+| Mission    |                   0 | Out of scope               | Do not add Mission sections for launch unless requested as a separate task.                                                                      |
 | Product    |                   5 | Future `zoda-product-*`    | Product metafields for specs, care, fit, fabric, features, badges, sustainability. Current default PDP uses Space base sections.                 |
 | Collection |                   4 | Future `zoda-collection-*` | Collection metafields for subtitle, hero media, story copy, featured fabric, SEO copy. Current default collection pages use Space base sections. |
 
@@ -98,9 +102,9 @@
 | `circuit-home.liquid`          | No       | No           | No     | Exists with minimal schema. Invalid `zoda-header` snippet render removed on 2026-05-31. Needs blocks/settings. |
 | `zoda-header.liquid`           | Partial  | No           | No     | Exists with logo/menu settings. Needs full QA.                                                                 |
 | `zoda-footer.liquid`           | Partial  | No           | No     | Exists with logo/tagline/menu blocks. Needs full QA.                                                           |
-| `zoda-collection.liquid`       | No       | No           | No     | Not present in `zoda-shopify-theme/`; future optional ZODA collection section.                                 |
-| `zoda-list-collections.liquid` | No       | No           | No     | Not present in `zoda-shopify-theme/`; current directory uses Space base `list-collections__main`.              |
-| `zoda-product.liquid`          | No       | No           | No     | Not present in `zoda-shopify-theme/`; current PDP uses Space base `product__main`.                             |
+| `zoda-collection.liquid`       | No       | No           | No     | Not present in `zoda-theme-187588706594/`; future optional ZODA collection section.                                 |
+| `zoda-list-collections.liquid` | No       | No           | No     | Not present in `zoda-theme-187588706594/`; current directory uses Space base `list-collections__main`.              |
+| `zoda-product.liquid`          | No       | No           | No     | Not present in `zoda-theme-187588706594/`; current PDP uses Space base `product__main`.                             |
 | `zoda-fabrics.liquid`          | Partial  | No           | No     | Exists with section settings and fabric blocks.                                                                |
 | `zoda-ikigai.liquid`           | No       | No           | No     | Not created yet.                                                                                               |
 | `zoda-mission.liquid`          | No       | No           | No     | Not created yet.                                                                                               |
@@ -144,7 +148,7 @@
 | Typography              | No          | No     | Confirm local font assets and font settings.                                     |
 | Section Spacing         | No          | No     | Needed for consistent mobile brand pages.                                        |
 | Border Radius           | No          | No     | Tokenize globally.                                                               |
-| Motion / Snap Scroll    | No          | No     | Add enable/disable and reduced-motion behavior.                                  |
+| Motion / Snap Scroll    | No          | No     | Add enable/disable and reduced-motion behaviour.                                  |
 | Header Logo             | Partial     | No     | Present in `zoda-header.liquid`; verify global placement.                        |
 | Header Menu             | Partial     | No     | Present in `zoda-header.liquid`; verify mobile.                                  |
 | Footer Logo             | Partial     | No     | Present in `zoda-footer.liquid`.                                                 |
@@ -260,7 +264,7 @@ Namespace recommendation: `zoda`.
 
 Date: 2026-05-31  
 Decision: Create `SHOPIFY_QA_CHECKLIST.md` before Shopify preview.  
-Reason: The theme now has enough final-template work that QA needs a dedicated checklist covering upload readiness, page template assignment, responsive checks, cart behavior, Theme Editor editability, accessibility, SEO, and performance.  
+Reason: The theme now has enough final-template work that QA needs a dedicated checklist covering upload readiness, page template assignment, responsive checks, cart behaviour, Theme Editor editability, accessibility, SEO, and performance.  
 Impact: QA progress can now be tracked against `SHOPIFY_QA_CHECKLIST.md`; live Shopify preview remains the main blocker.
 
 Date: 2026-05-31  
@@ -275,18 +279,18 @@ Impact: `SHOPIFY_MIGRATION_TRACKER.md` now lists proposed `zoda.*` metafield key
 
 Date: 2026-05-31  
 Decision: Keep default product and collection templates on Space base sections for the current migration pass.  
-Reason: `zoda-shopify-theme/` does not currently contain `zoda-product.liquid`, `zoda-collection.liquid`, or `zoda-list-collections.liquid`; the active commerce templates already render functional Space base sections. Building full ZODA commerce sections should be a deliberate later phase tied to metafield definitions and Shopify preview QA.  
+Reason: `zoda-theme-187588706594/` does not currently contain `zoda-product.liquid`, `zoda-collection.liquid`, or `zoda-list-collections.liquid`; the active commerce templates already render functional Space base sections. Building full ZODA commerce sections should be a deliberate later phase tied to metafield definitions and Shopify preview QA.  
 Impact: `templates/product.json`, `templates/collection.json`, and `templates/list-collections.json` are tracked as reviewed Space base commerce templates, while `zoda-product-*` and `zoda-collection-*` remain future optional work.
 
 Date: 2026-05-31  
 Decision: Add the ZODA cart drawer markup and fragment section to the final theme.  
 Reason: `zoda-cart.js` refreshed `/?section_id=zoda-cart-drawer-fragment`, but the final theme did not yet include the drawer snippet or fragment section, so quick-add could not reliably open/refetch a rendered cart.  
-Impact: `zoda-shopify-theme/` now includes `snippets/zoda-cart-drawer.liquid`, `sections/zoda-cart-drawer-fragment.liquid`, guarded drawer rendering in `layout/theme.liquid`, and a refreshed `zoda-cart.js` that keeps its drawer reference current.
+Impact: `zoda-theme-187588706594/` now includes `snippets/zoda-cart-drawer.liquid`, `sections/zoda-cart-drawer-fragment.liquid`, guarded drawer rendering in `layout/theme.liquid`, and a refreshed `zoda-cart.js` that keeps its drawer reference current.
 
 Date: 2026-05-31  
 Decision: Treat the final-theme reference audit as clean after comment-aware JSON parsing.  
 Reason: Shopify-generated JSON templates can include leading auto-generated comments, so the audit strips those before parsing while still checking section, snippet, and literal asset references.  
-Impact: `zoda-shopify-theme/` currently has no missing section types, snippet renders, or literal asset references detected by the local audit.
+Impact: `zoda-theme-187588706594/` currently has no missing section types, snippet renders, or literal asset references detected by the local audit.
 
 Date: 2026-05-31  
 Decision: Add `sections/zoda-mission-materials.liquid` as the fifth modular Mission section.  
@@ -300,13 +304,13 @@ Impact: `templates/page.mission.json` now renders hero, game, playbook, and incl
 
 Date: 2026-05-31  
 Decision: Add `sections/zoda-mission-playbook.liquid` and extend `assets/zoda-mission.js` for playbook state.  
-Reason: The Mission playbook needs Shopify-editable week/note items while preserving card navigation and persistent checklist behavior from React.  
+Reason: The Mission playbook needs Shopify-editable week/note items while preserving card navigation and persistent checklist behaviour from React.  
 Impact: `templates/page.mission.json` now renders hero, game, and playbook sections; `zoda-mission.js` manages board selection, mission start date, playbook cards, and checklist persistence.
 
 Date: 2026-05-31  
 Decision: Add `sections/zoda-mission-game.liquid` and `assets/zoda-mission.js` for the Mission board.  
-Reason: The React mission board needs to become Liquid markup with vanilla JS selection/start-state behavior before the playbook checklist is migrated.  
-Impact: `templates/page.mission.json` now renders hero and game sections; Mission trophy/logo assets were copied into `zoda-shopify-theme/assets/`.
+Reason: The React mission board needs to become Liquid markup with vanilla JS selection/start-state behaviour before the playbook checklist is migrated.  
+Impact: `templates/page.mission.json` now renders hero and game sections; Mission trophy/logo assets were copied into `zoda-theme-187588706594/assets/`.
 
 Date: 2026-05-31  
 Decision: Start the Mission page as modular OS 2.0 sections with `sections/zoda-mission-hero.liquid`.  
@@ -321,7 +325,7 @@ Impact: `templates/page.ikigai.json` now renders all seven planned Ikigai page-a
 Date: 2026-05-31  
 Decision: Add `sections/zoda-ikigai-sustainability.liquid` as the sixth modular Ikigai section.  
 Reason: The sustainability story needs its own editable page-area section with the existing motion asset and merchant-editable copy.  
-Impact: `templates/page.ikigai.json` now renders hero, intro, pillars, technology, AuraForm, and sustainability; `sustainability-video.mp4` was copied into `zoda-shopify-theme/assets/`.
+Impact: `templates/page.ikigai.json` now renders hero, intro, pillars, technology, AuraForm, and sustainability; `sustainability-video.mp4` was copied into `zoda-theme-187588706594/assets/`.
 
 Date: 2026-05-31  
 Decision: Add `sections/zoda-ikigai-auraform.liquid` as the fifth modular Ikigai section.  
@@ -331,7 +335,7 @@ Impact: `templates/page.ikigai.json` now renders hero, intro, pillars, technolog
 Date: 2026-05-31  
 Decision: Add `sections/zoda-ikigai-technology.liquid` as the fourth modular Ikigai section.  
 Reason: The Ikigai page needs an editable technology story section with the existing three-image media grid and principle accordion.  
-Impact: `templates/page.ikigai.json` now renders hero, intro, pillars, and technology; technology media assets were copied into `zoda-shopify-theme/assets/`.
+Impact: `templates/page.ikigai.json` now renders hero, intro, pillars, and technology; technology media assets were copied into `zoda-theme-187588706594/assets/`.
 
 Date: 2026-05-31  
 Decision: Add `sections/zoda-ikigai-pillars.liquid` as the third modular Ikigai section.  
@@ -346,7 +350,7 @@ Impact: `templates/page.ikigai.json` now renders hero plus intro; Vision and Mis
 Date: 2026-05-31  
 Decision: Start the Ikigai page as modular OS 2.0 sections with `sections/zoda-ikigai-hero.liquid`.  
 Reason: Fabrics passed local structural audit and the next page group in the roadmap is Ikigai.  
-Impact: `templates/page.ikigai.json` now exists in `zoda-shopify-theme/`; remaining Ikigai page-area sections can be added incrementally.
+Impact: `templates/page.ikigai.json` now exists in `zoda-theme-187588706594/`; remaining Ikigai page-area sections can be added incrementally.
 
 Date: 2026-05-31  
 Decision: Complete a focused local Fabrics page audit before starting Ikigai.  
@@ -366,7 +370,7 @@ Impact: `templates/page.fabrics.json` now renders hero plus directory; directory
 Date: 2026-05-31  
 Decision: Start the Fabrics page as modular OS 2.0 sections with `sections/zoda-fabrics-hero.liquid`.  
 Reason: The migration plan calls for the Fabrics page to be split into hero, directory, and feature/detail sections instead of a whole-page port.  
-Impact: `templates/page.fabrics.json` now exists in `zoda-shopify-theme/`; Fabrics page CSS loads by either page handle or `fabrics` template suffix.
+Impact: `templates/page.fabrics.json` now exists in `zoda-theme-187588706594/`; Fabrics page CSS loads by either page handle or `fabrics` template suffix.
 
 Date: 2026-05-31  
 Decision: Complete a focused local homepage audit before starting the next page group.  
@@ -416,37 +420,37 @@ Impact: `templates/index.json` now renders hero followed by product motion; the 
 Date: 2026-05-31  
 Decision: Start homepage migration with `sections/zoda-home-hero.liquid` and a minimal ZODA `templates/index.json`.  
 Reason: The hero proves asset loading, section schema, editable content, and the modular homepage direction before porting the rest of the circuit.  
-Impact: The Space demo homepage has been replaced in `zoda-shopify-theme/`; remaining homepage sections should be added incrementally as `zoda-home-*`.
+Impact: The Space demo homepage has been replaced in `zoda-theme-187588706594/`; remaining homepage sections should be added incrementally as `zoda-home-*`.
 
 Date: 2026-05-31  
-Decision: Load ZODA assets conditionally in `zoda-shopify-theme/`.  
+Decision: Load ZODA assets conditionally in `zoda-theme-187588706594/`.  
 Reason: `zoda-tokens.css` affects global `html/body` styling, so loading all ZODA CSS on every Space page could break the base theme before ZODA sections are ready.  
 Impact: `zoda-fonts.css` loads globally; tokens/site-light/component/page CSS and ZODA scripts load only for guarded ZODA pages/templates.
 
 Date: 2026-05-31  
-Decision: Scaffold `zoda-shopify-theme/` from `incoming/space-theme-extracted/` and copy ZODA foundation assets.  
+Decision: Scaffold `zoda-theme-187588706594/` from `incoming/space-theme-extracted/` and copy ZODA foundation assets.  
 Reason: Starting from the clean Space base preserves Shopify plumbing while giving ZODA its own final theme folder.  
-Impact: Future implementation should happen inside `zoda-shopify-theme/`; next task is safe layout asset wiring and page-specific loading.
+Impact: Future implementation should happen inside `zoda-theme-187588706594/`; next task is safe layout asset wiring and page-specific loading.
 
 Date: 2026-05-31  
-Decision: Keep Space theme default sections available in `zoda-shopify-theme/`.  
+Decision: Keep Space theme default sections available in `zoda-theme-187588706594/`.  
 Reason: Default sections provide merchant flexibility for secondary pages without forcing every page area to be custom-built.  
 Impact: Primary ZODA pages should use purpose-made modular sections, while default Space sections remain available unless they conflict with performance, styling, or maintenance goals.
 
 Date: 2026-05-31  
 Decision: Use recommended final section counts as the baseline: Homepage 9, Fabrics 3, Ikigai 7, Mission 5, Product 5, Collection 4.  
 Reason: This balances Shopify Theme Editor flexibility with maintainability and avoids whole-page mega sections.  
-Impact: Final `zoda-shopify-theme/` templates should be built from these modular section groups unless a later implementation constraint requires adjustment.
+Impact: Final `zoda-theme-187588706594/` templates should be built from these modular section groups unless a later implementation constraint requires adjustment.
 
 Date: 2026-05-31  
 Decision: Use `incoming/space-theme-extracted/` as the base Shopify theme source.  
 Reason: The user identified `space-theme-extracted` as the base theme file/folder.  
-Impact: `zoda-shopify-theme/` should be scaffolded from `incoming/space-theme-extracted/`, then ZODA assets and modular sections should be layered in from the Vite/React app.
+Impact: `zoda-theme-187588706594/` should be scaffolded from `incoming/space-theme-extracted/`, then ZODA assets and modular sections should be layered in from the Vite/React app.
 
 Date: 2026-05-31  
-Decision: Name the final Shopify theme folder `zoda-shopify-theme/`.  
+Decision: Name the final Shopify theme folder `zoda-theme-187588706594/`.  
 Reason: The name is specific to the brand and clear as the production Shopify theme target.  
-Impact: Future theme implementation should be scaffolded in `zoda-shopify-theme/`.
+Impact: Future theme implementation should be scaffolded in `zoda-theme-187588706594/`.
 
 Date: 2026-05-31  
 Decision: Define Shopify sections as modular page areas, not whole-page mega sections.  
@@ -459,7 +463,7 @@ Reason: `zoda-header` exists as a section, not a snippet, and the layout already
 Impact: Homepage section no longer depends on a missing snippet and avoids duplicate header rendering.
 
 Date: 2026-05-31  
-Decision: Use the React app as a design and behavior reference, not as production Shopify runtime code.  
+Decision: Use the React app as a design and behaviour reference, not as production Shopify runtime code.  
 Reason: Shopify Liquid themes cannot directly run React route components, hooks, TanStack Router, or Zustand cart state.  
 Impact: Components must be rebuilt as Liquid sections/snippets with scoped vanilla JS.
 
@@ -504,7 +508,7 @@ Created `SHOPIFY_QA_CHECKLIST.md` with theme readiness, template assignment, pag
 
 ### Next Recommended Task
 
-Run Shopify Theme Check and/or upload `zoda-shopify-theme/` to a Shopify preview store, then complete the first QA pass from `SHOPIFY_QA_CHECKLIST.md`.
+Run Shopify Theme Check and/or upload `zoda-theme-187588706594/` to a Shopify preview store, then complete the first QA pass from `SHOPIFY_QA_CHECKLIST.md`.
 
 ### Current Blockers
 

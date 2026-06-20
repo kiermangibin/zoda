@@ -1,6 +1,6 @@
 <!doctype html>
 <html
-  class="min-h-[100vh]"
+  class="min-h-[100vh] {% if template.name == 'index' or request.path == '/' or request.page_type == 'index' or template.suffix == 'fabrics' or template.suffix == 'ikigai' or page.handle == 'fabrics' or page.handle == 'ikigai' %}zoda-scrollbar-hidden{% endif %}"
   lang="{{ request.locale.iso_code }}"
   x-data="app()"
   x-init="
@@ -122,6 +122,9 @@
     {% if uses_zoda_product %}
       {{ 'zoda-pdp-page.css' | asset_url | stylesheet_tag }}
     {% endif %}
+    {% if is_homepage %}
+      {{ 'zoda-snap-scroll.css' | asset_url | stylesheet_tag }}
+    {% endif %}
     {% if uses_zoda_collection %}
       {{ 'zoda-collection-page.css' | asset_url | stylesheet_tag }}
     {% endif %}
@@ -134,6 +137,12 @@
     {% if uses_zoda_ikigai %}
       {{ 'zoda-ikigai-page.css' | asset_url | stylesheet_tag }}
     {% endif %}
+
+    {% if is_homepage or uses_zoda_fabrics or uses_zoda_ikigai %}
+      {{ 'zoda-no-scrollbars.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    <script src="{{ 'zoda-no-scrollbars.js' | asset_url }}" defer></script>
     {{ content_for_header }}
 
     {% comment %} Structured data {% endcomment %}
@@ -144,6 +153,7 @@
     class="
       animation-500--all min-h-[100vh] break-words
       {{ template | handle }}
+      {% if is_homepage or uses_zoda_fabrics or uses_zoda_ikigai %}zoda-scrollbar-hidden{% endif %}
     "
     :class="
       {
@@ -258,38 +268,14 @@
     {% render 'theme__error-overlay' %}
     {% render 'theme__discount-overlay' %}
 
-    {% if is_homepage %}
-      <style>
-        html,
-        body {
-          scroll-snap-type: none !important;
-          scroll-behavior: auto !important;
-        }
-
-        body .shopify-section--zoda-snap-panel,
-        body .shopify-section--zoda-snap-panel .zoda-circuit--split,
-        body .shopify-section--zoda-snap-panel .zoda-circuit__panel,
-        body .shopify-section--zoda-snap-panel .zoda-circuit__track {
-          scroll-snap-align: none !important;
-          scroll-snap-stop: normal !important;
-          scroll-snap-type: none !important;
-        }
-
-        body .zoda-split-dots,
-        body .zoda-page-snap-dots,
-        body .zoda-page-snap-dots__list,
-        body .zoda-page-snap-dots button,
-        body .zoda-split-dot {
-          display: none !important;
-        }
-      </style>
-    {% endif %}
-
     {% comment %} Scripts {% endcomment %}
     {% render 'assets' with 'main.js' %}
     {% render 'theme__scripts' %}
     {% if zoda_template_suffix contains 'home' and not is_homepage %}
       <script src="{{ 'zoda-circuit.js' | asset_url }}" defer></script>
+    {% endif %}
+    {% if is_homepage %}
+      <script src="{{ 'zoda-snap-scroll.js' | asset_url }}" defer></script>
     {% endif %}
     {% unless is_homepage %}
       <script src="{{ 'zoda-snap-scroll.js' | asset_url }}" defer></script>
@@ -305,3 +291,4 @@
     {% endif %}
   </body>
 </html>
+

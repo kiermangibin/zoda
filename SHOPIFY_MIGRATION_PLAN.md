@@ -1,18 +1,24 @@
 # Shopify Migration Plan
 
+## Source of Truth Update
+
+As of 2026-06-17, `zoda-theme-187588706594/` is the only active Shopify theme implementation folder. It was pulled from Shopify theme `Website 2.0 [Dev]` (`#187588706594`) on store `zoda-fit`.
+
+`zoda-shopify-theme/` is an old/deprecated folder. Do not use it as a reference, donor, merge source, or deploy target unless a future task explicitly asks for a separate salvage review.
+
 ## Executive Summary
 
-This repository currently contains a TanStack Start/Vite React storefront prototype, a base Shopify Space theme extracted at `incoming/space-theme-extracted/`, and the active Shopify theme target in `zoda-shopify-theme/`. The cleanest migration path is not to convert every React file one-to-one, but to continue improving `zoda-shopify-theme/` from the extracted Space base theme, using the Vite/React implementation as the source for page structure, styling, copy, and behavior.
+This repository currently contains a TanStack Start/Vite React storefront prototype, a base Shopify Space theme extracted at `incoming/space-theme-extracted/`, and the active Shopify theme target in `zoda-theme-187588706594/`. The cleanest migration path is not to convert every React file one-to-one, but to continue improving `zoda-theme-187588706594/` from the extracted Space base theme, using the Vite/React implementation as the source for page structure, styling, copy, and behaviour.
 
-`zoda-shopify-theme/` is the only active Shopify theme implementation target. New Shopify work should be implemented there from the Vite/React source files under `src/routes/`, `src/components/zoda/`, `src/styles/`, and `src/assets/`.
+`zoda-theme-187588706594/` is the only active Shopify theme implementation target. New Shopify work should be implemented there from the Vite/React source files under `src/routes/`, `src/components/zoda/`, `src/styles/`, and `src/assets/`.
 
 `incoming/space-theme-extracted/` is the base theme source. Other `incoming/` material should remain archive/import material unless explicitly promoted. `SHOPIFY_MIGRATION_TRACKER.md` is the source of truth for current progress, `SHOPIFY_CONTENT_MODEL_SPEC.md` is the source for metafield/metaobject definitions, and `SHOPIFY_QA_CHECKLIST.md` is the QA checklist.
 
 ## Current State
 
-- `zoda-shopify-theme/` is scaffolded from `incoming/space-theme-extracted/` and is the final implementation target.
-- The React app remains a visual, content, and behavior reference only; it is not production Shopify runtime code.
-- Homepage, Fabrics, Ikigai, and Mission are already modularized or in progress in `zoda-shopify-theme/`.
+- `zoda-theme-187588706594/` is scaffolded from `incoming/space-theme-extracted/` and is the final implementation target.
+- The React app remains a visual, content, and behaviour reference only; it is not production Shopify runtime code.
+- Homepage, Fabrics, and Ikigai are already modularized or in progress in `zoda-theme-187588706594/`; Mission is out of scope for this pulled theme unless requested as a separate salvage task.
 - Product, collection, and list-collections pages remain on Space base sections for the current migration pass.
 - A full custom ZODA PDP/collection rebuild is later optional scope after content model implementation and Shopify preview QA.
 
@@ -22,7 +28,7 @@ This repository currently contains a TanStack Start/Vite React storefront protot
 React reference app
 src/routes/* + src/components/zoda/* + src/styles/*
         |
-        | design, layout, copy, behavior reference only
+        | design, layout, copy, behaviour reference only
         v
 Base Shopify theme source
 incoming/space-theme-extracted/
@@ -46,7 +52,7 @@ Metafields, Metaobjects, App Blocks
         |
         v
 Final Shopify theme folder
-zoda-shopify-theme/
+zoda-theme-187588706594/
         |
         v
 Merchant-editable Theme Editor experience
@@ -58,14 +64,14 @@ Merchant-editable Theme Editor experience
 
 | Path                                | Role                                      | Migration Notes                                                                                                |
 | ----------------------------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `src/`                              | React storefront reference app            | Use as source of design, behavior, and content patterns. Do not ship as-is in Shopify.                         |
+| `src/`                              | React storefront reference app            | Use as source of design, behaviour, and content patterns. Do not ship as-is in Shopify.                         |
 | `src/routes/`                       | TanStack route pages                      | Map to Shopify JSON templates and Liquid sections.                                                             |
 | `src/components/zoda/`              | Brand-specific React components           | Rebuild as Liquid sections/snippets plus vanilla JS where interactive.                                         |
 | `src/components/ui/`                | shadcn/Radix UI React primitives          | Do not migrate directly. Recreate only needed UI patterns in Liquid/HTML/CSS/vanilla JS.                       |
 | `src/styles/`                       | Split React CSS architecture              | Already suitable as the source for Shopify asset copies. Continue tokenizing and scoping.                      |
 | `src/assets/`                       | Local image/video/audio assets            | Move final licensed assets into Shopify theme assets, Shopify Files, or section settings.                      |
-| `incoming/space-theme-extracted/`   | Base Shopify Space theme source           | Clean base source used to scaffold `zoda-shopify-theme/`.                                                      |
-| `zoda-shopify-theme/`               | Final Shopify OS 2.0 theme target         | Continue implementation, QA, and launch preparation here.                                                      |
+| `incoming/space-theme-extracted/`   | Base Shopify Space theme source           | Clean base source used to scaffold `zoda-theme-187588706594/`.                                                      |
+| `zoda-theme-187588706594/`               | Final Shopify OS 2.0 theme target         | Continue implementation, QA, and launch preparation here.                                                      |
 | `incoming/`                         | Imported/archive theme material           | `space-theme-extracted/` is the confirmed base theme source; leave other incoming material untouched.          |
 | `.lovable/`                         | Planning notes                            | Keep as project planning only.                                                                                 |
 | `dist/`, `.tanstack/`, `.wrangler/` | Build/runtime artifacts                   | Not part of the Shopify theme deliverable.                                                                     |
@@ -95,7 +101,7 @@ Merchant-editable Theme Editor experience
 | `ProductMotionGallery.tsx`      | Homepage product motion merchandising     | Convert to section blocks or snippet inside homepage section.                                                             |
 | `ReviewsRail.tsx`               | Review carousel/rail                      | Partially exists as `snippets/zoda-reviews.liquid`; may need app integration.                                             |
 | `ProductDetailsGrid.tsx`        | Product information layout                | Fold into `sections/zoda-product.liquid` and product metafields.                                                          |
-| `snap-controller.ts`            | Snap scrolling behavior                   | Rewrite/keep as vanilla JS only where needed.                                                                             |
+| `snap-controller.ts`            | Snap scrolling behaviour                   | Rewrite/keep as vanilla JS only where needed.                                                                             |
 | `circuit-script.ts`             | Homepage interaction script               | Convert to maintainable `zoda-circuit.js` modules.                                                                        |
 
 ### Styles and Assets
@@ -116,7 +122,7 @@ ikigai-page.css      -> zoda-ikigai-page.css
 mission-page.css     -> zoda-mission-page.css
 ```
 
-These assets now exist in `zoda-shopify-theme/assets/`. Keep generated/copied assets inside `zoda-shopify-theme/` only until Shopify preview confirms the new loading path, then remove unused bundles.
+These assets now exist in `zoda-theme-187588706594/assets/`. Keep generated/copied assets inside `zoda-theme-187588706594/` only until Shopify preview confirms the new loading path, then remove unused bundles.
 
 ### Framework and Dependency Detection
 
@@ -140,7 +146,7 @@ These are useful in the prototype but are not directly usable inside a normal Sh
 - JSX/TSX components, React hooks, React context/providers, and client-side route components.
 - TanStack Router, generated route tree, Start server files, and React Query data fetching.
 - Zustand cart state; Shopify should use the AJAX Cart API and Liquid-rendered cart state.
-- Radix/shadcn UI primitives; rebuild needed behavior with accessible HTML, CSS, and vanilla JS.
+- Radix/shadcn UI primitives; rebuild needed behaviour with accessible HTML, CSS, and vanilla JS.
 - `lucide-react`; replace with inline SVG snippets, Shopify icon snippets, or static assets.
 - Vite/TanStack/Cloudflare runtime files such as `src/server.ts`, `src/start.ts`, `.tanstack/`, `.wrangler/`, and `dist/`.
 - Storefront API calls for products/collections that Shopify Liquid can render natively.
@@ -148,7 +154,7 @@ These are useful in the prototype but are not directly usable inside a normal Sh
 ## Recommended Shopify Architecture
 
 ```text
-zoda-shopify-theme/
+zoda-theme-187588706594/
   layout/
     theme.liquid
     minimal.liquid
@@ -229,11 +235,11 @@ zoda-shopify-theme/
 
 ### Architecture Principles
 
-- Use `zoda-shopify-theme/` for all active Shopify implementation work.
+- Use `zoda-theme-187588706594/` for all active Shopify implementation work.
 - Use JSON templates for page composition and Theme Editor control.
 - In this plan, "section" means an editable Shopify page area, not a whole-page mega section.
 - Prefer modular page-area sections over whole-page sections; whole-page ports are temporary references only.
-- Keep Space theme's default sections available in `zoda-shopify-theme/` for merchant flexibility.
+- Keep Space theme's default sections available in `zoda-theme-187588706594/` for merchant flexibility.
 - Build purpose-made ZODA modular sections for primary brand and commerce pages.
 - Put merchant-editable page content in section settings, blocks, metafields, and metaobjects.
 - Keep snippets small and reusable for product cards, swatches, cart rows, reviews, media, and icons.
@@ -312,7 +318,7 @@ Recommended baseline:
 | `src/lib/fabrics.ts`                           | Fabric content data               | Section blocks first, then `fabric_system` metaobjects if reused                           | Yes                          |
 | `src/routes/ikigai.tsx`                        | Ikigai brand page                 | `templates/page.ikigai.json` + modular `zoda-ikigai-*` sections                            | Yes                          |
 | `src/routes/mission.tsx`                       | Mission/playbook/game page        | `templates/page.mission.json` + modular `zoda-mission-*` sections + JS                     | Partially                    |
-| `src/components/zoda/snap-controller.ts`       | Snap scroll behavior              | `assets/zoda-page.js` or page-specific JS                                                  | No                           |
+| `src/components/zoda/snap-controller.ts`       | Snap scroll behaviour              | `assets/zoda-page.js` or page-specific JS                                                  | No                           |
 | `src/components/zoda/circuit-script.ts`        | Homepage interactions             | `assets/zoda-circuit.js`                                                                   | No                           |
 | `src/stores/cartStore.ts`                      | React cart state                  | Shopify AJAX Cart API state in `zoda-cart.js`                                              | No                           |
 | `src/hooks/useCartSync.ts`                     | Cart synchronization              | Shopify section rendering/AJAX cart refresh                                                | No                           |
@@ -337,7 +343,7 @@ Add or refine global settings in `config/settings_schema.json`:
 - Free shipping threshold and cart drawer messaging.
 - Featured collection handle for homepage/PIM modules.
 - Global animation preferences: enable snap scroll, reduced motion fallback, hover effects.
-- Design tokens exposed as guarded settings: accent color, surface color, text color, radius scale, button style, section spacing.
+- Design tokens exposed as guarded settings: accent colour, surface colour, text colour, radius scale, button style, section spacing.
 
 ### Sections
 
@@ -415,9 +421,9 @@ Use metaobjects when content appears in multiple places or needs structured reus
 | Dependency / Area                              | Recommendation                        | Reasoning                                                                             |
 | ---------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------- |
 | Shopify Liquid theme base                      | Safe to keep                          | This is the production runtime for OS 2.0.                                            |
-| `zoda-shopify-theme/assets/zoda-*.css`         | Safe to keep                          | These are Shopify-ready CSS bridge assets for the active theme.                       |
-| `zoda-shopify-theme/assets/zoda-cart.js`       | Safe to keep after audit              | Needed for AJAX cart behavior; keep vanilla and scoped.                               |
-| `zoda-shopify-theme/assets/zoda-circuit.js`    | Safe to keep after audit              | Needed for homepage behavior if it is vanilla and resilient.                          |
+| `zoda-theme-187588706594/assets/zoda-*.css`         | Safe to keep                          | These are Shopify-ready CSS bridge assets for the active theme.                       |
+| `zoda-theme-187588706594/assets/zoda-cart.js`       | Safe to keep after audit              | Needed for AJAX cart behaviour; keep vanilla and scoped.                               |
+| `zoda-theme-187588706594/assets/zoda-circuit.js`    | Safe to keep after audit              | Needed for homepage behaviour if it is vanilla and resilient.                          |
 | Theme media such as `click.wav`, `success.wav` | Safe to keep if used                  | Small interactive assets are acceptable if compressed and licensed.                   |
 | React / React DOM                              | Replace with Shopify-native           | Shopify Liquid themes should not require React for core rendering.                    |
 | TanStack Router / Start / Query                | Replace with Shopify-native           | Shopify handles routing and data rendering through templates, Liquid, and objects.    |
@@ -426,7 +432,7 @@ Use metaobjects when content appears in multiple places or needs structured reus
 | Storefront API product/collection fetches      | Replace with Liquid objects           | Product and collection templates can render data natively, faster, and safer.         |
 | Radix UI / shadcn components                   | Rewrite in Liquid/HTML/CSS/JS         | React primitives cannot run directly in Liquid templates.                             |
 | lucide-react                                   | Replace with icon snippets/static SVG | Avoid React-only icon dependency.                                                     |
-| embla-carousel-react                           | Rewrite or use vanilla slider         | Only keep carousel behavior that is necessary and accessible.                         |
+| embla-carousel-react                           | Rewrite or use vanilla slider         | Only keep carousel behaviour that is necessary and accessible.                         |
 | zod                                            | Remove from theme                     | Runtime validation belongs in build tools/apps, not Liquid theme output.              |
 | Tailwind tooling                               | Remove from final theme runtime       | Keep only compiled CSS/token strategy unless a build pipeline is intentionally added. |
 | Mission localStorage game logic                | Rewrite in vanilla JS                 | Browser persistence can stay, but implementation must not depend on React.            |
@@ -497,7 +503,7 @@ Brand pages should share mobile section padding with the fabrics page so content
 
 - Prefer subtle depth, borders, and light glows over heavy drop shadows.
 - Keep space effects scoped to hero/circuit areas.
-- Avoid one-color monotony by balancing dark space surfaces with clear text, neutral borders, and selective accent color.
+- Avoid one-colour monotony by balancing dark space surfaces with clear text, neutral borders, and selective accent colour.
 
 ### Motion
 
@@ -516,7 +522,7 @@ Dependencies: access to Shopify preview store, current theme export, product/cat
 
 Tasks:
 
-- Confirm `zoda-shopify-theme/` is the active implementation target.
+- Confirm `zoda-theme-187588706594/` is the active implementation target.
 - Inventory all active templates, sections, snippets, assets, and settings.
 - Identify unused generated bundles and copied CSS.
 - Confirm which React pages must exist in Shopify at launch.
@@ -548,12 +554,12 @@ Dependencies: Phase 2 foundation and required content model.
 
 Tasks:
 
-- Continue refining the modular homepage sections already created in `zoda-shopify-theme/`.
+- Continue refining the modular homepage sections already created in `zoda-theme-187588706594/`.
 - Complete visual and Theme Editor QA for the Fabrics, Ikigai, and Mission page sections.
 - Keep current product, collection, and list-collections pages on Space base sections for this pass.
 - Treat full custom ZODA PDP and collection sections as optional later scope after content modeling and preview QA.
 - Expand fabrics section schema or move fabrics to metaobjects if reused.
-- Rewrite accordions, snap behavior, cart interactions, sliders, and mission logic in vanilla JS.
+- Rewrite accordions, snap behaviour, cart interactions, sliders, and mission logic in vanilla JS.
 
 Deliverable: merchant-editable pages matching the React visual system.
 
@@ -599,7 +605,7 @@ Tasks:
 
 - Run Theme Check and formatting checks.
 - Verify home, collection, product, cart, search, fabrics, Ikigai, Mission, customer pages, and 404.
-- Test mobile, tablet, desktop, and reduced-motion behavior.
+- Test mobile, tablet, desktop, and reduced-motion behaviour.
 - Test add to cart, update quantity, remove item, checkout handoff, sold out states, variant switching, and quick add.
 - Validate SEO titles/descriptions, structured data, canonical URLs, redirects, and image alt text.
 - Publish only after preview sign-off.
@@ -625,7 +631,7 @@ Deliverable: launch-ready Shopify OS 2.0 theme.
 
 ## Shopify Best Practices Checklist
 
-- Use `zoda-shopify-theme/` as the final Shopify implementation target.
+- Use `zoda-theme-187588706594/` as the final Shopify implementation target.
 - Keep JSON templates for Online Store 2.0 page composition.
 - Make all major brand/page content editable through section settings, blocks, metafields, or metaobjects.
 - Keep snippets reusable and small.
@@ -639,7 +645,7 @@ Deliverable: launch-ready Shopify OS 2.0 theme.
 - Respect `prefers-reduced-motion`.
 - Avoid content cutoffs on mobile by avoiding fixed viewport heights for content-heavy sections.
 - Move reusable UI strings into locale files.
-- Add structured data for products, breadcrumbs, and organization where appropriate.
+- Add structured data for products, breadcrumbs, and organisation where appropriate.
 - Configure product, collection, and page SEO fields.
 - Keep old assets during transition; remove only after reference search and preview QA.
 - Run Theme Check before launch.
@@ -647,8 +653,8 @@ Deliverable: launch-ready Shopify OS 2.0 theme.
 
 ## Immediate Next Actions
 
-1. Run Shopify Theme Check against `zoda-shopify-theme/`.
-2. Upload or preview `zoda-shopify-theme/` in Shopify.
+1. Run Shopify Theme Check against `zoda-theme-187588706594/`.
+2. Upload or preview `zoda-theme-187588706594/` in Shopify.
 3. Complete visual, mobile, cart, and Theme Editor QA using `SHOPIFY_QA_CHECKLIST.md`.
 4. Implement metafield and metaobject definitions from `SHOPIFY_CONTENT_MODEL_SPEC.md`.
 5. Keep product, collection, and list-collections pages on Space base sections until content model and preview QA are stable.

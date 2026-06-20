@@ -19,6 +19,7 @@ tmp-screens/
 
 # Generated Shopify exports and local verification artifacts
 zoda-shopify-theme.zip
+.shopify-cli-appdata/
 live-*.png
 cart-*.png
 *-debug.png

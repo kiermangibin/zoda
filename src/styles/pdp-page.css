@@ -1,4 +1,4 @@
-/* PDP page styles extracted from site-light.css. */
+﻿/* PDP page styles extracted from site-light.css. */
 
 .zoda-pdp {
   max-width: 1440px;
@@ -970,7 +970,7 @@
   align-items: center;
 }
 .zoda-pdp__tech-tags span + span::before {
-  content: "â€¢";
+  content: "•";
   color: rgba(255, 255, 255, 0.45);
   margin: 0 12px;
 }
